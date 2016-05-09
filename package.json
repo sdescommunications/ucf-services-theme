@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "config": {
+    "cmd_jshint": "jshint --verbose --show-non-errors",
+    "cmd_jscs": "jscs --preset=wordpress"
+  },
+  "scripts": {
+    "//": {
+      "test": "Default command to run javascript tests.",
+      "install:globaldev": "Choose to install reusable developer dependecies globally.",
+      "jshint": "A code linter for javascript files.",
+      "jscs": "Javascript codesniffer with a wordpress preset."
+    },
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:globaldev": "npm install -g jshint jscs",
+    "jshint": "npm run from_config -- cmd_jshint",
+    "jscs": "npm run from_config -- cmd_jscs",
+
+    "//": "Utility npm scripts.",
+    "//": {
+      "from_config": "Store and run a command from the environment's package (cross-platform) variable, i.e., `%npm_package_config_VAR%` or `$npm_package_config_VAR`.",
+      "in_node": "Wrapper for running shell commands within `node --eval` (allows error catching, cross-platform environmental variables)."
+    },
+    "from_config": "node -e \"try{ cmd=`${process.env['npm_package_config_'+process.argv[1]]} ${process.argv.splice(2)}`;console.log(cmd); require('child_process').execSync(cmd, {stdio:'inherit'}) }catch(e){}\"",
+    "in_node": "node -e \"try{ argv=process.argv;cmd=`${argv.splice(1).join(' ')}`;console.log(cmd); require('child_process').execSync(cmd, {stdio:'inherit'}) }catch(e){}\""
+  }
+}
