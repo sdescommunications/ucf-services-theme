@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+/* generics -------------------------------------------------------------------------------------------------------- */
+a{
+	color: #922;
+	text-decoration: none;
+}
+
+a:hover, a:focus{
+	color: #5a1414;
+	text-decoration: underline;
+}
+
+#ucfhb a,
+#ucfhb label {
+	color: #edba03; /* Pass accessibility contrast test.*/
+}
+
+/* Hide noscript content without DOM flickering (and avoid WebAIM WAVE alert for <noscript> tags).
+ * http://askthecssguy.com/articles/getting-around-the-flicker-of-javascript-modifying-the-dom-while-the-page-is-loading/ */
+body.jsEnabled .noscript {
+	display: none;
+}
+
+
+
+/* WP new image alignment -------------------------------------------------------------------------------------------
+https://codex.wordpress.org/Wrapping_Text_Around_Images*/
+img.alignright { float: right; margin: 0 0 1em 1em; }
+img.alignleft { float: left; margin: 0 1em 1em 0; }
+img.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+.alignright { float: right; }
+.alignleft { float: left; }
+.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+
+
+.adminmsg {
+	color: #e90000;
+}
