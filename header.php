@@ -35,3 +35,5 @@ use SDES\SDES_Static as SDES_Static;
 		var bodyEl = document.getElementsByTagName('body');
 		bodyEl[0].className = bodyEl[0].className.split('nojs').join(' jsEnabled ');
 	</script>
+
+	<main>

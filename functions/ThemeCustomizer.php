@@ -7,13 +7,20 @@
 namespace SDES\ServicesTheme\ThemeCustomizer;
 use \WP_Customize_Control;
 use \WP_Customize_Color_Control;
-require_once( 'class-sdes-customizer-helper.php' );
+require_once( get_stylesheet_directory() . '/functions/class-sdes-customizer-helper.php' );
 	use SDES\CustomizerControls\SDES_Customizer_Helper;
-require_once( 'classes-wp-customize-control.php' );
+require_once( get_stylesheet_directory() . '/functions/classes-wp-customize-control.php' );
 	use SDES\CustomizerControls\Textarea_CustomControl;
 	use SDES\CustomizerControls\Phone_CustomControl;
-require_once( 'class-sdes-static.php' );
+require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
+
+
+/**
+ * Add component settings.
+ */
+require_once( get_stylesheet_directory() . '/footer-settings.php' );
+
 
 /**
  * Defines all of the sections, settings, and controls for the various
@@ -34,7 +41,6 @@ function register_theme_customizer( $wp_customizer ) {
 
 }
 add_action( 'customize_register', __NAMESPACE__.'\register_theme_customizer' );
-
 
 /**
  * Register taglineURL option with the built-in `title_tagline` section, add settings and controls.
@@ -57,7 +63,6 @@ function add_to_section_TitleAndTagline( $wp_customizer, $args = null ) {
 	// 	$taglineURL_args			// Arguments array.
 	// );
 }
-
 
 /** Register the social_options section, add settings and controls. */
 function add_section_social_options( $wp_customizer, $args = null ) {

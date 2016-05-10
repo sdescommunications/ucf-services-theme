@@ -194,6 +194,23 @@ class SDES_Static
 	}
 
 	/**
+	 * @see https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/functions/feeds.php#L3-L15
+	 */
+	public static function get_article_image( $article ) {
+		$image = $article->get_enclosure();
+		if ( $image ) {
+			return ( $image->get_thumbnail() ) ? $image->get_thumbnail() : $image->get_link();
+		}else {
+			$matches = array();
+			$found   = preg_match( '/<img[^>]+src=[\'\"]([^\'\"]+)[\'\"][^>]+>/i',  $article->get_content(), $matches );
+			if ( $found ) {
+				return $matches[1];
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Retrieve the alttext for a post id's thumbnail, or default values.
 	 */
 	public static function get_post_thumbnail_alttext( $post_id, $default_text = 'Thumbnail' ) {

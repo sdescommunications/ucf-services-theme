@@ -50,6 +50,9 @@ class SDES_Customizer_Helper
 		SDES_Static::set_default_keyValue( $args, 'setting_type', 'theme_mod' );
 		SDES_Static::set_default_keyValue( $args, 'theme_supports', '' );
 		SDES_Static::set_default_keyValue( $args, 'control_type', 'text' );
+		SDES_Static::set_default_keyValue( $args, 'choices', array() );
+		SDES_Static::set_default_keyValue( $args, 'description', '' );
+
 
 		$wp_customizer->add_setting(
 			$id,
@@ -69,9 +72,11 @@ class SDES_Customizer_Helper
 				$id,
 				array(
 					'label'    => $label,
+					'description' => $args['description'],
 					'section'  => $section,
 					'settings' => $id,
 					'type' => $args['control_type'],
+					'choices' => $args['choices'],
 				)
 			)
 		);
