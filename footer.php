@@ -19,7 +19,7 @@ class Footer {
 	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions.php#L155-L185
 	 */
 	public static function display_footer_news() {
-		$max_news = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-news_max_items', '' );
+		$max_news = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-news_max_items', 3 );
 		$items = Footer_Settings::get_news(0, $max_news);
 		$placeholder = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-news_placeholder_image', '' );
 		ob_start();
@@ -49,6 +49,94 @@ class Footer {
 	<?php
 		echo ob_get_clean();
 	}
+
+	public static function display_footer_events() {
+	    $max_events = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_max_items', 4 );
+	    $items = Footer_Settings::get_events( 0, $max_events );
+	    ob_start();
+	?>
+	    <div class="footer-events">
+	    <?php foreach( $items as $item ) : ?>
+	        <?php
+	            $month = $item->get_date( 'M' );
+	            $day = $item->get_date( 'j' );
+	            $start_date = $item->get_item_tags( 'http://events.ucf.edu', 'startdate' );
+	        	$end_date = $item->get_item_tags( 'http://events.ucf.edu', 'enddate' );
+	        	$start_time = date( 'g:i a', strtotime( $start_date[0]['data'] ) );
+	        	$end_time = date( 'g:i a', strtotime( $end_date[0]['data'] ) );
+	        	$time_string = '';
+	        	if ( $start_time == $end_time ) {
+	        		$time_string = $start_time;
+	        	} else {
+	        		$time_string = $start_time . ' - ' . $end_time;
+	        	}
+	        ?>
+	        <a href="<?php echo $item->get_link(); ?>" target="_blank">
+	        	<div class="row event">
+		        	<div class="col-xs-2 col-sm-4 col-md-3">
+		        		<div class="event-date">
+		        			<span class="month"><?php echo $month; ?></span>
+		                	<span class="day"><?php echo $day; ?></span>
+		               	</div>
+		        	</div>
+		        	<div class="col-xs-10 col-sm-8 col-md-9">
+		        		<div class="event-details">
+			                <h4><?php echo $item->get_title(); ?></h4>
+			                <?php
+			                ?>
+			                <p class="time"><?php echo $time_string; ?></p>
+			            </div>
+		        	</div>
+		    	</div>
+		    </a>
+	    <?php endforeach; ?>
+	    </div>
+	<?php
+	    echo ob_get_clean();
+	}
+
+	/**
+	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions.php#L233-L244
+	 */
+	public static function display_contact_info() {
+		$org_name  = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-organization_name', '' );
+		$org_phone = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-organization_phone', '' );
+		$org_email = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-organization_email', '' );
+		ob_start();
+	?>
+		<h2 class="org-name"><?php echo $org_name; ?></h2>
+		<p>Phone: <a class="read-more" href="tel:<?php echo str_replace( array( '-', '(', ')' ), '', $org_phone);?>"><?php echo $org_phone; ?></a></p>
+		<p>Email: <a class="read-more" href="mailto:<?php echo $org_email; ?>"><?php echo $org_email; ?></a></p>
+	<?php
+		echo ob_get_clean();
+	}
+
+	/**
+	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions.php#L246-L249
+	 */
+	public static function display_contact_form() {
+		$form_id = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-footer_contact_form', '' );
+		echo do_shortcode( '[gravityform id="'.$form_id.'" title="false" description="false"]' );
+	}
+
+	/**
+	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions.php#L137-L153
+	 */
+	public static function display_footer_menu() {
+		$menu = Footer_Settings::get_remote_menu( 'services_theme-remote_menus_footer_menu' );
+		if ( empty( $menu) ) {
+			return;
+		}
+		ob_start();
+	?>
+		<ul class="list-inline site-footer-menu">
+		<?php foreach( $menu->items as $item ) : ?>
+			<li><a href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a></li>
+		<?php endforeach; ?>
+		</ul>
+	<?php
+		echo ob_get_clean();
+	}
 }
 ?>
 	</main>
@@ -66,16 +154,16 @@ class Footer {
 					<div class="col-sm-4">
 						<div class="footer-col center-col">
 							<h2>Events</h2>
-							<?php //display_footer_events(); ?>
+							<?php Footer::display_footer_events(); ?>
 						</div>
 						<a class="all-link more-events-link" href="http://events.ucf.edu">More Events &rsaquo;</a>
 					</div>
 					<div class="col-sm-4">
 						<div class="footer-col right-col">
 							<h2>Contact Us</h2>
-							<?php //display_contact_info(); ?>
+							<?php Footer::display_contact_info(); ?>
 							<h2>Questions and Comments</h2>
-							<?php //display_contact_form(); ?>
+							<?php Footer::display_contact_form(); ?>
 						</div>
 					</div>
 				</div>
@@ -85,7 +173,7 @@ class Footer {
 			<div class="container">
 				<p class="main-site-title">University of Central Florida</p>
 				<?php //display_social(); ?>
-				<?php //display_footer_menu() ; ?>
+				<?php Footer::display_footer_menu() ; ?>
 			</div>
 		</div>
 
