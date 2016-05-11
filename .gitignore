@@ -2,6 +2,7 @@
 /vendor/
 /tests/cov/
 /docs/
+/src/components/
 npm-debug.log
 
 
