@@ -2,7 +2,7 @@
 /**
  * The Footer contents provided to WordPress' get_footer() function.
  *
- * graphviz.gv: "footer.php" -> { "footer-settings.php"; "class-sdes-static.php"; };
+ * graphviz.gv: "footer.php" -> { "footer-settings.php"; "class-sdes-static.php"; "Gravity Forms Plugin"; };
  */
 
 require_once( get_stylesheet_directory() . '/footer-settings.php' );
@@ -120,6 +120,68 @@ class Footer {
 	}
 
 	/**
+	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions.php#L251-L307
+	 */
+	public static function display_social() {
+		$prefix = 'services_theme-social_';
+		$facebook_url   = SDES_Static::get_theme_mod_defaultIfEmpty( $prefix . 'facebook_url', '' );
+		$twitter_url    = SDES_Static::get_theme_mod_defaultIfEmpty( $prefix . 'twitter_url', '' );
+		$googleplus_url = SDES_Static::get_theme_mod_defaultIfEmpty( $prefix . 'googleplus_url', '' );
+		$linkedin_url   = SDES_Static::get_theme_mod_defaultIfEmpty( $prefix . 'linkedin_url', '' );
+		$instagram_url  = SDES_Static::get_theme_mod_defaultIfEmpty( $prefix . 'instagram_url', '' );
+		$pinterest_url  = SDES_Static::get_theme_mod_defaultIfEmpty( $prefix . 'pinterest_url', '' );
+		$youtube_url    = SDES_Static::get_theme_mod_defaultIfEmpty( $prefix . 'youtube_url', '' );
+		ob_start();
+	?>
+		<div class="social">
+		<?php if ( $facebook_url ) : ?>
+			<a href="<?php echo $facebook_url; ?>" target="_blank" class="social-icon ga-event-link">
+				<span class="fa fa-facebook"></span>
+				<span class="sr-only">Like us on Facebook</span>
+			</a>
+		<?php endif; ?>
+		<?php if ( $twitter_url ) : ?>
+			<a href="<?php echo $twitter_url; ?>" target="_blank" class="social-icon ga-event-link">
+				<span class="fa fa-twitter"></span>
+				<span class="sr-only">Follow us on Twitter</span>
+			</a>
+		<?php endif; ?>
+		<?php if ( $googleplus_url ) : ?>
+			<a href="<?php echo $googleplus_url; ?>" target="_blank" class="social-icon ga-event-link">
+				<span class="fa fa-google-plus"></span>
+				<span class="sr-only">Follow us on Google+</span>
+			</a>
+		<?php endif; ?>
+		<?php if ( $linkedin_url ) : ?>
+			<a href="<?php echo $linkedin_url; ?>" target="_blank" class="social-icon ga-event-link">
+				<span class="fa fa-linkedin"></span>
+				<span class="sr-only">View our LinkedIn page</span>
+			</a>
+		<?php endif; ?>
+		<?php if ( $instagram_url ) : ?>
+			<a href="<?php echo $instagram_url; ?>" target="_blank" class="social-icon ga-event-link">
+				<span class="fa fa-instagram"></span>
+				<span class="sr-only">View our Instagram page</span>
+			</a>
+		<?php endif; ?>
+		<?php if ( $pinterest_url ) : ?>
+			<a href="<?php echo $pinterest_url; ?>" target="_blank" class="social-icon ga-event-link">
+				<span class="fa fa-pinterest-p"></span>
+				<span class="sr-only">View our Pinterest page</span>
+			</a>
+		<?php endif; ?>
+		<?php if ( $youtube_url ) : ?>
+			<a href="<?php echo $youtube_url; ?>" target="_blank" class="social-icon ga-event-link">
+				<span class="fa fa-youtube"></span>
+				<span class="sr-only">View our YouTube page</span>
+			</a>
+		<?php endif; ?>
+		</div>
+	<?php
+		echo ob_get_clean();
+	}
+
+	/**
 	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions.php#L137-L153
 	 */
 	public static function display_footer_menu() {
@@ -172,7 +234,7 @@ class Footer {
 		<div class="main-site-footer">
 			<div class="container">
 				<p class="main-site-title">University of Central Florida</p>
-				<?php //display_social(); ?>
+				<?php Footer::display_social(); ?>
 				<?php Footer::display_footer_menu() ; ?>
 			</div>
 		</div>

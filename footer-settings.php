@@ -44,6 +44,7 @@ class Footer_Settings {
 	/**
 	 * Retrieve and cache remote feeds as json objects, e.g., services_theme-remote_menus_footer_menu_feed.
 	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions.php#L42-L75
+	 * @todo Evaluate general PHP alternatives to WP transients (PSR-6 caching).
 	 */
 	public static function get_remote_menu( $menu_name ) {
 		global $wp_customize;
@@ -83,6 +84,8 @@ class Footer_Settings {
 		static::add_section_organization( $wp_customizer );
 
 		static::add_section_news( $wp_customizer );
+
+		static::add_section_social( $wp_customizer );
 
 		static::add_section_home_custom( $wp_customizer );
 
@@ -170,6 +173,9 @@ class Footer_Settings {
 		);
 	}
 
+	/**
+	 * @todo Compare against BaseTheme's `Contact Info` for ideas/improvements.
+	 */
 	public static function add_section_organization( $wp_customizer, $args = null ) {
 		/* SECTION */
 		$section = 'services_theme-organization';
@@ -188,6 +194,8 @@ class Footer_Settings {
 			'description' => 'The name that will be displayed with organization info is displayed',
 		));
 
+		// TODO: add phone number validation.
+		// TODO: add `tel:` links to BaseTheme.
 		$organization_phone_args = $args['services_theme-organization_phone'];
 		SDES_Static::set_default_keyValue_array( $organization_phone_args, array(
 			'description' => 'The phone number that will be displayed with organization info is displayed',
@@ -291,6 +299,71 @@ class Footer_Settings {
 			$section,						// Section.
 			$news_placeholder_image_args	// Arguments array.
 		);
+	}
+
+	public static function add_section_social( $wp_customizer, $args = null ) {
+		/* SECTION */
+		$section = 'services_theme-social';
+		$wp_customizer->add_section(
+			$section,
+			array(
+				'title'    => 'Social Media',
+				'description' => '',
+				'priority' => 300,
+				'panel' => $args['panelId'],
+			)
+		);
+
+		$networks = array(
+			'facebook' => array(
+				'label' => 'Facebook URL',
+				'description' => 'URL to the Facebook page you would like to direct visitors to.  Example: <em>https://www.facebook.com/UCF</em>', 
+			),
+			'twitter' => array(
+				'label' => 'Twitter URL',
+				'description' => 'URL to the Twitter user account you would like to direct visitors to.  Example: <em>http://twitter.com/UCF</em>', 
+			),
+			'googleplus' => array(
+				'label' => 'Google+ URL',
+				'description' => 'URL to the Google+ user account you would like to direct visitors to.  Example: <em>http://plus.google.com/UCF</em>', 
+			),
+			'linkedin' => array(
+				'label' => 'LinkedIn URL',
+				'description' => 'URL to the LinkedIn user account you would like to direct visitors to.  Example: <em>http://linkedin.com/UCF</em>', 
+			),
+			'instagram' => array(
+				'label' => 'Instagram URL',
+				'description' => 'URL to the Instagram user account you would like to direct visitors to.  Example: <em>http://instagram.com/UCF</em>', 
+			),
+			'pinterest' => array(
+				'label' => 'Pinterest URL',
+				'description' => 'URL to the Pinterest user account you would like to direct visitors to.  Example: <em>http://pinterest.com/UCF</em>', 
+			),
+			'youtube' => array(
+				'label' => 'YouTube URL',
+				'description' => 'URL to the YouTube user account you would like to direct visitors to.  Example: <em>http://youtube.com/UCF</em>', 
+			),
+		);
+
+		foreach ( $networks as $network => $network_args ) {
+			/** ARGS */
+			$social_url_args = $args[ "services_theme-social_{$network}_url" ];
+			SDES_Static::set_default_keyValue_array( $social_url_args, array(
+				'description' => $network_args['description'],
+				'sanitize_callback' => 'esc_url',
+				'sanitize_js_callback' => 'esc_url',
+			));
+
+			/** FIELDS */
+			// social_{$network}_url
+			SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
+				$wp_customizer,			// WP_Customize_Manager.
+				"services_theme-social_{$network}_url",	// Id.
+				$network_args['label'],	// Label.
+				$section,				// Section.
+				$social_url_args		// Arguments array.
+			);
+		}
 	}
 
 	public static function add_section_home_custom( $wp_customizer, $args = null ) {
