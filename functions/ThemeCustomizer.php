@@ -20,6 +20,7 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
  * Add component settings.
  */
 require_once( get_stylesheet_directory() . '/footer-settings.php' );
+require_once( get_stylesheet_directory() . '/functions/class-weathericon.php' );
 
 
 /**

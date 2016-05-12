@@ -1,0 +1,91 @@
+// Requires _Variables, weather-icon: 
+// @import '../components/weather-icons/sass/weather-icons';
+// graphviz.gv: "_footer.scss" -> { "_variables.scss"; "weather-icons"; };
+
+
+// Header
+// @see: https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_header.scss#L116-L126
+// TODO: is mobile .weather deprecated? Not used in Students-theme.
+// Mobile nav
+#site-nav-xs {
+	.weather {
+		color: #fff;
+		float: left;
+		padding: 16px;
+		position: relative;
+
+		.icon {
+			color: #fc0;
+		}
+	}
+}
+
+// @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_header.scss#L260-L311
+.header-center {
+	.weather {
+		background: #000;
+		display: inline-block;
+		color: #fff;
+		font-family: $font-family-serif;
+		font-size: 18px;
+		line-height: 32px;
+		padding: 6px 20px;
+		position: absolute;
+		right: 0;
+		letter-spacing: 1.35px;
+		font-weight: 100;
+
+		@media (max-width: $screen-xs-max) {
+			font-size: 13px;
+			padding: 0 14px;
+		}
+
+		.icon {
+			display: inline-block;
+			padding-right: 6px;
+
+			@media (max-width: $screen-xs-max) {
+			padding-right: 4px;
+			}
+
+			span {
+			color: #ffc904;
+			font-size: 27px;
+			display: inline-block;
+			position: relative;
+			bottom: -3px;
+
+			@media (max-width: $screen-xs-max) {
+				font-size: 20px;
+			}
+			}
+		}
+
+		.vertical-rule {
+			border-left: 1px solid #fff;
+			margin-left: 4px;
+			margin-right: 6px;
+			width: 2px;
+		}
+
+		.temp {
+			margin-left: 4px;
+			font-weight: 800;
+		}
+	}
+}
+
+
+// Home
+#sections-navbar {
+	// @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_home.scss#L88-L95
+	&.center {
+		.weather {
+			height: 0;
+			padding: 0;
+			margin: 0;
+			transform: translate(300px);
+			width: 0;
+		}
+	}
+}
