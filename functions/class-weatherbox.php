@@ -13,6 +13,7 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
 
 class WeatherBox {
+	const LOCATION_DEFAULT = 'Orlando, FL';
 	const WEATHER_FEED_URL = 'http://weather.smca.ucf.edu/';
 
 	public static function register_settings( $wp_customizer ) {
@@ -59,6 +60,7 @@ class WeatherBox {
 	 */
 	public static function display_weather() {
 		$weather = static::get_weather_data();
+		$weather->location = property_exists( $weather, 'location') ? $weather->location : self::LOCATION_DEFAULT;
 		ob_start();
 		?>
 		<?php if ( $weather ) : ?>
@@ -68,7 +70,7 @@ class WeatherBox {
 						<span class="<?php echo $weather->icon; ?>"></span>
 					</span>
 				<?php endif; ?>
-				<span class="location">Orlando, FL</span>
+				<span class="location"><?= $weather->location ?></span>
 				<span class="vertical-rule"></span>
 				<span class="temp"><?php echo $weather->tempN; ?>&deg;F</span>
 			</div>
