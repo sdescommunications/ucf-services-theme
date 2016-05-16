@@ -14,6 +14,23 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 
 class WeatherBox {
 	const LOCATION_DEFAULT = 'Orlando, FL';
+	/**
+	* Example Feed:
+	*	{
+	*	  "successfulFetch": "yes",
+	*	  "provider": "http://weather.gov/",
+	*	  "cachedAt": "Thu, 12 May 2016 19:21:42 -0400",
+	*	  "feedUpdatedAt": "Thu, 12 May 2016 18:53:00 -0400",
+	*	  "date": "2016-05-12",
+	*	  "condition": "Fair",
+	*	  "temp": "83&#186;",
+	*	  "tempN": 83,
+	*	  "imgCode": 32,
+	*	  "imgSmall": "https://weather.smca.ucf.edu/img/weather-small/32.png",
+	*	  "imgMedium": "https://weather.smca.ucf.edu/img/weather-medium/32.png",
+	*	  "imgLarge": "https://weather.smca.ucf.edu/img/weather-large/WC32.png"
+	*	}
+	*/
 	const WEATHER_FEED_URL = 'http://weather.smca.ucf.edu/';
 
 	public static function register_settings( $wp_customizer ) {
@@ -166,3 +183,108 @@ class WeatherBox {
 	}
 }
 add_action( 'customize_register', __NAMESPACE__.'\WeatherBox::register_settings' );
+
+
+class WeatherBox_Tutorial {
+	public static function display_weather() {
+		ob_start();
+		?>
+			<style>
+				.tutorial-separator {
+					height: 50px; 
+					background: repeating-linear-gradient(
+						-45deg,
+						#eee, #ddd 10px,
+						#eaeaea 10px, #eaeaea 20px
+					);
+				}
+			</style>
+			<div class="tutorial-separator"></div>
+			<?= static::in_header_center() ?>
+			<div class="tutorial-separator"></div>
+			<?= static::in_site_nav_xs() ?>
+			<div class="tutorial-separator"></div>
+			<?= static::in_sections_navbar() ?>
+			<div class="tutorial-separator"></div>
+		<?php
+		return ob_get_clean();
+	}
+
+	public static function in_header_center(){
+		ob_start();
+		?>
+			.header-center .weather<br>
+			(HEADER.site-header > .header-image > .header-center > .title-wrapper > .title-header-container > .weather):<br>
+			<style>
+				#tutorial-1 .header-image { height: 616.5px; background-color: #ccc; }
+			</style>
+			<span id="tutorial-1">
+			<header class="site-header">
+				<div class="header-image">
+						<?php //display_header_menu(); ?>
+					<div class="header-center">
+						<div class="title-wrapper">
+							<div class="title-header-container">
+								<?= WeatherBox::display_weather(); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+			</span>
+		<?php
+		return ob_get_clean();
+	}
+
+	public static function in_site_nav_xs(){
+		ob_start();
+		?>
+			#site-nav-xs .weather<br>
+			(MAIN.site-main > #site-nav-xs > .weather):<br>
+			<style>
+				#tutorial-2 .site-main { height: 50px;  background-color: #000; }
+			</style>
+			<span id="tutorial-2">
+			<main class="site-main">
+				<nav id="site-nav-xs">
+					<?= WeatherBox::display_weather() ?>
+				</nav>
+			</main>
+			</span>
+		<?php
+		return ob_get_clean();
+	}
+
+	public static function in_sections_navbar(){
+		ob_start();
+		?>
+			#sections-navbar.center .weather<br>
+			(NAV#sections-navbar.center > .container-fluid > #sections-menu.collapse.navbar-collapse > .weather):<br>
+			<style>
+				#tutorial-3 #sections-navbar { height: 100px; background-color: #ffc904;}
+			</style>
+			<span id="tutorial-3">
+			<nav id="sections-navbar" class="navbar navbar-gold center">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<span class="navbar-title">Skip To Section</span>
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sections-menu">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse" id="sections-menu">
+							<ul class="nav navbar-nav">
+
+							</ul>
+						<?= WeatherBox::display_weather() ?>
+					</div>
+				</div>
+			</nav>
+			</span>
+		<?php
+		return ob_get_clean();
+	}	
+}
