@@ -318,3 +318,101 @@ class EditorMetaField extends MetaField {
 		wp_editor( $this->value, $this->id, $this->args );
 	}
 }
+
+// @see: https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions/custom-fields.php#L6-L90
+define( 'SDES\Metafields\ICON_JS_URI', get_template_directory_uri().'/js/iconmodal.js' );
+define( 'SDES\Metafields\ICON_FA_JSON', get_bloginfo( 'stylesheet_directory' ) . '/static/data/fa-icons.json');
+class IconFontAwesomeMetaField extends MetaField {
+	private static $isLoaded = false;
+
+	public static function Load() {
+		if ( ! self::$isLoaded ) {
+			// add_action( 'admin_enqueue_scripts', __CLASS__.'::enqueue_iconmodal_script' ); // Generally too late to call.
+			self::add_iconmodal_script();
+			self::$isLoaded = true;
+		}
+	}
+
+	public static function enqueue_iconmodal_script() {
+		wp_enqueue_script( 'iconmodal-script', ICON_JS_URI );
+	}
+
+	public static function add_iconmodal_script() {
+		$src = ICON_JS_URI;
+		echo "<script name='iconmodal-script' src='{$src}'></script>";
+
+	}
+
+	function __construct( $attr ) {
+		parent::__construct( $attr );
+		$this->args = isset( $attr['args'] )
+			 ? $attr['args']
+			 : array();
+		$this->Load();
+	}
+
+	/**
+	 *
+	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions/custom-fields.php#L34-L53
+	 */
+	function input_html() {
+		$this->Load();
+		$field = $this;
+		?>
+		<?php echo $this->icon_field_modal_html(); ?>
+		<div class="meta-icon-wrapper">
+			<div class="meta-icon-preview">
+				<?php if ( $field->value ) : ?>
+					<i class="fa <?php echo $field->value; ?> fa-preview"></i>
+				<?php endif; ?>
+			</div>
+			<p class="hide-if-no-js">
+				<?php if ( $field->value ) : ?>
+				<a class="meta-icon-toggle thickbox" href="#TB_inline?width=600&height=550&inlineId=meta-icon-modal">Update Icon</a>
+				<?php else: ?>
+				<a class="meta-icon-toggle thickbox" href="#TB_inline?width=600&height=550&inlineId=meta-icon-modal">Choose Icon</a>
+				<?php endif; ?>
+			</p>
+			<input class="meta-icon-field" id="<?php echo htmlentities( $field->name ); ?>" name="<?php echo htmlentities( $field->name ); ?>" type='hidden' value="<?php echo htmlentities( $field->value ); ?>">
+		</div>
+		<?php
+	}
+
+	function icon_field_modal_html( ) {
+		ob_start();
+		?>
+		<div id="meta-icon-modal" style="display: none;">
+			<input type="hidden" id="meta-icon-field-id" value>
+			<h2>Choose Icon</h2>
+			<p>
+				<input type="text" placeholder="search" id="meta-icon-search">
+			</p>
+			<ul class="meta-fa-icons">
+			<?php foreach( $this->get_fa_icons() as $icon ) : ?>
+				<li class="meta-fa-icon"><i class="fa <?php echo $icon; ?>" data-icon-value="<?php echo $icon; ?>"></i></li> 
+			<?php endforeach; ?>
+			</ul>
+			<div class="meta-icon-modal-footer">
+				<button type="button" id="meta-icon-submit">Submit</button>
+			</div>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 *
+	 * @see https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/gulpfile.js#L134-L156
+	 */
+	function get_fa_icons() {
+		$opts = array(
+			'http' => array(
+				'timeout' => 15
+			)
+		);
+		
+		$context = stream_context_create( $opts );
+		$contents = file_get_contents( ICON_FA_JSON, false, $context );
+		return json_decode( $contents );
+	}
+}

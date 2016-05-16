@@ -21,6 +21,7 @@ require_once( 'classes-metabox-metafields.php' );
 	use SDES\Metafields\CheckboxListMetaField as CheckboxListMetaField;
 	use SDES\Metafields\FileMetaField as FileMetaField;
 	use SDES\Metafields\EditorMetaField as EditorMetaField;
+	use SDES\Metafields\IconFontAwesomeMetaField as IconFontAwesomeMetaField;
 
 require_once( 'class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
@@ -205,6 +206,10 @@ class SDES_Metaboxes {
 				break;
 			case 'editor':
 				$field_obj = new EditorMetaField( $field );
+				break;
+			case 'icon':
+			case 'icon_fa':
+				$field_obj = new IconFontAwesomeMetaField( $field );
 				break;
 			default:
 				break;
