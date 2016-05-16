@@ -73,6 +73,101 @@ class Page extends CustomPostType {
 
 
 /**
+ * Spotlight - a box with text and a background image or a solid background color.
+ *
+ * @see https://github.com/UCF/Students-Theme/blob/master/custom-post-types.php#L617-L710
+ */
+class Spotlight extends CustomPostType {
+	public
+		$name           = 'spotlight',
+		$plural_name    = 'Spotlights',
+		$singular_name  = 'Spotlight',
+		$add_new_item   = 'Add New Spotlight',
+		$edit_item      = 'Edit Spotlight',
+		$new_item       = 'New Spotlight',
+		$public         = True,
+		$use_editor     = False,
+		$use_thumbnails = True,
+		$use_order      = False,
+		$use_title      = True,
+		$use_metabox    = True,
+		$taxonomies     = array();
+	public function fields() {
+		$prefix = $this->options( 'name' ).'_';
+		return array(
+			array(
+				'name'        => 'Title Text Color',
+				'description' => 'The color of the overlay text',
+				'id'          => $prefix.'text_color',
+				'type'        => 'color',
+				'default'     => '#ffffff'
+			),
+			array(
+				'name'        => 'Button Color',
+				'description' => 'The background color of the call to action button',
+				'id'          => $prefix.'btn_background',
+				'type'        => 'color',
+				'default'     => '#ffcc00'
+			),
+			array(
+				'name'        => 'Button Text Color',
+				'description' => 'The text color of the call to action button',
+				'id'          => $prefix.'btn_foreground',
+				'type'        => 'color',
+				'default'     => '#ffffff'
+			),
+			array(
+				'name'        => 'Button Text',
+				'description' => 'The text of the call to action button',
+				'id'          => $prefix.'btn_text',
+				'type'        => 'text'
+			),
+			array(
+				'name'        => 'URL',
+				'description' => 'The url of the call to action',
+				'id'          => $prefix.'url',
+				'type'        => 'text'
+			)
+		);
+	}
+	public static function toHTML( $object ) {
+		$image_url = has_post_thumbnail( $object->ID ) ?
+			wp_get_attachment_image_src( get_post_thumbnail_id( $object->ID ), 'spotlight' ) :
+			null;
+		if ( $image_url ) {
+			$image_url = $image_url[0];
+		}
+		$url = get_post_meta( $object->ID, 'spotlight_url', true );
+		$title_color = get_post_meta( $object->ID, 'spotlight_text_color', true );
+		$btn_background = get_post_meta( $object->ID, 'spotlight_btn_background', true );
+		$btn_foreground = get_post_meta( $object->ID, 'spotlight_btn_foreground', true );
+		$btn_text = get_post_meta( $object->ID, 'spotlight_btn_text', true );
+		$btn_styles = array();
+		if ( $btn_background ) : $btn_styles[] = 'background: '.$btn_background; endif;
+		if ( $btn_foreground ) : $btn_styles[] = 'color: '.$btn_foreground; endif;
+		ob_start();
+		if ( $image_url && $url ) :
+	?>
+		<a class="call-to-action" href="<?php echo $url; ?>" target="_blank">
+			<img src="<?php echo $image_url; ?>" alt="<?php echo $object->post_title; ?>">
+			<h2 <?php if ( $title_color ) : echo 'style="color: '.$title_color.'"'; ?>><?php echo $object->post_title; endif; ?></h2>
+			<?php if ( $btn_text ) : ?>
+			<div class="btn-wrapper">
+				<span class="btn btn-lg btn-ucf" <?php if ( !empty( $btn_styles) ) : echo implode( ' ', $btn_styles ); endif; ?>>
+					<?php echo $btn_text; ?>
+				</span>
+			</div>
+			<?php endif; ?>
+		</a>
+	<?php
+		endif;
+		return ob_get_clean();
+	}
+}
+
+
+
+/**
  * Register custom post types when the theme is initialized.
  * @see http://codex.wordpress.org/Plugin_API/Action_Reference/init WP-Codex: init action hook.
  */
@@ -80,6 +175,7 @@ function register_custom_posttypes() {
 	CustomPostType::Register_Posttypes(array(
 		__NAMESPACE__.'\Post',
 		__NAMESPACE__.'\Page',
+		__NAMESPACE__.'\Spotlight',
 	));
 }
 add_action( 'init', __NAMESPACE__.'\register_custom_posttypes' );
