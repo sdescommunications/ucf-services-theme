@@ -1,5 +1,5 @@
 /* global window, tinymce, jQuery, WebcomAdmin */
-WebcomAdmin = {};
+if ( 'undefined' === typeof WebcomAdmin) { WebcomAdmin = {}; }
 
 /** @see https://github.com/UCF/Students-Theme/blob/d56183079c70836adfcfaa2ac7b02cb4c935237d/src/js/admin.js#L256-L334 */
 WebcomAdmin.shortcodeInterfaceTool = function( $ ) {
