@@ -367,13 +367,11 @@ class IconFontAwesomeMetaField extends MetaField {
 				<?php endif; ?>
 			</div>
 			<p class="hide-if-no-js">
-				<?php if ( $field->value ) : ?>
-				<a class="meta-icon-toggle thickbox" href="#TB_inline?width=600&height=550&inlineId=meta-icon-modal">Update Icon</a>
-				<?php else: ?>
-				<a class="meta-icon-toggle thickbox" href="#TB_inline?width=600&height=550&inlineId=meta-icon-modal">Choose Icon</a>
-				<?php endif; ?>
+				<a class="meta-icon-toggle thickbox" href="#TB_inline?width=600&height=550&inlineId=meta-icon-modal">
+					<?= ( $field->value ) ? "Update" : "Choose" ?> Icon
+				</a>
 			</p>
-			<input class="meta-icon-field" id="<?php echo htmlentities( $field->name ); ?>" name="<?php echo htmlentities( $field->name ); ?>" type='hidden' value="<?php echo htmlentities( $field->value ); ?>">
+			<input class="meta-icon-field hide-if-js" id="<?php echo htmlentities( $field->id ); ?>" name="<?php echo htmlentities( $field->id ); ?>" type='text' value="<?php echo htmlentities( $field->value ); ?>">
 		</div>
 		<?php
 	}

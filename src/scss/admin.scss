@@ -5,3 +5,12 @@
 
 
 @import 'admin/icon-field';
+
+/* Hide noscript content without DOM flickering (and avoid WebAIM WAVE alert for <noscript> tags).
+ * http://askthecssguy.com/articles/getting-around-the-flicker-of-javascript-modifying-the-dom-while-the-page-is-loading/ */
+body.jsEnabled {
+	.noscript,
+	.hide-if-js {
+		display: none;
+	}
+}

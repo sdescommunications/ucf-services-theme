@@ -30,3 +30,11 @@ function customize_admin_theme() {
 	wp_enqueue_script( 'admin-theme', get_stylesheet_directory_uri() . '/js/admin.js' );
 }
 add_action( 'admin_enqueue_scripts', __NAMESPACE__.'\customize_admin_theme' );
+
+
+function admin_body_class( $classes )
+{
+	$classes .= 'nojs';
+    return $classes;
+}
+add_filter( 'admin_body_class',  __NAMESPACE__.'\admin_body_class' );

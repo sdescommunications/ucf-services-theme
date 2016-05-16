@@ -45,6 +45,7 @@ WebcomAdmin.iconModal = function($) {
         $iconPreview = $field.parent().find('i');
 
     if (selectedVal) {
+      $field.attr('type', 'hidden'); // Make input field hidden to update DOM and allow setting its value.
       $field.val(selectedVal);
       if ($iconPreview.length) {
         $iconPreview.attr('class', 'fa ' + selectedVal + ' fa-preview');
