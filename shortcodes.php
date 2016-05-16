@@ -244,10 +244,65 @@ class sc_column extends ShortcodeBase {
 	}
 }
 
+
+require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
+	use SDES\ServicesTheme\PostTypes\IconLink;
+/**
+ * [icon_link] - Create a full-width box with icon_links centered inside.
+ *
+ * @see https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/shortcodes.php#L410-L460
+ * @see https://github.com/UCF/Students-Theme/blob/master/custom-post-types.php#L564-L615
+ * @uses IconLink IconLink
+ **/
+class sc_icon_link extends ShortcodeBase {
+    public
+        $name        = 'Icon Link', // The name of the shortcode.
+        $command     = 'icon_link', // The command used to call the shortcode.
+        $description = 'Displays the specified icon link', // The description of the shortcode.
+        $params      = array(
+            array(
+                'name'      => 'Icon Link',
+                'id'        => 'icon_link_id',
+                'help_text' => 'The icon link you want to display',
+                'type'      => 'dropdown',
+                'choices'   => array()
+            )
+        ), // The parameters used by the shortcode.
+        $callback    = 'callback',
+        $wysiwyg     = True; // Whether to add it to the shortcode Wysiwyg modal.
+    public function __construct() {
+        $this->params[0]['choices'] = $this->get_choices();
+    }
+    private function get_choices() {
+        $posts = get_posts( array( 'post_type' => 'icon_link' ) );
+        $retval = array( array( 'name' => '-- Choose Icon Link --', 'value' => '' ) );
+        foreach( $posts as $post ) {
+            $retval[] = array(
+                'name'  => $post->post_title,
+                'value' => $post->ID
+            );
+        }
+        return $retval;
+    }
+    public static function callback( $attr, $content='' ) {
+        $attr = shortcode_atts( array(
+                'icon_link_id' => ''
+            ), $attr
+        );
+        if ( isset( $attr['icon_link_id'] ) ) {
+            $post = get_post( $attr['icon_link_id'] );
+            return IconLink::toHTML( $post );
+        } else {
+            return '';
+        }
+    }
+}
+
 function register_shortcodes() {
 	ShortcodeBase::Register_Shortcodes(array(
 		__NAMESPACE__.'\sc_row',
 		__NAMESPACE__.'\sc_column',
+		__NAMESPACE__.'\sc_icon_link',
 	));
 }
 add_action( 'init', __NAMESPACE__.'\register_shortcodes' );

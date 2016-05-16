@@ -1,0 +1,58 @@
+/* @see: https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_components.scss#L243-L293 */
+
+// Requires Bootstrap and Font-Awesome:
+// @import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+// @import '../components/font-awesome/scss/font-awesome';
+// graphviz.gv: "_icon-link.scss" -> { "bootstrap-sass-official"; "font-awesome"; };
+
+
+.icon-link {
+  display: inline-block;
+  margin: 10px auto;
+  width: 25%;
+
+  @media (max-width: $screen-xs-max) {
+    width: 50%;
+  }
+
+  a {
+    color: #000;
+
+    .fa {
+      font-size: 80px;
+      margin-bottom: 12px;
+      @include transition(color .25s);
+    }
+
+    h3 {
+      background: rgba(30, 30, 30, 0.25);
+      border-radius: 4px;
+      display: inline;
+      font-family: $font-family-sans-serif;
+      font-size: 14px;
+      padding: 2px 14px;
+      @include transition(background .25s, color .25s);
+    }
+
+    p {
+      font-size: 12px;
+      font-style: italic;
+      padding-top: 8px;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: none;
+
+      .fa {
+        color: #fff;
+      }
+
+      h3 {
+        background: rgba(10, 10, 10, 0.55);
+        color: #fc0;
+      }
+    }
+  }
+}

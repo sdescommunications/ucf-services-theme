@@ -8,6 +8,11 @@
 @import '../components/font-awesome/scss/font-awesome';
 @import '../components/weather-icons/sass/weather-icons';
 
+
+// Styles for custom components and Bootstrap component overrides
+@import 'icon_link';
+
+// Styles for our base header/footer templates
 @import 'footer';
 
 

@@ -168,6 +168,66 @@ class Spotlight extends CustomPostType {
 
 
 /**
+ * A (FontAwesome) icon displayed with a title and description.
+ *
+ * @see https://github.com/UCF/Students-Theme/blob/master/custom-post-types.php#L564-L615
+ * @see https://github.com/UCF/Students-Theme/blob/master/functions/custom-fields.php#L6-L90
+ * @see sc_icon_link sc_icon_link
+ */
+class IconLink extends CustomPostType {
+	public
+		$name           = 'icon_link',
+		$plural_name    = 'Icon Links',
+		$singular_name  = 'Icon Link',
+		$add_new_item   = 'Add New Icon Link',
+		$edit_item      = 'Edit Icon Link',
+		$new_item       = 'New Icon Link',
+		$public         = True,
+		$use_editor     = True,
+		$use_thumbnails = False,
+		$use_order      = True,
+		$use_title      = True,
+		$use_metabox    = True,
+		$taxonomies     = array( );
+	public function fields() {
+		$prefix = $this->options( 'name' ) . '_';
+		return array(
+			array(
+				'name' => 'Icon',
+				'description' => '',
+				'id' => $prefix.'icon',
+				'type' => 'icon'
+			),
+			array(
+				'name' => 'URL',
+				'description' => 'The URL of the icon link',
+				'id' => $prefix.'url',
+				'type' => 'text'
+			)
+		);
+	}
+	public static function toHTML( $object ) {
+		$icon = get_post_meta( $object->ID, 'icon_link_icon', true );
+		$url = get_post_meta( $object->ID, 'icon_link_url', true );
+		ob_start();
+	?>
+		<div class="icon-link">
+			<a href="<?php echo $url; ?>" target="_blank">
+				<div class="icon-wrapper">
+					<span class="fa <?php echo $icon; ?>"></span>
+				</div>
+				<h3><?php echo $object->post_title; ?></h3>
+				<p><?php echo $object->post_content; ?></p>
+			</a>
+		</div>
+	<?php
+		return ob_get_clean();
+	}
+}
+
+
+
+/**
  * Register custom post types when the theme is initialized.
  * @see http://codex.wordpress.org/Plugin_API/Action_Reference/init WP-Codex: init action hook.
  */
@@ -176,6 +236,7 @@ function register_custom_posttypes() {
 		__NAMESPACE__.'\Post',
 		__NAMESPACE__.'\Page',
 		__NAMESPACE__.'\Spotlight',
+		__NAMESPACE__.'\IconLink',
 	));
 }
 add_action( 'init', __NAMESPACE__.'\register_custom_posttypes' );
