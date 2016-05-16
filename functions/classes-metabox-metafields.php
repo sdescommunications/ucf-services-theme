@@ -119,6 +119,14 @@ class TextMetaField extends MetaField{
 }
 
 /**
+ * A color picker (or color-well) control, as defined by HTML5.
+ *
+ */
+class ColorMetaField extends TextMetaField{
+	protected $type_attr = 'color';
+}
+
+/**
  * DatePickerMetaField class represents a text input for a date value.
  * @todo Extract jQueryUI datepicker dependency or test that it is available and only called once per page.
  * */
