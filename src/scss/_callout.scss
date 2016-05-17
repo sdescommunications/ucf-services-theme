@@ -1,0 +1,12 @@
+/* @see: https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_components.scss#L233-L241 */
+
+.callout {
+  background: #fc0;
+  margin: 0 auto;
+  text-align: center;
+  padding: 48px 0;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

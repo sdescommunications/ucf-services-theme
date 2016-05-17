@@ -269,7 +269,8 @@ class sc_icon_link extends ShortcodeBase {
             )
         ), // The parameters used by the shortcode.
         $callback    = 'callback',
-        $wysiwyg     = True; // Whether to add it to the shortcode Wysiwyg modal.
+        $closing_tag = false,
+        $wysiwyg     = true; // Whether to add it to the shortcode Wysiwyg modal.
     public function __construct() {
         $this->params[0]['choices'] = $this->get_choices();
     }
@@ -298,11 +299,65 @@ class sc_icon_link extends ShortcodeBase {
     }
 }
 
+
+/**
+ * [callout] - A callout box to display colored text over a background color.
+ *
+ * @see https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/shortcodes.php#L363-L408
+ */
+class sc_callout extends ShortcodeBase {
+	public
+		$name        = 'Callout', // The name of the shortcode.
+		$command     = 'callout', // The command used to call the shortcode.
+		$description = 'Creates a callout box', // The description of the shortcode.
+		$params      = array(
+			array(
+				'name'      => 'Color',
+				'id'        => 'color',
+				'help_text' => 'The color of the callout box',
+				'type'      => 'color',
+				'default'   => '#ffcc00'
+			),
+			array(
+				'name'      => 'Text',
+				'id'        => 'text-color',
+				'help_text' => 'The color of the text within the callout box',
+				'type'      => 'color',
+				'default'   => '#000000'
+			)
+		), // The parameters used by the shortcode.
+		$callback    = 'callback',
+		$wysiwyg     = true; // Whether to add it to the shortcode Wysiwyg modal.
+	public static function callback( $attr, $content='' ) {
+		$attr = shortcode_atts( array(
+				'color' => '#ffcc00',
+				'text-color' => '#000'
+			),
+			$attr
+		);
+		$style = '';
+		$style .= !empty( $attr['color'] ) ? 'background: ' . $attr['color'] . ';' : '';
+		$style .= !empty( $attr['text-color'] ) ? ' color: ' . $attr['text-color'] . ';' : '';
+		ob_start();
+		?>
+			<aside class="callout"<?php echo !empty( $style ) ? ' style="' . $style . '"' : ''; ?>>
+				<div class="container">
+					<?php echo apply_filters( 'the_content', $content ); ?>
+				</div>
+			</aside>
+		<?php
+		return ob_get_clean();
+	}
+}
+
+
+
 function register_shortcodes() {
 	ShortcodeBase::Register_Shortcodes(array(
 		__NAMESPACE__.'\sc_row',
 		__NAMESPACE__.'\sc_column',
 		__NAMESPACE__.'\sc_icon_link',
+		__NAMESPACE__.'\sc_callout',
 	));
 }
 add_action( 'init', __NAMESPACE__.'\register_shortcodes' );
