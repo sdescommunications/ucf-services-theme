@@ -1,11 +1,10 @@
 <?php
 /**
- * Default layout, per the WordPress Template Hierarchy.
- * This is a page of last resort, and should be overriden in most cases.
+ * Display the Front Page of the site, per the WordPress Template Hierarchy.
  */
 
-require_once( 'functions/class-sdes-static.php' );
-use SDES\SDES_Static;
+require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
+	use SDES\SDES_Static;
 
 get_header();
 ?>
