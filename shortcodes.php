@@ -351,6 +351,56 @@ class sc_callout extends ShortcodeBase {
 }
 
 
+require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
+	use SDES\ServicesTheme\PostTypes\Spotlight;
+/**
+ * [call_to_action] - A square "Call to Action" box (aka, Spotlight).
+ *
+ * @see https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/shortcodes.php#L113-160
+ */
+class sc_call_to_action extends ShortcodeBase {
+	public
+		$name        = 'Call to Action', // The name of the shortcode.
+		$command     = 'call_to_action', // The command used to call the shortcode.
+		$description = 'Displays a call to action image and text.', // The description of the shortcode.
+		$params      = array(
+			array(
+				'name'      => 'Call to Action Object',
+				'id'        => 'cta_id',
+				'help_text' => 'Choose the call to action to display',
+				'type'      => 'dropdown',
+				'choices'   => array()
+			)
+		), // The parameters used by the shortcode.
+		$callback    = 'callback',
+		$wysiwyg     = True; // Whether to add it to the shortcode Wysiwyg modal.
+	public function __construct() {
+		$this->params[0]['choices'] = $this->get_choices();
+	}
+	private function get_choices() {
+		$posts = get_posts( array( 'post_type' => 'spotlight' ) );
+		$retval = array( array( 'name' => '--- Choose ---', 'value' => null ) );
+		foreach( $posts as $post ) {
+			$retval[] = array(
+				'name'  => $post->post_title,
+				'value' => $post->ID
+			);
+		}
+		return $retval;
+	}
+	public static function callback( $attr, $content='' ) {
+		$attr = shortcode_atts( array(
+				'cta_id' => null
+			), $attr
+		);
+		ob_start();
+		if ( $attr['cta_id'] ) {
+			$post = get_post( $attr['cta_id'] );
+			echo Spotlight::toHTML( $post );
+		}
+		return ob_get_clean();
+	}
+}
 
 function register_shortcodes() {
 	ShortcodeBase::Register_Shortcodes(array(
@@ -358,6 +408,7 @@ function register_shortcodes() {
 		__NAMESPACE__.'\sc_column',
 		__NAMESPACE__.'\sc_icon_link',
 		__NAMESPACE__.'\sc_callout',
+		__NAMESPACE__.'\sc_call_to_action',
 	));
 }
 add_action( 'init', __NAMESPACE__.'\register_shortcodes' );

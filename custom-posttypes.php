@@ -130,6 +130,9 @@ class Spotlight extends CustomPostType {
 			)
 		);
 	}
+
+	// TODO: update .call-to-action to .spotlight
+	// TODO: show when $image_url or $url is not set.
 	public static function toHTML( $object ) {
 		$image_url = has_post_thumbnail( $object->ID ) ?
 			wp_get_attachment_image_src( get_post_thumbnail_id( $object->ID ), 'spotlight' ) :
