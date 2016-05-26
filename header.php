@@ -26,6 +26,25 @@ use SDES\SDES_Static as SDES_Static;
 	<script src="https://cdn.jsdelivr.net/nivoslider/3.2/jquery.nivo.slider.pack.js" integrity="sha256-4WhPxM5Oma2+XZ8KTrGc4sVBFtqLD5IkzclNM5iKo4c=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js" integrity="sha256-8PU3OtIDEB6pG/gmxafvj3zXSIfwa60suSd6UEUDueI=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.13.1/additional-methods.min.js" integrity="sha256-TZwF+mdLcrSLlptjyffYpBb8iUAuLtidBmNiMj7ll1k=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		(function javascript_fallbacks() {
+			// See: http://stackoverflow.com/a/5531821
+			function document_write_script( src ) {
+				document.write( '<script src="' + src + '">\x3C/script>' );
+			}
+			if ( ! window.jQuery ) { document_write_script( '/js/jquery.min.js' ); }
+			var bootstrap_enabled = ( 'function' === typeof $().modal ); // Will be true if bootstrap is loaded, false otherwise
+			if ( ! bootstrap_enabled ) { document_write_script( '/js/bootstrap.min.js' ); }
+			if ( 'undefined' === typeof $().nivoSlider ) { document_write_script( '/js/jquery.nivo.slider.pack.min.js' ); }
+			if ( 'undefined' === typeof $().validate ) { 
+				document_write_script( '/js/jquery.validate.min.js' );
+				document_write_script( '/js/additional-methods.min.js' );
+			}
+		})();
+		(function css_fallbacks() {
+			// TODO: handle font fallbacks with font-family?
+		})();
+	</script>
 	<script type="text/javascript" src="<?= get_stylesheet_directory_uri(); ?>/js/sdes_main_ucf.js"></script>
 
 <?php wp_head(); ?>
