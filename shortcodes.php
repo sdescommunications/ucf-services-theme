@@ -255,48 +255,48 @@ require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
  * @uses IconLink IconLink
  **/
 class sc_icon_link extends ShortcodeBase {
-    public
-        $name        = 'Icon Link', // The name of the shortcode.
-        $command     = 'icon_link', // The command used to call the shortcode.
-        $description = 'Displays the specified icon link', // The description of the shortcode.
-        $params      = array(
-            array(
-                'name'      => 'Icon Link',
-                'id'        => 'icon_link_id',
-                'help_text' => 'The icon link you want to display',
-                'type'      => 'dropdown',
-                'choices'   => array()
-            )
-        ), // The parameters used by the shortcode.
-        $callback    = 'callback',
-        $closing_tag = false,
-        $wysiwyg     = true; // Whether to add it to the shortcode Wysiwyg modal.
-    public function __construct() {
-        $this->params[0]['choices'] = $this->get_choices();
-    }
-    private function get_choices() {
-        $posts = get_posts( array( 'post_type' => 'icon_link' ) );
-        $retval = array( array( 'name' => '-- Choose Icon Link --', 'value' => '' ) );
-        foreach( $posts as $post ) {
-            $retval[] = array(
-                'name'  => $post->post_title,
-                'value' => $post->ID
-            );
-        }
-        return $retval;
-    }
-    public static function callback( $attr, $content='' ) {
-        $attr = shortcode_atts( array(
-                'icon_link_id' => ''
-            ), $attr
-        );
-        if ( isset( $attr['icon_link_id'] ) ) {
-            $post = get_post( $attr['icon_link_id'] );
-            return IconLink::toHTML( $post );
-        } else {
-            return '';
-        }
-    }
+	public
+		$name        = 'Icon Link', // The name of the shortcode.
+		$command     = 'icon_link', // The command used to call the shortcode.
+		$description = 'Displays the specified icon link', // The description of the shortcode.
+		$params      = array(
+			array(
+				'name'      => 'Icon Link',
+				'id'        => 'icon_link_id',
+				'help_text' => 'The icon link you want to display',
+				'type'      => 'dropdown',
+				'choices'   => array()
+			)
+		), // The parameters used by the shortcode.
+		$callback    = 'callback',
+		$closing_tag = false,
+		$wysiwyg     = true; // Whether to add it to the shortcode Wysiwyg modal.
+	public function __construct() {
+		$this->params[0]['choices'] = $this->get_choices();
+	}
+	private function get_choices() {
+		$posts = get_posts( array( 'post_type' => 'icon_link' ) );
+		$retval = array( array( 'name' => '-- Choose Icon Link --', 'value' => '' ) );
+		foreach( $posts as $post ) {
+			$retval[] = array(
+				'name'  => $post->post_title,
+				'value' => $post->ID
+			);
+		}
+		return $retval;
+	}
+	public static function callback( $attr, $content='' ) {
+		$attr = shortcode_atts( array(
+				'icon_link_id' => ''
+			), $attr
+		);
+		if ( isset( $attr['icon_link_id'] ) ) {
+			$post = get_post( $attr['icon_link_id'] );
+			return IconLink::toHTML( $post );
+		} else {
+			return '';
+		}
+	}
 }
 
 
