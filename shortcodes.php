@@ -10,13 +10,13 @@ use \StdClass;
 use \Exception;
 use \SimpleXMLElement;
 
-require_once( get_stylesheet_directory().'/functions/class-shortcodebase.php' );
+require_once( get_stylesheet_directory() . '/functions/class-shortcodebase.php' );
 	use SDES\Shortcodes\ShortcodeBase;
 
-require_once( 'functions/class-sdes-static.php' );
+require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
 
-require_once( get_stylesheet_directory().'/vendor/autoload.php' );
+require_once( get_stylesheet_directory() . '/vendor/autoload.php' );
 use Underscore\Types\Arrays;
 
 /**
@@ -202,16 +202,15 @@ class sc_column extends ShortcodeBase {
 	$callback    = 'callback',
 	$wysiwig     = true;
 
-	/**
-	 * @see http://codex.wordpress.org/Function_Reference/shortcode_atts  WP-Codex: shortcode_atts()
-	 */
 	public static function callback( $attr, $content = '' ) {
-		$attr = shortcode_atts(
+		$attr = array_merge(
+			$attr,
 			array(
-			'class' => '',
-			'style' => '',
-			), $attr
+				'class' => '',
+				'style' => '',
+			)
 		);
+
 		// Size classes.
 		$classes = array( $attr['class'] ? $attr['class'] : '' );
 
