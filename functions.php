@@ -17,6 +17,13 @@ require_once( 'functions/admin-theme.php' );     // Theme-specific admin/login f
 require_once( 'shortcodes.php' );  // Enable shortcodes.
 
 
+function __init__() {
+    add_theme_support( 'custom-header', array(
+        'width' => 2000,
+        'height' => 750
+    ) );
+}
+add_action( 'after_setup_theme', '__init__' );
 
 // Enqueue Datepicker + jQuery UI CSS
 add_action( 'wp_enqueue_scripts', 'enqueue_scripts_and_styles');

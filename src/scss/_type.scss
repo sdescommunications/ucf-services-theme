@@ -1,0 +1,54 @@
+// Requires _Variables, Mixins, and Bootstrap:
+// @import 'variables';
+// @import 'mixins';
+// @import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+// graphviz.gv: "_type.scss" -> { "_variables.scss"; "_mixins.scss"; "bootstrap-sass-official"; };
+
+/* https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/src/scss/_type.scss */
+p:empty {
+  display: none;
+}
+
+// Force sans-serif on particular elements
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+.lead {
+  @include no-font-smoothing();
+  font-family: $font-family-serif;
+}
+
+.lead {
+  line-height: 1.5;
+}
+
+.ucf-gold {
+  color: $ucf-gold;
+}
+
+.text-weight-light {
+  font-weight: 300;
+}
+
+.text-weight-heavy {
+  font-weight: 800;
+}
+
+hr {
+  margin-bottom: 30px;
+  margin-top: 30px;
+
+  @media (max-width: $screen-xs-max) {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+}
