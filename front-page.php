@@ -8,6 +8,7 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 
 get_header();
 ?>
+<main>
 <article>
 
 <!-- content area -->
@@ -24,5 +25,6 @@ else:
 endif; ?>
 
 </article>
+</main>
 <?php
 get_footer();

@@ -9,6 +9,7 @@ use SDES\SDES_Static;
 
 get_header();
 ?>
+<main>
 <article>
 
 <!-- content area -->
@@ -25,5 +26,6 @@ else:
 endif; ?>
 
 </article>
+</main>
 <?php
 get_footer();
