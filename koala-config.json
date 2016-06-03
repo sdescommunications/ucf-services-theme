@@ -3,14 +3,14 @@
 	// The mappings of source directory and output directory
 	"mappings": [
 		{	
-			"src": ".",
-			"dest": "../../css"
+			"src": "./src/scss",
+			"dest": "./css"
 		}
 	],
 
 	// Add the ignore rules that Koala will not search them.
 	// e.g. ["*.json", "*.txt", "test", "path/libs"]
-	"ignores": ["*.css"],
+	"ignores": ["*.css", "*.js", "node_modules", "src/components", "docs", "vendor"],
 
 	// Compile options of Sass.
 	"options": {
