@@ -134,6 +134,7 @@ class Spotlight extends CustomPostType {
 	// TODO: update .call-to-action to .spotlight
 	// TODO: show when $image_url or $url is not set.
 	public static function toHTML( $object ) {
+		if ( null === $object ) { return "<!-- No Spotlight provided. -->"; }
 		$image_url = has_post_thumbnail( $object->ID ) ?
 			wp_get_attachment_image_src( get_post_thumbnail_id( $object->ID ), 'spotlight' ) :
 			null;
@@ -210,6 +211,7 @@ class IconLink extends CustomPostType {
 		);
 	}
 	public static function toHTML( $object ) {
+		if ( null === $object ) { return "<!-- No IconLink provided. -->"; }
 		$icon = get_post_meta( $object->ID, 'icon_link_icon', true );
 		$url = get_post_meta( $object->ID, 'icon_link_url', true );
 		ob_start();
@@ -230,6 +232,268 @@ class IconLink extends CustomPostType {
 
 
 
+class StudentService extends CustomPostType {
+	public
+		$name           = 'student_service',
+		$plural_name    = 'Student Services',
+		$singular_name  = 'Student Service',
+		$add_new_item   = 'Add New Student Service',
+		$edit_item      = 'Edit Student Service',
+		$new_item       = 'New Student Service',
+		$public         = true,
+		$use_editor     = true,
+		$use_thumbnails = true,
+		$use_order      = true,
+		$use_title      = true,
+		$use_metabox    = true,
+		$built_in       = false;
+
+	public function fields() {
+		$prefix = $this->options( 'name' ).'_';
+		/*
+		 * student_service_short_description
+		 * student_service_events_cal_id
+		 * student_service_news_feed
+		 * student_service_additional_1-title
+		 * student_service_additional_1-url
+		 * student_service_additional_1-description
+		 * student_service_additional_2-title
+		 * student_service_additional_2-url
+		 * student_service_additional_2-description
+		 * student_service_additional_3-title
+		 * student_service_additional_3-url
+		 * student_service_additional_3-description
+		 * student_service_additional_4-title
+		 * student_service_additional_4-url
+		 * student_service_additional_4-description
+		 * student_service_image
+		 * student_service_primary_action
+		 * student_service_spotlight
+		 * student_service_phone
+		 * student_service_email
+		 * student_service_url
+		 * student_service_location
+		 * student_service_hours_monday
+		 * student_service_hours_tuesday
+		 * student_service_hours_wednesday
+		 * student_service_hours_thursday
+		 * student_service_hours_friday
+		 * student_service_hours_saturday
+		 * student_service_hours_sunday
+		 * student_service_social_facebook
+		 * student_service_social_twitter
+		 * student_service_social_youtube
+		 */
+		return array(
+			array(
+				'name'  => 'Short Description',
+				'descr' => 'A short description of the service.',
+				'id'    => $prefix.'short_description',
+				'type'  => 'textarea',
+			),
+			array(
+				'name'  => 'UCF Events Calendar ID',
+				'descr' => 'The UCF Events feed calendar ID.',
+				'id'    => $prefix.'events_cal_id',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'News Feed (RSS or XML)',
+				'descr' => 'A news feed to display for this service.',
+				'id'    => $prefix.'news_feed',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Additional Services 1 - Title',
+				'descr' => '',
+				'id'    => $prefix.'additional_1-title',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Additional Services 1 - URL',
+				'descr' => '',
+				'id'    => $prefix.'additional_1-url',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Additional Services 1 - Description',
+				'descr' => '',
+				'id'    => $prefix.'additional_1-description',
+				'type'  => 'textarea',
+			),
+			array(
+				'name'  => 'Additional Services 2 - Title',
+				'descr' => '',
+				'id'    => $prefix.'additional_2-title',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Additional Services 2 - URL',
+				'descr' => '',
+				'id'    => $prefix.'additional_2-url',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Additional Services 2 - Description',
+				'descr' => '',
+				'id'    => $prefix.'additional_2-description',
+				'type'  => 'textarea',
+			),
+			array(
+				'name'  => 'Additional Services 3 - Title',
+				'descr' => '',
+				'id'    => $prefix.'additional_3-title',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Additional Services 3 - URL',
+				'descr' => '',
+				'id'    => $prefix.'additional_3-url',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Additional Services 3 - Description',
+				'descr' => '',
+				'id'    => $prefix.'additional_3-description',
+				'type'  => 'textarea',
+			),
+			array(
+				'name'  => 'Additional Services 4 - Title',
+				'descr' => '',
+				'id'    => $prefix.'additional_4-title',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Additional Services 4 - URL',
+				'descr' => '',
+				'id'    => $prefix.'additional_4-url',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Additional Services 4 - Description',
+				'descr' => '',
+				'id'    => $prefix.'additional_4-description',
+				'type'  => 'textarea',
+			),
+			array(
+				'name'  => 'Image',
+				'descr' => 'Select an image.',
+				'id'    => $prefix.'image',
+				'type'  => 'file',
+			),
+			array(
+				'name'  => 'Primary Action',
+				'descr' => '',
+				'id'    => $prefix.'primary_action',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Spotlight',
+				'descr' => 'Select a spotlight.',
+				'id'    => $prefix.'spotlight',
+				'type'  => 'spotlight',
+			),
+			array(
+				'name'  => 'Phone',
+				'descr' => '',
+				'id'    => $prefix.'phone',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Email',
+				'descr' => '',
+				'id'    => $prefix.'email',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'URL',
+				'descr' => '',
+				'id'    => $prefix.'url',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Location',
+				'descr' => '',
+				'id'    => $prefix.'location',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Hours - Monday',
+				'descr' => '',
+				'id'    => $prefix.'hours_monday',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Hours - Tuesday',
+				'descr' => '',
+				'id'    => $prefix.'hours_tuesday',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Hours - Wednesday',
+				'descr' => '',
+				'id'    => $prefix.'hours_wednesday',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Hours - Thursday',
+				'descr' => '',
+				'id'    => $prefix.'hours_thursday',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Hours - Friday',
+				'descr' => '',
+				'id'    => $prefix.'hours_friday',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Hours - Saturday',
+				'descr' => '',
+				'id'    => $prefix.'hours_saturday',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Hours - Sunday',
+				'descr' => '',
+				'id'    => $prefix.'hours_sunday',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Social - Facebook',
+				'descr' => '',
+				'id'    => $prefix.'social_facebook',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Social - Twitter',
+				'descr' => '',
+				'id'    => $prefix.'social_twitter',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Social - Youtube',
+				'descr' => '',
+				'id'    => $prefix.'social_youtube',
+				'type'  => 'text',
+			),
+			// array(
+			// 	'name'  => 'Menu',
+			// 	'descr' => '',
+			// 	'id'    => $prefix.'menu',
+			// 	'type'  => 'menu_select',
+			// ),
+			// array(
+			// 	'name'  => '',
+			// 	'descr' => '',
+			// 	'id'    => $prefix.'',
+			// 	'type'  => 'text',
+			// ),
+		);
+	}
+}
+
+
 /**
  * Register custom post types when the theme is initialized.
  * @see http://codex.wordpress.org/Plugin_API/Action_Reference/init WP-Codex: init action hook.
@@ -238,6 +502,7 @@ function register_custom_posttypes() {
 	CustomPostType::Register_Posttypes(array(
 		__NAMESPACE__.'\Post',
 		__NAMESPACE__.'\Page',
+		__NAMESPACE__.'\StudentService',
 		__NAMESPACE__.'\Spotlight',
 		__NAMESPACE__.'\IconLink',
 	));
