@@ -13,6 +13,7 @@ var headerImage = function($) {
             height = (width * 0.375).clamp(300, 750);
 
         $image.height(height + 'px');
+        $image.children('.container').height(height + 'px');
     };
     resize();
 

@@ -28,6 +28,9 @@ body.no-js {
 .header-image {
   background-position: center center;
   width: 100%;
+}
+.header-image,
+.header-image > .container {
   min-height: 600px;
 
   @media (max-width: $screen-xs-max) {
@@ -38,8 +41,9 @@ body.no-js {
 
 .header-center {
   display: table;
-  height: 100%;
-  width: 100%;
+  position: relative;
+  top: 400px;
+  float: right;
 
   @media (max-width: $screen-xs-max) {
     height: 400px;
@@ -75,8 +79,6 @@ body.no-js {
       @extend .h1;
       background-color: #FC0;
       background-color: rgba(255, 204, 0, .8);
-
-
       display: block;
       font-size: 80px;
       font-weight: 800;

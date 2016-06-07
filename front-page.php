@@ -16,13 +16,15 @@ get_header();
 ?>
 <header class="site-header">
 	<div class="header-image" style="background-image: url(<?= \header_image(); ?>);">
-		<div class="header-center">
-			<div class="title-wrapper">
-				<div class="title-header-container">
-					<h1 class="site-title">
-						<a href="<?= \bloginfo( 'url' ); ?>"><?= \bloginfo( 'name' ); ?></a>
-					</h1>
-					<?= WeatherBox::display_weather(); ?>
+		<div class="container">
+			<div class="header-center">
+				<div class="title-wrapper">
+					<div class="title-header-container">
+						<h1 class="site-title">
+							<a href="<?= \bloginfo( 'url' ); ?>"><?= \bloginfo( 'name' ); ?></a>
+						</h1>
+						<?= WeatherBox::display_weather(); ?>
+					</div>
 				</div>
 			</div>
 		</div>
