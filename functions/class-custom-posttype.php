@@ -5,6 +5,10 @@
  *
  * @package CustomPostType
  * @filesource
+ * graphviz.gv: "class-custom-posttype.php" -> {
+ *  "class-shortcodebase.php"; "class-sdes-static.php"; "autoload.php";
+ *  "Underscore\\Objects"; "Underscore\\Arrays";
+ * };
  */
 
 namespace SDES;

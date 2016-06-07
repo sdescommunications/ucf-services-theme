@@ -6,7 +6,7 @@
 
 namespace SDES;
 
-require_once( 'classes-metabox-metafields.php' );
+require_once( get_stylesheet_directory() . '/functions/classes-metabox-metafields.php' );
 	use SDES\Metafields\IMetaField as IMetafield;
 	use SDES\Metafields\MetaField as Metafield;
 	use SDES\Metafields\ChoicesMetaField as ChoicesMetaField;
@@ -23,10 +23,10 @@ require_once( 'classes-metabox-metafields.php' );
 	use SDES\Metafields\EditorMetaField as EditorMetaField;
 	use SDES\Metafields\IconFontAwesomeMetaField as IconFontAwesomeMetaField;
 
-require_once( 'class-sdes-static.php' );
+require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
 
-require_once( get_stylesheet_directory().'/vendor/autoload.php' );
+require_once( get_stylesheet_directory() . '/vendor/autoload.php' );
 use Underscore\Types\Arrays;
 
 use \Exception as Exception;

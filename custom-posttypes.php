@@ -1,6 +1,8 @@
 <?php
 /**
  *  Add and configure custom posttypes for this theme.
+ * graphviz.gv: "custom-posttypes.php" -> { "class-custom-posttype.php"; "class-sdes-metaboxes.php"; };
+ * graphviz.gv: "custom-posttypes.php" -> { "custom-metafields.php"; }[style="dashed"];
  */
 
 namespace SDES\ServicesTheme\PostTypes;
@@ -10,6 +12,8 @@ require_once( get_stylesheet_directory().'/functions/class-sdes-metaboxes.php' )
 	use SDES\SDES_Metaboxes;
 require_once( get_stylesheet_directory().'/functions/class-custom-posttype.php' );
 	use SDES\CustomPostType;
+require_once( get_stylesheet_directory() . '/functions/custom-metafields.php' );
+	use SDES\ServicesTheme\ServicesMetaboxes;
 
 /**
  * The built-in post_type named 'Post'.
@@ -490,6 +494,20 @@ class StudentService extends CustomPostType {
 			// 	'type'  => 'text',
 			// ),
 		);
+	}
+
+	public function register_metaboxes() {
+		if ( $this->options( 'use_metabox' ) ) {
+			$metabox = $this->metabox();
+			add_meta_box(
+				$metabox['id'],
+				$metabox['title'],
+				'SDES\\ServicesTheme\\ServicesMetaboxes::show_meta_boxes',
+				$metabox['page'],
+				$metabox['context'],
+				$metabox['priority']
+			);
+		}
 	}
 }
 
