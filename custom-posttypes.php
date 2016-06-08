@@ -1,19 +1,25 @@
 <?php
 /**
  *  Add and configure custom posttypes for this theme.
- * graphviz.gv: "custom-posttypes.php" -> { "class-custom-posttype.php"; "class-sdes-metaboxes.php"; };
+ * graphviz.gv: "custom-posttypes.php" -> {
+ *  "class-custom-posttype.php"; "class-sdes-metaboxes.php"; "autoload.php";
+ *  "Underscore\\Arrays"; 
+ * };
  * graphviz.gv: "custom-posttypes.php" -> { "custom-metafields.php"; }[style="dashed"];
  */
 
 namespace SDES\ServicesTheme\PostTypes;
 use \WP_Query;
 use SDES\SDES_Static as SDES_Static;
-require_once( get_stylesheet_directory().'/functions/class-sdes-metaboxes.php' );
+require_once( get_stylesheet_directory() . '/functions/class-sdes-metaboxes.php' );
 	use SDES\SDES_Metaboxes;
-require_once( get_stylesheet_directory().'/functions/class-custom-posttype.php' );
+require_once( get_stylesheet_directory() . '/functions/class-custom-posttype.php' );
 	use SDES\CustomPostType;
 require_once( get_stylesheet_directory() . '/functions/custom-metafields.php' );
 	use SDES\ServicesTheme\ServicesMetaboxes;
+
+require_once( get_stylesheet_directory() . '/vendor/autoload.php' );
+use Underscore\Types\Arrays;
 
 /**
  * The built-in post_type named 'Post'.
@@ -237,6 +243,8 @@ class IconLink extends CustomPostType {
 
 
 class StudentService extends CustomPostType {
+	const ADDITIONAL_FIELDS_COUNT = 4;
+
 	public
 		$name           = 'student_service',
 		$plural_name    = 'Student Services',
@@ -508,6 +516,82 @@ class StudentService extends CustomPostType {
 				$metabox['priority']
 			);
 		}
+	}
+
+	/**
+	 * Return an array of only the metadata fields used to create a render context.
+	 * @param WP_Post $stusvc The stusvc whose metadata should be retrieved.
+	 * @return Array The fields to pass into get_render_context.
+	 */
+	private static function get_render_metadata( $stusvc ) {
+		$metadata_fields = array();
+		$metadata_fields['stusvc_short_descr'] = get_post_meta( $stusvc->ID, 'student_service_short_description', true );
+		$metadata_fields['stusvc_additional'] = 
+		 Arrays::each(
+		  Arrays::range( static::ADDITIONAL_FIELDS_COUNT ),
+		  function( $i ) use ( $stusvc ) {
+			return array(
+				'title' => get_post_meta( $stusvc->ID, 'student_service_additional_' . $i . '-title', true ),
+				'url' => get_post_meta( $stusvc->ID, 'student_service_additional_' . $i . '-url', true ),
+				'descr' => get_post_meta( $stusvc->ID, 'student_service_additional_' . $i . '-description', true ),
+			);
+		 });
+		$metadata_fields['stusvc_image']           = get_post_meta( $stusvc->ID, 'student_service_image', true );
+		$metadata_fields['stusvc_primary_action']  = get_post_meta( $stusvc->ID, 'student_service_primary_action', true );
+		$metadata_fields['stusvc_spotlight']       = get_post_meta( $stusvc->ID, 'student_service_spotlight', true );
+		$metadata_fields['stusvc_phone']           = get_post_meta( $stusvc->ID, 'student_service_phone', true );
+		$metadata_fields['stusvc_email']           = get_post_meta( $stusvc->ID, 'student_service_email', true );
+		$metadata_fields['stusvc_url']             = get_post_meta( $stusvc->ID, 'student_service_url', true );
+		$metadata_fields['stusvc_location']        = get_post_meta( $stusvc->ID, 'student_service_location', true );
+		$metadata_fields['stusvc_hours_monday']    = get_post_meta( $stusvc->ID, 'student_service_hours_monday', true );
+		$metadata_fields['stusvc_hours_tuesday']   = get_post_meta( $stusvc->ID, 'student_service_hours_tuesday', true );
+		$metadata_fields['stusvc_hours_wednesday'] = get_post_meta( $stusvc->ID, 'student_service_hours_wednesday', true );
+		$metadata_fields['stusvc_hours_thursday']  = get_post_meta( $stusvc->ID, 'student_service_hours_thursday', true );
+		$metadata_fields['stusvc_hours_friday']    = get_post_meta( $stusvc->ID, 'student_service_hours_friday', true );
+		$metadata_fields['stusvc_hours_saturday']  = get_post_meta( $stusvc->ID, 'student_service_hours_saturday', true );
+		$metadata_fields['stusvc_hours_sunday']    = get_post_meta( $stusvc->ID, 'student_service_hours_sunday', true );
+		$metadata_fields['stusvc_social_facebook'] = get_post_meta( $stusvc->ID, 'student_service_social_facebook', true );
+		$metadata_fields['stusvc_social_twitter']  = get_post_meta( $stusvc->ID, 'student_service_social_twitter', true );
+		$metadata_fields['stusvc_social_youtube']  = get_post_meta( $stusvc->ID, 'student_service_social_youtube', true );
+ 		$metadata_fields['stusvc_events_cal_id']   = get_post_meta( $stusvc->ID, 'student_service_events_cal_id', true );
+		$metadata_fields['stusvc_news_feed']       = get_post_meta( $stusvc->ID, 'student_service_news_feed', true );
+		return $metadata_fields;
+	}
+
+	/**
+	 * Generate a render context for a student_service, given its WP_Post object and an array of its metadata fields.
+	 * Expected fields:
+	 * $stusvc - post_content, post_title
+	 * $metadata_fields - stusvc_short_descr
+	 * @param WP_Post $stusvc The post object to be displayed.
+	 * @param Array   $metadata_fields The metadata fields associated with this stusvc.
+	 */
+	public static function get_render_context( $stusvc, $metadata_fields ) {
+		return array(
+			'title' => $stusvc->post_title,
+			'short_descr' => $metadata_fields['stusvc_short_descr'],
+			'long_descr' => $stusvc->post_content,
+			'additional' => $metadata_fields['stusvc_additional'],
+			'image' => $metadata_fields['stusvc_image'],
+			'primary_action' => $metadata_fields['stusvc_primary_action'],
+			'spotlight' => $metadata_fields['stusvc_spotlight'],
+			'phone' => $metadata_fields['stusvc_phone'],
+			'email' => $metadata_fields['stusvc_email'],
+			'url' => $metadata_fields['stusvc_url'],
+			'location' => $metadata_fields['stusvc_location'],
+			'hours_monday' => $metadata_fields['stusvc_hours_monday'],
+			'hours_tuesday' => $metadata_fields['stusvc_hours_tuesday'],
+			'hours_wednesday' => $metadata_fields['stusvc_hours_wednesday'],
+			'hours_thursday' => $metadata_fields['stusvc_hours_thursday'],
+			'hours_friday' => $metadata_fields['stusvc_hours_friday'],
+			'hours_saturday' => $metadata_fields['stusvc_hours_saturday'],
+			'hours_sunday' => $metadata_fields['stusvc_hours_sunday'],
+			'social_facebook' => $metadata_fields['stusvc_social_facebook'],
+			'social_twitter' => $metadata_fields['stusvc_social_twitter'],
+			'social_youtube' => $metadata_fields['stusvc_social_youtube'],
+	 		'events_cal_id' => $metadata_fields['stusvc_events_cal_id'],
+			'news_feed' => $metadata_fields['stusvc_news_feed'],
+		);
 	}
 }
 
