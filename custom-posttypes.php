@@ -622,6 +622,86 @@ class StudentService extends CustomPostType {
 		$html = ob_get_clean();
 		return $html;
 	}
+
+	/**
+	 * Return the HTML for the details page of a single student_service.
+	 */
+	public static function toPageHTML( $post_object ) {
+		$metadata_fields = static::get_render_metadata( $post_object );
+		$stusvc_context = static::get_render_context( $post_object, $metadata_fields );
+		return static::render_single_page( $stusvc_context );
+	}
+
+	/**
+	 * Render the HTML template for a single-student_service (details) page.
+	 */
+	protected static function render_single_page( $context ) {
+		ob_start();
+		?>
+			<span class="left-column">
+				<div class="title"><h2><?= $context['title'] ?></h2></div>
+				<hr>
+				<div class="short-description"><?= $context['short_descr'] ?></div>
+				<hr>
+				<div class="long-description"><?= $context['long_descr'] ?></div>
+				<hr>
+				<?php foreach ( $context['additional'] as $idx => $link ) :
+					if ( '' != $link['title'] ) :
+				?>
+					<div class="additional-<?= $idx ?>">
+						<a href="<?= $link['url'] ?>">
+							<?= $link['title'] ?>
+						</a>
+						<p><?= $link['descr'] ?></p>
+					</div>
+				<?php endif;
+				endforeach; ?>
+			</span>
+			<hr>
+			<span class="right-column">
+				<div class="image"><?= $context['image'] ?></div>
+				<hr>
+				<div class="primary_action"><?= $context['primary_action'] ?></div>
+				<hr>
+				<div class="spotlight"><?= $context['spotlight'] ?></div>
+				<hr>
+				<div class="phone"><?= $context['phone'] ?></div>
+				<hr>
+				<div class="email"><?= $context['email'] ?></div>
+				<hr>
+				<div class="url"><?= $context['url'] ?></div>
+				<hr>
+				<div class="location"><?= $context['location'] ?></div>
+				<hr>
+				<div class="hours_monday"><?= $context['hours_monday'] ?></div>
+				<hr>
+				<div class="hours_tuesday"><?= $context['hours_tuesday'] ?></div>
+				<hr>
+				<div class="hours_wednesday"><?= $context['hours_wednesday'] ?></div>
+				<hr>
+				<div class="hours_thursday"><?= $context['hours_thursday'] ?></div>
+				<hr>
+				<div class="hours_friday"><?= $context['hours_friday'] ?></div>
+				<hr>
+				<div class="hours_saturday"><?= $context['hours_saturday'] ?></div>
+				<hr>
+				<div class="hours_sunday"><?= $context['hours_sunday'] ?></div>
+				<hr>
+				<div class="social_facebook"><?= $context['social_facebook'] ?></div>
+				<hr>
+				<div class="social_twitter"><?= $context['social_twitter'] ?></div>
+				<hr>
+				<div class="social_youtube"><?= $context['social_youtube'] ?></div>
+				<hr>
+				<div class="events_cal_id"><?= $context['events_cal_id'] ?></div>
+				<hr>
+				<div class="news_feed"><?= $context['news_feed'] ?></div>
+				<hr>
+			</span>
+		<?php
+		$html = ob_get_clean();
+		return $html;
+	}
 }
 
 
