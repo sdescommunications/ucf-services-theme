@@ -1,7 +1,7 @@
 // Requires _Variables, Bootstrap:
 // @import 'variables';
 // @import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap';
-// graphviz.gv: "_components.scss" -> { "_variables.scss"; "bootstrap-sass-official"; };
+// graphviz.gv: "_components.scss" -> { "_variables.scss"; "bootstrap-sass-official"; "_navbar_gold.scss"; };
 
 /* https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_components.scss#L295-L310 */
 .btn-ucf {
@@ -20,3 +20,5 @@
     color: #fff;
   }
 }
+
+@import 'navbar_gold';
