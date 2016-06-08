@@ -21,57 +21,55 @@
 }
 
 // @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_header.scss#L260-L311
-.header-center {
-	.weather {
-		background: #000;
+.weather {
+	background: #000;
+	display: inline-block;
+	color: #fff;
+	font-family: $font-family-serif;
+	font-size: 18px;
+	line-height: 32px;
+	padding: 6px 20px;
+	position: absolute;
+	right: 0;
+	letter-spacing: 1.35px;
+	font-weight: 100;
+
+	@media (max-width: $screen-xs-max) {
+		font-size: 13px;
+		padding: 0 14px;
+	}
+
+	.icon {
 		display: inline-block;
-		color: #fff;
-		font-family: $font-family-serif;
-		font-size: 18px;
-		line-height: 32px;
-		padding: 6px 20px;
-		position: absolute;
-		right: 0;
-		letter-spacing: 1.35px;
-		font-weight: 100;
+		padding-right: 6px;
 
 		@media (max-width: $screen-xs-max) {
-			font-size: 13px;
-			padding: 0 14px;
+			padding-right: 4px;
 		}
 
-		.icon {
+		span {
+			color: #ffc904;
+			font-size: 27px;
 			display: inline-block;
-			padding-right: 6px;
+			position: relative;
+			bottom: -3px;
 
 			@media (max-width: $screen-xs-max) {
-				padding-right: 4px;
-			}
-
-			span {
-				color: #ffc904;
-				font-size: 27px;
-				display: inline-block;
-				position: relative;
-				bottom: -3px;
-
-				@media (max-width: $screen-xs-max) {
-					font-size: 20px;
-				}
+				font-size: 20px;
 			}
 		}
+	}
 
-		.vertical-rule {
-			border-left: 1px solid #fff;
-			margin-left: 4px;
-			margin-right: 6px;
-			width: 2px;
-		}
+	.vertical-rule {
+		border-left: 1px solid #fff;
+		margin-left: 4px;
+		margin-right: 6px;
+		width: 2px;
+	}
 
-		.temp {
-			margin-left: 4px;
-			font-weight: 800;
-		}
+	.temp {
+		margin-left: 4px;
+		font-weight: 800;
 	}
 }
 
