@@ -258,6 +258,7 @@ class StudentService extends CustomPostType {
 		$use_order      = true,
 		$use_title      = true,
 		$use_metabox    = true,
+		$use_shortcode  = true,
 		$built_in       = false;
 
 	public function fields() {
@@ -568,6 +569,7 @@ class StudentService extends CustomPostType {
 	 */
 	public static function get_render_context( $stusvc, $metadata_fields ) {
 		return array(
+			'permalink' => get_permalink( $stusvc ),
 			'title' => $stusvc->post_title,
 			'short_descr' => $metadata_fields['stusvc_short_descr'],
 			'long_descr' => $stusvc->post_content,
@@ -592,6 +594,33 @@ class StudentService extends CustomPostType {
 	 		'events_cal_id' => $metadata_fields['stusvc_events_cal_id'],
 			'news_feed' => $metadata_fields['stusvc_news_feed'],
 		);
+	}
+
+	/**
+	 * Return the HTML to show a single student_service post object in a list.
+	 */
+	public static function toHTML( $post_object ) {
+		$metadata_fields = static::get_render_metadata( $post_object );
+		$stusvc_context = static::get_render_context( $post_object, $metadata_fields );
+		return static::render_to_html( $stusvc_context );
+	}
+
+	/**
+	 * Render the HTML template for listing a student_service.
+	 */
+	protected static function render_to_html( $context ) {
+		ob_start();
+		?>
+		<div class="image"><?= $context['image'] ?></div>
+		<div class="title">
+				<a href="<?= $context['permalink'] ?>">
+						<?= $context['title'] ?>
+				</a>
+		</div>
+		<div class="short-description"><?= $context['short_descr'] ?></div>
+		<?php
+		$html = ob_get_clean();
+		return $html;
 	}
 }
 
