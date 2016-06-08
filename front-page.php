@@ -12,8 +12,17 @@ require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static;
 
+// WordPress does not allow "<br>" tags within bloginfo('name'), so allow setting width.
+$sitetitle_anchor_width = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-sitetitle_anchor_width', '400px' );
+$sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-sitetitle_anchor_maxwidth', '460px' );
 get_header();
 ?>
+<style>
+	.header-center a {
+		width: <?= $sitetitle_anchor_width ?>;
+		max-width: <?= $sitetitle_anchor_maxwidth ?>;
+	}
+</style>
 <header class="site-header">
 	<div class="header-image" style="background-image: url(<?= \header_image(); ?>);">
 		<div class="container">
@@ -21,7 +30,9 @@ get_header();
 				<div class="title-wrapper">
 					<div class="title-header-container">
 						<h1 class="site-title">
-							<a href="<?= \bloginfo( 'url' ); ?>"><?= \bloginfo( 'name' ); ?></a>
+							<a href="<?= \bloginfo( 'url' ); ?>">
+								<?= \bloginfo( 'name' ); ?>
+							</a>
 						</h1>
 						<?= WeatherBox::display_weather(); ?>
 					</div>

@@ -105,6 +105,12 @@ body.no-js {
     &:hover {
       color: #000;
       text-decoration: none;
+      display: block;
+
+      @media (max-width: $screen-xs-max) {
+        max-width: initial;
+        width: initial;
+      }
     }
   }
 }

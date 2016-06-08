@@ -49,20 +49,37 @@ add_action( 'customize_register', __NAMESPACE__.'\register_theme_customizer' );
 function add_to_section_TitleAndTagline( $wp_customizer, $args = null ) {
 	$section = 'title_tagline';
 
-	// $taglineURL_args = $args['services_theme-taglineURL'];
-	// SDES_Static::set_default_keyValue_array( $taglineURL_args, array(
-	// 	'transport' => 'postMessage',
-	// 	'default' => 'http://www.sdes.ucf.edu/',
-	// 	'sanitize_callback' => 'esc_url',
-	// ));
+	// Sitetitle Anchor Width
+	$sitetitle_anchor_width_args = $args['services_theme-sitetitle_anchor_width'];
+	SDES_Static::set_default_keyValue_array( $sitetitle_anchor_width_args, array(
+		'description' => 'Default width: "400px"',
+		'transport' => 'refresh',
+		'default' => '400px',
+		'sanitize_callback' => 'esc_attr',
+	));
+	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type
+		$wp_customizer,			// WP_Customize_Manager.
+		'services_theme-sitetitle_anchor_width',	// Id.
+		'Title Width',					// Label.
+		$section,						// Section.
+		$sitetitle_anchor_width_args	// Arguments array.
+	);
 
-	// SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type
-	// 	$wp_customizer,			// WP_Customize_Manager.
-	// 	'services_theme-taglineURL',	// Id.
-	// 	'Tagline URL',				// Label.
-	// 	$section,					// Section.
-	// 	$taglineURL_args			// Arguments array.
-	// );
+	// Sitetitle Anchor Max Width
+	$sitetitle_anchor_maxwidth_args = $args['services_theme-sitetitle_anchor_maxwidth'];
+	SDES_Static::set_default_keyValue_array( $sitetitle_anchor_maxwidth_args, array(
+		'description' => 'Default max-width: "460px"',
+		'transport' => 'refresh',
+		'default' => '460px',
+		'sanitize_callback' => 'esc_attr',
+	));
+	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type
+		$wp_customizer,			// WP_Customize_Manager.
+		'services_theme-sitetitle_anchor_maxwidth',	// Id.
+		'Title Max Width',				// Label.
+		$section,						// Section.
+		$sitetitle_anchor_maxwidth_args	// Arguments array.
+	);
 }
 
 /** Register the social_options section, add settings and controls. */
