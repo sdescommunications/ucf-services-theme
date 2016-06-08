@@ -24,6 +24,12 @@
 
   .navbar-nav {
     > li {
+      + li:before {
+        content: ">";
+        float: left;
+        padding: 17px 0px;
+      }
+
       > a {
         color: $ucf-col-default;
         &:focus {

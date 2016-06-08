@@ -45,19 +45,19 @@
 			padding-right: 6px;
 
 			@media (max-width: $screen-xs-max) {
-			padding-right: 4px;
+				padding-right: 4px;
 			}
 
 			span {
-			color: #ffc904;
-			font-size: 27px;
-			display: inline-block;
-			position: relative;
-			bottom: -3px;
+				color: #ffc904;
+				font-size: 27px;
+				display: inline-block;
+				position: relative;
+				bottom: -3px;
 
-			@media (max-width: $screen-xs-max) {
-				font-size: 20px;
-			}
+				@media (max-width: $screen-xs-max) {
+					font-size: 20px;
+				}
 			}
 		}
 
@@ -121,7 +121,10 @@
 		  position: absolute;
 		  top: 16px;
 		  font-size: 22px;
-		  margin-left: -30px;
+		  margin-left: -35px;
+		  span {
+			bottom: 3px;
+		  }
 		}
 	}
 }
