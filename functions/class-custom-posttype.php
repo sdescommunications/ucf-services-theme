@@ -461,7 +461,7 @@ abstract class CustomPostType {
 		} else {
 			$attr = $default;
 		}
-		$args = array( 'classname' => __CLASS__ );
+		$args = array( 'classname' => get_called_class() );
 		return self::sc_object_list( $attr, $args );  // Prevent override by child class - use self instead of static.
 	}
 
