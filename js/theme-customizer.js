@@ -9,35 +9,14 @@
 		// 	});
 		// });
 
-		wp.customize( 'sdes_rev_2015-hours', function( value ) {
+		wp.customize( 'services_theme-sitetitle_anchor_width', function( value ) {
 			value.bind( function( to ) {
-				$( '#contactBlock td:eq(0)' ).html( to );
+				$( '.header-center a' ).css( 'width', to );
 			});
 		});
-
-		wp.customize( 'sdes_rev_2015-phone', function( value ) {
+		wp.customize( 'services_theme-sitetitle_anchor_maxwidth', function( value ) {
 			value.bind( function( to ) {
-				to = ( '' !== to ) ? to : '407-823-4625';
-				$( '#contactBlock td:eq(1)' ).html( to );
-			});
-		});
-
-		wp.customize( 'sdes_rev_2015-fax', function( value ) {
-			value.bind( function( to ) {
-				to = ( '' !== to ) ? to : '407-823-2969';
-				$( '#contactBlock td:eq(2)' ).html( to );
-			});
-		});
-
-		wp.customize( 'sdes_rev_2015-email', function( value ) {
-			value.bind( function( to ) {
-				$( '#contactBlock td:eq(3)' ).html( to );
-			});
-		});
-
-		wp.customize( 'sdes_rev_2015-taglineURL', function( value ) {
-			value.bind( function( to ) {
-				$( 'div.site-subtitle a' ).attr( 'href', to );
+				$( '.header-center a' ).css( 'max-width', to );
 			});
 		});
 	});

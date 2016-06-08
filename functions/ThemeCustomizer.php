@@ -143,3 +143,21 @@ function add_section_social_options( $wp_customizer, $args = null ) {
 		$twitter_args			 // Arguments array.
 	);
 }
+
+// Allow AJAX updates to theme from Theme Customizer interface by
+// using the Theme Customizer API in javascript.
+// Enables $wp_customizer->add_setting() with 'transport'=>'postMessage'.
+/**
+ * Registers and enqueues the `theme-customizer.js` file responsible
+ * for handling the transport messages for the Theme Customizer.
+ */
+function theme_customizer_live_preview() {
+	wp_enqueue_script(
+	    'theme-customizer-postMessage',
+	    get_template_directory_uri() . '/js/theme-customizer.js',
+	    array( 'jquery', 'customize-preview' ),
+	    '1.0.0',
+	    true
+	);
+}
+add_action( 'customize_preview_init', __NAMESPACE__.'\theme_customizer_live_preview' );
