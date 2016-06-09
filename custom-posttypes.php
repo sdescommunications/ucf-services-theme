@@ -93,6 +93,24 @@ class Page extends CustomPostType_ServicesTheme {
 				'type'  => 'spotlight',
 			),
 			array(
+				'name'  => 'Icon Link 1',
+				'descr' => 'Select an icon link.',
+				'id'    => $prefix.'icon_link-1',
+				'type'  => 'icon_link',
+			),
+			array(
+				'name'  => 'Icon Link 2',
+				'descr' => 'Select an icon link.',
+				'id'    => $prefix.'icon_link-2',
+				'type'  => 'icon_link',
+			),
+			array(
+				'name'  => 'Icon Link 3',
+				'descr' => 'Select an icon link.',
+				'id'    => $prefix.'icon_link-3',
+				'type'  => 'icon_link',
+			),
+			array(
 				'name'  => 'Side Column',
 				'descr' => 'Show content in column to the right or left of the page (e.g., menuPanels).',
 				'id'    => $prefix.'sidecolumn',

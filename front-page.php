@@ -52,9 +52,9 @@ get_header();
 <div class="clearfix"></div>
 
 <?php
-	$icon_links[0] = '77'; // SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-', '' );
-	$icon_links[1] = '79';
-	$icon_links[2] = '81';
+	$icon_links[0] = get_post_meta( $post->ID, 'page_icon_link-1', true );
+	$icon_links[1] = get_post_meta( $post->ID, 'page_icon_link-2', true );
+	$icon_links[2] = get_post_meta( $post->ID, 'page_icon_link-3', true );
 	echo do_shortcode(
 		"[callout color='#ffcc00' text-color='#000000']
 			[icon_link icon_link_id='${icon_links[0]}'][/icon_link]
