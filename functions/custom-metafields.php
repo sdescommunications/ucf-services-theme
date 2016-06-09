@@ -10,13 +10,6 @@ require_once( get_stylesheet_directory() . '/functions/classes-metabox-metafield
 
 class SpotlightMetaField extends MetaField {
 
-	function __construct( $attr ) {
-		parent::__construct( $attr );
-		$this->args = isset( $attr['args'] )
-			 ? $attr['args']
-			 : array();
-	}
-
 	/**
 	 * @see https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/functions/custom-fields.php#L122-L154
 	 */
@@ -24,7 +17,7 @@ class SpotlightMetaField extends MetaField {
 		$field = $this;
 		?>
 		<div class="meta-spotlight-wrapper">
-			<select class="meta-spotlight-field" id="<?php echo htmlentities( $field->id ); ?>" name="<?php echo htmlentities( $field->name ); ?>" value="<?php echo $field->value; ?>">
+			<select class="meta-spotlight-field" id="<?php echo htmlentities( $field->id ); ?>" name="<?php echo htmlentities( $field->id ); ?>" value="<?php echo $field->value; ?>">
 				<option value="">-- Select Spotlight --</option>
 				<?php foreach( $this->get_spotlights() as $key=>$spotlight ) : ?>
 				<?php $selected = $field->value == $key ? 'selected' : ''; ?>
@@ -55,7 +48,7 @@ class SpotlightMetaField extends MetaField {
 		$spotlights = get_posts( $query_args );
 		$retval = array();
 		foreach( $spotlights as $spotlight ) {
-			$retval[$spotlight->id] = $spotlight->post_title;
+			$retval[$spotlight->ID] = $spotlight->post_title;
 		}
 		return $retval;
 	}

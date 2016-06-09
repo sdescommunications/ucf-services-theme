@@ -21,6 +21,22 @@ require_once( get_stylesheet_directory() . '/functions/custom-metafields.php' );
 require_once( get_stylesheet_directory() . '/vendor/autoload.php' );
 use Underscore\Types\Arrays;
 
+abstract class CustomPostType_ServicesTheme extends CustomPostType {
+	public function register_metaboxes() {
+		if ( $this->options( 'use_metabox' ) ) {
+			$metabox = $this->metabox();
+			add_meta_box(
+				$metabox['id'],
+				$metabox['title'],
+				'SDES\\ServicesTheme\\ServicesMetaboxes::show_meta_boxes',
+				$metabox['page'],
+				$metabox['context'],
+				$metabox['priority']
+			);
+		}
+	}
+}
+
 /**
  * The built-in post_type named 'Post'.
  */
@@ -51,7 +67,7 @@ class Post extends CustomPostType {
 /**
  * The built-in post_type named 'Page'.
  */
-class Page extends CustomPostType {
+class Page extends CustomPostType_ServicesTheme {
 	public
 		$name           = 'page',
 		$plural_name    = 'Pages',
@@ -70,6 +86,12 @@ class Page extends CustomPostType {
 	public function fields() {
 		$prefix = $this->options( 'name' ).'_';
 		return array(
+			array(
+				'name'  => 'Spotlight',
+				'descr' => 'Select a spotlight.',
+				'id'    => $prefix.'spotlight',
+				'type'  => 'spotlight',
+			),
 			array(
 				'name'  => 'Side Column',
 				'descr' => 'Show content in column to the right or left of the page (e.g., menuPanels).',
@@ -242,7 +264,7 @@ class IconLink extends CustomPostType {
 
 
 
-class StudentService extends CustomPostType {
+class StudentService extends CustomPostType_ServicesTheme {
 	const ADDITIONAL_FIELDS_COUNT = 4;
 
 	public
@@ -514,20 +536,6 @@ class StudentService extends CustomPostType {
 			// 	'type'  => 'text',
 			// ),
 		);
-	}
-
-	public function register_metaboxes() {
-		if ( $this->options( 'use_metabox' ) ) {
-			$metabox = $this->metabox();
-			add_meta_box(
-				$metabox['id'],
-				$metabox['title'],
-				'SDES\\ServicesTheme\\ServicesMetaboxes::show_meta_boxes',
-				$metabox['page'],
-				$metabox['context'],
-				$metabox['priority']
-			);
-		}
 	}
 
 	/**
