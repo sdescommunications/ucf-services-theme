@@ -110,6 +110,7 @@ class Page extends CustomPostType_ServicesTheme {
  * @see https://github.com/UCF/Students-Theme/blob/master/custom-post-types.php#L617-L710
  */
 class Spotlight extends CustomPostType {
+	const NAME = 'spotlight';
 	public
 		$name           = 'spotlight',
 		$plural_name    = 'Spotlights',
@@ -166,7 +167,9 @@ class Spotlight extends CustomPostType {
 	// TODO: update .call-to-action to .spotlight
 	// TODO: show when $image_url or $url is not set.
 	public static function toHTML( $object ) {
-		if ( null === $object ) { return "<!-- No Spotlight provided. -->"; }
+		$object = get_post( $object );
+		if ( SDES_Static::is_null_or_whitespace( $object ) 
+			|| self::NAME !== $object->post_type ) {return sprintf("<!-- No %s provided. -->", self::NAME); }
 		$image_url = has_post_thumbnail( $object->ID ) ?
 			wp_get_attachment_image_src( get_post_thumbnail_id( $object->ID ), 'spotlight' ) :
 			null;
@@ -211,6 +214,7 @@ class Spotlight extends CustomPostType {
  * @see sc_icon_link sc_icon_link
  */
 class IconLink extends CustomPostType {
+	const NAME = 'icon_link';
 	public
 		$name           = 'icon_link',
 		$plural_name    = 'Icon Links',
@@ -243,7 +247,9 @@ class IconLink extends CustomPostType {
 		);
 	}
 	public static function toHTML( $object ) {
-		if ( null === $object ) { return "<!-- No IconLink provided. -->"; }
+		$object = get_post( $object );
+		if ( SDES_Static::is_null_or_whitespace( $object ) 
+			 || self::NAME !== $object->post_type ) {return sprintf("<!-- No %s provided. -->", self::NAME); }
 		$icon = get_post_meta( $object->ID, 'icon_link_icon', true );
 		$url = get_post_meta( $object->ID, 'icon_link_url', true );
 		ob_start();
@@ -265,6 +271,7 @@ class IconLink extends CustomPostType {
 
 
 class StudentService extends CustomPostType_ServicesTheme {
+	const NAME = 'student_service';
 	const ADDITIONAL_FIELDS_COUNT = 4;
 
 	public
@@ -619,6 +626,9 @@ class StudentService extends CustomPostType_ServicesTheme {
 	 * Return the HTML to show a single student_service post object in a list.
 	 */
 	public static function toHTML( $post_object ) {
+		$post_object = get_post( $post_object );
+		if ( SDES_Static::is_null_or_whitespace( $post_object ) 
+			 || self::NAME !== $post_object->post_type ) {return sprintf("<!-- No %s provided. -->", self::NAME); }
 		$metadata_fields = static::get_render_metadata( $post_object );
 		$stusvc_context = static::get_render_context( $post_object, $metadata_fields );
 		return static::render_to_html( $stusvc_context );
