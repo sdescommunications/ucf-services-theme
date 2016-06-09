@@ -253,13 +253,24 @@ class StudentService extends CustomPostType {
 		$edit_item      = 'Edit Student Service',
 		$new_item       = 'New Student Service',
 		$public         = true,
-		$use_editor     = true,
-		$use_thumbnails = true,
-		$use_order      = true,
 		$use_title      = true,
+		$use_editor     = true,
+		$use_revisions  = true,
+		$use_thumbnails = true,
+		$use_order      = false,
 		$use_metabox    = true,
 		$use_shortcode  = true,
-		$built_in       = false;
+		$taxonomies     = array( 'post_tag', 'category' ),
+		$menu_icon      = null,
+		$built_in       = false,
+		// Optional default ordering for generic shortcode if not specified by user.
+		$default_orderby = null,
+		$default_order   = null,
+		// Interface Columns/Fields.
+		$calculated_columns = array( 
+			array( 'heading' => 'Thumbnail', 'column_name' => '_thumbnail_id', 'order' => 100, 'sortable' => false ),
+		), // Calculate values within custom_column_echo_data.
+		$sc_interface_fields = null; // Fields for shortcodebase interface (false hides from list, null shows only the default fields).
 
 	public function fields() {
 		$prefix = $this->options( 'name' ).'_';
