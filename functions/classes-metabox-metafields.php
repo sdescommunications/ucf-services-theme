@@ -291,7 +291,7 @@ class FileMetaField extends MetaField {
 			</div>
 
 			<p class="hide-if-no-js">
-				<a class="meta-file-upload <?php if ( ! empty( $this->value ) ) { echo 'hidden'; } ?>" href="<?php echo $upload_link; ?>">
+				<a class="meta-file-upload thickbox <?php if ( ! empty( $this->value ) ) { echo 'hidden'; } ?>" href="<?php echo $upload_link; ?>">
 					Add File
 				</a>
 				<a class="meta-file-delete <?php if ( empty( $this->value ) ) { echo 'hidden'; } ?>" href="#">
