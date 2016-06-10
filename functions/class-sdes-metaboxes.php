@@ -19,6 +19,7 @@ require_once( get_stylesheet_directory() . '/functions/classes-metabox-metafield
 	use SDES\Metafields\MultiselectMetaField as MultiselectMetaField;
 	use SDES\Metafields\RadioMetaField as RadioMetaField;
 	use SDES\Metafields\CheckboxListMetaField as CheckboxListMetaField;
+	use SDES\Metafields\ImageMetaField as ImageMetaField;
 	use SDES\Metafields\FileMetaField as FileMetaField;
 	use SDES\Metafields\EditorMetaField as EditorMetaField;
 	use SDES\Metafields\IconFontAwesomeMetaField as IconFontAwesomeMetaField;
@@ -163,7 +164,14 @@ class SDES_Metaboxes {
 						});
 					});
 				</script>
-	  	<?php endif;
+		<?php endif;
+			$hasImageField= Arrays::matchesAny(
+				$meta_box['fields'],
+				function( $x ) { return ( 'image' === $x['type'] ); }
+			);
+			if ( $hasImageField ) {
+				echo ImageMetaField::get_meta_image_button_script();
+			}
 		echo ob_get_clean();
 	}
 
@@ -199,6 +207,10 @@ class SDES_Metaboxes {
 			case 'checkbox':
 			case 'checkbox_list':
 				$field_obj = new CheckboxListMetaField( $field );
+				break;
+			case 'image':
+				$field['post_id'] = $post_id;
+				$field_obj = new ImageMetaField( $field );
 				break;
 			case 'file':
 				$field['post_id'] = $post_id;

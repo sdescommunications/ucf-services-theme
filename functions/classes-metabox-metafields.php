@@ -256,6 +256,77 @@ class CheckboxListMetaField extends ChoicesMetaField {
 	}
 }
 
+/**
+ * @see http://themefoundation.com/wordpress-meta-boxes-guide/#xpath:/html/body/div[2]/div[2]/div/div/div/div[2]/h3[6] -- 9.2 Image uploader
+ */
+class ImageMetaField extends MetaField {
+
+	function input_html() {
+		$context = (object) array(
+			'id' => htmlentities( $this->id ),
+			'value' => htmlentities( $this->value ),
+			'image_src' => wp_get_attachment_image_src( htmlentities( $this->value ), 'thumbnail', false )[0],
+		);
+		ob_start();
+		?>
+		<p>
+			<a href="<?= $context->value ?>" target="_blank" class="meta-image-preview">
+				<img class="meta-image-preview" style="max-width: 400px; max-height: 400px;" src="<?= $context->image_src ?>">
+			</a>
+			<br>
+			<input type="text" class="meta-image-field hide-if-js" name="<?= $context->id ?>" id="<?= $context->id ?>" value="<?= $context->value ?>" style="width: 500px;" />
+			<input type="button" class="meta-image-button button hide-if-no-js" id="button-<?= $context->id ?>" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
+		</p>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Script to wire up the meta-image-button to a wp.media frame.
+	 */
+	public static function get_meta_image_button_script(){
+		ob_start();
+		?>
+		<script>
+		/*
+		 * Attaches the image uploader to the input field.
+		 */
+		jQuery(document).ready(function($){
+			// Instantiates the variable that holds the media library frame.
+			var meta_image_frame;
+			// Runs when the image button is clicked.
+			$('.meta-image-button').click(function(e){
+				// Prevents the default action from occuring.
+				e.preventDefault();
+				// Sets up the media library frame
+				if ( ! meta_image_frame ) {
+					meta_image_frame = wp.media.frames.meta_image_frame = wp.media({
+						title: 'Choose or Upload an Image',  // meta_image_frame.options.title
+						button: { text:  'Use this image' }, // meta_image_frame.options.button.text
+						library: { type: 'image' } // meta_image_frame.options.library.type
+					});
+				}
+				// Runs when an image is selected.
+				meta_image_frame.on('select', function(){
+					// Grabs the attachment selection and creates a JSON representation of the model.
+					var media_attachment = meta_image_frame.state().get('selection').first().toJSON(),
+						$image_field = $( '#' + e.srcElement.id ).parent().children( '.meta-image-field' ),
+						$image_preview = $( '#' + e.srcElement.id ).parent().find( '.meta-image-preview' );
+					// Sends the attachment URL to our custom image input field and preview fields.
+					$image_field.val( media_attachment.id );
+					$image_preview.filter('img').attr( 'src', media_attachment.url );
+					$image_preview.filter('a').attr( 'href', media_attachment.url );
+				});
+				// Opens the media library frame.
+				meta_image_frame.open();
+			});
+		});
+		</script>
+		<?php
+		return ob_get_clean();
+	}
+}
+
 class FileMetaField extends MetaField {
 	function __construct( $attr ) {
 		parent::__construct( $attr );
