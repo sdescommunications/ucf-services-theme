@@ -339,6 +339,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_additional_4-description
 		 * student_service_image
 		 * student_service_primary_action
+		 * student_service_primary_url
 		 * student_service_spotlight
 		 * student_service_phone
 		 * student_service_email
@@ -450,12 +451,18 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'name'  => 'Image',
 				'descr' => 'Select an image.',
 				'id'    => $prefix.'image',
-				'type'  => 'file',
+				'type'  => 'image',
 			),
 			array(
 				'name'  => 'Primary Action',
 				'descr' => '',
 				'id'    => $prefix.'primary_action',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Primary Action URL',
+				'descr' => '',
+				'id'    => $prefix.'primary_action_url',
 				'type'  => 'text',
 			),
 			array(
@@ -581,8 +588,13 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'descr' => get_post_meta( $stusvc->ID, 'student_service_additional_' . $i . '-description', true ),
 			);
 		 });
-		$metadata_fields['stusvc_image']           = get_post_meta( $stusvc->ID, 'student_service_image', true );
+
+		$metadata_fields['stusvc_image']				= get_post_meta( $stusvc->ID, 'student_service_image', true );
+		$metadata_fields['stusvc_image_alt']			= get_post_meta( $metadata_fields['stusvc_image'], '_wp_attachment_image_alt', true );
+		$metadata_fields['stusvc_image_thumbnail_src']  = wp_get_attachment_image_src( $metadata_fields['stusvc_image'], 'thumbnail', false )[0];
+
 		$metadata_fields['stusvc_primary_action']  = get_post_meta( $stusvc->ID, 'student_service_primary_action', true );
+		$metadata_fields['stusvc_primary_action_url']  = get_post_meta( $stusvc->ID, 'student_service_primary_action_url', true );
 		$metadata_fields['stusvc_spotlight']       = get_post_meta( $stusvc->ID, 'student_service_spotlight', true );
 		$metadata_fields['stusvc_phone']           = get_post_meta( $stusvc->ID, 'student_service_phone', true );
 		$metadata_fields['stusvc_email']           = get_post_meta( $stusvc->ID, 'student_service_email', true );
@@ -619,7 +631,10 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'long_descr' => $stusvc->post_content,
 			'additional' => $metadata_fields['stusvc_additional'],
 			'image' => $metadata_fields['stusvc_image'],
+			'image_alt' => $metadata_fields['stusvc_image_alt'],
+			'image_thumbnail_src' => $metadata_fields['stusvc_image_thumbnail_src'],
 			'primary_action' => $metadata_fields['stusvc_primary_action'],
+			'primary_action_url' => $metadata_fields['stusvc_primary_action_url'],
 			'spotlight' => $metadata_fields['stusvc_spotlight'],
 			'phone' => $metadata_fields['stusvc_phone'],
 			'email' => $metadata_fields['stusvc_email'],
@@ -658,7 +673,9 @@ class StudentService extends CustomPostType_ServicesTheme {
 	protected static function render_to_html( $context ) {
 		ob_start();
 		?>
-		<div class="image"><?= $context['image'] ?></div>
+		<div class="image">
+			<img src="<?= $context['image_thumbnail_src'] ?>" alt="<?= $context['image_alt'] ?>">
+		</div>
 		<div class="title">
 				<a href="<?= $context['permalink'] ?>">
 						<?= $context['title'] ?>
@@ -710,8 +727,11 @@ class StudentService extends CustomPostType_ServicesTheme {
 				<hr>
 				<div class="primary_action"><?= $context['primary_action'] ?></div>
 				<hr>
+				<div class="primary_action_url"><?= $context['primary_action_url'] ?></div>
+				<hr>
 				<div class="spotlight"><?= $context['spotlight'] ?></div>
 				<hr>
+
 				<div class="phone"><?= $context['phone'] ?></div>
 				<hr>
 				<div class="email"><?= $context['email'] ?></div>
