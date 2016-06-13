@@ -319,9 +319,11 @@ class StudentService extends CustomPostType_ServicesTheme {
 		), // Calculate values within custom_column_echo_data.
 		$sc_interface_fields = null; // Fields for shortcodebase interface (false hides from list, null shows only the default fields).
 
+	// TODO: create additional_#-* fields programmatically using self::ADDITIONAL_FIELDS_COUNT.
 	public function fields() {
 		$prefix = $this->options( 'name' ).'_';
 		/*
+		 * student_service_main_category_id
 		 * student_service_short_description
 		 * student_service_events_cal_id
 		 * student_service_news_feed
@@ -357,6 +359,12 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_social_youtube
 		 */
 		return array(
+			array(
+				'name'  => 'Main Category',
+				'descr' => 'The main category for this service, to be used by breadcrumbs navigation.',
+				'id'    => $prefix.'main_category_id',
+				'type'  => 'taxonomy',
+			),
 			array(
 				'name'  => 'Short Description',
 				'descr' => 'A short description of the service.',
@@ -577,6 +585,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 	 */
 	private static function get_render_metadata( $stusvc ) {
 		$metadata_fields = array();
+		$metadata_fields['stusvc_main_category_id'] = get_post_meta( $stusvc->ID, 'student_service_main_category_id', true ) ?: -1;
 		$metadata_fields['stusvc_short_descr'] = get_post_meta( $stusvc->ID, 'student_service_short_description', true );
 		$metadata_fields['stusvc_additional'] = 
 		 Arrays::each(
@@ -624,9 +633,16 @@ class StudentService extends CustomPostType_ServicesTheme {
 	 * @param Array   $metadata_fields The metadata fields associated with this stusvc.
 	 */
 	public static function get_render_context( $stusvc, $metadata_fields ) {
+		$category = get_category( $metadata_fields['stusvc_main_category_id'] );
+		$category_name =
+			( null !== $category && property_exists( $category, 'name' ) ) 
+			? $category->name 
+			: null;
 		return array(
 			'permalink' => get_permalink( $stusvc ),
 			'title' => $stusvc->post_title,
+			'main_category' => $category,
+			'main_category_name' => $category_name,
 			'short_descr' => $metadata_fields['stusvc_short_descr'],
 			'long_descr' => $stusvc->post_content,
 			'additional' => $metadata_fields['stusvc_additional'],
@@ -681,6 +697,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 						<?= $context['title'] ?>
 				</a>
 		</div>
+		<div class="main-category-name"><?= $context['main_category_name'] ?></div>
 		<div class="short-description"><?= $context['short_descr'] ?></div>
 		<?php
 		$html = ob_get_clean();
@@ -704,6 +721,8 @@ class StudentService extends CustomPostType_ServicesTheme {
 		?>
 			<span class="left-column">
 				<div class="title"><h2><?= $context['title'] ?></h2></div>
+				<hr>
+				<div class="main-category-name"><?= $context['main_category_name'] ?></div>
 				<hr>
 				<div class="short-description"><?= $context['short_descr'] ?></div>
 				<hr>
