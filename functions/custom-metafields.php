@@ -8,9 +8,9 @@ namespace SDES\ServicesTheme\Metafields;
 require_once( get_stylesheet_directory() . '/functions/classes-metabox-metafields.php' );
 	use SDES\Metafields\MetaField as Metafield;
 
-
-// TODO: add QueryDropdownMetafield and PostsDropdownMetafield to extend it.
-// TODO: make SpotlightMetafield and IconLinkMetafield extend from PostsDropdownMetafield.
+// TODO: add QueryDropdownMetafield to extend SelectMetaField with a WP_Query for choices.
+// TODO: add PosttypeMetafield to extend QueryDropdownMetafield.
+// TODO: make SpotlightMetafield and IconLinkMetafield extend from PosttypeMetafield.
 
 class SpotlightMetaField extends MetaField {
 
@@ -105,8 +105,6 @@ class IconLinkMetaField extends MetaField {
 		return $retval;
 	}
 }
-
-
 
 namespace SDES\ServicesTheme;
 

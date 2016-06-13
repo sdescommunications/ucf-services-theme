@@ -16,6 +16,7 @@ require_once( get_stylesheet_directory() . '/functions/classes-metabox-metafield
 	use SDES\Metafields\PasswordMetaField as PasswordMetaField;
 	use SDES\Metafields\TextareaMetaField as TextareaMetaField;
 	use SDES\Metafields\SelectMetaField as SelectMetaField;
+	use SDES\Metafields\TaxonomyMetaField as TaxonomyMetaField;
 	use SDES\Metafields\MultiselectMetaField as MultiselectMetaField;
 	use SDES\Metafields\RadioMetaField as RadioMetaField;
 	use SDES\Metafields\CheckboxListMetaField as CheckboxListMetaField;
@@ -196,6 +197,10 @@ class SDES_Metaboxes {
 				break;
 			case 'select':
 				$field_obj = new SelectMetaField( $field );
+				break;
+			case 'taxonomy':
+			case 'category':
+				$field_obj = new TaxonomyMetaField( $post_id, $field );
 				break;
 			case 'multiselect':
 				$field_obj = new MultiselectMetaField( $field );

@@ -189,6 +189,50 @@ class SelectMetaField extends ChoicesMetaField{
 }
 
 /**
+ * Dropdown to select a main category for a post.
+ */
+class TaxonomyMetaField extends SelectMetaField {
+	function __construct( $post_id, $attr ) {
+		parent::__construct( $attr );
+		$this->post_id = $post_id;
+		$this->taxonomy = isset( $attr['taxonomy'] )
+			 ? $attr['taxonomy']
+			 : 'category';
+	 	$this->term_args =isset( $attr['term_args'] )
+			 ? $attr['term_args']
+			 : array( 'parent' => 0, );
+	}
+
+	function input_html() {
+		$this->choices = self::get_terms_choices( $this->taxonomy, $this->term_args );
+		return parent::input_html();
+	}
+
+	/**
+	 * Return a choices array for consumption by SelectMetaField in the form:
+	 * array( 'Option text' => option_value ).
+	 */
+	public static function get_terms_choices(
+			$taxon = 'category',
+			$term_args = array( 'parent' => 0, ),
+			$default = '-- Select a category --' ){
+		$terms = get_terms( $taxon, $term_args );
+		$keys = array_map(
+			function( $x ){
+				return  $x->name;
+			}, $terms );
+		$values = array_map(
+			function( $x ){
+				return (string) $x->term_id;
+			}, $terms );
+		// Prepend ('-- Select a category --' => -1).
+		array_unshift( $keys, $default );
+		array_unshift( $values, '-1' );
+		return array_combine( $keys, $values );
+	}
+}
+
+/**
  * Multiselect form element
  *
  * @package default
