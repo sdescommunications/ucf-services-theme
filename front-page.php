@@ -33,6 +33,7 @@ get_header();
 <main>
 
 <article class="col-md-9 col-xs-12">
+	<h2 class="title"><?= the_title() ?></h2>
 	<?php if (have_posts()) :
 		 while (have_posts()) : the_post();
 			the_content();
@@ -43,10 +44,32 @@ get_header();
 </article>
 
 <aside class="col-md-2 col-xs-12">
-	<?php
-		global $post;
-		echo Spotlight::toHTML( get_post_meta( $post->ID, 'page_spotlight', true ) );
-	?>
+	<div class="row filter-by">
+		<h2>Filter By</h2>
+		<ul>
+			<?= wp_list_categories( array(
+					'show_option_none' => '<!-- No categories -->',
+					'orderby' => 'title',
+					'exclude' => array( 1, ),
+					'title_li' => '',
+					'depth' => 1,
+					'taxonomy' => 'category',
+				) )
+			?>
+		</ul>
+	</div>
+	<div class="clearfix"></div>
+	<style>
+		.spotlight-wrapper { position: relative; }
+	</style>
+	<div class="row">
+		<div class="spotlight-wrapper">
+		<?php
+			global $post;
+			echo Spotlight::toHTML( get_post_meta( $post->ID, 'page_spotlight', true ) );
+		?>
+		</div>
+	</div>
 </aside>
 </main>
 <div class="clearfix"></div>
