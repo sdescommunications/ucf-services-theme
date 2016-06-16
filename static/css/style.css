@@ -1,0 +1,1017 @@
+
+
+
+/* sdes ucf.edu/students adjustments */
+
+/*
+.h1, .h2, .h3, .h4, .h5, .h6, .header-center .title-header-container>h1, .header-center .title-header-container>span, .lead, h1, h2, h3, h4, h5, h6 {
+    font-family: "archer_mediumregular", Georgia, serif;
+}
+*/
+
+.main-site-footer .main-site-title {
+    font-family: "gotham_lightregular", Helvetica, Arial, sans-serif;
+}
+
+.header-center .title-header-container>span, .header-center, .header-center .weather, .header-center .weather .location, .site-footer .all-link, .calendar-events .all-link {
+    font-family: "archer_boldregular", Georgia, serif;
+
+}
+
+.site-footer .footer-news h3, .site-footer .footer-events .event-details h4 {
+    font-family: "archer_mediumregular", Georgia, serif;
+}
+
+
+
+.btn, .btn-ucf, .table, input, label, select, textarea, 
+.gform_button, .site-footer, .site-footer h2, .callout .icon-linkz a h3, 
+.calendar-events .event-details  {
+    font-family: "gotham_lightregular", Helvetica, Arial, sans-serif;
+}
+
+ 
+
+.alert, .badge, .breadcrumb, .btn, .carousel, .collapse, .gform_button, .jumbotron, .label, .list-group, .media, .modal, .nav, .navbar, .pagination, .panel, .ucf-dropdown, .well, .calendar-events {
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+}
+
+
+.services-page .weather {
+    font-family: "archer_boldregular", Georgia, serif;
+    margin-right: 0;
+}
+
+
+
+.page-wrap aside h2 {
+     font-family: "gotham_lightregular", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase
+}
+
+
+.header-center .weather {
+    font-weight: 600;
+}
+
+
+.page-wrap h2 {
+    font-family: "gotham_lightregular", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    margin-bottom: 30px;
+    margin-top: 0;
+    border-bottom: 2px solid #cecece;
+    padding-bottom: 10px;
+}
+
+
+.callout .icon-linkz a .fa {
+    font-size: 80px;
+    margin-bottom: 12px;
+    transition: color .25s;
+}
+
+.callout .icon-linkz a p {
+    font-size: 16px;
+    font-style: italic;
+    padding-top: 18px;
+    max-width: 220px;
+    margin: 0 auto;
+}
+
+.callout .icon-linkz a h3 {
+    background: #c7a107;
+    border-radius: 4px;
+    display: inline;
+    font-size: 15px;
+    padding: 8px 34px;
+}
+
+.callout .icon-linkz a {
+    color: #000;
+    margin-bottom: 40px;
+    display: block;
+}
+.callout .icon-linkz a:hover {
+    text-decoration: none
+}
+
+.callout .icon-linkz a:active .fa, .callout .icon-linkz a:focus .fa, .callout .icon-linkz a:hover .fa {
+    color: #fff;
+}
+
+
+.callout .icon-linkz a:active h3, .callout .icon-linkz a:focus h3, .callout .icon-linkz a:hover h3 {
+    background: #786105;
+    color: #ffc409;
+}
+
+
+
+
+
+
+strong {
+    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+}
+
+
+
+.lead {
+    font-family: "archer_mediumregular", Georgia, serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ______  _____     _____  ______   __   _______   
+/ ____/\/\ __/\  /\_____\/ ____/\ /\_\/\_______)\ 
+) ) __\/) )  \ \( (_____/) ) __\/ \/_/\(___  __\/ 
+\ \ \ / / /\ \ \\ \__\   \ \ \    /\_\ / / /     
+_\ \ \\ \ \/ / // /__/_  _\ \ \  / / /( ( (      
+)____) )) )__/ /( (_____\)____) )( (_(  \ \ \     
+\____\/ \/___\/  \/_____/\____\/  \/_/  /_/_/     
+*/
+
+
+
+/*@font-face {
+font-family: 'gotham_thinregular';
+src: url('../fonts/gotham/thin-webfont.woff2') format('woff2'),
+url('../fonts/gotham/thin-webfont.woff') format('woff');
+
+
+}
+*/
+@font-face {
+    font-family: 'gotham_lightregular';
+    src: url('../fonts/gotham/light-webfont.woff') format('woff');
+}
+
+/*@font-face {
+font-family: 'gotham_mediumregular';
+src: url('../fonts/gotham/medium-webfont.woff') format('woff');
+
+
+}*/
+
+@font-face {
+    font-family: 'gotham_boldregular';
+    src: url('../fonts/gotham/bold-webfont.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'gotham_blackregular';
+	src: url('../fonts/gotham/black-webfont.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'archer_lightregular';
+    src: url('../fonts/archer/light-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'archer_mediumregular';
+    src: url('../fonts/archer/medium-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'archer_boldregular';
+    src: url('../fonts/archer/bold-webfont.woff') format('woff');
+}
+
+/*
+
+@font-face {
+  font-family: 'MyWebFont';
+  src: url('webfont.eot');
+  src: url('webfont.eot?#iefix') format('embedded-opentype'), 
+       url('webfont.woff2') format('woff2'), 
+       url('webfont.woff') format('woff'), 
+       url('webfont.ttf')  format('truetype'), 
+       url('webfont.svg#svgFontName') format('svg'); 
+}
+
+
+
+*/
+
+
+/* general */
+
+body {
+    font-family: "gotham_lightregular", helvetica, arial, sans-serif;
+        font-size: 15px;
+    line-height: 1.72857;
+    color: #272727;
+    font-weight: 600;
+
+}
+
+* {
+    transition : all .1s linear
+}
+
+
+.page-wrap {
+    -webkit-mask-image: -webkit-gradient(linear, left 85%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+}
+
+.header-image {
+    background: url('../img/banner.jpg') top center no-repeat;
+    background-size: cover;
+    min-height: 0;
+    max-height: none;
+    height: 520px;
+}
+
+.event-details p.time {
+    font-size: 16px;
+    margin-top: -4px;
+}
+
+
+
+
+
+btn-group-lg>.btn, .btn-group-lg>.gform_button, .btn-lg, .gform_button {
+    font-size: 15px;
+}
+
+.header-center {
+    display: table;
+    position: relative;
+    top: 250px;
+    float: right;
+    height: auto;
+    width: auto;
+}
+
+.site-header {
+    padding-bottom: 0px;
+    margin-bottom: 30px;
+}
+
+
+
+
+/* search */
+
+.search {
+    padding: 0 0 50px 0;
+    border-bottom: 2px solid #ccc;
+    margin: 0 0 30px 0;
+}
+
+.search a {
+    color: #272727;
+    text-decoration: none;
+}
+
+.search-lead {
+    font-family: "gotham_lightregular", helvetica, arial, sans-serif;
+    margin: 0 auto 30px auto;
+    display: block;
+    text-align: center;
+    font-size: 27px;
+    letter-spacing: 1px;
+}
+
+.search-bar {
+    position: relative;
+}
+
+.search-bar .fa-search {
+    position: absolute;
+    padding: 16px;
+    font-size: 23px;
+    color: #999;
+    background: transparent;
+    border: 0;
+    transition: .3s all;
+
+}
+
+.search-bar .fa-search {
+    right: 0px;
+}
+
+
+.search-bar .fa-search:hover {
+    color: #272727;
+}
+
+.search-bar input {
+    padding-right: 30px;
+}
+
+
+
+.search-bar .form-control {
+    height: 57px;
+    box-shadow: none;
+}
+
+
+.search-bar .form-control::-webkit-input-placeholder {
+    color: #272727;
+    font-size: 17px;
+    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+}
+
+.search-bar .form-control:-moz-placeholder {
+    color: #272727;
+    font-size: 17px;
+    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+}
+
+.search-bar .form-control::-moz-placeholder {
+    color: #272727;
+    font-size: 17px;
+    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+}
+
+.search-bar .form-control:-ms-input-placeholder {
+    color: #272727;
+    font-size: 17px;
+    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+}
+
+
+
+/* primary action */
+
+
+.primary-action {
+    outline: 1px solid #ffc409;
+    margin-bottom: 30px;
+    background-size: cover!important; /* need !important if changing image inline */
+}
+
+.primary-action-content {
+    padding: 20px;
+}
+
+
+.primary-action-title {
+    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+    font-weight: 900;
+    font-size: 21px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+
+}
+.primary-action-title a {
+    color: #272727;
+    text-decoration: none;
+}
+
+
+.primary-action .btn {
+    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+    border-radius: 17px;
+    background: #ffc409;
+        font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+    padding: 10px 30px;
+    font-weight: 900;
+}
+
+.primary-action .btn:hover {
+    background: #c90;
+    color: #fff;
+}
+
+
+/* services */
+
+.service {
+    margin-bottom: 30px;
+}
+
+.service-details a {
+    color: #272727;
+    text-decoration: none;
+
+}
+.service-details a:hover {
+    color: #666;
+}
+
+.service-social {
+    float: right;
+}
+
+.service-social a {
+    text-decoration: none;
+    position: relative;
+    display: inline;
+    font-size: 25px;
+    margin-left: 47px;
+    color: #909090;
+
+}
+
+.service-social a:hover {
+    color: #d0d0d0;
+
+}
+
+.service-title {
+    font-family: "archer_boldregular", Georgia, serif;
+    font-size: 27px;
+    margin-top: -10px;
+
+}
+
+.service-title::after {
+content: " ";
+    background: #ffc904;
+    display: block;
+    height: 2px;
+    margin-top: 0px;
+    width: 25px;
+    margin-bottom: 9px;
+}
+
+.service-category {
+    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 15px;
+    display: block;
+    font-size: 12px;
+}
+
+.service img {
+    width: 100%;
+    margin-bottom: 20px;
+    transition: .3s all;
+}
+.service img:hover {
+    opacity: .8;
+}
+
+
+
+/* side-bar */
+
+.side-bar .filter-by {
+    font-family: "archer_boldregular", Georgia, serif;
+    font-size: 19px;
+    border-bottom: 2px solid #ffc409;
+    padding: 5px 0 6px 0;
+    display: block;
+    text-transform: uppercase;
+}
+
+.side-bar .panel {
+    margin-top: 13px;
+    background-color: #fff;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.side-bar .list-group-item {
+    font-family: "gotham_blackregular", Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+    padding: 9px 10px;
+    margin-bottom: 0px;
+    background-color: #fff;
+    border: none;
+}
+
+.side-bar .list-group-item:hover, .side-bar .list-group-item.active {
+    background-color: #eee;
+}
+
+
+
+.side-bar .filter-checkbox {
+    display: none;
+}
+
+.side-bar input[type = "checkbox"]:checked + label {
+    background: #f7f7f7;
+    color: #ffc409;
+    border-radius: 0;
+}
+
+.side-bar input[type = "checkbox"]:checked + label::after {
+    content: "\f00d";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #999;
+    float: right;
+}
+
+
+.side-bar .calendar-events {
+    background: #000;
+    display: block;
+    overflow: auto;
+    padding: 18px 15px;
+    color: #fff;
+   margin: 20px 0;
+}
+
+.side-bar .calendar-events-title {
+    display: block;
+    cursor: pointer;
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    text-transform: uppercase;
+
+}
+
+.side-bar .calendar-events .calendar-icon {
+    color: #ffc409;
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.side-bar .calendar-chevron {
+    float: right;
+    color: #ccc;
+    margin: 2px 0 0 20px;
+}
+
+.home-page .side-bar .collapse::before {
+    content: " ";
+    background: #ffc904;
+    display: block;
+    height: 2px;
+    margin-top: 12px;
+    width: 25px;
+    transition: .3s all;
+
+}
+
+
+.services-page .side-bar .calendar-events-title::after {
+    content: " ";
+    background: #ffc904;
+    display: block;
+    height: 2px;
+    margin-top: 12px;
+    width: 25px;
+    transition: .3s all;
+
+}
+
+.side-bar .calendar-events a {
+    color: #ffc409;
+}
+.side-bar .calendar-events a:hover {
+    color: #fff;
+}
+.side-bar .event .title {
+    font-size: 16px;
+    color: #ffc409;
+    margin-top: 20px;
+    line-height: 18px;
+    text-transform: uppercase;
+}
+
+.side-bar .event .date {
+    font-size: 16px;
+    color: #fff;
+    font-family: "archer_lightregular", Helvetica, Arial, sans-serif;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+.side-bar .event .description {
+    font-size: 16px;
+    color: #fff;
+    font-family: "archer_lightregular", Helvetica, Arial, sans-serif;
+
+}
+
+
+.side-bar .primary-action {
+    text-align: center;
+}
+
+
+
+
+
+/*service page*/
+
+
+
+
+.services-page .gold {
+    background: #ffc409;
+}
+
+.services-page .breadcrumbs {
+    margin-left: -25px;
+    margin-bottom: 0; 
+}
+
+.services-page .breadcrumbs li {
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+    float: left;
+    list-style-type: none;
+    margin: 0;
+    padding: 17px 11px 10px 0;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+
+.services-page .breadcrumbs li.active {
+    color: #fff;
+    background-color: #ffc409;
+    text-decoration: underline;
+} 
+
+
+.services-page .breadcrumbs li a {
+    color: #272727;
+    margin-right: 9px;
+}
+
+.services-page .weather {
+    font-size: 18px;
+    background: #000;
+    color: #fff;
+    margin-right: 15px;
+    padding: 17px 47px 17px 80px;
+    text-transform: none;
+    line-height: 21px;
+}
+.services-page .weather .icon {
+    color: #ffc904;
+    font-size: 22px;
+    margin-left: -40px;
+    float: left;
+}
+
+
+.services-page .site-header {
+    margin-bottom: 0;
+}
+
+
+.services-page .header-center .title-header-container>span {
+    font-size: 50px;
+}
+
+.services-page h1 {
+    font-family: "archer_boldregular", Georgia, serif;
+    display: inline-block;
+    font-size: 47px;
+    margin: 40px 0 30px 0;
+}
+
+
+.services-page h1::after {
+    content: " ";
+    background: #ffc904;
+    display: block;
+    height: 2px;
+    margin-top: 13px;
+    width: 25px;
+    margin-bottom: 8px;
+}
+
+
+.services-page .header-center .title-header-container {
+   top: 0; 
+}
+
+.services-page .service-social a {
+    text-decoration: none;
+    position: relative;
+    display: inline;
+    font-size: 22px;
+    margin-left: 39px;
+    color: #909090;
+}
+
+.services-page .header-image {
+    background: url('../img/banner-services.jpg') top center no-repeat;
+    background-size: cover;
+    min-height: 0;
+    max-height: none;
+    height: 420px;
+}
+
+.services-page p.lead {
+    font-size: 24px;
+}
+
+.services-page p {
+    font-size: 18px;
+    margin-bottom: 38px;
+}
+
+.services-page .primary-action {
+    outline: 0;
+    height: 275px;
+}
+
+.services-page .primary-action .btn {
+    margin-top: 175px;
+    border-radius: 0;
+    padding: 15px 60px;
+}
+
+.services-page .page-wrap h2 {
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+.services-page .page-wrap .side-bar h2 {
+    text-transform: none;
+
+}
+
+
+.services-page .content h2::after {
+    content: " ";
+    background: #ffc904;
+    display: block;
+    height: 2px;
+    margin-top: 12px;
+    width: 25px;
+    margin-bottom: 18px;
+}
+
+.services-page .service-social {
+    margin-top: 55px;
+}
+
+
+
+h3.external-link a {
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    font-size: 17px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+
+
+
+h3.external-link a {
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    font-size: 17px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+h3.external-link a::after {    
+    font-family: 'FontAwesome';
+    content: '\f08e';
+    margin:0 5px;
+    text-decoration: none;
+    
+}
+
+
+
+
+/*  sidebar */
+
+
+
+.contact .fa {
+    font-size: 25px;
+    text-align: center;
+    display: block;
+}
+
+.hours .day {
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+    display: block;
+    text-align: center;
+    margin: 0 -3px;
+}
+
+.hours .fa-clock-o {
+    margin: 0 25px 0 15px;
+}
+
+.hours thead {
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+}
+
+
+.hours, .table-bordered>tbody>tr>td, 
+.table-bordered>tbody>tr>th, 
+.table-bordered>tfoot>tr>td, 
+.table-bordered>tfoot>tr>th, 
+.table-bordered>thead>tr>td, 
+.table-bordered>thead>tr>th {
+   outline: 2px solid #fff;
+}
+
+.side-bar .table-bordered>tbody>tr>td, .side-bar .table-bordered {
+    border: none;
+}
+
+
+.side-bar tr td:nth-child(odd){ 
+    background: #ffc409;
+}
+
+.side-bar tr td:nth-child(even){
+    background: #fff0d5;
+    padding-left: 30px;
+}
+
+
+
+
+
+.side-bar .hours thead { 
+    background: #d5d5d5;
+}
+
+
+.side-bar .hours tr td:nth-child(odd){ 
+    background: #d5d5d5;
+}
+
+.side-bar .hours tr td:nth-child(even){
+    background: #e6e6e6;
+}
+
+.side-bar .hours tr td.active:nth-child(odd) { 
+    background: #aeeebf;
+}
+
+.side-bar .hours tr td.active:nth-child(even) { 
+    background: #d5f1dd;
+}
+
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 12px;
+    line-height: inherit; 
+    vertical-align: auto; 
+  border-top: none; 
+
+}
+
+.hours .table>tbody>tr>td,.hours  .table>tbody>tr>th,.hours  .table>tfoot>tr>td,.hours  .table>tfoot>tr>th,.hours  .table>thead>tr>td,.hours  .table>thead>tr>th {
+color: #666666;
+}
+
+
+.services-page .side-bar::before {
+    content: "foo";
+    color: transparent;
+    position: absolute;
+    left: -31px;
+    width: 2px;
+    height: 100%;
+    background: #dedede;
+}
+
+
+.side-bar table {
+    font-family: "gotham_lightregular", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+.side-bar table a {
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+}
+
+.side-bar .fa-facebook-official {
+    color: #3B598F;
+    font-size: 65px;
+    margin-bottom: 30px;
+}
+
+
+
+
+
+
+
+
+
+/* FOOTER */
+
+.site-footer a {
+    font-size: 14px;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+.site-footer .site-footer-menu li a {
+    font-size: 11px;
+}
+
+
+
+
+
+
+
+
+/* media queries */
+
+@media (max-width: 991px) {
+    .primary-action {
+        background: #f3f3f3;
+        background-image: none!important;      
+    }
+
+    .primary-action-title {
+        font-size: 16px;
+    }
+
+    .service-social a {
+        margin-left: 20px;
+    }
+
+    .side-bar .panel {
+        border-bottom: 1px solid #dadada;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+    }
+
+    .side-bar .calendar-events {
+        display: none;
+    }
+    .side-bar .primary-action {
+        display: none;
+    }
+
+    .services-page .weather {
+        display: none;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .header-image {
+        height: 350px;
+    }
+
+    .search-bar .form-control::-webkit-input-placeholder {
+        color: #fff;
+
+    }
+
+    .search-bar .form-control:-moz-placeholder {
+        color: #fff;
+    }
+
+    .search-bar .form-control::-moz-placeholder {
+        color: #fff;
+    }
+
+    .search-bar .form-control:-ms-input-placeholder {
+        color: #fff;
+    }
+
+}
+
+
+
+@media screen and (max-width: 767px) {
+    .table-responsive {
+        border: none;
+    }
+
+}
+
