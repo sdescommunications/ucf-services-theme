@@ -1,0 +1,61 @@
+/**
+ * Filter in sidebar.
+ */
+
+/* side-bar */
+
+.side-bar .filter-by {
+    font-family: "archer_boldregular", Georgia, serif;
+    font-size: 19px;
+    border-bottom: 2px solid #ffc409;
+    padding: 5px 0 6px 0;
+    display: block;
+    text-transform: uppercase;
+}
+
+.side-bar .panel {
+    margin-top: 13px;
+    background-color: #fff;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.side-bar .list-group-item {
+    font-family: "gotham_blackregular", Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+    padding: 9px 10px;
+    margin-bottom: 0px;
+    background-color: #fff;
+    border: none;
+}
+
+.side-bar .list-group-item:hover, .side-bar .list-group-item.active {
+    background-color: #eee;
+}
+
+
+
+.side-bar .filter-checkbox {
+    display: none;
+}
+
+.side-bar input[type = "checkbox"]:checked + label {
+    background: #f7f7f7;
+    color: #ffc409;
+    border-radius: 0;
+}
+
+.side-bar input[type = "checkbox"]:checked + label::after {
+    content: "\f00d";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #999;
+    float: right;
+}
