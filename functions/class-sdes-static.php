@@ -118,14 +118,25 @@ class SDES_Static
 	}
 
 
-	// TODO: allow relative URLs (in relation to get_site_url()) if url start with '/'.
 	/**
 	 * Add a protocol to a URL if it does not exist.
 	 * @param string $url The url variable to adjust.
 	 * @param string $protocol The protocol to prepend to the url. (defaults to http://).
 	 */
 	public static function url_ensure_prefix( $url, $protocol = 'http' ) {
-		if ( false === strrpos( $url, '//' ) ) {
+		// Guard to return EITHER same-page anchor links.
+		if ( 0 === strpos( $url, '#')
+		 	|| false !== strrpos( $url, '//' ) // OR protocol-neutral links.
+		 	|| static::is_null_or_whitespace( $url ) ) { 
+			return $url;
+		}
+		
+		// Not a protocol-neutral link or anchor link.
+		if ( 0 === strpos( $url, '/') ) {
+			// Set root of relative links to the site_url (instead of defaulting to the domain).
+			$url = get_site_url() . $url;
+		} else {
+			// Otherwise, add the protocol prefix.
 			$url = $protocol . '://' . $url;
 		}
 		return $url;
