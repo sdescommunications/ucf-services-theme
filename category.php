@@ -52,12 +52,20 @@ get_header();
 					<span class="icon-bar"></span>
 				</button>
 			</div>
-			<div class="collapse navbar-collapse header-center" id="student_service-menu">
+			
+			<div id="student_service-menu">
 				<ul class="nav navbar-nav">
 					<li><a href="<?= bloginfo( 'url' ); ?>"><?= bloginfo( 'name' ); ?></a></li>
 					<li><a href="<?= $cat_link ?>"><?= $cat_name ?></a></li>
 				</ul>
 				<?= WeatherBox::display_weather() ?>
+			</div>
+
+			<div class="collapse navbar-collapse header-center" id="collapse-menu">
+				<ul class="nav navbar-nav">
+					<li><a href="<?= bloginfo( 'url' ); ?>"><?= bloginfo( 'name' ); ?></a></li>
+					<li><a href="<?= $cat_link ?>"><?= $cat_name ?></a></li>
+				</ul>
 			</div>
 	</nav>
 

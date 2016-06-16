@@ -31,7 +31,7 @@ get_header();
 		$mainCategoryId = get_post_meta( get_the_id(), 'student_service_main_category_id', true );
 		$mainCategory = get_term( $mainCategoryId , 'category' );
 	?>
-	<div class="collapse navbar-collapse header-center" id="student_service-menu">
+	<div id="student_service-menu">
 		<ul class="nav navbar-nav">
 			<li><a href="<?= bloginfo( 'url' ); ?>"><?= bloginfo( 'name' ); ?></a></li>
 		<?php if ( $mainCategory && property_exists( $mainCategory, 'name' ) ) : ?>
@@ -40,6 +40,16 @@ get_header();
 			<li><a href="<?= the_permalink();; ?>"><?= the_title(); ?></a></li>
 		</ul>
 		<?= WeatherBox::display_weather() ?>
+	</div>
+
+	<div class="collapse navbar-collapse header-center" id="collapse-menu">
+		<ul class="nav navbar-nav">
+			<li><a href="<?= bloginfo( 'url' ); ?>"><?= bloginfo( 'name' ); ?></a></li>
+		<?php if ( $mainCategory && property_exists( $mainCategory, 'name' ) ) : ?>
+			<li><a href="<?= get_category_link( $mainCategory ); ?>"><?= $mainCategory->name; ?></a></li>
+		<?php endif; ?>
+			<li><a href="<?= the_permalink();; ?>"><?= the_title(); ?></a></li>
+		</ul>
 	</div>
 </nav>
 
