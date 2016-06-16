@@ -290,7 +290,7 @@ class IconLink extends CustomPostType {
 
 class StudentService extends CustomPostType_ServicesTheme {
 	const NAME = 'student_service';
-	const ADDITIONAL_FIELDS_COUNT = 4;
+	const ADDITIONAL_FIELDS_COUNT = 5;
 
 	public
 		$name           = 'student_service',
@@ -320,13 +320,18 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$sc_interface_fields = null; // Fields for shortcodebase interface (false hides from list, null shows only the default fields).
 
 	// TODO: create additional_#-* fields programmatically using self::ADDITIONAL_FIELDS_COUNT.
+	// TODO: separate open and close times - create programmatically from an array of days of the week.
+	// TODO: implement by calling a static `get_fields` method (to also be called from get_render_metadata).
 	public function fields() {
 		$prefix = $this->options( 'name' ).'_';
 		/*
 		 * student_service_main_category_id
+		 * student_service_heading_text
 		 * student_service_short_description
 		 * student_service_events_cal_id
+		 * student_service_map_id
 		 * student_service_news_feed
+		 * student_service_gallery_url-flickr
 		 * student_service_additional_1-title
 		 * student_service_additional_1-url
 		 * student_service_additional_1-description
@@ -339,6 +344,9 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_additional_4-title
 		 * student_service_additional_4-url
 		 * student_service_additional_4-description
+		 * student_service_additional_5-title
+		 * student_service_additional_5-url
+		 * student_service_additional_5-description
 		 * student_service_image
 		 * student_service_primary_action
 		 * student_service_primary_url
@@ -357,6 +365,12 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_social_facebook
 		 * student_service_social_twitter
 		 * student_service_social_youtube
+		 * student_service_social_googleplus
+		 * student_service_social_linkedin
+		 * student_service_social_instagram
+		 * student_service_social_pinterest
+		 * student_service_social_tumblr
+		 * student_service_social_flickr
 		 */
 		return array(
 			array(
@@ -366,6 +380,12 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'type'  => 'taxonomy',
 			),
 			array(
+				'name'  => 'Heading Text',
+				'descr' => 'Text shown over the featured (header) image.',
+				'id'    => $prefix.'heading_text',
+				'type'  => 'text',
+			),
+			array(
 				'name'  => 'Short Description',
 				'descr' => 'A short description of the service.',
 				'id'    => $prefix.'short_description',
@@ -373,14 +393,26 @@ class StudentService extends CustomPostType_ServicesTheme {
 			),
 			array(
 				'name'  => 'UCF Events Calendar ID',
-				'descr' => 'The UCF Events feed calendar ID.',
+				'descr' => 'The UCF Events feed calendar ID from events.ucf.edu.',
 				'id'    => $prefix.'events_cal_id',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'UCF Map ID',
+				'descr' => 'The UCF Map ID from map.ucf.edu.',
+				'id'    => $prefix.'map_id',
 				'type'  => 'text',
 			),
 			array(
 				'name'  => 'News Feed (RSS or XML)',
 				'descr' => 'A news feed to display for this service.',
 				'id'    => $prefix.'news_feed',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Gallery URL - Flickr',
+				'descr' => 'A link to a flickr gallery.',
+				'id'    => $prefix.'gallery_url-flickr',
 				'type'  => 'text',
 			),
 			array(
@@ -453,6 +485,24 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'name'  => 'Additional Services 4 - Description',
 				'descr' => '',
 				'id'    => $prefix.'additional_4-description',
+				'type'  => 'textarea',
+			),
+			array(
+				'name'  => 'Additional Services 5 - Title',
+				'descr' => '',
+				'id'    => $prefix.'additional_5-title',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Additional Services 5 - URL',
+				'descr' => '',
+				'id'    => $prefix.'additional_5-url',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Additional Services 5 - Description',
+				'descr' => '',
+				'id'    => $prefix.'additional_5-description',
 				'type'  => 'textarea',
 			),
 			array(
@@ -563,6 +613,42 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'id'    => $prefix.'social_youtube',
 				'type'  => 'text',
 			),
+			array(
+				'name'  => 'Social - Google Plus',
+				'descr' => '',
+				'id'    => $prefix.'social_googleplus',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Social - LinkedIn',
+				'descr' => '',
+				'id'    => $prefix.'social_linkedin',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Social - Instagram',
+				'descr' => '',
+				'id'    => $prefix.'social_instagram',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Social - Pinterest',
+				'descr' => '',
+				'id'    => $prefix.'social_pinterest',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Social - Tumblr',
+				'descr' => '',
+				'id'    => $prefix.'social_tumblr',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Social - Flickr',
+				'descr' => '',
+				'id'    => $prefix.'social_flickr',
+				'type'  => 'text',
+			),
 			// array(
 			// 	'name'  => 'Menu',
 			// 	'descr' => '',
@@ -578,6 +664,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		);
 	}
 
+	// TODO: generate get_render_metadata using a self::get_fields method, return as `(object)array()`.
 	/**
 	 * Return an array of only the metadata fields used to create a render context.
 	 * @param WP_Post $stusvc The stusvc whose metadata should be retrieved.
@@ -586,7 +673,11 @@ class StudentService extends CustomPostType_ServicesTheme {
 	private static function get_render_metadata( $stusvc ) {
 		$metadata_fields = array();
 		$metadata_fields['stusvc_main_category_id'] = get_post_meta( $stusvc->ID, 'student_service_main_category_id', true ) ?: -1;
+		$metadata_fields['stusvc_heading_text'] = get_post_meta( $stusvc->ID, 'student_service_heading_text', true );
 		$metadata_fields['stusvc_short_descr'] = get_post_meta( $stusvc->ID, 'student_service_short_description', true );
+		$metadata_fields['stusvc_gallery'] = array(
+			'flickr' => get_post_meta( $stusvc->ID, 'student_service_gallery_url-flickr', true )
+		);
 		$metadata_fields['stusvc_additional'] = 
 		 Arrays::each(
 		  Arrays::range( static::ADDITIONAL_FIELDS_COUNT ),
@@ -619,11 +710,20 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$metadata_fields['stusvc_social_facebook'] = get_post_meta( $stusvc->ID, 'student_service_social_facebook', true );
 		$metadata_fields['stusvc_social_twitter']  = get_post_meta( $stusvc->ID, 'student_service_social_twitter', true );
 		$metadata_fields['stusvc_social_youtube']  = get_post_meta( $stusvc->ID, 'student_service_social_youtube', true );
- 		$metadata_fields['stusvc_events_cal_id']   = get_post_meta( $stusvc->ID, 'student_service_events_cal_id', true );
+		$metadata_fields['stusvc_social_googleplus'] = get_post_meta( $stusvc->ID, 'student_service_social_googleplus', true );
+		$metadata_fields['stusvc_social_linkedin']  = get_post_meta( $stusvc->ID, 'student_service_social_linkedin', true );
+		$metadata_fields['stusvc_social_instagram']  = get_post_meta( $stusvc->ID, 'student_service_social_instagram', true );
+		$metadata_fields['stusvc_social_pinterest'] = get_post_meta( $stusvc->ID, 'student_service_social_pinterest', true );
+		$metadata_fields['stusvc_social_tumblr']  = get_post_meta( $stusvc->ID, 'student_service_social_tumblr', true );
+		$metadata_fields['stusvc_social_flickr']  = get_post_meta( $stusvc->ID, 'student_service_social_flickr', true );
+		$metadata_fields['stusvc_events_cal_id']   = get_post_meta( $stusvc->ID, 'student_service_events_cal_id', true );
+		$metadata_fields['stusvc_map_id']           = get_post_meta( $stusvc->ID, 'student_service_map_id', true );
 		$metadata_fields['stusvc_news_feed']       = get_post_meta( $stusvc->ID, 'student_service_news_feed', true );
 		return $metadata_fields;
 	}
 
+	// TODO: cast output to `(object) array()` to save on typing and code noise. i.e, $context->title instead of $context['title'].
+	// TODO: group hours into a single container, e.g., $context->hours->monday->open.
 	/**
 	 * Generate a render context for a student_service, given its WP_Post object and an array of its metadata fields.
 	 * Expected fields:
@@ -640,11 +740,13 @@ class StudentService extends CustomPostType_ServicesTheme {
 			: null;
 		return array(
 			'permalink' => get_permalink( $stusvc ),
+			'heading' => $metadata_fields['stusvc_heading_text'],
 			'title' => $stusvc->post_title,
 			'main_category' => $category,
 			'main_category_name' => $category_name,
 			'short_descr' => $metadata_fields['stusvc_short_descr'],
 			'long_descr' => $stusvc->post_content,
+			'gallery' => $metadata_fields['stusvc_gallery'],
 			'additional' => $metadata_fields['stusvc_additional'],
 			'image' => $metadata_fields['stusvc_image'],
 			'image_alt' => $metadata_fields['stusvc_image_alt'],
@@ -666,7 +768,14 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'social_facebook' => $metadata_fields['stusvc_social_facebook'],
 			'social_twitter' => $metadata_fields['stusvc_social_twitter'],
 			'social_youtube' => $metadata_fields['stusvc_social_youtube'],
+			'social_googleplus' => $metadata_fields['stusvc_social_googleplus'],
+			'social_linkedin' => $metadata_fields['stusvc_social_linkedin'],
+			'social_instagram' => $metadata_fields['stusvc_social_instagram'],
+			'social_pinterest' => $metadata_fields['stusvc_social_pinterest'],
+			'social_tumblr' => $metadata_fields['stusvc_social_tumblr'],
+			'social_flickr' => $metadata_fields['stusvc_social_flickr'],
 	 		'events_cal_id' => $metadata_fields['stusvc_events_cal_id'],
+	 		'map_id' => $metadata_fields['stusvc_map_id'],
 			'news_feed' => $metadata_fields['stusvc_news_feed'],
 		);
 	}
@@ -719,6 +828,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 	protected static function render_single_page( $context ) {
 		ob_start();
 		?>
+			<div class="heading"><?= $context['heading'] ?></div>
 			<span class="left-column">
 				<div class="title"><h2><?= $context['title'] ?></h2></div>
 				<hr>
@@ -739,6 +849,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 					</div>
 				<?php endif;
 				endforeach; ?>
+				<div class="gallery"><?= $context['gallery']['flickr'] ?></div>
 			</span>
 			<hr>
 			<span class="right-column">
@@ -750,7 +861,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 				<hr>
 				<div class="spotlight"><?= $context['spotlight'] ?></div>
 				<hr>
-
 				<div class="phone"><?= $context['phone'] ?></div>
 				<hr>
 				<div class="email"><?= $context['email'] ?></div>
@@ -779,7 +889,21 @@ class StudentService extends CustomPostType_ServicesTheme {
 				<hr>
 				<div class="social_youtube"><?= $context['social_youtube'] ?></div>
 				<hr>
+				<div class="social_googleplus"><?= $context['social_googleplus'] ?></div>
+				<hr>
+				<div class="social_linkedin"><?= $context['social_linkedin'] ?></div>
+				<hr>
+				<div class="social_instagram"><?= $context['social_instagram'] ?></div>
+				<hr>
+				<div class="social_pinterest"><?= $context['social_pinterest'] ?></div>
+				<hr>
+				<div class="social_tumblr"><?= $context['social_tumblr'] ?></div>
+				<hr>
+				<div class="social_flickr"><?= $context['social_flickr'] ?></div>
+				<hr>
 				<div class="events_cal_id"><?= $context['events_cal_id'] ?></div>
+				<hr>
+				<div class="map_id"><?= $context['map_id'] ?></div>
 				<hr>
 				<div class="news_feed"><?= $context['news_feed'] ?></div>
 				<hr>
