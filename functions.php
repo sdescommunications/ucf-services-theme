@@ -41,10 +41,12 @@ function enqueue_scripts_and_styles(){
 function img_add_responsive_class_content( $content ){
     if ( SDES_Static::is_null_or_whitespace( $content) ) { return $content; }
     
-    $content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
+    if ( function_exists( 'mb_convert_encoding' ) ) {
+        $content = utf8_decode( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+    }
     $document = new DOMDocument();
     libxml_use_internal_errors( true );
-    $document->loadHTML( utf8_decode( $content ) );
+    $document->loadHTML( $content );
 
     $imgs = $document->getElementsByTagName( 'img' );
     foreach ( $imgs as $img ) {
