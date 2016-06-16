@@ -1,0 +1,72 @@
+/**
+ * Display a service within a list.
+ */
+
+/* services */
+
+.service {
+    margin-bottom: 30px;
+}
+
+.service-details a {
+    color: #272727;
+    text-decoration: none;
+
+}
+.service-details a:hover {
+    color: #666;
+}
+
+.service-social {
+    float: right;
+}
+
+.service-social a {
+    text-decoration: none;
+    position: relative;
+    display: inline;
+    font-size: 25px;
+    margin-left: 47px;
+    color: #909090;
+
+}
+
+.service-social a:hover {
+    color: #d0d0d0;
+
+}
+
+.service-title {
+    font-family: "archer_boldregular", Georgia, serif;
+    font-size: 27px;
+    margin-top: -10px;
+
+}
+
+.service-title::after {
+content: " ";
+    background: #ffc904;
+    display: block;
+    height: 2px;
+    margin-top: 0px;
+    width: 25px;
+    margin-bottom: 9px;
+}
+
+.service-category {
+    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 15px;
+    display: block;
+    font-size: 12px;
+}
+
+.service img {
+    width: 100%;
+    margin-bottom: 20px;
+    transition: .3s all;
+}
+.service img:hover {
+    opacity: .8;
+}

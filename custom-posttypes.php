@@ -798,16 +798,32 @@ class StudentService extends CustomPostType_ServicesTheme {
 	protected static function render_to_html( $context ) {
 		ob_start();
 		?>
-		<div class="image">
-			<img src="<?= $context['image_thumbnail_src'] ?>" alt="<?= $context['image_alt'] ?>">
-		</div>
-		<div class="title">
-				<a href="<?= $context['permalink'] ?>">
-						<?= $context['title'] ?>
-				</a>
-		</div>
-		<div class="main-category-name"><?= $context['main_category_name'] ?></div>
-		<div class="short-description"><?= $context['short_descr'] ?></div>
+		<div class="row service">
+			<div class="col-sm-4">
+				<img class="service-image" src="<?= $context['image_thumbnail_src'] ?>" alt="<?= $context['image_alt'] ?>">
+			</div>
+			<div class="col-sm-8">
+				<div class="service-social">				
+					<a href="<?= $context['social_facebook'] ?>"><span class="fa fa-thumbs-o-up"></span></a>		
+					<a href="<?= $context['social_twitter'] ?>"><span class="fa fa-twitter"></span></a>
+					<a href="#"><span class="fa fa-share-alt"></span></a>
+				</div>
+
+				<div class="service-details">
+					<div class="service-title">
+						<a href="<?= $context['permalink'] ?>">
+								<?= $context['title'] ?>
+						</a>
+					</div>
+					<div class="service-category">
+						<a href=""><?= $context['main_category_name'] ?></a>
+					</div>
+					<p>
+						<?= $context['short_descr'] ?>
+					</p>
+				</div>
+			</div>
+		</div> <!-- /.service -->
 		<?php
 		$html = ob_get_clean();
 		return $html;
