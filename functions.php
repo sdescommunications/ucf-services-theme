@@ -58,8 +58,7 @@ function img_add_responsive_class_content( $content ){
         }
     }
 
-    $html = $document->saveHTML();
-    return $html;
+    return $document->textContent;
 }
 add_filter('the_content', 'img_add_responsive_class_content');
 
