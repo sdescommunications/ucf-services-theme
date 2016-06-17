@@ -744,6 +744,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'title' => $stusvc->post_title,
 			'main_category' => $category,
 			'main_category_name' => $category_name,
+			'main_category_link' => get_category_link( $category ),
 			'short_descr' => $metadata_fields['stusvc_short_descr'],
 			'long_descr' => $stusvc->post_content,
 			'gallery' => $metadata_fields['stusvc_gallery'],
@@ -778,6 +779,25 @@ class StudentService extends CustomPostType_ServicesTheme {
 	 		'map_id' => $metadata_fields['stusvc_map_id'],
 			'news_feed' => $metadata_fields['stusvc_news_feed'],
 		);
+	}
+
+	/**
+	 * Render HTML for a collection of objects.
+	 * @param Array $context An array of sanitized variables to display with this view.
+	 * @uses toHTML() toHTML()
+	 * @usedby render_objects_to_html()
+	 */
+	protected static function render_objects_to_html( $context ) {
+		ob_start();
+		?>
+			<span class="<?= $context['css_classes'] ?>">
+			<?php foreach ( $context['objects'] as $o ) : ?>
+				<?= static::toHTML( $o ) ?>
+			<?php endforeach;?>
+			</span>
+		<?php
+		$html = ob_get_clean();
+		return $html;
 	}
 
 	/**
@@ -816,7 +836,11 @@ class StudentService extends CustomPostType_ServicesTheme {
 						</a>
 					</div>
 					<div class="service-category">
-						<a href=""><?= $context['main_category_name'] ?></a>
+					  <?php if ( '' !== $context['main_category_link'] ) : ?>
+						<a href="<?= $context['main_category_link'] ?>"><?= $context['main_category_name'] ?></a>
+					  <?php else: ?>
+					  	<?= $context['main_category_name'] ?>
+					  <?php endif; ?>
 					</div>
 					<p>
 						<?= $context['short_descr'] ?>
