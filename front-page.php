@@ -57,8 +57,10 @@ get_header();
 				<div class="col-md-6 col-md-offset-3 search-bar">
 					<div class="search-bar">
 						<form action="#">
-							<button class="fa fa-search"></button>
-							<input type="search" class="form-control" placeholder="<?= $frontsearch_placeholder ?>">
+							<span class="fa fa-search"></span>
+							<input type="search" class="form-control"
+								placeholder="<?= $frontsearch_placeholder ?>"
+								aria-label="Search for student services.">
 						</form>
 					</div>
 				</div>
@@ -84,7 +86,9 @@ get_header();
 								<li class="cat-item cat-item-<?= $category->cat_ID ?>">
 									<input class="filter-checkbox" type="checkbox" id="filter-services-<?= $category->cat_ID ?>">
 									<label class="list-group-item filter-label" for="filter-services-<?= $category->cat_ID ?>">
+										<a href="<?= get_category_link( $category ) ?>">
 											<?= $category->name ?>
+										</a>
 									</label>
 								</li>
 							<?php endforeach;
@@ -92,6 +96,10 @@ get_header();
 								 echo '<!-- No categories -->';
 							endif; ?>
 						</ul>
+						<script>
+							// Remove link to category if javascript is enabled.
+							jQuery('label.filter-label a').each( function() { $(this).contents().unwrap(); } );
+						</script>
 					</div>
 				</span>
 				<div class="clearfix"></div>
