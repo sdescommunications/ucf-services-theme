@@ -17,8 +17,8 @@ body.no-js {
 
 /* https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_header.scss#L170-L259 */
 .site-header {
-  margin-bottom: 20px;
-  padding-bottom: 70px;
+  padding-bottom: 0px;
+  margin-bottom: 30px;
 
   @media (max-width: $screen-xs-max) {
     padding-bottom: 20px;

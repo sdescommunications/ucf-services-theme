@@ -1,85 +1,58 @@
 /**
- * Search on front page.
+ * Search section on front page.
  */
  
-/* search */
-
 .search {
     padding: 0 0 50px 0;
     border-bottom: 2px solid #ccc;
     margin: 0 0 30px 0;
+
+    a {
+        color: #272727;
+        text-decoration: none;
+    }
+
+    .search-lead {
+        font-family: "gotham_lightregular", helvetica, arial, sans-serif;
+        margin: 0 auto 30px auto;
+        display: block;
+        text-align: center;
+        font-size: 27px;
+        letter-spacing: 1px;
+    }
 }
 
-.search a {
-    color: #272727;
-    text-decoration: none;
-}
-
-.search-lead {
-    font-family: "gotham_lightregular", helvetica, arial, sans-serif;
-    margin: 0 auto 30px auto;
-    display: block;
-    text-align: center;
-    font-size: 27px;
-    letter-spacing: 1px;
-}
 
 .search-bar {
     position: relative;
-}
 
-.search-bar .fa-search {
-    position: absolute;
-    padding: 16px;
-    font-size: 23px;
-    color: #999;
-    background: transparent;
-    border: 0;
-    transition: .3s all;
+    .fa-search {
+        position: absolute;
+        padding: 16px;
+        font-size: 23px;
+        color: #999;
+        background: transparent;
+        border: 0;
+        transition: .3s all;
+        right: 0px;
+        &:hover {
+            color: #272727;
+        }
+    }
 
-}
+    input {
+        padding-right: 30px;
+        color: #555
+    }
 
-.search-bar .fa-search {
-    right: 0px;
-}
-
-
-.search-bar .fa-search:hover {
-    color: #272727;
-}
-
-.search-bar input {
-    padding-right: 30px;
-}
-
-
-
-.search-bar .form-control {
-    height: 57px;
-    box-shadow: none;
-}
-
-
-.search-bar .form-control::-webkit-input-placeholder {
-    color: #272727;
-    font-size: 17px;
-    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
-}
-
-.search-bar .form-control:-moz-placeholder {
-    color: #272727;
-    font-size: 17px;
-    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
-}
-
-.search-bar .form-control::-moz-placeholder {
-    color: #272727;
-    font-size: 17px;
-    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
-}
-
-.search-bar .form-control:-ms-input-placeholder {
-    color: #272727;
-    font-size: 17px;
-    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+    .form-control {
+        height: 57px;
+        box-shadow: none;
+        // NOTE: relies on autoprefixer. Otherwise, add a mixin to _mixins.scss, maybe http://stackoverflow.com/a/17181946.
+        &::placeholder {
+            color: #272727;
+            font-size: 17px;
+            font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+        }
+    }
 }

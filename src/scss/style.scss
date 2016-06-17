@@ -56,6 +56,37 @@ body.jsEnabled .noscript {
 
 
 
+
+/* general */
+body {
+    font-family: "gotham_lightregular", helvetica, arial, sans-serif;
+    // font-size: 15px;
+    line-height: 1.72857;
+    // color: #272727;
+    // font-weight: 600;
+
+}
+
+* {
+    transition : all .1s linear
+}
+
+
+article.page-wrap {
+	h2.title {
+	    font-family: "gotham_lightregular", Helvetica, Arial, sans-serif;
+	    font-weight: 700;
+	    margin-bottom: 30px;
+	    margin-top: 0;
+	    border-bottom: 2px solid #cecece;
+	    padding-bottom: 10px;
+	}
+}
+
+
+
+
+
 /* WP new image alignment -------------------------------------------------------------------------------------------
 https://codex.wordpress.org/Wrapping_Text_Around_Images*/
 img.alignright { float: right; margin: 0 0 1em 1em; }
