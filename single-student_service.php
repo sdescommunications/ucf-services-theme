@@ -16,8 +16,9 @@ get_header();
 
 <div style="height: 300px;"></div>
 
-<nav id="student_service-navbar" class="navbar navbar-gold">
-	<div class="container-fluid">
+<nav id="student_service-navbar" class="navbar navbar-gold breadcrumbs">
+	<div class="container">
+	  <div class="row">
 		<div class="navbar-header">
 			<span class="navbar-title">Skip To Section</span>
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#student_service-menu">
@@ -31,26 +32,21 @@ get_header();
 		$mainCategoryId = get_post_meta( get_the_id(), 'student_service_main_category_id', true );
 		$mainCategory = get_term( $mainCategoryId , 'category' );
 	?>
+		
 	<div id="student_service-menu">
 		<ul class="nav navbar-nav">
 			<li><a href="<?= bloginfo( 'url' ); ?>"><?= bloginfo( 'name' ); ?></a></li>
 		<?php if ( $mainCategory && property_exists( $mainCategory, 'name' ) ) : ?>
 			<li><a href="<?= get_category_link( $mainCategory ); ?>"><?= $mainCategory->name; ?></a></li>
 		<?php endif; ?>
-			<li><a href="<?= the_permalink();; ?>"><?= the_title(); ?></a></li>
+			<li class="active-breadcrumb"><span class="active-pad"><?= the_title(); ?></span></li>
 		</ul>
-		<?= WeatherBox::display_weather() ?>
+		<div class="navbar-right">
+			<?= WeatherBox::display_weather() ?>
+		</div>
 	</div>
-
-	<div class="collapse navbar-collapse header-center" id="collapse-menu">
-		<ul class="nav navbar-nav">
-			<li><a href="<?= bloginfo( 'url' ); ?>"><?= bloginfo( 'name' ); ?></a></li>
-		<?php if ( $mainCategory && property_exists( $mainCategory, 'name' ) ) : ?>
-			<li><a href="<?= get_category_link( $mainCategory ); ?>"><?= $mainCategory->name; ?></a></li>
-		<?php endif; ?>
-			<li><a href="<?= the_permalink();; ?>"><?= the_title(); ?></a></li>
-		</ul>
-	</div>
+	  </div> <!-- /.row -->
+	</div> <!-- /.container -->
 </nav>
 
 <article>

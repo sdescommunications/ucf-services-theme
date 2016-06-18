@@ -207,3 +207,53 @@
     }
   }
 }
+
+
+// TODO: replace hard-coded scss variables (e.g., font-family, UCF colors).
+.navbar-gold.breadcrumbs {
+  margin-left: -25px;
+  margin-bottom: 0;
+  .navbar-nav {
+    > li {
+      /*
+      font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+      float: left;
+      */
+      list-style-type: none;
+      /*
+      margin: 0;
+      padding: 17px 11px 10px 0;
+      text-transform: uppercase;
+      */
+      font-size: 13px;
+      &:hover,
+      &:focus,
+      a:hover {
+        background: none;
+      }
+      &.active-breadcrumb {
+        color: #fff;
+        background-color: $ucf-gold;
+        text-decoration: underline;
+        > .active-pad {
+          padding: 17px 15px;
+          display: block;
+          position: relative;
+        }
+      }
+      + li:before {
+        content: ">";
+        float: left;
+        padding: 17px 0px;
+        color: #272727;
+      }
+      > a {
+        color: #272727;
+        margin-right: 9px;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
