@@ -202,23 +202,50 @@ class Spotlight extends CustomPostType {
 		$btn_styles = array();
 		if ( $btn_background ) : $btn_styles[] = 'background: '.$btn_background; endif;
 		if ( $btn_foreground ) : $btn_styles[] = 'color: '.$btn_foreground; endif;
+		$btn_styles = ( !empty( $btn_styles) ) ? implode( ' ', $btn_styles ) : '';
 		ob_start();
-		if ( $image_url && $url ) :
-	?>
-		<a class="call-to-action" href="<?php echo $url; ?>" target="_blank">
-			<img src="<?php echo $image_url; ?>" alt="<?php echo $object->post_title; ?>">
-			<h2 <?php if ( $title_color ) : echo 'style="color: '.$title_color.'"'; ?>><?php echo $object->post_title; endif; ?></h2>
-			<?php if ( $btn_text ) : ?>
-			<div class="btn-wrapper">
-				<span class="btn btn-lg btn-ucf" <?php if ( !empty( $btn_styles) ) : echo implode( ' ', $btn_styles ); endif; ?>>
-					<?php echo $btn_text; ?>
-				</span>
-			</div>
-			<?php endif; ?>
-		</a>
-	<?php
-		endif;
-		return ob_get_clean();
+		if ( ! ( $image_url && $url ) ) return;
+		$context = (object) array(
+			'url' => $url,
+			'image_url' => $image_url,
+			'image_alt' => $object->post_title,
+			'title' => $object->post_title,
+			'title_color' => $title_color,
+			'btn_text' => $btn_text,
+			'btn_styles' => $btn_styles,
+		);
+		return static::render_to_html( $context );
+	}
+
+	/**
+	 * Render the HTML template for listing a spotlight.
+	 * Expected properties:
+	 * $context - url, image_url, image_alt, title, title_color, btn_text, btn_styles.
+	 */
+	public static function render_to_html( $context ) {
+		$context->style = ( $context->title_color )
+			? 'color: ' . $context->title_color . ';'
+			: '';
+		ob_start();
+		?>
+			<a class="call-to-action" href="<?= $context->url ?>" target="_blank">
+				<img src="<?= $context->image_url ?>" alt="<?= $context->image_alt ?>">
+			  <?php if ( $context->title ) : ?>
+				<h2 style="<?= $context->style ?>">
+					<?= $context->title; ?>
+				</h2>
+			  <?php endif;
+			  if ( $context->btn_text ) : ?>
+				<div class="btn-wrapper">
+					<span class="btn btn-lg btn-ucf" style="<?= $context->btn_styles ?>">
+						<?= $context->btn_text ?>
+					</span>
+				</div>
+			  <?php endif; ?>
+			</a>
+		<?php
+		$html = ob_get_clean();
+		return $html;
 	}
 }
 
