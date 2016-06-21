@@ -823,11 +823,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 				<img class="service-image" src="<?= $context['image_thumbnail_src'] ?>" alt="<?= $context['image_alt'] ?>">
 			</div>
 			<div class="col-sm-8">
-				<div class="service-social">				
-					<a href="<?= $context['social_facebook'] ?>"><span class="fa fa-thumbs-o-up"></span></a>		
-					<a href="<?= $context['social_twitter'] ?>"><span class="fa fa-twitter"></span></a>
-					<a href="#"><span class="fa fa-share-alt"></span></a>
-				</div>
+				<?= self::render_like_tweet_share( $context ) ?>
 
 				<div class="service-details">
 					<div class="service-title">
@@ -868,31 +864,65 @@ class StudentService extends CustomPostType_ServicesTheme {
 	protected static function render_single_page( $context ) {
 		ob_start();
 		?>
-			<div class="heading"><?= $context['heading'] ?></div>
-			<span class="left-column">
-				<div class="title"><h2><?= $context['title'] ?></h2></div>
-				<hr>
-				<div class="main-category-name"><?= $context['main_category_name'] ?></div>
-				<hr>
-				<div class="short-description"><?= $context['short_descr'] ?></div>
-				<hr>
-				<div class="long-description"><?= $context['long_descr'] ?></div>
-				<hr>
-				<?php foreach ( $context['additional'] as $idx => $link ) :
+			<div class="container-fluid">
+			  <div class="row">
+				<div class="col-sm-12">
+					<h1><?= $context['title'] ?></h1>
+					<?= self::render_like_tweet_share( $context ) ?>
+				</div>
+			  </div>
+			</div>
+			<!-- / Title and Social -->
+
+			<div class="container-fluid">
+			  <div class="row">
+				<div class="col-md-4 col-md-push-8 side-bar">
+					<?= self::render_spotlight( $context ) ?>
+					<?= self::render_contact_table( $context ) ?>
+					<?= self::render_hours_table( $context ) ?>
+					<?= self::render_social_buttons( $context ) ?>
+					<?= self::render_events_calendar( $context ) ?>
+				</div> <!-- /.side-bar -->
+				<div class="col-sm-12 col-md-7 col-lg-7 col-md-pull-4">
+					<?= $context['long_descr'] ?>
+
+					<h2>Additional Services</h2>
+					<?php foreach ( $context['additional'] as $idx => $link ) :
 					if ( '' != $link['title'] ) :
-				?>
-					<div class="additional-<?= $idx ?>">
-						<a href="<?= $link['url'] ?>">
-							<?= $link['title'] ?>
-						</a>
-						<p><?= $link['descr'] ?></p>
-					</div>
-				<?php endif;
-				endforeach; ?>
-				<div class="gallery"><?= $context['gallery']['flickr'] ?></div>
-			</span>
-			<hr>
-			<span class="right-column">
+					?>
+						<div class="additional-<?= $idx ?>">
+							<h3 class="external-link"><a href="<?= $link['url'] ?>">
+								<?= $link['title'] ?>
+							</a></h3>
+							<p><?= $link['descr'] ?></p>
+						</div>
+					<?php endif;
+					endforeach; ?>
+
+					<div class="gallery"><?= $context['gallery']['flickr'] ?></div>
+				</div>
+			  </div> <!-- /.row -->
+			</div> <!-- /.container-fluid -->
+		<?php
+		$html = ob_get_clean();
+		return $html;
+	}
+
+	public static function render_like_tweet_share( $context ){
+		ob_start();
+		?>
+			<div class="service-social">
+				<a href="<?= $context['social_facebook'] ?>"><span class="fa fa-thumbs-o-up"></span></a>		
+				<a href="<?= $context['social_twitter'] ?>"><span class="fa fa-twitter"></span></a>
+				<a href="#"><span class="fa fa-share-alt"></span></a>
+			</div>
+		<?php
+		$html = ob_get_clean();
+		return $html;
+	}
+	public static function render_spotlight( $context ){
+		ob_start();
+		?>
 				<div class="image"><?= $context['image'] ?></div>
 				<hr>
 				<div class="primary_action"><?= $context['primary_action'] ?></div>
@@ -901,6 +931,21 @@ class StudentService extends CustomPostType_ServicesTheme {
 				<hr>
 				<div class="spotlight"><?= $context['spotlight'] ?></div>
 				<hr>
+			<div class="primary-action" style="background-image: url('static/img/primary-action-image-service.jpg');">
+				<div class="primary-action-content">
+					<button class="btn btn-default btn-lg" type="button">
+						APPLY FOR AID
+					</button>
+				</div>
+			</div>
+		<?php
+		$html = ob_get_clean();
+		return $html;
+	}
+
+	public static function render_contact_table( $context ){
+		ob_start();
+		?>
 				<div class="phone"><?= $context['phone'] ?></div>
 				<hr>
 				<div class="email"><?= $context['email'] ?></div>
@@ -909,6 +954,36 @@ class StudentService extends CustomPostType_ServicesTheme {
 				<hr>
 				<div class="location"><?= $context['location'] ?></div>
 				<hr>
+			<div class="table-responsive contact">
+				<table class="table table-bordered">
+					<tbody>
+						<tr>
+							<td><span class="fa fa-envelope-o"></span></td>
+							<td><a href="#">example@ucf.edu</a></td>
+						</tr>
+						<tr>
+							<td><span class="fa fa-phone"></span></td>
+							<td><a href="#">555-123-4567</a></td>
+						</tr>
+						<tr>
+							<td><span class="fa fa-chain"></span></td>
+							<td><a href="#">http://ucf.edu</a></td>
+						</tr>
+						<tr>
+							<td><span class="fa fa-map-marker"></span></td>
+							<td><a href="#">Building Location</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		<?php
+		$html = ob_get_clean();
+		return $html;
+	}
+
+	public static function render_hours_table( $context ){
+		ob_start();
+		?>
 				<div class="hours_monday"><?= $context['hours_monday'] ?></div>
 				<hr>
 				<div class="hours_tuesday"><?= $context['hours_tuesday'] ?></div>
@@ -923,6 +998,58 @@ class StudentService extends CustomPostType_ServicesTheme {
 				<hr>
 				<div class="hours_sunday"><?= $context['hours_sunday'] ?></div>
 				<hr>
+			<div class="table-responsive hours">
+				<table class="table table-bordered">
+					<thead>
+						<tr><th colspan="2"><span class="fa fa-clock-o"></span> HOURS OF OPERATION</th></tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><div class="day">M</div></td>
+							<td><?= $context['hours_monday'] ?></td>
+						</tr>
+						<tr>
+							<td><div class="day">T</div></td>
+							<td><?= $context['hours_tuesday'] ?></td>
+						</tr>
+						<tr>
+							<td class="active"><div class="day">W</div></td>
+							<td class="active"><?= $context['hours_wednesday'] ?></td>
+						</tr>
+						<tr>
+							<td><div class="day">TH</div></td>
+							<td><?= $context['hours_thursday'] ?></td>
+						</tr>
+						<tr>
+							<td><div class="day">F</div></td>
+							<td><?= $context['hours_tuesday'] ?></td>
+						</tr>
+						<tr>
+							<td><div class="day">SA</div></td>
+							<td><?= $context['hours_saturday'] ?></td>
+						</tr>
+						<tr>
+							<td><div class="day">SU</div></td>
+							<td><?= $context['hours_sunday'] ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		<?php
+		$html = ob_get_clean();
+		return $html;
+	}
+
+	public static function render_social_buttons( $context ){
+		$network_names = array( 'facebook', 'twitter', 'youtube', 'googleplus', 'linkedin', 'instagram', 'pinterest', 'tumblr', 'flickr' );
+		$networks = array();
+		foreach ( $network_names as $name ) {
+			array_push( $networks,
+				(object) array( 'name' => $name, 'url' => $context[ "social_{$name}" ], 'faicon' => "fa-{$name}-official" )
+			);
+		}
+		ob_start();
+		?>
 				<div class="social_facebook"><?= $context['social_facebook'] ?></div>
 				<hr>
 				<div class="social_twitter"><?= $context['social_twitter'] ?></div>
@@ -941,13 +1068,44 @@ class StudentService extends CustomPostType_ServicesTheme {
 				<hr>
 				<div class="social_flickr"><?= $context['social_flickr'] ?></div>
 				<hr>
+			<div class="social">
+				<h2>Get social with <?= $context['title'] ?></h2>
+			  <?php foreach ( $networks as $network ) : ?>
+				<a href="<?= $network->url ?>"><span class="fa <?= $network->faicon ?>"></span></a>
+			  <?php endforeach; ?>
+			</div>
+		<?php
+		$html = ob_get_clean();
+		return $html;
+	}
+
+	public static function render_events_calendar( $context ){
+		// $events = get_events( $context['events_cal_id'] );
+		$events = array(
+				(object) array( 'title' => 'Event Title', 'date' => 'January 1',
+				 'description'=> 'A description of the event.'),
+			);
+		ob_start();
+		?>
 				<div class="events_cal_id"><?= $context['events_cal_id'] ?></div>
 				<hr>
 				<div class="map_id"><?= $context['map_id'] ?></div>
 				<hr>
 				<div class="news_feed"><?= $context['news_feed'] ?></div>
 				<hr>
-			</span>
+			<div class="calendar-events">
+				<span class="calendar-events-title"><span class="fa fa-calendar-o calendar-icon"></span> Events Calendar</span>
+				<div>
+				  <?php foreach ( $events as $event ) : ?>
+					<div class="event">
+						<div class="title"><a href="#"><?= $event->title ?></a></div>
+						<div class="date"><?= $event->date ?></div>
+						<div class="description"><?= $event->description ?></div>
+					</div>
+				  <?php endforeach; ?>
+					<a class="all-link external" href="#">More Events ›</a>
+				</div>
+			</div>
 		<?php
 		$html = ob_get_clean();
 		return $html;

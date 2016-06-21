@@ -1,0 +1,133 @@
+/*
+ * Services page
+ */ 
+
+
+.services-page .site-header {
+    margin-bottom: 0;
+}
+
+
+.services-page .header-center .title-header-container>span {
+    font-size: 50px;
+}
+
+.services-page h1 {
+    font-family: "archer_boldregular", Georgia, serif;
+    display: inline-block;
+    font-size: 47px;
+    margin: 40px 0 30px 0;
+}
+
+
+.services-page h1::after {
+    content: " ";
+    background: #ffc904;
+    display: block;
+    height: 2px;
+    margin-top: 13px;
+    width: 25px;
+    margin-bottom: 8px;
+}
+
+
+.services-page .header-center .title-header-container {
+   top: 0; 
+}
+
+.services-page .service-social a {
+    text-decoration: none;
+    position: relative;
+    display: inline;
+    font-size: 22px;
+    margin-left: 39px;
+    color: #909090;
+}
+
+.services-page .header-image {
+    background: url('../img/banner-services.jpg') top center no-repeat;
+    background-size: cover;
+    min-height: 0;
+    max-height: none;
+    height: 420px;
+}
+
+.services-page p.lead {
+    font-size: 24px;
+}
+
+.services-page p {
+    font-size: 18px;
+    margin-bottom: 38px;
+}
+
+.services-page .primary-action {
+    outline: 0;
+    height: 275px;
+}
+
+.services-page .primary-action .btn {
+    margin-top: 175px;
+    border-radius: 0;
+    padding: 15px 60px;
+}
+
+.services-page .page-wrap h2 {
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+.services-page .page-wrap .side-bar h2 {
+    text-transform: none;
+
+}
+
+
+.services-page .content h2::after {
+    content: " ";
+    background: #ffc904;
+    display: block;
+    height: 2px;
+    margin-top: 12px;
+    width: 25px;
+    margin-bottom: 18px;
+}
+
+.services-page .service-social {
+    margin-top: 55px;
+}
+
+
+
+h3.external-link a {
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    font-size: 17px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+
+
+
+h3.external-link a {
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    font-size: 17px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+h3.external-link a::after {    
+    font-family: 'FontAwesome';
+    content: '\f08e';
+    margin:0 5px;
+    text-decoration: none;
+    
+}

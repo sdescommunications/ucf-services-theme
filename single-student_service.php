@@ -10,13 +10,35 @@ require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 use SDES\SDES_Static;
 
+$header_image =	( has_post_thumbnail( get_the_id() ) )
+	? wp_get_attachment_image_src( get_post_thumbnail_id(), 'thumbnail-size', true )[0]
+	: get_header_image();
+
+$heading_text =
+	get_post_meta( get_the_id(), 'student_service_heading_text', true )
+	?: get_bloginfo( 'name' );
+
 get_header();
 ?>
-<main class="site-main">
 
-<div style="height: 300px;"></div>
+<header class="site-header">
+	<div class="header-image" style="background-image: url(<?= $header_image ?>);">
+		<div class="container">
+			<div class="header-center">
+				<div class="title-wrapper">
+					<div class="title-header-container">
+						<h1 class="site-title">
+								<?= $heading_text ?>
+						</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
 
-<nav id="student_service-navbar" class="navbar navbar-gold breadcrumbs">
+<main class="services-page">
+ <nav id="student_service-navbar" class="navbar navbar-gold breadcrumbs">
 	<div class="container">
 	  <div class="row">
 		<div class="navbar-header">
@@ -47,22 +69,20 @@ get_header();
 	</div>
 	  </div> <!-- /.row -->
 	</div> <!-- /.container -->
-</nav>
+ </nav>
 
-<article>
-
-<?php if (have_posts()) :
+ <div class="container">
+  <article class="row page-wrap">
+  <?php if (have_posts()) :
 	 while (have_posts()) : the_post();
 		global $post;
-		echo StudentService::toHTML( $post );
-		echo "<hr><hr>";
 		echo StudentService::toPageHTML( $post );
 	endwhile;
-else:
+   else:
 	SDES_Static::Get_No_Posts_Message();
-endif; ?>
-
-</article>
+   endif; ?>
+  </article>
+ </div>
 </main>
 <?php
 get_footer();
