@@ -349,6 +349,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 	// TODO: create additional_#-* fields programmatically using self::ADDITIONAL_FIELDS_COUNT.
 	// TODO: separate open and close times - create programmatically from an array of days of the week.
 	// TODO: implement by calling a static `get_fields` method (to also be called from get_render_metadata).
+	// TODO: remove spotlight field from StudentService.
 	public function fields() {
 		$prefix = $this->options( 'name' ).'_';
 		/*
@@ -904,11 +905,20 @@ class StudentService extends CustomPostType_ServicesTheme {
 			<div class="container-fluid">
 			  <div class="row">
 				<div class="col-md-4 col-md-push-8 side-bar">
-					<?= self::render_spotlight( $context ) ?>
-					<?= self::render_contact_table( $context ) ?>
-					<?= self::render_hours_table( $context ) ?>
-					<?= self::render_social_buttons( $context ) ?>
-					<?= self::render_events_calendar( $context ) ?>
+					<div class="row">
+						<div class="col-xs-12" style="margin-bottom: 30px;">
+							<?= self::render_spotlight( $context ) ?>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<?= self::render_contact_table( $context ) ?>
+							<?= self::render_hours_table( $context ) ?>
+							<?= self::render_social_buttons( $context ) ?>
+							<?= '<!-- Events calendar -->';
+								//self::render_events_calendar( $context ); ?>
+						</div>
+					</div>
 				</div> <!-- /.side-bar -->
 				<div class="col-sm-12 col-md-7 col-lg-7 col-md-pull-4">
 					<?= $context['long_descr'] ?>
@@ -947,24 +957,20 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$html = ob_get_clean();
 		return $html;
 	}
+
 	public static function render_spotlight( $context ){
+		$service_spotlight_context = (object) array(
+			'url' => $context['primary_action_url'],
+			'image_url' => $context['image_thumbnail_src'],
+			'image_alt' => $context['image_alt'],
+			'title' => '',
+			'title_color' => '',
+			'btn_text' => $context['primary_action'],
+			'btn_styles' => '',
+		);
 		ob_start();
 		?>
-				<div class="image"><?= $context['image'] ?></div>
-				<hr>
-				<div class="primary_action"><?= $context['primary_action'] ?></div>
-				<hr>
-				<div class="primary_action_url"><?= $context['primary_action_url'] ?></div>
-				<hr>
-				<div class="spotlight"><?= $context['spotlight'] ?></div>
-				<hr>
-			<div class="primary-action" style="background-image: url('static/img/primary-action-image-service.jpg');">
-				<div class="primary-action-content">
-					<button class="btn btn-default btn-lg" type="button">
-						APPLY FOR AID
-					</button>
-				</div>
-			</div>
+			<?= Spotlight::render_to_html( $service_spotlight_context ); ?>
 		<?php
 		$html = ob_get_clean();
 		return $html;
@@ -973,33 +979,36 @@ class StudentService extends CustomPostType_ServicesTheme {
 	public static function render_contact_table( $context ){
 		ob_start();
 		?>
-				<div class="phone"><?= $context['phone'] ?></div>
-				<hr>
-				<div class="email"><?= $context['email'] ?></div>
-				<hr>
-				<div class="url"><?= $context['url'] ?></div>
-				<hr>
-				<div class="location"><?= $context['location'] ?></div>
-				<hr>
 			<div class="table-responsive contact">
 				<table class="table table-bordered">
 					<tbody>
+					  <?php if ( ! SDES_Static::is_null_or_whitespace( $context['email'] ) ) : ?>
 						<tr>
 							<td><span class="fa fa-envelope-o"></span></td>
-							<td><a href="#">example@ucf.edu</a></td>
+							<td><a class="email" title="Email" href="mailto:<?= $context['email'] ?>">
+									<?= $context['email'] ?></a></td>
 						</tr>
+					  <?php endif;
+					    if ( ! SDES_Static::is_null_or_whitespace( $context['phone'] ) ) : ?>
 						<tr>
 							<td><span class="fa fa-phone"></span></td>
-							<td><a href="#">555-123-4567</a></td>
+							<td><a class="phone" title="Phone" href="tel:<?= $context['phone'] ?>">
+									<?= $context['phone'] ?></a></td>
 						</tr>
+					  <?php endif;
+					    if ( ! SDES_Static::is_null_or_whitespace( $context['url'] ) ) : ?>
 						<tr>
 							<td><span class="fa fa-chain"></span></td>
-							<td><a href="#">http://ucf.edu</a></td>
+							<td><a class="url" title="URL" href="<?= $context['url'] ?>">
+									<?= $context['url'] ?></a></td>
 						</tr>
+					  <?php endif;
+					    if ( ! SDES_Static::is_null_or_whitespace( $context['location'] ) ) : ?>
 						<tr>
 							<td><span class="fa fa-map-marker"></span></td>
-							<td><a href="#">Building Location</a></td>
+							<td><span class="location"><?= $context['location'] ?></span></td>
 						</tr>
+					  <?php endif; ?>
 					</tbody>
 				</table>
 			</div>
@@ -1011,20 +1020,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 	public static function render_hours_table( $context ){
 		ob_start();
 		?>
-				<div class="hours_monday"><?= $context['hours_monday'] ?></div>
-				<hr>
-				<div class="hours_tuesday"><?= $context['hours_tuesday'] ?></div>
-				<hr>
-				<div class="hours_wednesday"><?= $context['hours_wednesday'] ?></div>
-				<hr>
-				<div class="hours_thursday"><?= $context['hours_thursday'] ?></div>
-				<hr>
-				<div class="hours_friday"><?= $context['hours_friday'] ?></div>
-				<hr>
-				<div class="hours_saturday"><?= $context['hours_saturday'] ?></div>
-				<hr>
-				<div class="hours_sunday"><?= $context['hours_sunday'] ?></div>
-				<hr>
 			<div class="table-responsive hours">
 				<table class="table table-bordered">
 					<thead>
@@ -1040,8 +1035,8 @@ class StudentService extends CustomPostType_ServicesTheme {
 							<td><?= $context['hours_tuesday'] ?></td>
 						</tr>
 						<tr>
-							<td class="active"><div class="day">W</div></td>
-							<td class="active"><?= $context['hours_wednesday'] ?></td>
+							<td><div class="day">W</div></td>
+							<td><?= $context['hours_wednesday'] ?></td>
 						</tr>
 						<tr>
 							<td><div class="day">TH</div></td>
@@ -1062,6 +1057,11 @@ class StudentService extends CustomPostType_ServicesTheme {
 					</tbody>
 				</table>
 			</div>
+			<script>
+				var dayOfWeek = (new Date()).getDay();
+				dayOfWeek = ( 0 == dayOfWeek ) ? 7 : dayOfWeek - 1; // Shift so Monday is 0 instead of Sunday.
+				jQuery('.table-responsive.hours tbody tr').eq(dayOfWeek).children('td').addClass('active')
+			</script>
 		<?php
 		$html = ob_get_clean();
 		return $html;
@@ -1077,29 +1077,13 @@ class StudentService extends CustomPostType_ServicesTheme {
 		}
 		ob_start();
 		?>
-				<div class="social_facebook"><?= $context['social_facebook'] ?></div>
-				<hr>
-				<div class="social_twitter"><?= $context['social_twitter'] ?></div>
-				<hr>
-				<div class="social_youtube"><?= $context['social_youtube'] ?></div>
-				<hr>
-				<div class="social_googleplus"><?= $context['social_googleplus'] ?></div>
-				<hr>
-				<div class="social_linkedin"><?= $context['social_linkedin'] ?></div>
-				<hr>
-				<div class="social_instagram"><?= $context['social_instagram'] ?></div>
-				<hr>
-				<div class="social_pinterest"><?= $context['social_pinterest'] ?></div>
-				<hr>
-				<div class="social_tumblr"><?= $context['social_tumblr'] ?></div>
-				<hr>
-				<div class="social_flickr"><?= $context['social_flickr'] ?></div>
-				<hr>
 			<div class="social">
 				<h2>Get social with <?= $context['title'] ?></h2>
-			  <?php foreach ( $networks as $network ) : ?>
+			  <?php foreach ( $networks as $network ) :
+			  if ( ! SDES_Static::is_null_or_whitespace( $network ) ) : ?>
 				<a href="<?= $network->url ?>"><span class="fa <?= $network->faicon ?>"></span></a>
-			  <?php endforeach; ?>
+			  <?php endif;
+			  endforeach; ?>
 			</div>
 		<?php
 		$html = ob_get_clean();

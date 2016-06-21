@@ -20,16 +20,15 @@ $heading_text =
 
 get_header();
 ?>
-
-<header class="site-header">
+<header class="site-header services-page-header">
 	<div class="header-image" style="background-image: url(<?= $header_image ?>);">
 		<div class="container">
 			<div class="header-center">
 				<div class="title-wrapper">
 					<div class="title-header-container">
-						<h1 class="site-title">
+						<span class="site-title">
 								<?= $heading_text ?>
-						</h1>
+						</span>
 					</div>
 				</div>
 			</div>
