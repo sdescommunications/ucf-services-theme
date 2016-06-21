@@ -22,17 +22,16 @@ $cat_name = single_cat_title( '', false ) ?: 'Student Services';
 get_header();
 ?>
 
-<style>
-	.site-header { margin-bottom: 0; padding-bottom: 0; }
-</style>
-<header class="site-header">
+<header class="site-header category-page-header">
 	<div class="header-image" style="background-image: url(<?= \header_image(); ?>);">
-		<div class="header-center">
-			<div class="title-wrapper">
-				<div class="title-header-container">
-					<h1 class="site-title">
-						<a href="<?= $cat_link ?>"><?= $cat_name ?></a>
-					</h1>
+		<div class="container">
+			<div class="header-center">
+				<div class="title-wrapper">
+					<div class="title-header-container">
+						<span class="site-title">
+							<?= $cat_name ?>
+						</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -40,12 +39,12 @@ get_header();
 </header>
 
 
-<main>
-	<nav id="student_service-navbar" class="navbar navbar-gold">
-		<div class="container-fluid">
+<main class="category-page">
+	<nav id="category-navbar" class="navbar navbar-gold breadcrumbs">
+		<div class="container">
 			<div class="navbar-header">
 				<span class="navbar-title">Skip To Section</span>
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#student_service-menu">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#category-menu">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -53,12 +52,14 @@ get_header();
 				</button>
 			</div>
 			
-			<div id="student_service-menu">
+			<div id="category-menu">
 				<ul class="nav navbar-nav">
 					<li><a href="<?= bloginfo( 'url' ); ?>"><?= bloginfo( 'name' ); ?></a></li>
 					<li><a href="<?= $cat_link ?>"><?= $cat_name ?></a></li>
 				</ul>
-				<?= WeatherBox::display_weather() ?>
+				<div class="navbar-right">
+					<?= WeatherBox::display_weather() ?>
+				</div>
 			</div>
 
 			<div class="collapse navbar-collapse header-center" id="collapse-menu">
@@ -68,24 +69,30 @@ get_header();
 				</ul>
 			</div>
 	</nav>
-
-	<article>
-		<h1 class='title'><?= single_cat_title() ?></h1>
-		<p class='description'><?= category_description() ?></p>
-	<?php
-		$args = array ( 'post_type' => StudentService::NAME, 'category' => $cat_id );
-		$category_posts = get_posts( $args );
-		if ( 0 !== count( $category_posts ) ) :
-			foreach( $category_posts as $post ) :	setup_postdata($post);
-				echo StudentService::toHTML( $post );
-			endforeach;
-		else:
-			SDES_Static::Get_No_Posts_Message();
-		endif;
-		wp_reset_postdata();
-	?>
-
+  <div class="container">
+	<article class="row page-wrap">
+	  <div class="container-fluid">
+	  	<section id="categories" class="col-sm-12 col-md-12 col-lg-12 col-md-pull-1">
+			<h1 class='title'><?= single_cat_title() ?></h1>
+			<p class='description'><?= category_description() ?></p>
+		  <?php
+			$args = array ( 'post_type' => StudentService::NAME, 'category' => $cat_id );
+			$category_posts = get_posts( $args );
+			if ( 0 !== count( $category_posts ) ) :
+				foreach( $category_posts as $post ) :	setup_postdata($post); ?>
+					<div class="row service">
+						<?= StudentService::toHTML( $post ); ?>
+					</div>
+				<?php endforeach;
+			else:
+				SDES_Static::Get_No_Posts_Message();
+			endif;
+			wp_reset_postdata();
+		  ?>
+		</section>
+	  </div>
 	</article>
+  </div>
 </main>
 <?php
 get_footer();
