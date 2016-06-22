@@ -1,91 +1,6 @@
 /*  sidebar */
 
 
-
-.contact .fa {
-    font-size: 25px;
-    text-align: center;
-    display: block;
-}
-
-.hours .day {
-    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
-    display: block;
-    text-align: center;
-    margin: 0 -3px;
-}
-
-.hours .fa-clock-o {
-    margin: 0 25px 0 15px;
-}
-
-.hours thead {
-    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
-}
-
-
-.hours, .table-bordered>tbody>tr>td, 
-.table-bordered>tbody>tr>th, 
-.table-bordered>tfoot>tr>td, 
-.table-bordered>tfoot>tr>th, 
-.table-bordered>thead>tr>td, 
-.table-bordered>thead>tr>th {
-   outline: 2px solid #fff;
-}
-
-.side-bar .table-bordered>tbody>tr>td, .side-bar .table-bordered {
-    border: none;
-}
-
-
-.side-bar tr td:nth-child(odd){ 
-    background: #ffc409;
-}
-
-.side-bar tr td:nth-child(even){
-    background: #fff0d5;
-    padding-left: 30px;
-}
-
-
-
-
-
-.side-bar .hours thead { 
-    background: #d5d5d5;
-}
-
-
-.side-bar .hours tr td:nth-child(odd){ 
-    background: #d5d5d5;
-}
-
-.side-bar .hours tr td:nth-child(even){
-    background: #e6e6e6;
-}
-
-.side-bar .hours tr td.active:nth-child(odd) { 
-    background: #aeeebf;
-}
-
-.side-bar .hours tr td.active:nth-child(even) { 
-    background: #d5f1dd;
-}
-
-
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 12px;
-    line-height: inherit; 
-    vertical-align: auto; 
-  border-top: none; 
-
-}
-
-.hours .table>tbody>tr>td,.hours  .table>tbody>tr>th,.hours  .table>tfoot>tr>td,.hours  .table>tfoot>tr>th,.hours  .table>thead>tr>td,.hours  .table>thead>tr>th {
-color: #666666;
-}
-
-
 .services-page .side-bar::before {
     content: "foo";
     color: transparent;
@@ -96,17 +11,86 @@ color: #666666;
     background: #dedede;
 }
 
-
-.side-bar table {
-    font-family: "gotham_lightregular", Helvetica, Arial, sans-serif;
-    font-size: 17px;
-}
-.side-bar table a {
-    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
-}
-
-.side-bar .fa-facebook-official {
-    color: #3B598F;
-    font-size: 65px;
-    margin-bottom: 30px;
+.side-bar {
+    .table-bordered {
+        border: none;
+        >tbody>tr,
+        >tfoot>tr,
+        >thead>tr {
+            >td, >th {
+                outline: 2px solid #fff;
+                padding: 12px;
+                line-height: inherit;
+                vertical-align: auto;
+                border-top: none;
+            }
+        }
+    }
+    table {
+        font-family: "gotham_lightregular", Helvetica, Arial, sans-serif;
+        font-size: 17px;
+        a {
+            font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+        }
+    }
+    .contact {
+        .fa {
+            font-size: 25px;
+            text-align: center;
+            display: block;
+        }
+        tr {
+            td:nth-child(odd){ 
+                background: #ffc409;
+            }
+            td:nth-child(even){
+                background: #fff0d5;
+                padding-left: 30px;
+            }
+        }
+    }
+    .hours {
+        outline: 2px solid #fff;
+        .day {
+            font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+            display: block;
+            text-align: center;
+            margin: 0 -3px;
+        }
+        .fa-clock-o {
+            margin: 0 25px 0 15px;
+        }
+        .table {
+            >tbody>tr,
+            >tfoot>tr,
+            >thead>tr {
+                >td, >th {
+                    color: #666666;
+                }
+            }
+        }
+        thead {
+            font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+            background: #d5d5d5;
+        }
+        tr  {
+            td:nth-child(odd){ 
+                background: #d5d5d5;
+            }
+            td:nth-child(even){
+                background: #e6e6e6;
+            }
+            td.active:nth-child(odd) { 
+                background: #aeeebf;
+            }
+            td.active:nth-child(even) { 
+                background: #d5f1dd;
+            }
+        }
+    }
+    .fa-facebook-official {
+        color: #3B598F;
+        font-size: 65px;
+        margin-bottom: 30px;
+    }
 }
