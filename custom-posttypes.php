@@ -360,7 +360,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_main_category_id
 		 * student_service_heading_text
 		 * student_service_short_description
-		 * student_service_events_cal_id
+		 * student_service_events_cal_feed
 		 * student_service_map_id
 		 * student_service_news_feed
 		 * student_service_gallery_url-flickr
@@ -424,9 +424,9 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'type'  => 'textarea',
 			),
 			array(
-				'name'  => 'UCF Events Calendar ID',
-				'descr' => 'The UCF Events feed calendar ID from events.ucf.edu.',
-				'id'    => $prefix.'events_cal_id',
+				'name'  => 'UCF Events Calendar Feed',
+				'descr' => 'The address of the UCF Events calendar feed from events.ucf.edu.',
+				'id'    => $prefix.'events_cal_feed',
 				'type'  => 'text',
 			),
 			array(
@@ -748,7 +748,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$metadata_fields['stusvc_social_pinterest'] = get_post_meta( $stusvc->ID, 'student_service_social_pinterest', true );
 		$metadata_fields['stusvc_social_tumblr']  = get_post_meta( $stusvc->ID, 'student_service_social_tumblr', true );
 		$metadata_fields['stusvc_social_flickr']  = get_post_meta( $stusvc->ID, 'student_service_social_flickr', true );
-		$metadata_fields['stusvc_events_cal_id']   = get_post_meta( $stusvc->ID, 'student_service_events_cal_id', true );
+		$metadata_fields['stusvc_events_cal_feed']   = get_post_meta( $stusvc->ID, 'student_service_events_cal_feed', true );
 		$metadata_fields['stusvc_map_id']           = get_post_meta( $stusvc->ID, 'student_service_map_id', true );
 		$metadata_fields['stusvc_news_feed']       = get_post_meta( $stusvc->ID, 'student_service_news_feed', true );
 		return $metadata_fields;
@@ -807,7 +807,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'social_pinterest' => $metadata_fields['stusvc_social_pinterest'],
 			'social_tumblr' => $metadata_fields['stusvc_social_tumblr'],
 			'social_flickr' => $metadata_fields['stusvc_social_flickr'],
-	 		'events_cal_id' => $metadata_fields['stusvc_events_cal_id'],
+	 		'events_cal_feed' => $metadata_fields['stusvc_events_cal_feed'],
 	 		'map_id' => $metadata_fields['stusvc_map_id'],
 			'news_feed' => $metadata_fields['stusvc_news_feed'],
 		);
@@ -1096,7 +1096,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 	}
 
 	public static function render_events_calendar( $context ){
-		$feed_url = $context['events_cal_id'];
+		$feed_url = $context['events_cal_feed'];
 		$max_events = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_max_items', 4 );
 		$events  = array_reverse( FeedManager::get_items( $feed_url ) );
 		$events  = array_slice( $events, 0, $max_events );

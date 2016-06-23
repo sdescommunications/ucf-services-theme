@@ -8,6 +8,10 @@ require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
 
 require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
 	use SDES\ServicesTheme\PostTypes\Spotlight;
+	use SDES\ServicesTheme\PostTypes\StudentService;
+
+require_once( get_stylesheet_directory() . '/footer-settings.php' );
+	use SDES\ServicesTheme\ThemeCustomizer\Footer_Settings as Footer_Settings;
 
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static;
@@ -111,6 +115,13 @@ get_header();
 						echo Spotlight::toHTML( get_post_meta( $post->ID, 'page_spotlight', true ) );
 					?>
 					</div>
+				</div>
+				<div class="row">
+					<?php
+					// TODO: make calendar_events into a shortcode.
+					echo StudentService::render_events_calendar( array(
+						'events_cal_feed' => SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_url', Footer_Settings::EVENTS_URL ),
+					)); ?>
 				</div>
 			</section> <!-- /#filter -->
 
