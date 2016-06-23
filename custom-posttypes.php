@@ -778,7 +778,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'main_category_name' => $category_name,
 			'main_category_link' => get_category_link( $category ),
 			'short_descr' => $metadata_fields['stusvc_short_descr'],
-			'long_descr' => $stusvc->post_content,
+			'long_descr' => apply_filters( 'the_content', $stusvc->post_content ),
 			'gallery' => $metadata_fields['stusvc_gallery'],
 			'additional' => $metadata_fields['stusvc_additional'],
 			'image' => $metadata_fields['stusvc_image'],
@@ -926,6 +926,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 					</div>
 				</div> <!-- /.side-bar -->
 				<div class="col-sm-12 col-md-7 col-lg-7 col-md-pull-4">
+					<p class="lead"><?= $context['short_descr'] ?></p>
 					<?= $context['long_descr'] ?>
 
 					<h2>Additional Services</h2>

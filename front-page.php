@@ -117,11 +117,13 @@ get_header();
 					</div>
 				</div>
 				<div class="row">
+					<div class="col-xs-12">
 					<?php
 					// TODO: make calendar_events into a shortcode.
 					echo StudentService::render_events_calendar( array(
 						'events_cal_feed' => SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_url', Footer_Settings::EVENTS_URL ),
 					)); ?>
+					</div>
 				</div>
 			</section> <!-- /#filter -->
 
