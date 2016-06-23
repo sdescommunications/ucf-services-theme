@@ -2,7 +2,7 @@
 /**
  *  Add and configure custom posttypes for this theme.
  * graphviz.gv: "custom-posttypes.php" -> {
- *  "class-custom-posttype.php"; "class-sdes-metaboxes.php"; "autoload.php";
+ *  "class-custom-posttype.php"; "class-sdes-metaboxes.php"; "class-feedmanager.php"; "autoload.php"; 
  *  "Underscore\\Arrays"; 
  * };
  * graphviz.gv: "custom-posttypes.php" -> { "custom-metafields.php"; }[style="dashed"];
@@ -17,6 +17,10 @@ require_once( get_stylesheet_directory() . '/functions/class-custom-posttype.php
 	use SDES\CustomPostType;
 require_once( get_stylesheet_directory() . '/functions/custom-metafields.php' );
 	use SDES\ServicesTheme\ServicesMetaboxes;
+
+require_once( get_stylesheet_directory() . '/functions/class-feedmanager.php' );
+	use FeedManager;
+	use UcfEventModel;
 
 require_once( get_stylesheet_directory() . '/vendor/autoload.php' );
 use Underscore\Types\Arrays;
@@ -915,8 +919,9 @@ class StudentService extends CustomPostType_ServicesTheme {
 							<?= self::render_contact_table( $context ) ?>
 							<?= self::render_hours_table( $context ) ?>
 							<?= self::render_social_buttons( $context ) ?>
-							<?= '<!-- Events calendar -->';
-								//self::render_events_calendar( $context ); ?>
+							<?= self::render_events_calendar( $context ); ?>
+							<?= '<!-- Map -->' //self::render_map( $context ); ?>
+							<?= '<!-- News Feed -->' //self::render_news_feed( $context ); ?>
 						</div>
 					</div>
 				</div> <!-- /.side-bar -->
@@ -1091,32 +1096,53 @@ class StudentService extends CustomPostType_ServicesTheme {
 	}
 
 	public static function render_events_calendar( $context ){
-		// $events = get_events( $context['events_cal_id'] );
-		$events = array(
-				(object) array( 'title' => 'Event Title', 'date' => 'January 1',
-				 'description'=> 'A description of the event.'),
-			);
+		$feed_url = $context['events_cal_id'];
+		$max_events = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_max_items', 4 );
+		$events  = array_reverse( FeedManager::get_items( $feed_url ) );
+		$events  = array_slice( $events, 0, $max_events );
 		ob_start();
 		?>
-				<div class="events_cal_id"><?= $context['events_cal_id'] ?></div>
-				<hr>
-				<div class="map_id"><?= $context['map_id'] ?></div>
-				<hr>
-				<div class="news_feed"><?= $context['news_feed'] ?></div>
-				<hr>
-			<div class="calendar-events">
-				<span class="calendar-events-title"><span class="fa fa-calendar-o calendar-icon"></span> Events Calendar</span>
-				<div>
-				  <?php foreach ( $events as $event ) : ?>
+			<div class="calendar-events collapsed" type="button"
+				 data-toggle="collapse" data-target="#calendar-expand"
+				 aria-expanded="true" aria-controls="collapseExample">
+				<span class="calendar-events-title">
+					<span class="fa fa-calendar-o calendar-icon"></span>
+					Events Calendar
+					<span class="fa fa-chevron-down calendar-chevron"></span>
+				</span>
+				<div class="collapse" id="calendar-expand">
+				  <?php foreach ( $events as $event ) : $event = new UcfEventModel( $event ); ?>
 					<div class="event">
-						<div class="title"><a href="#"><?= $event->title ?></a></div>
-						<div class="date"><?= $event->date ?></div>
-						<div class="description"><?= $event->description ?></div>
+						<div class="title"><a href="<?= $event->link() ?>"><?= $event->title() ?></a></div>
+						<div class="date"><?= $event->month_day() ?></div>
+						<div class="description"><?= $event->description() ?></div>
 					</div>
 				  <?php endforeach; ?>
-					<a class="all-link external" href="#">More Events ›</a>
+					<div>
+						<a class="all-link external" href="<?= $feed_url ?>">More Events ›</a>
+					</div>
 				</div>
 			</div>
+		<?php
+		$html = ob_get_clean();
+		return $html;
+	}
+
+	public static function render_map( $context ){
+		ob_start();
+		?>
+				<div class="map_id"><?= $context['map_id'] ?></div>
+				<hr>
+		<?php
+		$html = ob_get_clean();
+		return $html;
+	}
+
+	public static function render_news_feed( $context ){
+		ob_start();
+		?>
+				<div class="news_feed"><?= $context['news_feed'] ?></div>
+				<hr>
 		<?php
 		$html = ob_get_clean();
 		return $html;

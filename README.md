@@ -20,6 +20,7 @@ Included with repository. See composer.json, bower.json, and package.json for ve
 - Bootstrap
 - Font Awesome
 - Weather Icons
+- SimplePie (provided by WordPress)
 
 ### Development Tools
 - Sass (developed on Koala v2.0.4)

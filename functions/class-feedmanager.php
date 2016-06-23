@@ -109,3 +109,92 @@ class FeedManager {
 		return $items;
 	}
 }
+
+class UcfEventModel {
+	public static $events_url = 'http://events.ucf.edu';
+	protected $event;
+	public function __construct( $item ) { $this->event = $item; }
+
+	public function title() {
+		return static::get_title( $this->event ); 
+	}
+	public static function get_title( $item ) {
+		return $item->get_title(); 
+	}
+
+	public function link() {
+		return static::get_link( $this->event ); 
+	}
+	public static function get_link( $item ) {
+		return $item->get_link(); 
+	}
+
+	public function description() {
+		return static::get_description( $this->event ); 
+	}
+	public static function get_description( $item ) {
+		return $item->get_description(); 
+	}
+
+	public function month_day() {
+		return static::get_month_day( $this->event ); 
+	}
+	public static function get_month_day( $item ) {
+		return $item->get_date( 'M j' );
+	}
+
+	public function month() {
+		return static::get_month( $this->event ); 
+	}
+	public static function get_month( $item ) {
+		return $item->get_date( 'M' );
+	}
+
+	public function day() {
+		return static::get_day( $this->event ); 
+	}
+	public static function get_day( $item ) {
+		return $item->get_date( 'j' );
+	}
+
+	public function start_date() {
+		return static::get_start_date( $this->event ); 
+	}
+	public static function get_start_date( $item ) {
+		return $item->get_item_tags( static::$events_url, 'startdate' )[0]['data']; 
+	}
+
+	public function end_date() {
+		return static::get_end_date( $this->event ); 
+	}
+	public static function get_end_date( $item ) {
+		return $item->get_item_tags( static::$events_url, 'enddate' )[0]['data']; 
+	}
+
+	public function start_time() {
+		return static::get_start_time( $this->event ); 
+	}
+	public static function get_start_time( $item ) {
+		return date( 'g:i a', strtotime( static::get_start_date( $item ) ) ); 
+	}
+	
+	public function end_time() {
+		return static::get_end_time( $this->event ); 
+	}
+	public static function get_end_time( $item ) {
+		return date( 'g:i a', strtotime( static::get_end_date( $item ) ) ); 
+	}
+
+	public function time_string() {
+		return static::get_time_string( $this->event ); 
+	}
+	public static function get_time_string( $item ) {
+		$start_time = self::get_start_time( $this );
+		$end_time = self::get_end_time( $this );
+		if ( $start_time == $end_time ) {
+			return $start_time;
+		} else {
+			return $start_time . ' - ' . $end_time;
+		}
+	}
+}
