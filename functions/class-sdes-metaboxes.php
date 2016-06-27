@@ -146,7 +146,7 @@ class SDES_Metaboxes {
 		ob_start();
 	?>
 		<input type="hidden" name="meta_box_nonce" value="<?php echo wp_create_nonce( basename( __FILE__ ) ); ?>">
-		<table class="form-table">
+		<table class="form-table custom-metabox">
 		<?php foreach ( $meta_box['fields'] as $field ) {
 				static::display_metafield( $post->ID, $field );
 			} ?>
