@@ -401,6 +401,101 @@ class sc_call_to_action extends ShortcodeBase {
 	}
 }
 
+class sc_campaign extends ShortcodeBase {
+	public
+		$name        = 'Campaign', // The name of the shortcode.
+		$command     = 'campaign', // The command used to call the shortcode.
+		$description = 'Display a campaign.', // The description of the shortcode.
+		$params      = array(
+			array(
+				'name'      => 'Campaign Object',
+				'id'        => 'campaign_id',
+				'help_text' => 'Choose the campaign to display.',
+				'type'      => 'dropdown',
+				'choices'   => array()
+			)
+		), // The parameters used by the shortcode.
+		$callback    = 'callback',
+		$wysiwyg     = True; // Whether to add it to the shortcode Wysiwyg modal.
+
+	public static function callback( $attr, $content='' ) {
+		$attr = shortcode_atts( array(
+				'campaign_id' => null,
+				'layout' => 'rectangle',
+			), $attr
+		);
+		ob_start();
+		if ( $attr['campaign_id']  || true ) {
+			// $post = get_post( $attr['campaign_id'] );
+			// $context = Campaign::get_render_context( $post );
+			$context = (object) array();
+			switch ( $attr['layout'] ) {
+				case 'square':
+					echo static::render_square( $context );
+					break;
+				case 'rectangle':
+				default:
+					echo static::render( $context );
+					break;
+			}
+		}
+		return ob_get_clean();
+	}
+
+	public static function render( $ctxt ) {
+		$ctxt->image = get_stylesheet_directory_uri() . '/static/img/primary-action-image.jpg';
+		$ctxt->link = 'www.google.com';
+		$ctxt->title = "Do The Math";
+		$ctxt->long = "Most undergraduate degrees at UCF require 120 credit hours. Completeing 
+								30 credit hours per year will allow you to graduate in 4 years. But 
+								that’s just the start.";
+		$ctxt->button = "Think 30";
+		ob_start();
+		?>
+			<div class="row campaign" style="background-image: url( <?= $ctxt->image ?> );"> <!-- primary bg -->
+				<div class="col-sm-6 col-md-offset-6 campaign-content">
+					<div class="campaign-title">
+						<a href="<?= $ctxt->link ?>"><?= $ctxt->title ?></a>
+					</div>
+					<p><?= $ctxt->long ?></p>
+					<a href="<?= $ctxt->title ?>">
+						<span class="btn btn-default btn-lg" type="button">
+							<?= $ctxt->button ?>
+						</span>
+					</a>
+				</div>
+
+			</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	public static function render_square( $ctxt ) {
+		$ctxt->image = get_stylesheet_directory_uri() . '/static/img/primary-action-image.jpg';
+		$ctxt->link = 'www.google.com';
+		$ctxt->title = "Graduation Is Right Around the Corner";
+		$ctxt->short = "make sure you are prepared by going over the graduation checklist ";
+		$ctxt->button = "See More";
+		ob_start();
+		?>
+			<div class="campaign" style="background: #f3f3f3;">
+				<div class="campaign-content">
+					<div class="campaign-title">
+						<a href="<?= $ctxt->link ?>"><?= $ctxt->title ?></a>
+					</div>
+					<p><?= $ctxt->short ?></p>
+					<a href="<?= $ctxt->link ?>">
+						<span class="btn btn-default btn-lg" type="button">
+							<?= $ctxt->button ?>
+						</span>
+					</a>
+				</div>
+			</div>
+		<?php
+		return ob_get_clean();
+	}
+}
+
 function register_shortcodes() {
 	ShortcodeBase::Register_Shortcodes(array(
 		__NAMESPACE__.'\sc_row',
@@ -408,6 +503,7 @@ function register_shortcodes() {
 		__NAMESPACE__.'\sc_icon_link',
 		__NAMESPACE__.'\sc_callout',
 		__NAMESPACE__.'\sc_call_to_action',
+		__NAMESPACE__.'\sc_campaign',
 	));
 }
 add_action( 'init', __NAMESPACE__.'\register_shortcodes' );

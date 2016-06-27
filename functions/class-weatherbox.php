@@ -70,6 +70,7 @@ class WeatherBox {
 		);
 	}
 
+	// TODO: fail better - return don't disply if n/a
 	/**
 	 * 
 	 *
@@ -96,6 +97,7 @@ class WeatherBox {
 		return ob_get_clean();
 	}
 
+	// TODO: return `wi-na` on fail.
 	/**
 	 * 
 	 *

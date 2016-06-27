@@ -2,18 +2,48 @@
  * Services page
  */ 
 
- header.services-page-header,
- header.category-page-header {
-    margin-bottom: 0;
-    
-    .title-header-container .site-title {
-        font-size: 50px;
+.subpage-header,
+.services-page-header,
+.category-page-header {
+    margin-bottom: 0px;
+    height: 420px;
+
+    .header-image {
+        height: 420px;
     }
+
+    .header-center {
+        display: table;
+        position: relative;
+        top: 250px;
+        float: right;
+        height: auto;
+        width: auto;
+        .title-header-container {
+            top: 0px;
+            .site-title {
+                font-size: 50px;
+            }
+        }
+    }
+
  }
 
 
 .services-page,
 .category-page {
+    p {
+        font-family: "gotham_lightregular", helvetica, arial, sans-serif;
+        font-size: 18px;
+        color: #272727;
+        font-weight: 600;
+        margin-bottom: 38px;
+        &.lead {
+            font-family: "archer_mediumregular", Georgia, serif;
+            font-size: 24px;
+            font-weight: 300;
+        }
+    }
     h1 {
         font-family: "archer_boldregular", Georgia, serif;
         display: inline-block;
@@ -81,7 +111,6 @@
             content: '\f08e';
             margin:0 5px;
             text-decoration: none;
-            
         }
     }
 }

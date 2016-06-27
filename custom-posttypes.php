@@ -723,7 +723,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 
 		$metadata_fields['stusvc_image']				= get_post_meta( $stusvc->ID, 'student_service_image', true );
 		$metadata_fields['stusvc_image_alt']			= get_post_meta( $metadata_fields['stusvc_image'], '_wp_attachment_image_alt', true );
-		$metadata_fields['stusvc_image_thumbnail_src']  = wp_get_attachment_image_src( $metadata_fields['stusvc_image'], 'thumbnail', false )[0];
+		$metadata_fields['stusvc_image_thumbnail_src']  = wp_get_attachment_image_src( $metadata_fields['stusvc_image'], 'thumb', false )[0];
 
 		$metadata_fields['stusvc_primary_action']  = get_post_meta( $stusvc->ID, 'student_service_primary_action', true );
 		$metadata_fields['stusvc_primary_action_url']  = get_post_meta( $stusvc->ID, 'student_service_primary_action_url', true );
@@ -778,7 +778,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'main_category_name' => $category_name,
 			'main_category_link' => get_category_link( $category ),
 			'short_descr' => $metadata_fields['stusvc_short_descr'],
-			'long_descr' => apply_filters( 'the_content', $stusvc->post_content ),
+			'long_descr' => wpautop( apply_filters( 'the_content', $stusvc->post_content ) ),
 			'gallery' => $metadata_fields['stusvc_gallery'],
 			'additional' => $metadata_fields['stusvc_additional'],
 			'image' => $metadata_fields['stusvc_image'],
@@ -865,7 +865,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 					</div>
 					<div class="service-category">
 					  <?php if ( '' !== $context['main_category_link'] ) : ?>
-						<a href="<?= $context['main_category_link'] ?>"><?= $context['main_category_name'] ?></a>
+						<?= $context['main_category_name'] ?>
 					  <?php else: ?>
 					  	<?= $context['main_category_name'] ?>
 					  <?php endif; ?>

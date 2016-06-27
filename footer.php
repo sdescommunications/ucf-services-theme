@@ -116,7 +116,47 @@ class Footer {
 	 */
 	public static function display_contact_form() {
 		$form_id = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-footer_contact_form', '' );
-		echo do_shortcode( '[gravityform id="'.$form_id.'" title="false" description="false"]' );
+		// echo do_shortcode( '[gravityform id="'.$form_id.'" title="false" description="false"]' );
+		ob_start();
+		?>
+			<div class="gf_browser_safari gf_browser_iphone gform_wrapper" id="gform_wrapper_1">
+				<form method="post" enctype="multipart/form-data" id="gform_1" action="#">
+					<div class="gform_body">
+						<ul id="gform_fields_1" class="gform_fields top_label form_sublabel_below description_below">
+							<li id="field_1_1" class="gfield gfield_contains_required field_sublabel_below field_description_below">
+								<label class="gfield_label" for="input_1_1">
+									Name<span class="gfield_required">*</span>
+								</label>
+								<div class="ginput_container ginput_container_text">
+									<input name="input_1" id="input_1_1" type="text" value="" class="large" tabindex="1" placeholder="Name">
+								</div>
+							</li>
+							<li id="field_1_2" class="gfield gfield_contains_required field_sublabel_below field_description_below">
+								<label class="gfield_label" for="input_1_2">
+									Email<span class="gfield_required">*</span>
+								</label>
+								<div class="ginput_container ginput_container_email">
+									<input name="input_2" id="input_1_2" type="text" value="" class="large" tabindex="2" placeholder="Email">
+								</div>
+							</li>
+							<li id="field_1_3" class="gfield gfield_contains_required field_sublabel_below field_description_below">
+								<label class="gfield_label" for="input_1_3">
+									Request<span class="gfield_required">*</span>
+								</label>
+								<div class="ginput_container ginput_container_textarea">
+									<textarea name="input_3" id="input_1_3" class="textarea medium" tabindex="3" placeholder="What can we help you with?" rows="10" cols="50"></textarea>
+								</div>
+							</li>
+
+						</ul>
+					</div>
+					<div class="gform_footer top_label"> <input type="submit" id="gform_submit_button_1" class="gform_button button" value="Submit" tabindex="4"> 
+
+					</div>
+				</form>
+			</div>
+		<?php
+		echo ob_get_clean();
 	}
 
 	/**

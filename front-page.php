@@ -111,24 +111,29 @@ get_header();
 				<div class="row">
 					<div class="col-xs-12">
 					<?php
-						global $post;
-						echo Spotlight::toHTML( get_post_meta( $post->ID, 'page_spotlight', true ) );
-					?>
+					// TODO: make calendar_events into a shortcode.
+					echo StudentService::render_events_calendar( array(
+						'events_cal_feed' => SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_url', Footer_Settings::EVENTS_URL ),
+					)); ?>
+					<script>
+						var academic_calendar = jQuery('.calendar-events-title')[0];
+						academic_calendar.innerHTML = 
+							academic_calendar.innerHTML.replace('Events Calendar', 'Academic Calendar')
+						</script>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
 					<?php
-					// TODO: make calendar_events into a shortcode.
-					echo StudentService::render_events_calendar( array(
-						'events_cal_feed' => SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_url', Footer_Settings::EVENTS_URL ),
-					)); ?>
+						echo do_shortcode( "[campaign layout='square']" );
+					?>
 					</div>
 				</div>
 			</section> <!-- /#filter -->
 
 			<section id="services" class="col-sm-12 col-md-9 col-lg-9 col-md-pull-3">
 				<h2 class="title"><?= the_title() ?></h2>
+				<?= do_shortcode( "[campaign]" ); ?>
 				<?php if (have_posts()) :
 					 while (have_posts()) : the_post();
 						the_content();

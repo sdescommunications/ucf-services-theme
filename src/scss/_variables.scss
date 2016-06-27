@@ -20,7 +20,53 @@ $icon-font-path: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/bootstra
 $fa-font-path: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/fonts/';
 $wi-path: 'https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/font/';
 
-$font-family-serif: "Archer A", "Archer B", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif !default;
+$path-gotham-lightregular: '../static/fonts/gotham/light-webfont.woff';
+$path-gotham-boldregular: '../static/fonts/gotham/bold-webfont.woff';
+$path-gotham-blackregular: '../static/fonts/gotham/black-webfont.woff';
+$path-archer-lightregular: '../static/fonts/archer/light-webfont.woff';
+$path-archer-boldregular: '../static/fonts/archer/medium-webfont.woff';
+$path-archer-blackregular: '../static/fonts/archer/bold-webfont.woff';
+
+// $path-gotham-lightregular: '//assets.sdes.ucf.edu/fonts/gotham/light-webfont.woff';
+// $path-gotham-boldregular: '//assets.sdes.ucf.edu/fonts/gotham/bold-webfont.woff';
+// $path-gotham-blackregular: '//assets.sdes.ucf.edu/fonts/gotham/black-webfont.woff';
+// $path-archer-lightregular: '//assets.sdes.ucf.edu/fonts/archer/light-webfont.woff';
+// $path-archer-boldregular: '//assets.sdes.ucf.edu/fonts/archer/medium-webfont.woff';
+// $path-archer-blackregular: '//assets.sdes.ucf.edu/fonts/archer/bold-webfont.woff';
+
+$font-family-serif: "archer_boldregular", "Archer A", "Archer B", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif !default;
 $font-family-serif-alt: Georgia, serif !default;
-$font-family-sans-serif: "Gotham SSm A", "Gotham SSm B", Helvetica, Arial, sans-serif !default;
+$font-family-sans-serif: "gotham_boldregular", "Gotham SSm A", "Gotham SSm B", Helvetica, Arial, sans-serif !default;
 $font-family-header: Verdana, Geneva, sans-serif;
+
+
+@font-face {
+    font-family: 'gotham_lightregular';
+    src: url( $path-gotham-lightregular ) format('woff');
+}
+
+@font-face {
+    font-family: 'gotham_boldregular';
+    src: url( $path-gotham-boldregular ) format('woff');
+}
+
+@font-face {
+	font-family: 'gotham_blackregular';
+	src: url( $path-gotham-blackregular ) format('woff');
+}
+
+
+@font-face {
+    font-family: 'archer_lightregular';
+    src: url( $path-archer-lightregular ) format('woff');
+}
+
+@font-face {
+    font-family: 'archer_mediumregular';
+    src: url( $path-archer-boldregular ) format('woff');
+}
+
+@font-face {
+    font-family: 'archer_boldregular';
+    src: url( $path-archer-blackregular ) format('woff');
+}
