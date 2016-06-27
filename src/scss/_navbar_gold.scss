@@ -207,6 +207,11 @@
 .navbar-gold.breadcrumbs {
   font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
   margin-bottom: 0;
+  .navbar-header {
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+      display: none;
+    }
+  }
   .navbar-nav {
     > li {
       /*
@@ -246,6 +251,14 @@
         margin-right: 0px;
         &:hover {
           text-decoration: underline;
+        }
+      }
+    }
+    @media (max-width: $screen-xs-max) {
+      > li {
+        margin-left: 18px;
+        + li:before {
+          content: "";
         }
       }
     }

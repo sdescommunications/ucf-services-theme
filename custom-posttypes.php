@@ -21,6 +21,7 @@ require_once( get_stylesheet_directory() . '/functions/custom-metafields.php' );
 require_once( get_stylesheet_directory() . '/functions/class-feedmanager.php' );
 	use FeedManager;
 	use UcfEventModel;
+	use UcfAcademicCalendarModel;
 
 require_once( get_stylesheet_directory() . '/vendor/autoload.php' );
 use Underscore\Types\Arrays;
@@ -114,13 +115,6 @@ class Page extends CustomPostType_ServicesTheme {
 				'id'    => $prefix.'icon_link-3',
 				'type'  => 'icon_link',
 			),
-			array(
-				'name'  => 'Side Column',
-				'descr' => 'Show content in column to the right or left of the page (e.g., menuPanels).',
-				'id'    => $prefix.'sidecolumn',
-				'type'  => 'editor',
-				'args'  => array( 'tinymce' => true ),
-			),
 		);
 	}
 }
@@ -151,6 +145,12 @@ class Spotlight extends CustomPostType {
 		$prefix = $this->options( 'name' ).'_';
 		return array(
 			array(
+				'name'        => 'URL',
+				'description' => 'The url of the call to action',
+				'id'          => $prefix.'url',
+				'type'        => 'text'
+			),
+			array(
 				'name'        => 'Title Text Color',
 				'description' => 'The color of the overlay text',
 				'id'          => $prefix.'text_color',
@@ -178,11 +178,49 @@ class Spotlight extends CustomPostType {
 				'type'        => 'text'
 			),
 			array(
-				'name'        => 'URL',
-				'description' => 'The url of the call to action',
-				'id'          => $prefix.'url',
+				'name'        => 'Campaign - Long Text',
+				'description' => 'Body text for use in a large/rectangle campaign.',
+				'id'          => $prefix.'long',
 				'type'        => 'text'
-			)
+			),
+			array(
+				'name'        => 'Campaign - Short Text',
+				'description' => 'Body text for use in a small/square campaign.',
+				'id'          => $prefix.'short',
+				'type'        => 'text'
+			),
+		);
+	}
+
+	public static function get_render_context ( $spotlight, $metadata_fields = null ) {
+		$image_url = has_post_thumbnail( $spotlight->ID ) ?
+			wp_get_attachment_image_src( get_post_thumbnail_id( $spotlight->ID ), 'spotlight' ) :
+			null;
+		if ( $image_url ) {
+			$image_url = $image_url[0];
+		}
+		$url = get_post_meta( $spotlight->ID, 'spotlight_url', true );
+		$title_color = get_post_meta( $spotlight->ID, 'spotlight_text_color', true );
+		$btn_background = get_post_meta( $spotlight->ID, 'spotlight_btn_background', true );
+		$btn_foreground = get_post_meta( $spotlight->ID, 'spotlight_btn_foreground', true );
+		$btn_text = get_post_meta( $spotlight->ID, 'spotlight_btn_text', true );
+		$btn_styles = array();
+		if ( $btn_background ) : $btn_styles[] = 'background: '.$btn_background; endif;
+		if ( $btn_foreground ) : $btn_styles[] = 'color: '.$btn_foreground; endif;
+		$btn_styles = ( !empty( $btn_styles) ) ? implode( ' ', $btn_styles ) : '';
+		ob_start();
+		if ( ! ( $image_url && $url ) ) return;
+		return array(
+			'url' => $url,
+			'image_id' => null,
+			'image_url' => $image_url,
+			'image_alt' => $spotlight->post_title,
+			'title' => $spotlight->post_title,
+			'long' => get_post_meta( $spotlight->ID, 'spotlight_long', true ),
+			'short' => get_post_meta( $spotlight->ID, 'spotlight_short', true ),
+			'title_color' => $title_color,
+			'btn_text' => $btn_text,
+			'btn_styles' => $btn_styles,
 		);
 	}
 
@@ -192,32 +230,7 @@ class Spotlight extends CustomPostType {
 		$object = get_post( $object );
 		if ( SDES_Static::is_null_or_whitespace( $object ) 
 			|| self::NAME !== $object->post_type ) {return sprintf("<!-- No %s provided. -->", self::NAME); }
-		$image_url = has_post_thumbnail( $object->ID ) ?
-			wp_get_attachment_image_src( get_post_thumbnail_id( $object->ID ), 'spotlight' ) :
-			null;
-		if ( $image_url ) {
-			$image_url = $image_url[0];
-		}
-		$url = get_post_meta( $object->ID, 'spotlight_url', true );
-		$title_color = get_post_meta( $object->ID, 'spotlight_text_color', true );
-		$btn_background = get_post_meta( $object->ID, 'spotlight_btn_background', true );
-		$btn_foreground = get_post_meta( $object->ID, 'spotlight_btn_foreground', true );
-		$btn_text = get_post_meta( $object->ID, 'spotlight_btn_text', true );
-		$btn_styles = array();
-		if ( $btn_background ) : $btn_styles[] = 'background: '.$btn_background; endif;
-		if ( $btn_foreground ) : $btn_styles[] = 'color: '.$btn_foreground; endif;
-		$btn_styles = ( !empty( $btn_styles) ) ? implode( ' ', $btn_styles ) : '';
-		ob_start();
-		if ( ! ( $image_url && $url ) ) return;
-		$context = (object) array(
-			'url' => $url,
-			'image_url' => $image_url,
-			'image_alt' => $object->post_title,
-			'title' => $object->post_title,
-			'title_color' => $title_color,
-			'btn_text' => $btn_text,
-			'btn_styles' => $btn_styles,
-		);
+		$context = static::get_render_context( $object, $metadata_fields );
 		return static::render_to_html( $context );
 	}
 
@@ -278,6 +291,7 @@ class IconLink extends CustomPostType {
 		$use_title      = True,
 		$use_metabox    = True,
 		$taxonomies     = array( );
+
 	public function fields() {
 		$prefix = $this->options( 'name' ) . '_';
 		return array(
@@ -295,21 +309,37 @@ class IconLink extends CustomPostType {
 			)
 		);
 	}
-	public static function toHTML( $object ) {
-		$object = get_post( $object );
-		if ( SDES_Static::is_null_or_whitespace( $object ) 
-			 || self::NAME !== $object->post_type ) {return sprintf("<!-- No %s provided. -->", self::NAME); }
-		$icon = get_post_meta( $object->ID, 'icon_link_icon', true );
-		$url = get_post_meta( $object->ID, 'icon_link_url', true );
+
+	public static function get_render_context( $iconlink, $metadata_fields = null ) {
+		$iconlink = get_post( $iconlink );
+		return (object) array(
+			'url'  => get_post_meta( $iconlink->ID, 'icon_link_url', true ),
+			'icon' => get_post_meta( $iconlink->ID, 'icon_link_icon', true ),
+			'title' => $iconlink->post_title,
+			'text' => $iconlink->post_content,
+		);
+	}
+
+	public static function toHTML( $iconlink ) {
+		$iconlink = get_post( $iconlink );
+		if ( SDES_Static::is_null_or_whitespace( $iconlink ) 
+			 || self::NAME !== $iconlink->post_type ) {return sprintf("<!-- No %s provided. -->", self::NAME); }
+		$context = static::get_render_context( $iconlink );
+		return static::render_html( $context );
+	}
+
+	public static function render_html( $context ) {
+		$context->css_classes = property_exists( $context, 'css_classes') ? $context->css_classes
+			: 'col-md-4 icon-link';
 		ob_start();
 	?>
-		<div class="icon-link">
-			<a href="<?php echo $url; ?>" target="_blank">
+		<div class="<?= $context->css_classes; ?>">
+			<a href="<?= $context->url; ?>" target="_blank">
 				<div class="icon-wrapper">
-					<span class="fa <?php echo $icon; ?>"></span>
+					<span class="fa <?= $context->icon; ?>"></span>
 				</div>
-				<h3><?php echo $object->post_title; ?></h3>
-				<p><?php echo $object->post_content; ?></p>
+				<h3><?= $context->title; ?></h3>
+				<p><?= $context->text; ?></p>
 			</a>
 		</div>
 	<?php
@@ -919,7 +949,14 @@ class StudentService extends CustomPostType_ServicesTheme {
 							<?= self::render_contact_table( $context ) ?>
 							<?= self::render_hours_table( $context ) ?>
 							<?= self::render_social_buttons( $context ) ?>
-							<?= self::render_events_calendar( $context ); ?>
+							<?php
+								$max_events = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_max_items', 4 );
+								$context['events']  = array_reverse( FeedManager::get_items( $context['events_cal_feed'] ) );
+								$context['events']  = array_slice( $context['events'], 0, $max_events );
+								$context['academic_cal'] = false;
+								$context['events_cal_title'] = 'Events Calendar';
+								echo self::render_events_calendar( $context ); 
+							?>
 							<?= '<!-- Map -->' //self::render_map( $context ); ?>
 							<?= '<!-- News Feed -->' //self::render_news_feed( $context ); ?>
 						</div>
@@ -1097,10 +1134,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 	}
 
 	public static function render_events_calendar( $context ){
-		$feed_url = $context['events_cal_feed'];
-		$max_events = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_max_items', 4 );
-		$events  = array_reverse( FeedManager::get_items( $feed_url ) );
-		$events  = array_slice( $events, 0, $max_events );
 		ob_start();
 		?>
 			<div class="calendar-events collapsed" type="button"
@@ -1108,19 +1141,21 @@ class StudentService extends CustomPostType_ServicesTheme {
 				 aria-expanded="true" aria-controls="collapseExample">
 				<span class="calendar-events-title">
 					<span class="fa fa-calendar-o calendar-icon"></span>
-					Events Calendar
+					<?= $context['events_cal_title']  ?>
 					<span class="fa fa-chevron-down calendar-chevron"></span>
 				</span>
 				<div class="collapse" id="calendar-expand">
-				  <?php foreach ( $events as $event ) : $event = new UcfEventModel( $event ); ?>
+				  <?php 
+				  if ( 0 === sizeof( $context['events'] ) ) { echo 'No events found.'; }
+				  foreach ( $context['events'] as $event ) : 
+				  	$event = ( $context['academic_cal'] ) ? new UcfAcademicCalendarModel( $event ) : new UcfEventModel( $event ); ?>
 					<div class="event">
 						<div class="title"><a href="<?= $event->link() ?>"><?= $event->title() ?></a></div>
 						<div class="date"><?= $event->month_day() ?></div>
-						<div class="description"><?= $event->description() ?></div>
 					</div>
 				  <?php endforeach; ?>
 					<div>
-						<a class="all-link external" href="<?= $feed_url ?>">More Events ›</a>
+						<a class="all-link external" href="<?= $context['events_cal_feed'] ?>">More Events ›</a>
 					</div>
 				</div>
 			</div>

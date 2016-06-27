@@ -60,6 +60,7 @@ class SpotlightMetaField extends MetaField {
 
 
 
+
 class IconLinkMetaField extends MetaField {
 
 	/**

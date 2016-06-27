@@ -97,7 +97,6 @@ class WeatherBox {
 		return ob_get_clean();
 	}
 
-	// TODO: return `wi-na` on fail.
 	/**
 	 * 
 	 *
@@ -111,6 +110,13 @@ class WeatherBox {
 		);
 		$context = stream_context_create( $opts );
 		$file = file_get_contents( SDES_Static::get_theme_mod_defaultIfEmpty( 'weather_feed_url', self::WEATHER_FEED_URL ), false, $context );
+		if ( false === $file ) {			
+			return (object) array(
+				'condition' => 'n/a',
+				'icon' =>'wi wi-na',
+				'tempN' => '&ndash;',
+			);
+		}
 		$weather = json_decode( $file );
 		$weather->icon = static::get_weather_icon( $weather->condition );
 		return $weather;

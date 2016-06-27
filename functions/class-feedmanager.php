@@ -5,6 +5,9 @@
  *  "class-feedmanager.php" -> { SimplePie; get_site_transient; set_site_transient; };
  */
 
+require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
+	use SDES\SDES_Static as SDES_Static;
+
  /**
  * Handles fetching and processing of feeds.  Currently uses SimplePie to parse
  * retrieved feeds, and automatically handles caching of content fetches.
@@ -169,6 +172,89 @@ class UcfAcademicCalendarModel {
 	// 	}
 	// 	$display_range = True;
 	// }
+
+	public function title() {
+		return static::get_title( $this->event ); 
+	}
+	public static function get_title( $item ) {
+		return $item->summary; 
+	}
+
+	public function link() {
+		return static::get_link( $this->event ); 
+	}
+	public static function get_link( $item ) {
+		return $item->directUrl; 
+	}
+
+	public function description() {
+		return static::get_description( $this->event ); 
+	}
+	public static function get_description( $item ) {
+		return $item->description;
+	}
+
+	public function month_day() {
+		return static::get_month_day( $this->event ); 
+	}
+	public static function get_month_day( $item ) {
+		return date( 'M j', strtotime( $item->dtstart ) );
+	}
+
+	public function month() {
+		return static::get_month( $this->event ); 
+	}
+	public static function get_month( $item ) {
+		return date( 'M', strtotime( $item->dtstart ) );
+	}
+
+	public function day() {
+		return static::get_day( $this->event ); 
+	}
+	public static function get_day( $item ) {
+		return date( 'j', strtotime( $item->dtstart ) );
+	}
+
+	public function start_date() {
+		return static::get_start_date( $this->event ); 
+	}
+	public static function get_start_date( $item ) {
+		return strtotime( $item->dtstart ); 
+	}
+
+	public function end_date() {
+		return static::get_end_date( $this->event ); 
+	}
+	public static function get_end_date( $item ) {
+		return empty( $tem->dtend ) ? '' : strtotime( $tem->dtend );
+	}
+
+	public function start_time() {
+		return static::get_start_time( $this->event ); 
+	}
+	public static function get_start_time( $item ) {
+		return date( 'g:i a', strtotime( static::get_start_date( $item ) ) ); 
+	}
+	
+	public function end_time() {
+		return static::get_end_time( $this->event ); 
+	}
+	public static function get_end_time( $item ) {
+		return date( 'g:i a', strtotime( static::get_end_date( $item ) ) ); 
+	}
+
+	public function time_string() {
+		return static::get_time_string( $this->event ); 
+	}
+	public static function get_time_string( $item ) {
+		$start_time = self::get_start_time( $this );
+		$end_time = self::get_end_time( $this );
+		if ( $start_time == $end_time ) {
+			return $start_time;
+		} else {
+			return $start_time . ' - ' . $end_time;
+		}
+	}
 }
 
 class UcfEventModel {

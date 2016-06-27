@@ -323,6 +323,13 @@ class sc_callout extends ShortcodeBase {
 				'help_text' => 'The color of the text within the callout box',
 				'type'      => 'color',
 				'default'   => '#000000'
+			),
+			array(
+				'name'      => 'Auto Paragraph',
+				'id'        => 'wpautop',
+				'help_text' => 'Add paragraph tags to the content (default: false).',
+				'type'      => 'bool',
+				'default'   => false
 			)
 		), // The parameters used by the shortcode.
 		$callback    = 'callback',
@@ -330,13 +337,17 @@ class sc_callout extends ShortcodeBase {
 	public static function callback( $attr, $content='' ) {
 		$attr = shortcode_atts( array(
 				'color' => '#ffcc00',
-				'text-color' => '#000'
+				'text-color' => '#000',
+				'wpautop' => false,
 			),
 			$attr
 		);
 		$style = '';
 		$style .= !empty( $attr['color'] ) ? 'background: ' . $attr['color'] . ';' : '';
 		$style .= !empty( $attr['text-color'] ) ? ' color: ' . $attr['text-color'] . ';' : '';
+
+		$restore_autop = has_filter( 'the_content', 'wpautop' );
+		if ( false === $attr['wpautop'] ) { remove_filter( 'the_content', 'wpautop' ); }
 		ob_start();
 		?>
 			<aside class="callout"<?php echo !empty( $style ) ? ' style="' . $style . '"' : ''; ?>>
@@ -345,6 +356,7 @@ class sc_callout extends ShortcodeBase {
 				</div>
 			</aside>
 		<?php
+		if ( $restore_autop ) { add_filter( 'the_content', 'wpautop' ); }
 		return ob_get_clean();
 	}
 }
@@ -408,85 +420,147 @@ class sc_campaign extends ShortcodeBase {
 		$description = 'Display a campaign.', // The description of the shortcode.
 		$params      = array(
 			array(
-				'name'      => 'Campaign Object',
-				'id'        => 'campaign_id',
-				'help_text' => 'Choose the campaign to display.',
+				'name'      => 'Spotlight Object',
+				'id'        => 'spotlight_id',
+				'help_text' => 'Choose the spotlight to display.',
 				'type'      => 'dropdown',
 				'choices'   => array()
-			)
+			),
+			array(
+				'name'      => 'Image',
+				'id'        => 'image_id',
+				'help_text' => 'Choose an image to display.',
+				'type'      => 'image',
+			),
+			array(
+				'name'      => 'Link',
+				'id'        => 'url',
+				'help_text' => 'The url for this campaign.',
+				'type'      => 'text',
+			),
+			array(
+				'name'      => 'Title',
+				'id'        => 'title',
+				'help_text' => 'The title for this campaign.',
+				'type'      => 'text',
+			),
+			array(
+				'name'      => 'Long Text',
+				'id'        => 'long',
+				'help_text' => 'The long-form text for this campaign.',
+				'type'      => 'text',
+			),
+			array(
+				'name'      => 'Short Text',
+				'id'        => 'short',
+				'help_text' => 'The short-form text for this campaign.',
+				'type'      => 'text',
+			),
+			array(
+				'name'      => 'Button',
+				'id'        => 'btn_text',
+				'help_text' => 'The button text for this campaign.',
+				'type'      => 'text',
+			),
 		), // The parameters used by the shortcode.
+		$closing_tag = false,
 		$callback    = 'callback',
 		$wysiwyg     = True; // Whether to add it to the shortcode Wysiwyg modal.
 
+	public function __construct() {
+		$this->params[0]['choices'] = $this->get_choices();
+	}
+
+	private function get_choices() {
+		$posts = get_posts( array( 'post_type' => 'spotlight' ) );
+		$retval = array( array( 'name' => '--- Choose ---', 'value' => null ) );
+		foreach( $posts as $post ) {
+			$retval[] = array(
+				'name'  => $post->post_title,
+				'value' => $post->ID
+			);
+		}
+		return $retval;
+	}
+
 	public static function callback( $attr, $content='' ) {
 		$attr = shortcode_atts( array(
-				'campaign_id' => null,
+				'spotlight_id' => null,
+				'image_id' => '',
+				'image_url' => '',
+				'url' => '',
+				'title' => '',
+				'long' => '',
+				'short' => '',
+				'btn_text' => '',
 				'layout' => 'rectangle',
 			), $attr
 		);
+		$context = null;
+		if ( ! SDES_Static::is_null_or_whitespace( $attr['spotlight_id'] ) ) {
+			$post = get_post( $attr['spotlight_id'] );
+			$context = (object) Spotlight::get_render_context( $post );
+		} else {
+			$context = (object) array(
+				'image_id' => $attr['image_id'],
+				'image_url' => $attr['image_url'],
+				'url' => $attr['url'],
+				'title' => $attr['title'],
+				'long' => $attr['long'],
+				'short' => $attr['short'],
+				'btn_text' => $attr['btn_text'],
+			);
+		}
+		$context->image_url = ( ! SDES_Static::is_null_or_whitespace( $context->image_url ) )
+			? $context->image_url
+			: wp_get_attachment_image_src( $context->image_id, 'thumb' )[0];
 		ob_start();
-		if ( $attr['campaign_id']  || true ) {
-			// $post = get_post( $attr['campaign_id'] );
-			// $context = Campaign::get_render_context( $post );
-			$context = (object) array();
-			switch ( $attr['layout'] ) {
-				case 'square':
-					echo static::render_square( $context );
-					break;
-				case 'rectangle':
-				default:
-					echo static::render( $context );
-					break;
-			}
+		switch ( $attr['layout'] ) {
+			case 'square':
+				echo static::render_square( $context );
+				break;
+			case 'rectangle':
+			default:
+				echo static::render( $context );
+				break;
 		}
 		return ob_get_clean();
 	}
 
 	public static function render( $ctxt ) {
-		$ctxt->image = get_stylesheet_directory_uri() . '/static/img/primary-action-image.jpg';
-		$ctxt->link = 'www.google.com';
-		$ctxt->title = "Do The Math";
-		$ctxt->long = "Most undergraduate degrees at UCF require 120 credit hours. Completeing 
-								30 credit hours per year will allow you to graduate in 4 years. But 
-								that’s just the start.";
-		$ctxt->button = "Think 30";
 		ob_start();
 		?>
-			<div class="row campaign" style="background-image: url( <?= $ctxt->image ?> );"> <!-- primary bg -->
-				<div class="col-sm-6 col-md-offset-6 campaign-content">
-					<div class="campaign-title">
-						<a href="<?= $ctxt->link ?>"><?= $ctxt->title ?></a>
+			<div class="container-fluid">
+				<div class="row campaign" style="background-image: url( <?= $ctxt->image_url ?> );"> <!-- primary bg -->
+					<div class="col-sm-6 col-md-offset-6 campaign-content">
+						<div class="campaign-title">
+							<a href="<?= $ctxt->url ?>"><?= $ctxt->title ?></a>
+						</div>
+						<p><?= $ctxt->long ?></p>
+						<a href="<?= $ctxt->url ?>">
+							<span class="btn btn-default btn-lg" type="button">
+								<?= $ctxt->btn_text ?>
+							</span>
+						</a>
 					</div>
-					<p><?= $ctxt->long ?></p>
-					<a href="<?= $ctxt->title ?>">
-						<span class="btn btn-default btn-lg" type="button">
-							<?= $ctxt->button ?>
-						</span>
-					</a>
 				</div>
-
 			</div>
 		<?php
 		return ob_get_clean();
 	}
 
 	public static function render_square( $ctxt ) {
-		$ctxt->image = get_stylesheet_directory_uri() . '/static/img/primary-action-image.jpg';
-		$ctxt->link = 'www.google.com';
-		$ctxt->title = "Graduation Is Right Around the Corner";
-		$ctxt->short = "make sure you are prepared by going over the graduation checklist ";
-		$ctxt->button = "See More";
 		ob_start();
 		?>
 			<div class="campaign" style="background: #f3f3f3;">
 				<div class="campaign-content">
 					<div class="campaign-title">
-						<a href="<?= $ctxt->link ?>"><?= $ctxt->title ?></a>
+						<a href="<?= $ctxt->url ?>"><?= $ctxt->title ?></a>
 					</div>
 					<p><?= $ctxt->short ?></p>
-					<a href="<?= $ctxt->link ?>">
+					<a href="<?= $ctxt->url ?>">
 						<span class="btn btn-default btn-lg" type="button">
-							<?= $ctxt->button ?>
+							<?= $ctxt->btn_text ?>
 						</span>
 					</a>
 				</div>

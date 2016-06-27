@@ -32,6 +32,9 @@
             &:hover {
                 color: #d0d0d0;
             }
+            @media (max-width: $screen-sm-max) {
+                margin-left: 20px;
+            }
         }
     }
 

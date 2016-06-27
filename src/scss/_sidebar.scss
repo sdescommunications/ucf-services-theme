@@ -2,13 +2,16 @@
 
 
 .services-page .side-bar::before {
-    content: "foo";
+    content: "Vertical separator";
     color: transparent;
     position: absolute;
     left: -31px;
     width: 2px;
     height: 100%;
     background: #dedede;
+    @media (max-width: $screen-sm-max) {
+        display: none;
+    }
 }
 
 .side-bar {
@@ -18,6 +21,9 @@
           letter-spacing: 2px;
           border: none;
           font-weight: 900;
+        }
+        @media (max-width: $screen-sm-max) {
+            display: none;
         }
     }
     .table-bordered {
@@ -104,5 +110,10 @@
         color: #3B598F;
         font-size: 65px;
         margin-bottom: 30px;
+    }
+    @media screen and (max-width: $screen-xs-max) {
+        .table-responsive {
+            border: none;
+        }
     }
 }

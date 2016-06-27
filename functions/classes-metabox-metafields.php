@@ -310,17 +310,20 @@ class ImageMetaField extends MetaField {
 			'id' => htmlentities( $this->id ),
 			'value' => htmlentities( $this->value ),
 			'image_src' => wp_get_attachment_image_src( htmlentities( $this->value ), 'thumbnail', false )[0],
+			'data_param' => '',
 		);
+		return static::render_html( $context );
+	}
+
+	public static function render_html( $context ) {
 		ob_start();
 		?>
-		<p>
 			<a href="<?= $context->value ?>" target="_blank" class="meta-image-preview">
 				<img class="meta-image-preview" style="max-width: 400px; max-height: 400px;" src="<?= $context->image_src ?>">
 			</a>
 			<br>
-			<input type="text" class="meta-image-field hide-if-js" name="<?= $context->id ?>" id="<?= $context->id ?>" value="<?= $context->value ?>" style="width: 500px;" />
+			<input type="text" class="meta-image-field hide-if-js" name="<?= $context->id ?>" id="<?= $context->id ?>" value="<?= $context->value ?>" style="width: 500px;" data-parameter="<?= $context->data_param ?>" />
 			<input type="button" class="meta-image-button button hide-if-no-js" id="button-<?= $context->id ?>" value="<?php _e( 'Choose or Upload an Image', 'prfx-textdomain' )?>" />
-		</p>
 		<?php
 		return ob_get_clean();
 	}

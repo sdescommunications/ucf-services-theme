@@ -49,28 +49,12 @@ add_action( 'customize_register', __NAMESPACE__.'\register_theme_customizer' );
 function add_to_section_TitleAndTagline( $wp_customizer, $args = null ) {
 	$section = 'title_tagline';
 
-	// Sitetitle Anchor Width
-	$sitetitle_anchor_width_args = $args['services_theme-sitetitle_anchor_width'];
-	SDES_Static::set_default_keyValue_array( $sitetitle_anchor_width_args, array(
-		'description' => 'Default width: "400px"',
-		'transport' => 'refresh',
-		'default' => '400px',
-		'sanitize_callback' => 'esc_attr',
-	));
-	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type
-		$wp_customizer,			// WP_Customize_Manager.
-		'services_theme-sitetitle_anchor_width',	// Id.
-		'Title Width',					// Label.
-		$section,						// Section.
-		$sitetitle_anchor_width_args	// Arguments array.
-	);
-
 	// Sitetitle Anchor Max Width
 	$sitetitle_anchor_maxwidth_args = $args['services_theme-sitetitle_anchor_maxwidth'];
 	SDES_Static::set_default_keyValue_array( $sitetitle_anchor_maxwidth_args, array(
-		'description' => 'Default max-width: "460px"',
+		'description' => 'Default max-width: "360px"',
 		'transport' => 'refresh',
-		'default' => '460px',
+		'default' => '360px',
 		'sanitize_callback' => 'esc_attr',
 	));
 	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type

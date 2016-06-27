@@ -17,8 +17,7 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static;
 
 // WordPress does not allow "<br>" tags within bloginfo('name'), so allow setting width.
-$sitetitle_anchor_width = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-sitetitle_anchor_width', '400px' );
-$sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-sitetitle_anchor_maxwidth', '460px' );
+$sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-sitetitle_anchor_maxwidth', '360px' );
 $frontsearch_lead = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-frontsearch_lead',
 	'From orientation to graduation, the UCF experience creates<br>opportunities that last a lifetime. <b>Let\'s get started</b>.' );
 $frontsearch_placeholder = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-frontsearch_placeholder', 'What can we help you with today?' );
@@ -26,8 +25,7 @@ get_header();
 ?>
 <style>
 	.header-center a {
-		width: <?= $sitetitle_anchor_width ?>;
-		max-width: <?= $sitetitle_anchor_maxwidth ?>;
+		max-width: <?= $sitetitle_anchor_maxwidth ?> !important;
 	}
 </style>
 <header class="site-header">
@@ -112,8 +110,14 @@ get_header();
 					<div class="col-xs-12">
 					<?php
 					// TODO: make calendar_events into a shortcode.
+					$academic_feed = UcfAcademicCalendarModel::$calendar_url;
+					$max_events = 5;
+					$events = UcfAcademicCalendarModel::get_academic_calendar_items();
 					echo StudentService::render_events_calendar( array(
-						'events_cal_feed' => SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_url', Footer_Settings::EVENTS_URL ),
+						'events_cal_feed' => $academic_feed,
+						'events' => $events,
+						'academic_cal' => true,
+						'events_cal_title' => 'Academic Calendar',
 					)); ?>
 					<script>
 						var academic_calendar = jQuery('.calendar-events-title')[0];
@@ -125,7 +129,8 @@ get_header();
 				<div class="row">
 					<div class="col-xs-12">
 					<?php
-						echo do_shortcode( "[campaign layout='square']" );
+						$spotlight_id = get_post_meta( $post->ID, 'page_spotlight', true );
+						echo do_shortcode( "[campaign spotlight_id='{$spotlight_id}' layout='square']" );
 					?>
 					</div>
 				</div>
@@ -133,7 +138,6 @@ get_header();
 
 			<section id="services" class="col-sm-12 col-md-9 col-lg-9 col-md-pull-3">
 				<h2 class="title"><?= the_title() ?></h2>
-				<?= do_shortcode( "[campaign]" ); ?>
 				<?php if (have_posts()) :
 					 while (have_posts()) : the_post();
 						the_content();
