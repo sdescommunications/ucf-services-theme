@@ -252,14 +252,14 @@ abstract class CustomPostType {
 	public static function get_thumbnail_or_attachment_image( $post_id ) {
 		$thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
 		if ( $thumbnail_id ) {
-			$html = wp_get_attachment_image( $thumbnail_id, 'thumbnail', true );
+			$html = wp_get_attachment_image( $thumbnail_id, 'thumb', true );
 		} else {
 			$attachments = get_children(
 				array( 'post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image' )
 			);
 			if ( $attachments ) {
-				$last_attachment_id = end( $attachments );
-				$html = wp_get_attachment_image( $last_attachment_id, 'thumbnail', true );
+				$last_attachment_id = end( $attachments )->ID;
+				$html = wp_get_attachment_image( $last_attachment_id, 'thumb', true );
 			}
 		}
 		if ( ! isset( $html )  || ! $html ) { $html = __( 'None' ); }
