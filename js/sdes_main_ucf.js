@@ -8,12 +8,20 @@ Number.prototype.clamp = function(min, max) {
 // https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/src/js/script.js#L18-L32
 var headerImage = function($) {
     var resize = function() {
-        var $image = $('.header-image'),
-            width = $image.width(),
-            height = (width * 0.375).clamp(300, 750);
+        var toClamp = [
+            // [ 'selector', clamp-min, clamp-max ],
+            [ '.site-header .header-image', 350, 520 ],
+            [ '.subpage-header', 400, 420 ],
+            [ '.subpage-header .header-image', 400, 420 ],
+        ];
+        for (var i = toClamp.length - 1; i >= 0; i--) {
+            var $image = $( toClamp[i][0] ),
+                width = $image.width(),
+                height = (width * 0.375).clamp( toClamp[i][1], toClamp[i][2]);
 
-        $image.height(height + 'px');
-        $image.children('.container').height(height + 'px');
+            $image.height(height + 'px');
+            $image.children('.container').height(height + 'px');
+        };
     };
     resize();
 

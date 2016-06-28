@@ -56,6 +56,40 @@ class SDES_Static
 	}
 
 
+	/**
+	 * Add .img-responsive to IMG tags. Usually called from a filter, e.g., `add_filter('the_content', 'img_add_responsive_class_content');`
+	 * @see https://developer.wordpress.org/reference/functions/the_content/ WP-Ref: the_content()
+	 * @see http://stackoverflow.com/a/20499803 Stack-Overflow: /a/20499803
+	 * @return string A string of the filtered HTML content.
+	 */
+	public static function img_add_responsive_class_content( $content ){
+		if ( self::is_null_or_whitespace( $content) ) { return $content; }
+
+		if ( \function_exists( 'mb_convert_encoding' ) ) {
+			$content = \utf8_decode( \mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+		}
+
+		// Loads content without adding doctype, html, and body tags, or wrapping in a p tag.
+		$document = new \SDES\DOMDocument_Smart();
+		\libxml_use_internal_errors( true );
+		// Presumably fatal exception in QA after the next line executes. Above code is fine.
+		$document->loadHTML( $content );
+
+		// Loop through img tags to add .img-responsive (unless IMG.img-nonresponsive).
+		$imgs = $document->getElementsByTagName( 'img' );
+		foreach ( $imgs as $img ) {
+			$existing_class = $img->getAttribute( 'class' );
+			if( false === \strpos( $existing_class, 'img-nonresponsive' ) ) {
+				$img->setAttribute( 'class', "img-responsive $existing_class" );
+			} else {
+				continue;
+			}
+		}
+		return $document->saveHTML();
+	}
+
+
+
 	// TODO: add tests, try-catch block.
 	/**
 	 * Return a collection links and titles from an RSS feed.
@@ -267,5 +301,56 @@ class SDES_Static
 			echo $output;
 		}
 		return $output;
+	}
+}
+
+
+
+/**
+ * Load HTML content into a DOMDocument without wrapping it in doctype, html, and body tags. In case there is only text,
+ * wrap the content in span tag so it doesn't get wrapped in a p tag.
+ */
+class DOMDocument_Smart extends \DOMDocument {
+	// If constansts 'LIBXML_HTML_NOIMPLIED' and 'LIBXML_HTML_NODEFDTD' are defined, per http://php.net/manual/en/libxml.constants.php .
+	public static $IsLibxmlModern = false;
+
+	public function __construct() {
+		static::$IsLibxmlModern = defined('\LIBXML_HTML_NOIMPLIED') && defined('\LIBXML_HTML_NODEFDTD');
+	}
+	/** Load contents after wrapping it in a span tag. */
+	public function loadHTML( $contents, $options = 0 ) {
+		if ( static::$IsLibxmlModern ) {
+			// use http://stackoverflow.com/a/31426408
+			// Tell libxml not to load html, body, or doctype definition, then load contents into a span tag.
+			if ( 0 === $options ) { $options = \LIBXML_HTML_NOIMPLIED | \LIBXML_HTML_NODEFDTD; }
+			parent::loadHTML( "<span>{$contents}</span>", $options );
+		} else {
+			// Load contents into a span tag, remove the doctype, then replace the html tag with the span tag.
+			parent::loadHTML( "<span>{$contents}</span>", $options );
+			// http://stackoverflow.com/a/6953808
+			$this->removeChild( $this->doctype ); // Remove <!DOCTYPE.
+			$newnode = $this->firstChild->firstChild->firstChild; // html>body>span.
+			$this->replaceChild( $newnode, $this->firstChild ); // Replace first node with span wrapper.
+		}
+	}
+
+	/** Return HTML content without the span wrapper. */
+	public function saveHTML() {
+		$with_span = parent::saveHTML();
+		return static::remove_span_wrapper( $with_span );
+	}
+	/** Remove '<span>' from the front of a string and remove '</span>' from its end.*/
+	public static function remove_span_wrapper( $wrapped_text ) {
+		// return substr( $document->saveHTML(), strlen('<span>'), -1*strlen('</span>')-1 );
+		return substr( $wrapped_text, 6, -8 ); // Remove span open and close tags.
+	}
+
+	/** Cast the DOMDocument_Smart object to its contents if used as a string. */
+	public function __toString() {
+		return $this->saveHTML();
+	}
+	/** Call the default DOMDocument::saveHTML method. */
+	public function saveHTML_dumb( $node = null ) {
+		return parent::saveHTML( $node );
 	}
 }

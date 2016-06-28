@@ -20,8 +20,10 @@ require_once( 'shortcodes.php' );  // Enable shortcodes.
 function __init__() {
     add_theme_support( 'custom-header', array(
         'width' => 2000,
-        'height' => 750
+        'height' => 520
     ) );
+    // add_theme_support( 'post-thumbnails' );
+    // add_image_size( 'thumb-sidebar-spotlight', 360, 275, $crop = true );
 }
 add_action( 'after_setup_theme', '__init__' );
 
@@ -34,31 +36,24 @@ function enqueue_scripts_and_styles(){
 }
 
 /**
- * Add .img-responsive to img tags in sidecolumn metadata fields.
+ * Add .img-responsive to img tags.
  * @see https://developer.wordpress.org/reference/functions/the_content/ WP-Ref: the_content()
  * @see http://stackoverflow.com/a/20499803 Stack-Overflow: /a/20499803
  */
 function img_add_responsive_class_content( $content ){
-    if ( SDES_Static::is_null_or_whitespace( $content) ) { return $content; }
-    
-    if ( function_exists( 'mb_convert_encoding' ) ) {
-        $content = utf8_decode( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+    try {
+        return SDES_Static::img_add_responsive_class_content( $content );
+    } catch ( Exception $e ) {
+        $adminmsg =
+            ( SDES_Static::Is_UserLoggedIn_Can( 'install_themes' ) )
+            ? '<a class="text-danger adminmsg" style="color: red !important;"'
+            . ' href="javascript:jQuery(\'pre.exception\').toggle();">Admin Alert: %1$s<br>'
+            . '<pre class="exception" style="display: none;">%2$s</pre></a>'
+            : '<!-- %1$s -->';
+        $text = 'Image tags may not have the class `img-responsive`. Please add it manually and/or check the filter.';
+        echo sprintf( $adminmsg, $text, esc_html( $e ) );
+        return $content;
     }
-    $document = new DOMDocument();
-    libxml_use_internal_errors( true );
-    $document->loadHTML( $content );
-
-    $imgs = $document->getElementsByTagName( 'img' );
-    foreach ( $imgs as $img ) {
-        $existing_class = $img->getAttribute( 'class' );
-        if( false === strpos( $existing_class, 'img-nonresponsive' ) ) {
-            $img->setAttribute( 'class', "img-responsive $existing_class" );
-        } else {
-            continue;
-        }
-    }
-
-    return $document->textContent;
 }
 add_filter('the_content', 'img_add_responsive_class_content');
 

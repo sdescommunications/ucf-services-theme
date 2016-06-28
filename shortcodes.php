@@ -323,6 +323,13 @@ class sc_callout extends ShortcodeBase {
 				'help_text' => 'The color of the text within the callout box',
 				'type'      => 'color',
 				'default'   => '#000000'
+			),
+			array(
+				'name'      => 'Auto Paragraph',
+				'id'        => 'wpautop',
+				'help_text' => 'Add paragraph tags to the content (default: false).',
+				'type'      => 'bool',
+				'default'   => false
 			)
 		), // The parameters used by the shortcode.
 		$callback    = 'callback',
@@ -330,13 +337,17 @@ class sc_callout extends ShortcodeBase {
 	public static function callback( $attr, $content='' ) {
 		$attr = shortcode_atts( array(
 				'color' => '#ffcc00',
-				'text-color' => '#000'
+				'text-color' => '#000',
+				'wpautop' => false,
 			),
 			$attr
 		);
 		$style = '';
 		$style .= !empty( $attr['color'] ) ? 'background: ' . $attr['color'] . ';' : '';
 		$style .= !empty( $attr['text-color'] ) ? ' color: ' . $attr['text-color'] . ';' : '';
+
+		$restore_autop = has_filter( 'the_content', 'wpautop' );
+		if ( false === $attr['wpautop'] ) { remove_filter( 'the_content', 'wpautop' ); }
 		ob_start();
 		?>
 			<aside class="callout"<?php echo !empty( $style ) ? ' style="' . $style . '"' : ''; ?>>
@@ -345,6 +356,7 @@ class sc_callout extends ShortcodeBase {
 				</div>
 			</aside>
 		<?php
+		if ( $restore_autop ) { add_filter( 'the_content', 'wpautop' ); }
 		return ob_get_clean();
 	}
 }
@@ -401,6 +413,163 @@ class sc_call_to_action extends ShortcodeBase {
 	}
 }
 
+class sc_campaign extends ShortcodeBase {
+	public
+		$name        = 'Campaign', // The name of the shortcode.
+		$command     = 'campaign', // The command used to call the shortcode.
+		$description = 'Display a campaign.', // The description of the shortcode.
+		$params      = array(
+			array(
+				'name'      => 'Spotlight Object',
+				'id'        => 'spotlight_id',
+				'help_text' => 'Choose the spotlight to display.',
+				'type'      => 'dropdown',
+				'choices'   => array()
+			),
+			array(
+				'name'      => 'Image',
+				'id'        => 'image_id',
+				'help_text' => 'Choose an image to display.',
+				'type'      => 'image',
+			),
+			array(
+				'name'      => 'Link',
+				'id'        => 'url',
+				'help_text' => 'The url for this campaign.',
+				'type'      => 'text',
+			),
+			array(
+				'name'      => 'Title',
+				'id'        => 'title',
+				'help_text' => 'The title for this campaign.',
+				'type'      => 'text',
+			),
+			array(
+				'name'      => 'Long Text',
+				'id'        => 'long',
+				'help_text' => 'The long-form text for this campaign.',
+				'type'      => 'text',
+			),
+			array(
+				'name'      => 'Short Text',
+				'id'        => 'short',
+				'help_text' => 'The short-form text for this campaign.',
+				'type'      => 'text',
+			),
+			array(
+				'name'      => 'Button',
+				'id'        => 'btn_text',
+				'help_text' => 'The button text for this campaign.',
+				'type'      => 'text',
+			),
+		), // The parameters used by the shortcode.
+		$closing_tag = false,
+		$callback    = 'callback',
+		$wysiwyg     = True; // Whether to add it to the shortcode Wysiwyg modal.
+
+	public function __construct() {
+		$this->params[0]['choices'] = $this->get_choices();
+	}
+
+	private function get_choices() {
+		$posts = get_posts( array( 'post_type' => 'spotlight' ) );
+		$retval = array( array( 'name' => '--- Choose ---', 'value' => null ) );
+		foreach( $posts as $post ) {
+			$retval[] = array(
+				'name'  => $post->post_title,
+				'value' => $post->ID
+			);
+		}
+		return $retval;
+	}
+
+	public static function callback( $attr, $content='' ) {
+		$attr = shortcode_atts( array(
+				'spotlight_id' => null,
+				'image_id' => '',
+				'image_url' => '',
+				'url' => '',
+				'title' => '',
+				'long' => '',
+				'short' => '',
+				'btn_text' => '',
+				'layout' => 'rectangle',
+			), $attr
+		);
+		$context = null;
+		if ( ! SDES_Static::is_null_or_whitespace( $attr['spotlight_id'] ) ) {
+			$post = get_post( $attr['spotlight_id'] );
+			$context = (object) Spotlight::get_render_context( $post );
+		} else {
+			$context = (object) array(
+				'image_id' => $attr['image_id'],
+				'image_url' => $attr['image_url'],
+				'url' => $attr['url'],
+				'title' => $attr['title'],
+				'long' => $attr['long'],
+				'short' => $attr['short'],
+				'btn_text' => $attr['btn_text'],
+			);
+		}
+		$context->image_url = ( ! SDES_Static::is_null_or_whitespace( $context->image_url ) )
+			? $context->image_url
+			: wp_get_attachment_image_src( $context->image_id, 'thumb' )[0];
+		ob_start();
+		switch ( $attr['layout'] ) {
+			case 'square':
+				echo static::render_square( $context );
+				break;
+			case 'rectangle':
+			default:
+				echo static::render( $context );
+				break;
+		}
+		return ob_get_clean();
+	}
+
+	public static function render( $ctxt ) {
+		ob_start();
+		?>
+			<div class="container-fluid">
+				<div class="row campaign" style="background-image: url( <?= $ctxt->image_url ?> );"> <!-- primary bg -->
+					<div class="col-sm-6 col-md-offset-6 campaign-content">
+						<div class="campaign-title">
+							<a href="<?= $ctxt->url ?>"><?= $ctxt->title ?></a>
+						</div>
+						<p><?= $ctxt->long ?></p>
+						<a href="<?= $ctxt->url ?>">
+							<span class="btn btn-default btn-lg" type="button">
+								<?= $ctxt->btn_text ?>
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	public static function render_square( $ctxt ) {
+		ob_start();
+		?>
+			<div class="campaign" style="background: #f3f3f3;">
+				<div class="campaign-content">
+					<div class="campaign-title">
+						<a href="<?= $ctxt->url ?>"><?= $ctxt->title ?></a>
+					</div>
+					<p><?= $ctxt->short ?></p>
+					<a href="<?= $ctxt->url ?>">
+						<span class="btn btn-default btn-lg" type="button">
+							<?= $ctxt->btn_text ?>
+						</span>
+					</a>
+				</div>
+			</div>
+		<?php
+		return ob_get_clean();
+	}
+}
+
 function register_shortcodes() {
 	ShortcodeBase::Register_Shortcodes(array(
 		__NAMESPACE__.'\sc_row',
@@ -408,6 +577,7 @@ function register_shortcodes() {
 		__NAMESPACE__.'\sc_icon_link',
 		__NAMESPACE__.'\sc_callout',
 		__NAMESPACE__.'\sc_call_to_action',
+		__NAMESPACE__.'\sc_campaign',
 	));
 }
 add_action( 'init', __NAMESPACE__.'\register_shortcodes' );

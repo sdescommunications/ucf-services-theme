@@ -5,6 +5,9 @@
  *  "class-feedmanager.php" -> { SimplePie; get_site_transient; set_site_transient; };
  */
 
+require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
+	use SDES\SDES_Static as SDES_Static;
+
  /**
  * Handles fetching and processing of feeds.  Currently uses SimplePie to parse
  * retrieved feeds, and automatically handles caching of content fetches.
@@ -110,7 +113,152 @@ class FeedManager {
 	}
 }
 
+class UcfAcademicCalendarModel {
+	public static $calendar_url = 'http://calendar.ucf.edu/json';
+	protected $event;
+	public function __construct( $item ) { $this->event = $item; }
+
+	public static function get_academic_calendar_items() {
+		$result_name = 'academic_calendar';
+		$retval = get_transient( $result_name );
+		if ( false === $retval ) {
+			$opts = array(
+				'http' => array(
+					'timeout' => 15
+				)
+			);
+			$context = stream_context_create( $opts );
+			$file_location = 
+				SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-academic_cal_feed_url', self::$calendar_url );
+			if ( empty( $file_location ) ) {
+				return;
+			}
+			$result = json_decode( file_get_contents( $file_location, false, $context ) );
+			if ( empty( $result ) ) {
+				return;
+			}
+			$result = $result->terms[0]->events;
+			foreach( $result as $r ) {
+				if ( $r->isImportant ) {
+					$retval[] = $r;
+				}
+				if ( count( $retval ) == 7 ) {
+					break;
+				}
+			}
+			set_transient( $result_name, $retval, (60 * 60 * 12) );
+		}
+		return $retval;
+	}
+
+	// $max_events = 6;
+	// $items = get_academic_calendar_items();
+	// $first_item = array_shift( $items );
+	// $full_cal_url = get_theme_mod_or_default( 'academic_calendar_full_url' );
+	// $date = strtotime( $first_item->dtstart );
+	// $end_dt = empty( $first_item->dtend ) ? '' : strtotime( $first_item->dtend );
+	// $month = date( 'F', $date );
+	// $day = date( 'j', $date );
+	// $start_date = date( 'F j', $date );
+	// $end_date = empty( $end_dt ) ? $end_dt : date( 'F j', $end_dt );
+	// $display_range = False;
+	// if ( $start_date == $end_date || empty( $end_dt ) ) {
+	// 	$time_string = $start_date;
+	// } else {
+	// 	if ( $month === date( 'F', $end_dt ) ) {
+	// 		$time_string = $start_date . ' - ' . date( 'j', $end_dt );
+	// 	} else {
+	// 		$time_string = $start_date . ' - ' . $end_date;
+	// 	}
+	// 	$display_range = True;
+	// }
+
+	public function title() {
+		return static::get_title( $this->event ); 
+	}
+	public static function get_title( $item ) {
+		return $item->summary; 
+	}
+
+	public function link() {
+		return static::get_link( $this->event ); 
+	}
+	public static function get_link( $item ) {
+		return $item->directUrl; 
+	}
+
+	public function description() {
+		return static::get_description( $this->event ); 
+	}
+	public static function get_description( $item ) {
+		return $item->description;
+	}
+
+	public function month_day() {
+		return static::get_month_day( $this->event ); 
+	}
+	public static function get_month_day( $item ) {
+		return date( 'M j', strtotime( $item->dtstart ) );
+	}
+
+	public function month() {
+		return static::get_month( $this->event ); 
+	}
+	public static function get_month( $item ) {
+		return date( 'M', strtotime( $item->dtstart ) );
+	}
+
+	public function day() {
+		return static::get_day( $this->event ); 
+	}
+	public static function get_day( $item ) {
+		return date( 'j', strtotime( $item->dtstart ) );
+	}
+
+	public function start_date() {
+		return static::get_start_date( $this->event ); 
+	}
+	public static function get_start_date( $item ) {
+		return strtotime( $item->dtstart ); 
+	}
+
+	public function end_date() {
+		return static::get_end_date( $this->event ); 
+	}
+	public static function get_end_date( $item ) {
+		return empty( $tem->dtend ) ? '' : strtotime( $tem->dtend );
+	}
+
+	public function start_time() {
+		return static::get_start_time( $this->event ); 
+	}
+	public static function get_start_time( $item ) {
+		return date( 'g:i a', strtotime( static::get_start_date( $item ) ) ); 
+	}
+	
+	public function end_time() {
+		return static::get_end_time( $this->event ); 
+	}
+	public static function get_end_time( $item ) {
+		return date( 'g:i a', strtotime( static::get_end_date( $item ) ) ); 
+	}
+
+	public function time_string() {
+		return static::get_time_string( $this->event ); 
+	}
+	public static function get_time_string( $item ) {
+		$start_time = self::get_start_time( $this );
+		$end_time = self::get_end_time( $this );
+		if ( $start_time == $end_time ) {
+			return $start_time;
+		} else {
+			return $start_time . ' - ' . $end_time;
+		}
+	}
+}
+
 class UcfEventModel {
+	// TODO - remove events_url?
 	public static $events_url = 'http://events.ucf.edu';
 	protected $event;
 	public function __construct( $item ) { $this->event = $item; }

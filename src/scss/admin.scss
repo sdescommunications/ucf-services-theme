@@ -14,3 +14,13 @@ body.jsEnabled {
 		display: none;
 	}
 }
+
+.custom-metabox {
+	input[type=text],
+	textarea {
+		min-width: 600px;
+	}
+	textarea {
+		min-height: 150px;
+	}
+}

@@ -24,12 +24,6 @@
 
   .navbar-nav {
     > li {
-      + li:before {
-        content: ">";
-        float: left;
-        padding: 17px 0px;
-      }
-
       > a {
         color: $ucf-col-default;
         &:focus {
@@ -211,8 +205,13 @@
 
 // TODO: replace hard-coded scss variables (e.g., font-family, UCF colors).
 .navbar-gold.breadcrumbs {
-  margin-left: -25px;
+  font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
   margin-bottom: 0;
+  .navbar-header {
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+      display: none;
+    }
+  }
   .navbar-nav {
     > li {
       /*
@@ -244,19 +243,28 @@
       + li:before {
         content: ">";
         float: left;
-        padding: 17px 0px;
+        padding: 17px 6px 17px 0px;
         color: #272727;
       }
       > a {
         color: #272727;
-        margin-right: 9px;
+        margin-right: 0px;
         &:hover {
           text-decoration: underline;
+        }
+      }
+    }
+    @media (max-width: $screen-xs-max) {
+      > li {
+        margin-left: 18px;
+        + li:before {
+          content: "";
         }
       }
     }
   }
   .navbar-right .weather {
     padding-bottom: 19px;
+    margin-right: 30px;
   }
 }

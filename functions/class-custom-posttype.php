@@ -734,7 +734,7 @@ abstract class CustomPostType {
 		/** Scale thumbnails by default. */ define( 'SDES\\SCALE', false );
 		/** Crop thumbnails by default. */  define( 'SDES\\CROP', true );
 		// For cropping behavior see `add_image_size`, e.g.: http://core.trac.wordpress.org/browser/tags/4.4.2/src/wp-includes/media.php#L228 .
-		set_post_thumbnail_size( 125, 125, CROP );
+		set_post_thumbnail_size( 360, 275, CROP );
 		// $crop_from = array( 'top', 'left');
 		// set_post_thumbnail_size( 125, 125, $crop_from );
 	}

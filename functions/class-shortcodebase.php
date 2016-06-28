@@ -11,6 +11,9 @@ namespace SDES\Shortcodes;
  * @see includes/theme-help.php (Has section with documentation shortcodes.)
  */
 
+require_once( get_stylesheet_directory() . '/functions/classes-metabox-metafields.php' );
+	use SDES\Metafields\ImageMetaField as ImageMetaField;
+
 define( 'SDES\Shortcodes\SHORTCODE_JS_URI', get_template_directory_uri().'/js/shortcodebase.js' );
 define( 'SDES\Shortcodes\SHORTCODE_INTERFACE_PATH', get_stylesheet_directory().'/includes/shortcodebase-interface.php' );
 
@@ -187,6 +190,10 @@ abstract class ShortcodeBase implements IShortcodeUI {
 					$retval .= '<input id="'.$command.'-'.$id.'" type="checkbox" name="' . $command . '-' . $id . '" data-parameter="' . $id . '"'. $checked .'>';
 					$retval .= '<label for="'.$command.'-'.$id.'">'.$name.'</label>';
 					break;
+				case 'image':
+					$context = (object) array( 'id' => "{$command}-{$id}", 'value' => '', 'image_src' => '', "data_param" => $id );
+					$retval .= ImageMetaField::render_html( $context );
+					$retval .= ImageMetaField::get_meta_image_button_script();
 			}
 
 			return $retval;

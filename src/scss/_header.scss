@@ -33,7 +33,8 @@ body.no-js {
 }
 .header-image,
 .header-image > .container {
-  min-height: 600px;
+  min-height: 300px;
+  height: 520px;
 
   @media (max-width: $screen-xs-max) {
     min-height: 0;
@@ -43,13 +44,18 @@ body.no-js {
 .header-center {
   display: table;
   position: relative;
-  top: 400px;
+  top: 245px;
   float: right;
+  height: auto;
+  width: auto;
 
+  @media (max-width: $screen-sm-max) {
+    top: 200px;
+  }
   @media (max-width: $screen-xs-max) {
     height: 400px;
     position: relative;
-    top: 0;
+    top: 100px;
   }
 
   .title-wrapper {
@@ -79,7 +85,7 @@ body.no-js {
     > span {
       @extend .h1;
       background-color: #FC0;
-      background-color: rgba(255, 204, 0, .8);
+      background-color: rgba(255, 204, 0, 1);
       display: block;
       font-size: 80px;
       font-weight: 800;
@@ -89,9 +95,11 @@ body.no-js {
 
       @media (max-width: $screen-md-max) {
         font-size: 68px;
+        padding: 4px 10px;
       }
       @media (max-width: $screen-sm-max) {
         font-size: 55px;
+        padding: 4px 5px;
       }
       @media (max-width: $screen-xs-max) {
         font-size: 40px;
@@ -107,6 +115,8 @@ body.no-js {
       color: #000;
       text-decoration: none;
       display: block;
+      width: auto;
+      max-width: 400px;  // Override with a Theme Customizer setting and !important.
 
       @media (max-width: $screen-xs-max) {
         max-width: initial;

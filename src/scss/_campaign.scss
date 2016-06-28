@@ -1,0 +1,63 @@
+/* campaign */
+
+.campaign,
+.primary-action {
+    outline: 1px solid #ffc409;
+    margin-bottom: 30px;
+    background-size: cover!important; /* need !important if changing image inline */
+}
+
+.campaign-content,
+.primary-action-content {
+    padding: 20px;
+}
+
+
+.campaign-title,
+.primary-action-title {
+    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+    font-weight: 900;
+    font-size: 21px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+
+}
+.campaign-title a,
+.primary-action-title a {
+    color: #272727;
+    text-decoration: none;
+}
+
+
+.campaign .btn,
+.primary-action .btn {
+    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+    border-radius: 17px;
+    background: #ffc409;
+        font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+    padding: 10px 30px;
+    font-weight: 900;
+}
+
+.campaign .btn:hover,
+.primary-action .btn:hover {
+    background: #c90;
+    color: #fff;
+}
+
+@media (max-width: $screen-sm-max) {
+    .campaign,
+    .primary-action {
+        background: #f3f3f3;
+        background-image: none!important;      
+    }
+
+    .campaign-title,
+    .primary-action-title {
+        font-size: 16px;
+    }
+}

@@ -20,7 +20,7 @@ $heading_text =
 
 get_header();
 ?>
-<header class="site-header services-page-header">
+<header class="subpage-header services-page-header">
 	<div class="header-image" style="background-image: url(<?= $header_image ?>);">
 		<div class="container">
 			<div class="header-center">
@@ -41,7 +41,7 @@ get_header();
 	<div class="container">
 	  <div class="row">
 		<div class="navbar-header">
-			<span class="navbar-title">Skip To Section</span>
+			<span class="navbar-title">Navigation</span>
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#student_service-menu">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
@@ -58,7 +58,7 @@ get_header();
 		<ul class="nav navbar-nav">
 			<li><a href="<?= bloginfo( 'url' ); ?>"><?= bloginfo( 'name' ); ?></a></li>
 		<?php if ( $mainCategory && property_exists( $mainCategory, 'name' ) ) : ?>
-			<li><a href="<?= get_category_link( $mainCategory ); ?>"><?= $mainCategory->name; ?></a></li>
+			<li><a href="#"><?= $mainCategory->name; ?></a></li>
 		<?php endif; ?>
 			<li class="active-breadcrumb"><span class="active-pad"><?= the_title(); ?></span></li>
 		</ul>

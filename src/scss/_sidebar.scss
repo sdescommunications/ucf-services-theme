@@ -2,16 +2,30 @@
 
 
 .services-page .side-bar::before {
-    content: "foo";
+    content: "Vertical separator";
     color: transparent;
     position: absolute;
     left: -31px;
     width: 2px;
     height: 100%;
     background: #dedede;
+    @media (max-width: $screen-sm-max) {
+        display: none;
+    }
 }
 
 .side-bar {
+    .call-to-action {
+        .btn-ucf {
+          font-size: 16px;
+          letter-spacing: 2px;
+          border: none;
+          font-weight: 900;
+        }
+        @media (max-width: $screen-sm-max) {
+            display: none;
+        }
+    }
     .table-bordered {
         border: none;
         >tbody>tr,
@@ -88,9 +102,18 @@
             }
         }
     }
+    .campaign, 
+    .primary-action {
+        text-align: center;
+    }
     .fa-facebook-official {
         color: #3B598F;
         font-size: 65px;
         margin-bottom: 30px;
+    }
+    @media screen and (max-width: $screen-xs-max) {
+        .table-responsive {
+            border: none;
+        }
     }
 }
