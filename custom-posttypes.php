@@ -954,6 +954,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 								$context['events']  = array_reverse( FeedManager::get_items( $context['events_cal_feed'] ) );
 								$context['events']  = array_slice( $context['events'], 0, $max_events );
 								$context['academic_cal'] = false;
+								$context['more_events'] = UcfEventModel::more_link();
 								$context['events_cal_title'] = 'Events Calendar';
 								echo self::render_events_calendar( $context ); 
 							?>
@@ -1155,7 +1156,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 					</div>
 				  <?php endforeach; ?>
 					<div>
-						<a class="all-link external" href="<?= $context['events_cal_feed'] ?>">More Events ›</a>
+						<a class="all-link external" href="<?= $context['more_events'] ?>">More Events ›</a>
 					</div>
 				</div>
 			</div>

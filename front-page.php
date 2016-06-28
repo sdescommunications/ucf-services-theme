@@ -118,12 +118,8 @@ get_header();
 						'events' => $events,
 						'academic_cal' => true,
 						'events_cal_title' => 'Academic Calendar',
+						'more_events' => UcfAcademicCalendarModel::more_link(),
 					)); ?>
-					<script>
-						var academic_calendar = jQuery('.calendar-events-title')[0];
-						academic_calendar.innerHTML = 
-							academic_calendar.innerHTML.replace('Events Calendar', 'Academic Calendar')
-						</script>
 					</div>
 				</div>
 				<div class="row">

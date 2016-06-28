@@ -115,6 +115,7 @@ class FeedManager {
 
 class UcfAcademicCalendarModel {
 	public static $calendar_url = 'http://calendar.ucf.edu/json';
+	public static $more_events = 'http://calendar.ucf.edu/';
 	protected $event;
 	public function __construct( $item ) { $this->event = $item; }
 
@@ -255,6 +256,9 @@ class UcfAcademicCalendarModel {
 			return $start_time . ' - ' . $end_time;
 		}
 	}
+	public static function more_link() {
+		return static::$more_events;
+	}
 }
 
 class UcfEventModel {
@@ -344,5 +348,8 @@ class UcfEventModel {
 		} else {
 			return $start_time . ' - ' . $end_time;
 		}
+	}
+	public static function more_link() {
+		return static::$events_url;
 	}
 }
