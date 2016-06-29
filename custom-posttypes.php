@@ -224,7 +224,6 @@ class Spotlight extends CustomPostType {
 		);
 	}
 
-	// TODO: update .call-to-action to .spotlight
 	// TODO: show when $image_url or $url is not set.
 	public static function toHTML( $object ) {
 		$object = get_post( $object );
@@ -245,7 +244,7 @@ class Spotlight extends CustomPostType {
 			: '';
 		ob_start();
 		?>
-			<a class="call-to-action" href="<?= $context->url ?>" target="_blank">
+			<a class="spotlight" href="<?= $context->url ?>" target="_blank">
 				<img src="<?= $context->image_url ?>" alt="<?= $context->image_alt ?>">
 			  <?php if ( $context->title ) : ?>
 				<h2 style="<?= $context->style ?>">
