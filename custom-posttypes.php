@@ -927,8 +927,10 @@ class StudentService extends CustomPostType_ServicesTheme {
 		?>
 			<div class="container-fluid">
 			  <div class="row">
-				<div class="col-sm-12">
+				<div class="col-md-8 col-xs-12">
 					<h1><?= $context['title'] ?></h1>
+				</div>
+				<div class="col-md-4 col-xs-12">
 					<?= self::render_like_tweet_share( $context ) ?>
 				</div>
 			  </div>
@@ -991,7 +993,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 	public static function render_like_tweet_share( $context ){
 		ob_start();
 		?>
-			<div class="service-social">
+			<div class="service-social pull-md-right">
 				<a href="<?= $context['social_facebook'] ?>"><span class="fa fa-thumbs-o-up"></span></a>		
 				<a href="<?= $context['social_twitter'] ?>"><span class="fa fa-twitter"></span></a>
 				<a href="#"><span class="fa fa-share-alt"></span></a>
