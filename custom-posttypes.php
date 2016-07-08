@@ -862,14 +862,22 @@ class StudentService extends CustomPostType_ServicesTheme {
 	}
 
 	/**
-	 * Return the HTML to show a single student_service post object in a list.
+	 * Return single student_service post object's context, for consumption by either internal templates or REST routes.
 	 */
-	public static function toHTML( $post_object ) {
+	public static function get_render_context_from_post( $post_object ) {
 		$post_object = get_post( $post_object );
 		if ( SDES_Static::is_null_or_whitespace( $post_object ) 
 			 || self::NAME !== $post_object->post_type ) {return sprintf("<!-- No %s provided. -->", self::NAME); }
 		$metadata_fields = static::get_render_metadata( $post_object );
 		$stusvc_context = static::get_render_context( $post_object, $metadata_fields );
+		return $stusvc_context;
+	}
+
+	/**
+	 * Return the HTML to show a single student_service post object in a list.
+	 */
+	public static function toHTML( $post_object ) {
+		$stusvc_context = static::get_render_context_from_post( $post_object );
 		return static::render_to_html( $stusvc_context );
 	}
 
@@ -914,8 +922,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 	 * Return the HTML for the details page of a single student_service.
 	 */
 	public static function toPageHTML( $post_object ) {
-		$metadata_fields = static::get_render_metadata( $post_object );
-		$stusvc_context = static::get_render_context( $post_object, $metadata_fields );
+		$stusvc_context = static::get_render_context_from_post( $post_object );
 		return static::render_single_page( $stusvc_context );
 	}
 
