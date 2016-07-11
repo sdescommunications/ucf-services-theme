@@ -14,7 +14,8 @@ require_once( 'custom-posttypes.php' );   // Define and Register custom post_typ
 require_once( 'functions/ThemeCustomizer.php' ); // Admin > Appearance > Customize. (Non-admin settings.)
 require_once( 'functions/admin.php' );           // Admin/login functions.
 require_once( 'functions/admin-theme.php' );     // Theme-specific admin/login functions.
-require_once( 'shortcodes.php' );  // Enable shortcodes.
+require_once( 'shortcodes.php' );           // Enable shortcodes.
+require_once( 'functions/rest-api.php' );   // Register REST routes here.
 
 
 function __init__() {

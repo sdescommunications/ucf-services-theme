@@ -21,6 +21,7 @@ Included with repository. See composer.json, bower.json, and package.json for ve
 - Font Awesome
 - Weather Icons
 - SimplePie (provided by WordPress)
+- [WordPress REST API (version 2)](https://wordpress.org/plugins/rest-api/)
 
 ### Development Tools
 - Sass (developed on Koala v2.0.4)
@@ -154,6 +155,7 @@ See [VCCW homepage](http://vccw.cc/) for more details.
      - tinymce-templates
      - what-the-file
      - wordpress-mu-domain-mapping
+     - rest-api
    ```
 
 7. `vagrant up` (initial provisioning may take several minutes).

@@ -18,7 +18,7 @@
 
 // Styles for custom components and Bootstrap component overrides
 @import 'callout';
-@import 'spotlight';  // The .call-to-action class.
+@import 'spotlight';
 @import 'icon_link';
 @import 'weather';
 
@@ -36,6 +36,7 @@
 @import 'header';
 @import 'footer';
 
+@import 'future';
 
 /* generics -------------------------------------------------------------------------------------------------------- */
 a{

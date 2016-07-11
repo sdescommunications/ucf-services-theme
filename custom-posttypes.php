@@ -224,7 +224,6 @@ class Spotlight extends CustomPostType {
 		);
 	}
 
-	// TODO: update .call-to-action to .spotlight
 	// TODO: show when $image_url or $url is not set.
 	public static function toHTML( $object ) {
 		$object = get_post( $object );
@@ -245,7 +244,7 @@ class Spotlight extends CustomPostType {
 			: '';
 		ob_start();
 		?>
-			<a class="call-to-action" href="<?= $context->url ?>" target="_blank">
+			<a class="spotlight" href="<?= $context->url ?>" target="_blank">
 				<img src="<?= $context->image_url ?>" alt="<?= $context->image_alt ?>">
 			  <?php if ( $context->title ) : ?>
 				<h2 style="<?= $context->style ?>">
@@ -863,14 +862,22 @@ class StudentService extends CustomPostType_ServicesTheme {
 	}
 
 	/**
-	 * Return the HTML to show a single student_service post object in a list.
+	 * Return single student_service post object's context, for consumption by either internal templates or REST routes.
 	 */
-	public static function toHTML( $post_object ) {
+	public static function get_render_context_from_post( $post_object ) {
 		$post_object = get_post( $post_object );
 		if ( SDES_Static::is_null_or_whitespace( $post_object ) 
 			 || self::NAME !== $post_object->post_type ) {return sprintf("<!-- No %s provided. -->", self::NAME); }
 		$metadata_fields = static::get_render_metadata( $post_object );
 		$stusvc_context = static::get_render_context( $post_object, $metadata_fields );
+		return $stusvc_context;
+	}
+
+	/**
+	 * Return the HTML to show a single student_service post object in a list.
+	 */
+	public static function toHTML( $post_object ) {
+		$stusvc_context = static::get_render_context_from_post( $post_object );
 		return static::render_to_html( $stusvc_context );
 	}
 
@@ -915,8 +922,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 	 * Return the HTML for the details page of a single student_service.
 	 */
 	public static function toPageHTML( $post_object ) {
-		$metadata_fields = static::get_render_metadata( $post_object );
-		$stusvc_context = static::get_render_context( $post_object, $metadata_fields );
+		$stusvc_context = static::get_render_context_from_post( $post_object );
 		return static::render_single_page( $stusvc_context );
 	}
 
@@ -928,8 +934,10 @@ class StudentService extends CustomPostType_ServicesTheme {
 		?>
 			<div class="container-fluid">
 			  <div class="row">
-				<div class="col-sm-12">
+				<div class="col-md-8 col-xs-12">
 					<h1><?= $context['title'] ?></h1>
+				</div>
+				<div class="col-md-4 col-xs-12">
 					<?= self::render_like_tweet_share( $context ) ?>
 				</div>
 			  </div>
@@ -992,7 +1000,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 	public static function render_like_tweet_share( $context ){
 		ob_start();
 		?>
-			<div class="service-social">
+			<div class="service-social pull-md-right">
 				<a href="<?= $context['social_facebook'] ?>"><span class="fa fa-thumbs-o-up"></span></a>		
 				<a href="<?= $context['social_twitter'] ?>"><span class="fa fa-twitter"></span></a>
 				<a href="#"><span class="fa fa-share-alt"></span></a>
