@@ -21,6 +21,7 @@ abstract class UCF_SEARCH_FILTER {
 /**
  * @see https://developer.wordpress.org/reference/hooks/rest_api_init/ WP-Ref: rest_api_init hook
  * @see https://developer.wordpress.org/reference/functions/register_rest_route/ WP-Ref: register_rest_route()
+ * @link http://www.regular-expressions.info/named.html Regular expression named capturing groups.
  */
 function register_routes() {
 	//register_rest_route( string $namespace, string $route, array $args = array(), bool $override = false );
@@ -28,15 +29,20 @@ function register_routes() {
 	// ~/wp-json/rest/v1/services
 	register_rest_route( 'rest/v1', '/services/', array(
 		'methods'  => 'GET',
-		'callback' => __NAMESPACE__ . '\route_services'
+		'callback' => __NAMESPACE__ . '\route_services',
+		'args' => array(
+			'search' => array(),
+			'slug' => array(),
+		),
 	) );
 
 	// TODO: add to regex `[\w-]` to allow any character allowed in slugs.
 	// ~/wp-json/rest/v1/services/{slug}
 	register_rest_route( 'rest/v1', '/services/(?P<slug>[\w-]+)', array(
 		'methods'  => 'GET',
-		'callback' => __NAMESPACE__ . '\route_services_slug'
+		'callback' => __NAMESPACE__ . '\route_services_slug',
 	) );
+	// TODO: add more granular routes with subsets of the data (e.g., /services/{slug}/hours).
 	
 	// TODO: add REST routes for active campaigns.
 	// ~/wp-json/rest/v1/campaigns
@@ -71,6 +77,9 @@ function route_services( $request ) {
 		'orderby' => 'title',
 		'order' => 'ASC',
 	);
+
+	// TODO: Make and merge multiple WP_Query statements instead of calling $wpdb. $query_search $query_tax $query_meta
+
 	// ?search=&s= // Set to 'search' if both are present.
 	if ( $request->get_param( 'search' ) || $request->get_param( 's' ) ) {
 		$search_term = $request->get_param( 'search' ) ?: $request->get_param( 's' );
