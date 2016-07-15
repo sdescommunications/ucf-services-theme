@@ -28,8 +28,11 @@ get_header();
 	$request->set_query_params( array( "limit" => $services_limit, 'search' => $search_query ) );
 	$services_contexts = API\route_services( $request );
 	$json_services = json_encode( $services_contexts );
+	$search_suggestions = API\route_services_titles();
 ?>
 	window.ucf_searchResults_initial = <?= $json_services ?>;
+	window.ucf_searchSuggestions = <?= json_encode( $search_suggestions ) ?>;
+
 </script>
 <style>
 	.header-center a {
