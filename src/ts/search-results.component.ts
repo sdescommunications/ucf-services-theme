@@ -17,7 +17,7 @@ import { UnescapeHtmlPipe } from "./unescapeHtml.filter";
 export class SearchResultsComponent {
     @Input() query: string = "";
     @Input() api: string = "";
-    studentServices: IStudentService[] = null;
+    @Input("results") studentServices: IStudentService[] = window.ucf_searchResults_initial;
     errorMessage: string = "";
     constructor( protected _searchService: SearchService ) {}
 
