@@ -30,6 +30,7 @@ export class AppStudentServicesComponent {
         this.api = native.getAttribute("[api]");
         this.title = native.getAttribute("[title]");
         this.query = native.getAttribute("[query]");
+        window.ucf_comp_appStudenServices = ( window.ucf_comp_appStudenServices || [] ).concat( this );
     }
 
 

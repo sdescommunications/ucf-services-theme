@@ -52,3 +52,4 @@ export class UnescapeHtmlPipe implements PipeTransform {
         });
     }
 }
+window.ucf_pipe_unescapeHtml = UnescapeHtmlPipe;

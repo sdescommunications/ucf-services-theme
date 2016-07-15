@@ -11,7 +11,9 @@ export class SearchService {
     public restApiUrl = "/wp-json/rest/v1/services/";  // Default, should override to include entire site_url/rest_url.
     public DEBUG = 0;
 
-    constructor( protected _http: Http ) { }
+    constructor( protected _http: Http ) {
+        window.ucf_svc_searchService = ( window.ucf_svc_searchService || [] ).concat( this );
+    }
 
     /**
      * Fetch students services from a datasource.
