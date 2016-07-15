@@ -277,6 +277,7 @@ class Footer {
 				<?php Footer::display_footer_menu() ; ?>
 			</div>
 		</div>
+	</footer>
 
 <?php wp_footer(); ?>
 </body>
