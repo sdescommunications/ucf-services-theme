@@ -2,6 +2,7 @@
     <ucf-search-form class="hide-if-no-js"
         (change)='onSearchChanged($event)'
         (blur)='onSearchChanged($event)'
+        [action]='form'
     >
         Loading search...
     </ucf-search-form>

@@ -16,6 +16,7 @@ export class SearchFormComponent implements OnInit, OnChanges {
     @Input() debounce: number;
     @Input() lead: string = "From orientation to graduation, the UCF experience creates opportunities that last a lifetime. <b>Let's get started</b>";
     @Input() placeholder: string = "What can we help you with today?";
+    @Input() action: string = "#";
 
     frontsearch_query: string = "";
     @Output() search: EventEmitter<string> = new EventEmitter<string>();
