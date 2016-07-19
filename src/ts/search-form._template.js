@@ -14,7 +14,11 @@ var angular_context = {
 	'frontsearch_lead': `<span [outerHTML]='lead | unescapeHtml'></span>`,
 	'frontsearch_placeholder': '{{ placeholder }}',
 	'ng_input_params':	`[(ngModel)]="frontsearch_query"
-						[ngModelOptions]="{standalone: true}"`,
+						[ngModelOptions]="{standalone: true}"
+						[typeahead]='searchSuggestions'
+						(typeaheadOnSelect)="typeaheadOnSelect($event)"
+						(typeaheadLoading)="changeTypeaheadLoading($event)"
+						(typeaheadNoResults)="changeTypeaheadNoResults($event)"`,
 }
 
 search_form_template = _.template(
@@ -34,6 +38,7 @@ search_form_template = _.template(
 					<input type="text" name="search" class="form-control"
 						placeholder="<%= frontsearch_placeholder %>"
 						aria-label="Search for student services."
+						autocomplete="off"
 						<%= ng_input_params %>>
 				</form>
 			</div>

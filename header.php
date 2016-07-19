@@ -39,6 +39,7 @@ use SDES\SDES_Static as SDES_Static;
 	<script src="https://npmcdn.com/zone.js@0.6.12/dist/zone.js"></script>
     <script src="https://npmcdn.com/reflect-metadata@0.1.3/Reflect.js"></script>
     <script src="https://npmcdn.com/systemjs@0.19.31/dist/system.js"></script>
+
 	<!-- 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.6.12/zone.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reflect-metadata/0.1.3/Reflect.min.js"></script>	
@@ -61,6 +62,12 @@ use SDES\SDES_Static as SDES_Static;
 				'@angular/router':            'https://npmcdn.com/@angular/router' + routerVer,
 				// 'angular2-in-memory-web-api': 'https://npmcdn.com/angular2-in-memory-web-api', // get latest
 				'rxjs':                       'https://npmcdn.com/rxjs@5.0.0-beta.6',
+				'ng2-bootstrap':              '<?= get_stylesheet_directory_uri() ?>/node_modules/ng2-bootstrap/',
+				// 'moment':                     '<?= get_stylesheet_directory_uri() ?>/node_modules/moment/moment.js',
+				// 'ng2-bootstrap':              'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.0.24',
+				// 'ng2-bootstrap':              'https://npmcdn.com/ng2-bootstrap@1.0.24/bundles',
+				// 'ng2-bootstrap':              'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.0.24/ng2-bootstrap.min.js',
+				'moment':                     'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1',
 				// 'ts':                         'https://npmcdn.com/plugin-typescript@4.0.10/lib/plugin.js',
 				// 'typescript':                 'https://npmcdn.com/typescript@1.9.0-dev.20160409/lib/typescript.js',
 			};
@@ -72,6 +79,8 @@ use SDES\SDES_Static as SDES_Static;
 					defaultExtension: 'js'
 				},
 				'rxjs': { defaultExtension: 'js' },
+				'ng2-bootstrap': { main: 'ng2-bootstrap.min.js', defaultExtension: 'js' },
+				'moment': { main: 'moment.min.js', defaultExtension: 'js' },
 			};
 
 			var ngPackageNames = [

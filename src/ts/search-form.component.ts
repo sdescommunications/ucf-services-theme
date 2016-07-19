@@ -3,6 +3,9 @@ import { SafeHtml } from "@angular/platform-browser";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/debounceTime";
 
+// import { TYPEAHEAD_DIRECTIVES } from "ng2-bootstrap/ng2-bootstrap";
+import { TYPEAHEAD_DIRECTIVES } from "ng2-bootstrap/components/typeahead";
+
 import { UnescapeHtmlPipe } from "./unescapeHtml.filter";
 
 @Component({
@@ -10,7 +13,7 @@ import { UnescapeHtmlPipe } from "./unescapeHtml.filter";
     moduleId: module.id,
     templateUrl: "./search-form.component.html",
     // styleUrls: ["../../scss/_search.scss"],
-    // directives: [],
+    directives: [ TYPEAHEAD_DIRECTIVES, ],
     pipes: [ UnescapeHtmlPipe ],
 })
 export class SearchFormComponent implements OnInit, OnChanges {
@@ -18,9 +21,12 @@ export class SearchFormComponent implements OnInit, OnChanges {
     @Input() lead: string = "From orientation to graduation, the UCF experience creates opportunities that last a lifetime. <b>Let's get started</b>";
     @Input() placeholder: string = "What can we help you with today?";
     @Input() action: string = "#";
+    searchSuggestions = window.ucf_searchSuggestions;
 
     frontsearch_query: string = "";
     @Output() search: EventEmitter<string> = new EventEmitter<string>();
+    typeaheadLoading: boolean = false;
+    typeaheadNoResults: boolean = false;
 
     constructor( public elementRef: ElementRef ) {
         window.ucf_comp_searchForm = (window.ucf_comp_searchForm || []).concat(this);
@@ -45,5 +51,18 @@ export class SearchFormComponent implements OnInit, OnChanges {
 
     ngOnChanges(): void {
         this.search.emit( this.frontsearch_query );
+    }
+
+    public typeaheadOnSelect( e: any ): void {
+        this.frontsearch_query = e.item;
+        this.search.emit( this.frontsearch_query );
+    }
+
+    public changeTypeaheadLoading( e: boolean ): void {
+      this.typeaheadLoading = e;
+    }
+
+    public changeTypeaheadNoResults( e: boolean ): void {
+      this.typeaheadNoResults = e;
     }
 }
