@@ -26,6 +26,7 @@ $categories = get_categories( array(
 ?>
 <article class="row page-wrap">
     <ucf-search-form
+        (search)='onSearch($event)'
         (change)='onSearchChanged($event)'
         (blur)='onSearchChanged($event)'
         [action]='<?= get_permalink( $post->ID ) ?>'
@@ -106,6 +107,8 @@ $categories = get_categories( array(
                     echo do_shortcode( "[campaign spotlight_id='{$spotlight_id}' layout='rectangle']" );
                 ?>
             </ucf-campaign>
+            <div class="clearfix"></div>
+            <br>
             
             <ucf-search-results [query]='query' [api]='api'>
                 <?php foreach ( $services_contexts as $ctxt_search_results ) {

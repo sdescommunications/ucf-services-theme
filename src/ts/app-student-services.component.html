@@ -1,5 +1,6 @@
 <article class="row page-wrap">
     <ucf-search-form class="hide-if-no-js"
+        (search)='onSearch($event)'
         (change)='onSearchChanged($event)'
         (blur)='onSearchChanged($event)'
         [action]='form'
@@ -46,6 +47,8 @@
             <ucf-campaign [type]="rectangle">
                 Campaign loading...
             </ucf-campaign>
+            <div class="clearfix"></div>
+            <br>
 
             <ucf-search-results [query]='query' [api]='api' [results]='initialResults'>
                 Loading results...

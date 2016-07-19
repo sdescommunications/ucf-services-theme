@@ -33,9 +33,14 @@ export class AppStudentServicesComponent {
         window.ucf_comp_appStudenServices = ( window.ucf_comp_appStudenServices || [] ).concat( this );
     }
 
+    // Receive event from SearchFormComponent.search EventEmitter.
+    onSearch( newSearch: string ): void {
+        this.query = newSearch;
+    }
 
-    onSearchChanged( newSearch: Event ): void {
-        this.query = newSearch.target.value;
+    // Receive event from onChange and onBlur.
+    onSearchChanged( change: Event ): void {
+        this.query = (<HTMLInputElement>(change.target)).value;
     }
 
     ngOnInit(): void { }
