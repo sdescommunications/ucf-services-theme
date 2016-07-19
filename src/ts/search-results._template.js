@@ -3,6 +3,8 @@ var _ = require('lodash'),
     fs = require('fs');
 
 var  php_context   = {
+    'before_services': '',
+    'after_services': '',
     'ng_forService': '',
     'image_thumbnail_src': "<?= $ctxt_search_results['image_thumbnail_src'] ?>",
     'social_facebook': "<?= $ctxt_search_results['social_facebook'] ?>",
@@ -24,6 +26,17 @@ var  php_context   = {
 }
 
 var angular_context = {
+    'before_services': 
+        `<h2 *ngIf="query">Results for: "{{ query }}"</h2>
+        <span *ngIf="isLoading" class="loading fa fa-spinner" aria-hidden="true" 
+              style="font-size: 2em; padding: 12px 0;"> Loading results...<br>
+        </span>
+        `,
+    'after_services': 
+        `<h3 *ngIf="! hasResults() && !isLoading" class="noResults">
+              No results found for "{{ query }}".
+        </h3>
+        `,
     'ng_forService': ' *ngFor="let service of studentServices"',
     'image_thumbnail_src': '{{service.image_thumbnail_src}}',
     'social_facebook' : '{{service.social_facebook}}',
@@ -42,8 +55,9 @@ var angular_context = {
 }
 
 search_results_template = _.template(
-`<span class="student_service-list"<%= ng_forService %>>
-    <div class="row service">
+`        <%= before_services %>
+<span class="student_service-list" *ngIf="!isLoading">
+    <div class="row service"<%= ng_forService %>>
         <div class="col-sm-4">
             <img class="service-image" src="<%= image_thumbnail_src %>" alt="<%= image_alt %>">
         </div>
@@ -72,6 +86,7 @@ search_results_template = _.template(
         </div>
     </div> <!-- /.service -->
 </span>
+        <%= after_services %>
 `);
 
 function handleErrors ( err, data ) {
