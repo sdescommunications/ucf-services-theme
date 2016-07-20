@@ -1,22 +1,16 @@
-<?php
-/**
- * Header area for the theme, as called by get_header().
- */
-
-use SDES\SDES_Static as SDES_Static;
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title><?= wp_title( '&raquo;', true, 'right' ); bloginfo( 'name' ); ?> &raquo; UCF</title>
+	<title>&raquo; UCF</title>
 
-	<link rel="shortcut icon" href="<?= get_stylesheet_directory_uri(); ?>/images/favicon_black.png" >
-	<link rel="apple-touch-icon" href="<?= get_stylesheet_directory_uri(); ?>/images/apple-touch-icon.png" >
+	<link rel="shortcut icon" href="../images/favicon_black.png" >
+	<link rel="apple-touch-icon" href="../images/apple-touch-icon.png" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<link rel="stylesheet" href="<?= get_stylesheet_uri(); ?>" >
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css">
+	<link rel="stylesheet" href="../style.css" >
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" integrity="sha384-Pn+PczAsODRZ2PiGg0IheRROpP7lXO1NTIjiPo6cca8TliBvaeil42fobhzvZd74" crossorigin="anonymous"></script>
 	<script type="text/javascript" id="ucfhb-script" src="//universityheader.ucf.edu/bar/js/university-header.js?use-1200-breakpoint=1"></script>
@@ -31,32 +25,93 @@ use SDES\SDES_Static as SDES_Static;
 	<script src="https://npmcdn.com/zone.js@0.6.12/dist/zone.js"></script>
 	<script src="https://npmcdn.com/reflect-metadata@0.1.3/Reflect.js"></script>
 	<script src="https://npmcdn.com/systemjs@0.19.31/dist/system.js"></script>
-	<!-- <script src="jspm_packages/system.js"></script> -->
-	<script src="<?= get_stylesheet_directory_uri(); ?>/ng/config.js"></script>
+	<!-- <script src="./jspm_packages/system.js"></script> -->
+	<script src="./config.js"></script>
 	<script>
 		System.import('main').catch(function(err){ console.error(err); });
 	</script>
+
 	<script type="text/javascript">
 		(function javascript_fallbacks() {
 			// See: http://stackoverflow.com/a/5531821
 			function document_write_script( src ) {
 				document.write( '<script src="' + src + '">\x3C/script>' );
 			}
-			if ( ! window.jQuery ) { document_write_script( '/js/jquery.min.js' ); }
+			if ( ! window.jQuery ) { document_write_script( '../js/jquery.min.js' ); }
 			var bootstrap_enabled = ( 'function' === typeof $().modal ); // Will be true if bootstrap is loaded, false otherwise
 			if ( ! bootstrap_enabled ) { document_write_script( '/js/bootstrap.min.js' ); }
 			if ( 'undefined' === typeof $().validate ) { 
-				document_write_script( '/js/jquery.validate.min.js' );
-				document_write_script( '/js/additional-methods.min.js' );
+				document_write_script( '../js/jquery.validate.min.js' );
+				document_write_script( '../js/additional-methods.min.js' );
 			}
 		})();
 	</script>
-	<script type="text/javascript" src="<?= get_stylesheet_directory_uri(); ?>/js/sdes_main_ucf.js"></script>
-
-<?php wp_head(); ?>
+	<script type="text/javascript" src="../js/sdes_main_ucf.js"></script>
 </head>
 <body class="nojs">
 	<script>
 		var bodyEl = document.getElementsByTagName('body');
 		bodyEl[0].className = bodyEl[0].className.split('nojs').join(' jsEnabled ');
 	</script>
+<header class="site-header">
+	<div class="header-image" style="background-image: url(#);">
+		<div class="container">
+			<div class="header-center">
+				<div class="title-wrapper">
+					<div class="title-header-container">
+						<h1 class="site-title">
+							<a href="#">
+								Student Services
+							</a>
+						</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<main>
+  <div class="container">
+	<ucf-app-student-services 
+		[results]='initialResults'
+		[api]='../../../../wp-json/rest/v1/services/' 
+		[title]="Student Services">
+	</ucf-app-student-services>
+  </div>
+</main>
+
+<div class="clearfix"></div>
+<footer class="site-footer">
+	<div class="container">
+		<div class="row">
+			<div class="wrapper">
+				<div class="col-sm-4">
+					<div class="footer-col left-col">
+						<h2>News</h2>
+					</div>
+					<a class="all-link" href="http://today.ucf.edu">More News &rsaquo;</a>
+				</div>
+				<div class="col-sm-4">
+					<div class="footer-col center-col">
+						<h2>Events</h2>
+					</div>
+					<a class="all-link more-events-link" href="http://events.ucf.edu">More Events &rsaquo;</a>
+				</div>
+				<div class="col-sm-4">
+					<div class="footer-col right-col">
+						<h2>Contact Us</h2>
+						<h2>Questions and Comments</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="main-site-footer">
+		<div class="container">
+			<p class="main-site-title">University of Central Florida</p>
+		</div>
+	</div>
+</footer>
+</body>
+</html>

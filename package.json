@@ -5,17 +5,21 @@
     "cmd_jscs": "jscs --preset=wordpress"
   },
   "scripts": {
-
     "//Descriptions": {
       "test": "Default command to run javascript tests.",
-      "install:globaldev": "Choose to install reusable developer dependecies globally.",
+      "install:global": "Choose to install reusable developer dependecies globally.",
       "jshint": "A code linter for javascript files.",
       "jscs": "Javascript codesniffer with a wordpress preset."
     },
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install:global": "npm install -g bower jshint jscs",
+    "install:global": "npm install -g bower jshint jscs typescript typings tslint jspm",
     "jshint": "npm run from_config -- cmd_jshint",
     "jscs": "npm run from_config -- cmd_jscs",
+    "tslint": "tslint ./ng-app/**/*.ts -t verbose",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "typings": "typings",
+    "postinstall": "typings install",
 
     "//Utility npm scripts": {
       "from_config": "Store and run a command from the environment's package (cross-platform) variable, i.e., `%npm_package_config_VAR%` or `$npm_package_config_VAR`.",
@@ -26,7 +30,11 @@
   },
   "optionalDependencies": {
     "bower": "^1.7.9",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.1",
+    "tslint": "^3.13.0",
     "jscs": "^3.0.3",
-    "jshint": "^2.9.2"
-  }
+    "jshint": "^2.9.2",
+    "jspm": "^0.16.39"
+  },
 }
