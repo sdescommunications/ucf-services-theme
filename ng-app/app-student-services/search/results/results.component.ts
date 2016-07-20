@@ -19,6 +19,8 @@ export class SearchResultsComponent {
     @Input() api: string = "";
     studentServices: IStudentService[] = window.ucf_searchResults_initial;
     errorMessage: string = "";
+    isInit: boolean = true;
+    isLoading: boolean = false;
 
     constructor( protected _searchService: SearchService ) {
         window.ucf_comp_searchResults = ( window.ucf_comp_searchResults || [] ).concat( this );
@@ -32,10 +34,20 @@ export class SearchResultsComponent {
 
     ngOnChanges(): void {
         this._searchService.restApiUrl = this.api;
+        this.isLoading = ( this.isInit ) ? false : true;
+        // TODO: observe this.query instead of creating a new subscription on every change.
         this._searchService.getStudentServices( this.query )
             .subscribe(
-                studentServices => this.studentServices = studentServices,
+                studentServices => {
+                    this.studentServices = studentServices;
+                    this.isLoading = false;
+                },
                 error => this.errorMessage = <any>error
             );
+        this.isInit = false;
+    }
+
+    hasResults(): boolean {
+        return null !== this.studentServices;
     }
 }

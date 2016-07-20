@@ -1,4 +1,5 @@
-<span class="student_service-list">
+        
+<span class="student_service-list" *ngIf="!isLoading">
     <div class="row service">
         <div class="col-sm-4">
             <img class="service-image" src="<?= $ctxt_search_results['image_thumbnail_src'] ?>" alt="<?= $ctxt_search_results['image_alt'] ?>">
@@ -34,3 +35,4 @@
         </div>
     </div> <!-- /.service -->
 </span>
+        
