@@ -24,6 +24,7 @@ use SDES\SDES_Static as SDES_Static;
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js" integrity="sha256-8PU3OtIDEB6pG/gmxafvj3zXSIfwa60suSd6UEUDueI=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.13.1/additional-methods.min.js" integrity="sha256-TZwF+mdLcrSLlptjyffYpBb8iUAuLtidBmNiMj7ll1k=" crossorigin="anonymous"></script>
 
+
 	<!-- Angular scripts -->
 	<!-- Polyfill(s) for older browsers -->
 	<script src="https://cdn.jsdelivr.net/core-js/2.4.0/shim.min.js" integrity="sha256-iIdcT94SZY9oCsJj8VTkuvshEfKPXRXaA8nT8lCKG5U=" crossorigin="anonymous"></script>
@@ -32,10 +33,25 @@ use SDES\SDES_Static as SDES_Static;
 	<script src="https://npmcdn.com/reflect-metadata@0.1.3/Reflect.js"></script>
 	<script src="https://npmcdn.com/systemjs@0.19.31/dist/system.js"></script>
 	<!-- <script src="jspm_packages/system.js"></script> -->
-	<script src="<?= get_stylesheet_directory_uri(); ?>/ng/config.js"></script>
+	<script src="<?= get_stylesheet_directory_uri(); ?>/ng-app/config.cdn.js"></script>
+	<script src="<?= get_stylesheet_directory_uri(); ?>/ng-app/config.ucf_local.js"></script> <!-- Set window.ucf_local_config -->
 	<script>
-		System.import('main').catch(function(err){ console.error(err); });
+		System.import('main')
+			  .then(
+			  	function( success ) { },
+			  	function( cdnErr) {
+					// Local fallbacks. See: https://github.com/systemjs/systemjs/issues/986#issuecomment-168422454
+					System.paths = window.ucf_local_config.paths;
+					System.packages = window.ucf_local_config.packages;
+					System.map = window.ucf_local_config.map;
+					System.import('main')
+						  .catch( function( err ) { 
+						  	console.error( err )
+						  } );
+			  });
 	</script>
+
+
 	<script type="text/javascript">
 		(function javascript_fallbacks() {
 			// See: http://stackoverflow.com/a/5531821
