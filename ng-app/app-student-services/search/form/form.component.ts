@@ -22,6 +22,10 @@ export class SearchFormComponent implements OnInit, OnChanges {
     frontsearch_query: string = "";
     @Output() search: EventEmitter<string> = new EventEmitter<string>();
 
+    constructor() {
+        window.ucf_comp_searchForm = (window.ucf_comp_searchForm || []).concat(this);
+    }
+
     ngOnInit(): void {
         jQuery("article>section#search-frontpage").hide();
         // TODO: observe searches, subscribe to debounced input.

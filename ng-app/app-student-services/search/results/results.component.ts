@@ -19,7 +19,10 @@ export class SearchResultsComponent {
     @Input() api: string = "";
     studentServices: IStudentService[] = window.ucf_searchResults_initial;
     errorMessage: string = "";
-    constructor( protected _searchService: SearchService ) {}
+
+    constructor( protected _searchService: SearchService ) {
+        window.ucf_comp_searchResults = ( window.ucf_comp_searchResults || [] ).concat( this );
+    }
 
     ngOnInit(): void {
         // jQuery('#services>.student_service-list').hide();
