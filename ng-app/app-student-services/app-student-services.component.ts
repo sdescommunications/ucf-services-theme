@@ -19,6 +19,7 @@ import { IStudentService } from "./interfaces/studentservice";
 export class AppStudentServicesComponent {
     @Input() api: string;
     @Input() title: string = "Student Services";
+    @Input("results") initialResults: IStudentService[] = window.ucf_searchResults_initial;
     query: string = "";
 
     // Can't use @Input() (or ng-content) with a root Angular2 element.

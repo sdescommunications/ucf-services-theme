@@ -1,14 +1,22 @@
 <?php
-require_once( get_stylesheet_directory() . '/functions/class-custom-posttype.php' );
-    use SDES\CustomPostType;
+
+require_once( get_stylesheet_directory() . '/functions/rest-api.php' );
+    use SDES\ServicesTheme\API;
+
 require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
     use SDES\ServicesTheme\PostTypes\StudentService;
 
-$services = array( array(), );
-$services = CustomPostType::sc_object_list( 
-    array( 'type' => StudentService::NAME ),
-    array( 'objects_only' => true,
-        'classname' => 'SDES\ServicesTheme\PostTypes\StudentService') );
+require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
+    use SDES\SDES_Static;
+
+if ( null === $services_contexts ) {
+    $services_limit = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-services_limit', 7 );
+    $request = new \WP_REST_Request();
+    $request->set_query_params( array( "limit" => $services_limit, ) );
+    $services_contexts = API\route_services( $request );
+    // $json_services = json_encode( $services_contexts );
+}
+
 $categories = get_categories( array(
     'orderby' => 'name',
     'exclude' => array( 1, ), // Uncategorized.
@@ -21,7 +29,7 @@ $categories = get_categories( array(
         (change)='onSearchChanged($event)'
         (blur)='onSearchChanged($event)'
     >
-        <?php include( get_stylesheet_directory() . '/ng-app/search-form.component.php' ); ?>
+        <?php include( get_stylesheet_directory() . '/ng-app/app-student-services/search/form/form.component.php' ); ?>
     </ucf-search-form>
 
     <div class="container-fluid">
@@ -90,18 +98,17 @@ $categories = get_categories( array(
 
         <section id="services" class="col-sm-12 col-md-9 col-lg-9 col-md-pull-3">
             <h2 class="title"><?= the_title() ?></h2>
-            
+
             <ucf-campaign [type]="rectangle">
                 <?php
                     $spotlight_id = get_post_meta( $post->ID, 'page_spotlight', true );
                     echo do_shortcode( "[campaign spotlight_id='{$spotlight_id}' layout='rectangle']" );
                 ?>
             </ucf-campaign>
-            
+
             <ucf-search-results [query]='query' [api]='api'>
-                <?php foreach ( $services as $service ) {
-                    $ctxt_search_results = StudentService::get_render_context_from_post( $service );
-                    include( get_stylesheet_directory() . '/ng-app/search-results.component.php' );
+                <?php foreach ( $services_contexts as $ctxt_search_results ) {
+                    include( get_stylesheet_directory() . '/ng-app/app-student-services/search/results/results.component.php' );
                 } ?>
             </ucf-search-results>
         </section>

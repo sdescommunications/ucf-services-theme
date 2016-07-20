@@ -32,25 +32,35 @@ use SDES\SDES_Static as SDES_Static;
 	<script src="https://npmcdn.com/zone.js@0.6.12/dist/zone.js"></script>
 	<script src="https://npmcdn.com/reflect-metadata@0.1.3/Reflect.js"></script>
 	<script src="https://npmcdn.com/systemjs@0.19.31/dist/system.js"></script>
-	<!-- <script src="jspm_packages/system.js"></script> -->
-	<script src="<?= get_stylesheet_directory_uri(); ?>/ng-app/config.cdn.js"></script>
-	<script src="<?= get_stylesheet_directory_uri(); ?>/ng-app/config.ucf_local.js"></script> <!-- Set window.ucf_local_config -->
-	<script>
-		System.import('main')
-			  .then(
-			  	function( success ) { },
-			  	function( cdnErr) {
-					// Local fallbacks. See: https://github.com/systemjs/systemjs/issues/986#issuecomment-168422454
-					System.paths = window.ucf_local_config.paths;
-					System.packages = window.ucf_local_config.packages;
-					System.map = window.ucf_local_config.map;
-					System.import('main')
-						  .catch( function( err ) { 
-						  	console.error( err )
-						  } );
-			  });
-	</script>
-
+	<!--
+		<script src="jspm_packages/system.js"></script>
+		<script src="<?= get_stylesheet_directory_uri(); ?>/config.cdn.js"></script>
+	 -->
+	<?php
+		function header_load_scripts() {
+			wp_enqueue_script('config-cdn', get_stylesheet_directory_uri() . '/config.cdn.js');
+			wp_enqueue_script('config-local', get_stylesheet_directory_uri() . '/config.ucf_local.js'); // Set window.ucf_local_config.
+			wp_localize_script('config-cdn', 'config_cdn', array(
+					'baseURL' => get_stylesheet_directory_uri() . '/ng-app/'
+				));
+			wp_add_inline_script('config-local', "
+				System.import('main.js')
+				  .then(
+				  	function( success ) { },
+				  	function( cdnErr) {
+						// Local fallbacks. See: https://github.com/systemjs/systemjs/issues/986#issuecomment-168422454
+						System.paths = window.ucf_local_config.paths;
+						System.packages = window.ucf_local_config.packages;
+						System.map = window.ucf_local_config.map;
+						System.import('main.js')
+							  .catch( function( err ) {
+							  	console.error( err )
+							  } );
+				  });"
+			);
+		}
+		add_action('wp_enqueue_scripts', 'header_load_scripts');
+	?>
 
 	<script type="text/javascript">
 		(function javascript_fallbacks() {

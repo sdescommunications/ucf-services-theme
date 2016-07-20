@@ -56,6 +56,7 @@ add_action( 'rest_api_init', __NAMESPACE__ . '\register_routes');
  * @see https://codex.wordpress.org/Function_Reference/get_page_by_path WP-Codex:get_page_by_path()
  */ 
 function route_services_slug( $request ) {
+	if ( null === $request ) { $request = new \WP_REST_Request(); }
 	$post = \get_page_by_path( $request->get_param( 'slug' ), OBJECT, 'student_service' );
 	return StudentService::get_render_context_from_post( $post );
 }
@@ -68,12 +69,13 @@ function route_services_slug( $request ) {
  */
 function route_services( $request ) {
 	// die( print_r( $request ) );
+	if ( null === $request ) { $request = new \WP_REST_Request(); }
 	// Build WP Query based on request.
 	// /rest/v1/services/
 	$args = array(
 		'post_type' => StudentService::NAME,
 		'post_status' => array('publish'),
-		'post_per_page' => -1,
+		'posts_per_page' => -1,  // TODO: determine reasonable limit, implement pagination.
 		'orderby' => 'title',
 		'order' => 'ASC',
 	);
@@ -99,6 +101,12 @@ function route_services( $request ) {
 	if ( $request->get_param( 'id' ) ) {
 		$args = array_merge( $args, array(
 			'p' => $request->get_param( 'id' ),
+		) );
+	}
+	// ?limit=
+	if ( $request->get_param( 'limit' ) ) {
+		$args = array_merge( $args, array(
+			'posts_per_page' => $request->get_param( 'limit' ),
 		) );
 	}
 	$services = new \WP_Query( $args );
