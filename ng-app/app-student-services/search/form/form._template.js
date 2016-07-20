@@ -3,12 +3,14 @@ var _ = require('lodash'),
     fs = require('fs');
 
 var  php_context   = {
+	'action': '<?= get_permalink( $post->ID ); ?>',
 	'frontsearch_lead': '<?= $frontsearch_lead ?>',
 	'frontsearch_placeholder': '<?= $frontsearch_placeholder ?>',
 	'ng_input_params': ''
 }
 
 var angular_context = {
+	'action': "{{ action }}",
 	'frontsearch_lead': `<span [outerHTML]='lead | unescapeHtml'></span>`,
 	'frontsearch_placeholder': '{{ placeholder }}',
 	'ng_input_params':	`[(ngModel)]="frontsearch_query"
@@ -25,9 +27,11 @@ search_form_template = _.template(
 		</div>
 		<div class="col-md-6 col-md-offset-3 search-bar">
 			<div class="search-bar">
-				<form action="#">
-					<span class="fa fa-search"></span>
-					<input type="search" class="form-control"
+				<form name="search" action="<%= action %>" method="POST">
+					<span class="fa fa-search">
+						<button type="submit" value="Submit" class="hide-if-js">Search</button>
+					</span>
+					<input type="text" name="search" class="form-control"
 						placeholder="<%= frontsearch_placeholder %>"
 						aria-label="Search for student services."
 						<%= ng_input_params %>>

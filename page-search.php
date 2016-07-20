@@ -24,7 +24,8 @@ get_header();
 <?php
 	$services_limit = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-services_limit', 7 );
 	$request = new \WP_REST_Request();
-	$request->set_query_params( array( "limit" => $services_limit, ) );
+	$search_query = array_key_exists("search", $_REQUEST) ? $_REQUEST["search"] : "";
+	$request->set_query_params( array( "limit" => $services_limit, 'search' => $search_query ) );
 	$services_contexts = API\route_services( $request );
 	$json_services = json_encode( $services_contexts );
 ?>
@@ -58,7 +59,8 @@ get_header();
   <div class="container">
 	<ucf-app-student-services 
 		[results]='initialResults'
-		[api]='<?= $student_services_api ?>' 
+		[api]='<?= $student_services_api ?>'
+		[query]='<?= $search_query ?>'
 		[title]="<?= the_title() ?>">
 		<?php include( get_stylesheet_directory() . '/ng-app/app-student-services/app-student-services.component.php' ); ?>
 	</ucf-app-student-services>

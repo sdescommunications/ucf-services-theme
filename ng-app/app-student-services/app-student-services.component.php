@@ -25,9 +25,10 @@ $categories = get_categories( array(
 ) );
 ?>
 <article class="row page-wrap">
-    <ucf-search-form class="hide-if-no-js"
+    <ucf-search-form
         (change)='onSearchChanged($event)'
         (blur)='onSearchChanged($event)'
+        [action]='<?= get_permalink( $post->ID ) ?>'
     >
         <?php include( get_stylesheet_directory() . '/ng-app/app-student-services/search/form/form.component.php' ); ?>
     </ucf-search-form>

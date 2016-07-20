@@ -20,7 +20,8 @@ export class AppStudentServicesComponent {
     @Input() api: string;
     @Input() title: string = "Student Services";
     @Input("results") initialResults: IStudentService[] = window.ucf_searchResults_initial;
-    query: string = "";
+    @Input() query: string = "";
+    @Input() form: string = "#";
 
     // Can't use @Input() (or ng-content) with a root Angular2 element.
     // http://stackoverflow.com/a/33641842 and https://github.com/angular/angular/issues/1858#issuecomment-137696843
@@ -29,6 +30,7 @@ export class AppStudentServicesComponent {
         let native = this.elementRef.nativeElement;
         this.api = native.getAttribute("[api]");
         this.title = native.getAttribute("[title]");
+        this.query = native.getAttribute("[query]");
     }
 
 

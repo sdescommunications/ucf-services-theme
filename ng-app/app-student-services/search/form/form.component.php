@@ -7,9 +7,11 @@
 		</div>
 		<div class="col-md-6 col-md-offset-3 search-bar">
 			<div class="search-bar">
-				<form action="#">
-					<span class="fa fa-search"></span>
-					<input type="search" class="form-control"
+				<form name="search" action="<?= get_permalink( $post->ID ); ?>" method="POST">
+					<span class="fa fa-search">
+						<button type="submit" value="Submit" class="hide-if-js">Search</button>
+					</span>
+					<input type="text" name="search" class="form-control"
 						placeholder="<?= $frontsearch_placeholder ?>"
 						aria-label="Search for student services."
 						>
