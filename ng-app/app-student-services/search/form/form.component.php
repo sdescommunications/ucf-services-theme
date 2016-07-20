@@ -13,6 +13,7 @@
 					</span>
 					<input type="text" name="search" class="form-control"
 						placeholder="<?= $frontsearch_placeholder ?>"
+						autocomplete="off"
 						aria-label="Search for student services."
 						>
 				</form>

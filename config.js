@@ -72,6 +72,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@2.4.0",
     "main": "",
+    "ng2-bootstrap": "npm:ng2-bootstrap@1.0.24",
     "reflect-metadata": "npm:reflect-metadata@0.1.3",
     "rxjs": "npm:rxjs@5.0.0-beta.6",
     "zone.js": "npm:zone.js@0.6.6",
@@ -137,6 +138,20 @@ System.config({
     },
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
+    },
+    "npm:ng2-bootstrap@1.0.24": {
+      "@angular/common": "npm:@angular/common@2.0.0-rc.4",
+      "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.4",
+      "@angular/core": "npm:@angular/core@2.0.0-rc.4",
+      "@angular/forms": "npm:@angular/forms@0.2.0",
+      "moment": "npm:moment@2.14.1"
+    },
+    "ng2-bootstrap@1.0.24": {
+      "@angular/common": "npm:@angular/common@2.0.0-rc.4",
+      "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.4",
+      "@angular/core": "npm:@angular/core@2.0.0-rc.4",
+      "@angular/forms": "npm:@angular/forms@0.2.0",
+      "moment": "npm:moment@2.14.1"
     },
     "npm:path-browserify@0.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"

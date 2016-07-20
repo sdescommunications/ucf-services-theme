@@ -13,9 +13,14 @@
 					</span>
 					<input type="text" name="search" class="form-control"
 						placeholder="{{ placeholder }}"
+						autocomplete="off"
 						aria-label="Search for student services."
 						[(ngModel)]="frontsearch_query"
-						[ngModelOptions]="{standalone: true}">
+						[ngModelOptions]="{standalone: true}"
+						[typeahead]='searchSuggestions'
+						(typeaheadOnSelect)="typeaheadOnSelect($event)"
+						(typeaheadLoading)="changeTypeaheadLoading($event)"
+						(typeaheadNoResults)="changeTypeaheadNoResults($event)">
 				</form>
 			</div>
 		</div>
