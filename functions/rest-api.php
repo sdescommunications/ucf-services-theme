@@ -26,6 +26,12 @@ abstract class UCF_SEARCH_FILTER {
 function register_routes() {
 	//register_rest_route( string $namespace, string $route, array $args = array(), bool $override = false );
 
+	// ~/wp-json/rest/v1/services/titles
+	register_rest_route( 'rest/v1', '/services/titles', array(
+		'methods'  => 'GET',
+		'callback' => __NAMESPACE__ . '\route_services_titles',
+	) );
+
 	// ~/wp-json/rest/v1/services
 	register_rest_route( 'rest/v1', '/services/', array(
 		'methods'  => 'GET',
@@ -52,10 +58,34 @@ add_action( 'rest_api_init', __NAMESPACE__ . '\register_routes');
 
 
 /**
+ * ~/wp-json/rest/v1/services/titles
+ */
+function route_services_titles( $request = null ) {
+	if ( null === $request ) { $request = new \WP_REST_Request(); }
+	$args = array(
+		'post_type' => StudentService::NAME,
+		'post_status' => array('publish'),
+		'posts_per_page' => -1,  // TODO: determine reasonable limit, implement pagination.
+		'orderby' => 'title',
+		'order' => 'ASC',
+	);
+	$services = new \WP_Query( $args );
+	// Loop through queried posts and get a render context for each matching post.
+	$retval = null;
+	while ( $services->have_posts() ) {
+		$services->the_post();
+		$retval[] = get_the_title();
+	}
+	wp_reset_postdata();
+	return $retval;
+}
+
+
+/**
  * ~/wp-json/rest/v1/services/{slug}
  * @see https://codex.wordpress.org/Function_Reference/get_page_by_path WP-Codex:get_page_by_path()
  */ 
-function route_services_slug( $request ) {
+function route_services_slug( $request = null ) {
 	if ( null === $request ) { $request = new \WP_REST_Request(); }
 	$post = \get_page_by_path( $request->get_param( 'slug' ), OBJECT, 'student_service' );
 	return StudentService::get_render_context_from_post( $post );
@@ -67,7 +97,7 @@ function route_services_slug( $request ) {
  * @see https://developer.wordpress.org/reference/classes/wp_rest_request/ WP-Ref: WP_REST_Request class
  * @see http://codex.wordpress.org/Class_Reference/WP_Query WP-Codex: WP_Query
  */
-function route_services( $request ) {
+function route_services( $request = null ) {
 	// die( print_r( $request ) );
 	if ( null === $request ) { $request = new \WP_REST_Request(); }
 	// Build WP Query based on request.
