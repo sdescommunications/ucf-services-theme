@@ -34,9 +34,15 @@ export class AppStudentServicesComponent {
     }
 
 
-    onSearchChanged( newSearch: Event ): void {
-        this.query = newSearch.target.value;
+    // Receive event from SearchFormComponent.search EventEmitter.
+    onSearch( newSearch: string ): void {
+        this.query = newSearch;
     }
+ 
+    // Receive event from onChange and onBlur.
+    onSearchChanged( change: Event ): void {
+        this.query = (<HTMLInputElement>(change.target)).value;
+     }
 
     ngOnInit(): void { }
 
