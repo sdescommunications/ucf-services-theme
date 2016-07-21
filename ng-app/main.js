@@ -28,6 +28,11 @@ System.register(["@angular/platform-browser-dynamic", "@angular/forms", "@angula
             platform_browser_dynamic_1.bootstrap(app_student_services_component_1.AppStudentServicesComponent, [
                 forms_1.disableDeprecatedForms(), forms_1.provideForms(), http_1.HTTP_PROVIDERS, search_service_1.SearchService
             ])
+                .then(function (comp_ref) {
+                window.ucf_app_comp_ref = comp_ref;
+                window.ucf_app_instance = comp_ref.instance;
+                // window.ucf_app_instance = window.ng.probe( document.getElementsByTagName('ucf-app-student-services'[0] ).componentInstance;
+            })
                 .catch(function (err) { return console.error(err); });
         }
     }
