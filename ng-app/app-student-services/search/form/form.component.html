@@ -1,0 +1,28 @@
+<section id="search-frontpage" class="container-fluid">
+	<div class="row search">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="search-lead">
+				<span [outerHTML]='lead | unescapeHtml'></span>
+			</div>
+		</div>
+		<div class="col-md-6 col-md-offset-3 search-bar">
+			<div class="search-bar">
+				<form name="search" action="{{ action }}" method="POST">
+					<span class="fa fa-search">
+						<button type="submit" value="Submit" class="hide-if-js">Search</button>
+					</span>
+					<input type="text" name="search" class="form-control"
+						placeholder="{{ placeholder }}"
+						autocomplete="off"
+						aria-label="Search for student services."
+						[(ngModel)]="frontsearch_query"
+						[ngModelOptions]="{standalone: true}"
+						[typeahead]='searchSuggestions'
+						(typeaheadOnSelect)="typeaheadOnSelect($event)"
+						(typeaheadLoading)="changeTypeaheadLoading($event)"
+						(typeaheadNoResults)="changeTypeaheadNoResults($event)">
+				</form>
+			</div>
+		</div>
+	</div>
+</section>  <!-- /#search-frontpage -->

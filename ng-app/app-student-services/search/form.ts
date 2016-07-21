@@ -1,0 +1,1 @@
+export { SearchFormComponent } from './form/form.component';

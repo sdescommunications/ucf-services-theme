@@ -1,0 +1,1 @@
+export { SearchResultsComponent } from './results/results.component';

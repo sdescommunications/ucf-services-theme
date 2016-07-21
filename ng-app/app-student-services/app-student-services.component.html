@@ -1,0 +1,59 @@
+<article class="row page-wrap">
+    <ucf-search-form
+        (search)='onSearch($event)'
+        (change)='onSearchChanged($event)'
+        (blur)='onSearchChanged($event)'
+        [action]='form'
+    >
+        Loading search...
+    </ucf-search-form>
+
+    <div class="container-fluid">
+      <div class="row">
+        <section id="filter" class="col-md-3 col-md-push-9 side-bar">
+            <ucf-service-filter>
+                <span class="filter-by">
+                    <h2>Filter By</h2>
+                    <div class="panel panel-default">
+                        <ul class="list-group">
+                            <li>List</li>
+                            <li>of</li>
+                            <li>Categories</li>
+                        </ul>
+                    </div>
+                </span>
+            </ucf-service-filter>
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <ucf-campaign [type]="square">
+                        Campaign loading...
+                    </ucf-campaign>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <ucf-academic-calendar>
+                        Academic Calendar loading...
+                    </ucf-academic-calendar>
+                </div>
+            </div>
+        </section> <!-- /#filter -->
+
+        <section id="services" class="col-sm-12 col-md-9 col-lg-9 col-md-pull-3">
+            <h2 class="title">{{ title }}</h2>
+            <ucf-campaign [type]="rectangle">
+                Campaign loading...
+            </ucf-campaign>
+            <div class="clearfix"></div>
+            <br>
+
+            <ucf-search-results [query]='query' [api]='api' [results]='initialResults'>
+                Loading results...
+            </ucf-search-results>
+        </section>
+      </div>
+    </div>
+</article>
