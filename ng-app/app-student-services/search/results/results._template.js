@@ -27,7 +27,10 @@ var  php_context   = {
 
 var angular_context = {
     'before_services': 
-        `<h2 *ngIf="query">Results for: "{{ query }}"</h2>
+        `<h2 *ngIf="query">
+            Results for: "{{ query }}"
+            <span class="fa fa-times" aria-hidden="true" (click)="clearResults()" style="font-size: 0.5em;"></span>
+        </h2>
         <span *ngIf="isLoading" class="loading fa fa-spinner" aria-hidden="true" 
               style="font-size: 2em; padding: 12px 0;"> Loading results...<br>
         </span>

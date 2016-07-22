@@ -12,7 +12,7 @@
     <div class="container-fluid">
       <div class="row">
         <section id="filter" class="col-md-3 col-md-push-9 side-bar">
-            <ucf-service-filter>
+            <ucf-search-filter (filterChanged)="onFilterChanged($event)">
                 <span class="filter-by">
                     <h2>Filter By</h2>
                     <div class="panel panel-default">
@@ -23,7 +23,7 @@
                         </ul>
                     </div>
                 </span>
-            </ucf-service-filter>
+            </ucf-search-filter>
             <div class="clearfix"></div>
 
             <div class="row">

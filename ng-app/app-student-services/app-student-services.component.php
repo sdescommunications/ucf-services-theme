@@ -37,7 +37,7 @@ $categories = get_categories( array(
     <div class="container-fluid">
       <div class="row">
         <section id="filter" class="col-md-3 col-md-push-9 side-bar">
-            <ucf-service-filter>
+            <ucf-search-filter>
                 <span class="filter-by">
                     <h2>Filter By</h2>
                     <div class="panel panel-default">
@@ -64,7 +64,7 @@ $categories = get_categories( array(
                         </script>
                     </div>
                 </span>
-            </ucf-service-filter>
+            </ucf-search-filter>
             <div class="clearfix"></div>
 
             <div class="row">

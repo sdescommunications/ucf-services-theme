@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input } from "@angular/core";
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
 import { SafeHtml } from "@angular/platform-browser";
 
 import { SearchService } from "app-student-services/search";
@@ -17,10 +17,13 @@ import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
 export class SearchResultsComponent {
     @Input() query: string;
     @Input() api: string = "";
+    @Input() filters: any = {};
+    filterClear = () => jQuery.map( this.filters, (cat) => cat.checked ).every( (x) => 'false' == x )
     studentServices: IStudentService[] = window.ucf_searchResults_initial;
     errorMessage: string = "";
     isInit: boolean = true;
     isLoading: boolean = false;
+    protected _previousQuery: string;
 
     @Output() resultsChanged: EventEmitter<any> = new EventEmitter<any>();
 
@@ -36,11 +39,13 @@ export class SearchResultsComponent {
 
     ngOnChanges(): void {
         this._searchService.restApiUrl = this.api;
-        this.isLoading = ( this.isInit ) ? false : true;
+        if ( this.query === this._previousQuery && ! this.isInit ) { return; } // Prevent loop between events this.resultsChanged() <-> SearchFormComponent.search()
+        this.isLoading = ( this.isInit ) ? false : true;  // Don't show loading text on initial load.
         // TODO: observe this.query instead of creating a new subscription on every change.
         this._searchService.getStudentServices( this.query )
             .subscribe(
                 studentServices => {
+                    this._previousQuery = this.query;
                     this.studentServices = studentServices;
                     this.resultsChanged.emit( { query: this.query, results: this.studentServices } );
                     this.isLoading = false;
@@ -58,5 +63,12 @@ export class SearchResultsComponent {
         this.query = "";
         this.studentServices = window.ucf_searchResults_initial;
         this.resultsChanged.emit( { query: this.query, results: this.studentServices } );
+    }
+
+    shouldFilter( categoryName ): boolean {
+        if ( 'undefined' == typeof categoryName ) { return false; }
+        return this.filterClear() ||
+            ( this.filters[categoryName]
+              && 'true' == this.filters[categoryName].checked );
     }
 }

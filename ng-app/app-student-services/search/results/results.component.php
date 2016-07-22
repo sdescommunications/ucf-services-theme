@@ -1,7 +1,7 @@
         
 <span class="student_service-list" *ngIf="!isLoading">
     <div class="row service">
-        <div class="col-sm-4">
+        <div class="col-sm-4" [attr.data-category]='<?= $ctxt_search_results['main_category_name'] ?>'>
             <img class="service-image" src="<?= $ctxt_search_results['image_thumbnail_src'] ?>" alt="<?= $ctxt_search_results['image_alt'] ?>">
         </div>
         <div class="col-sm-8">

@@ -45,19 +45,23 @@ use SDES\SDES_Static as SDES_Static;
 				));
 			wp_enqueue_script('ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.0.24/ng2-bootstrap.min.js');
 			wp_add_inline_script('config-local', "
-				System.import('main.js')
-				  .then(
-				  	function( success ) { },
-				  	function( cdnErr) {
-						// Local fallbacks. See: https://github.com/systemjs/systemjs/issues/986#issuecomment-168422454
-						System.paths = window.ucf_local_config.paths;
-						System.packages = window.ucf_local_config.packages;
-						System.map = window.ucf_local_config.map;
-						System.import('main.js')
-							  .catch( function( err ) {
-							  	console.error( err )
-							  } );
-				  });"
+				System.import('main')
+						.catch( function(cdnErr) { console.error( cdnErr ); } );
+					  // .then(
+					  // 	function( success ) { },
+					  // 	function( cdnErr) {
+							// // Local fallbacks. See: https://github.com/systemjs/systemjs/issues/986#issuecomment-168422454
+							// System.paths = window.ucf_local_config.paths;
+							// System.packages = window.ucf_local_config.packages;
+							// System.map = window.ucf_local_config.map;
+							// System.import('main')
+							// 	  .then(
+							// 	  	function ( success ) { console.info('Successfully loaded from local files after CDN failure.'); }
+							// 	  , function( err ) {
+							// 	  	console.error( 'Failed loading from CDN: ', cdnErr );
+							// 	  	console.error( err );
+							// 	  } );
+					  // });"
 			);
 		}
 		add_action('wp_enqueue_scripts', 'header_load_scripts');

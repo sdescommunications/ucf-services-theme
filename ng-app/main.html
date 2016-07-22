@@ -30,7 +30,7 @@
 	<script src="https://npmcdn.com/systemjs@0.19.31/dist/system.js"></script>
 	<!-- <script src="./jspm_packages/system.js"></script> -->
 	<!-- <script src="./config.js"></script> -->
-	<script src="./config.cdn.js"></script>
+	<script src="./config.js"></script>
 	<script src="./config.ucf_local.js"></script> <!-- Set window.ucf_local_config -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.0.24/ng2-bootstrap.min.js"></script>
 	<script>
@@ -43,8 +43,11 @@
 					System.packages = window.ucf_local_config.packages;
 					System.map = window.ucf_local_config.map;
 					System.import('main')
-						  .catch( function( err ) { 
-						  	console.error( err )
+						  .then(
+						  	function ( success ) { console.info('Successfully loaded from local files after CDN failure.'); }
+						  , function( err ) {
+						  	console.error( 'Failed loading from CDN:', cdnErr );
+						  	console.error( err );
 						  } );
 			  });
 	</script>
