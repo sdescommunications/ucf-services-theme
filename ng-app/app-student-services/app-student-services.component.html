@@ -1,5 +1,6 @@
 <article class="row page-wrap">
     <ucf-search-form
+        [frontsearch_query]="query"
         (search)='onSearch($event)'
         (change)='onSearchChanged($event)'
         (blur)='onSearchChanged($event)'
@@ -50,7 +51,9 @@
             <div class="clearfix"></div>
             <br>
 
-            <ucf-search-results [query]='query' [api]='api' [results]='initialResults'>
+            <ucf-search-results [query]='query' [api]='api'
+                [results]='initialResults'
+                (onResultsChanged)='onResultsChanged($event)'>
                 Loading results...
             </ucf-search-results>
         </section>

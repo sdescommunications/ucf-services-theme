@@ -25,7 +25,7 @@ export class SearchFormComponent implements OnInit, OnChanges {
     typeaheadLoading: boolean = false;
     typeaheadNoResults: boolean = false;
 
-    frontsearch_query: string = "";
+    @Input() frontsearch_query: string;
     @Output() search: EventEmitter<string> = new EventEmitter<string>();
 
     constructor( public elementRef: ElementRef ) {
