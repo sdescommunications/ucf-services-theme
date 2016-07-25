@@ -204,6 +204,9 @@ function ucf_search_filter_services( $search, &$wp_query ) {
 					AND ( /* Search associated taxonomies: */
 						taxonomy = 'category' 
 						OR taxonomy = 'post_tag'
+						OR taxonomy = 'curation_groups'
+						OR taxonomy = 'service_cost'
+						OR taxonomy = 'service_type'
 					)
 					AND $wpdb->terms.name LIKE %s
 			)
