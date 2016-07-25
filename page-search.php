@@ -29,9 +29,11 @@ get_header();
 	$services_contexts = API\route_services( $request );
 	$json_services = json_encode( $services_contexts );
 	$search_suggestions = API\route_services_titles();
+	$categories = API\route_categories();
 ?>
 	window.ucf_searchResults_initial = <?= $json_services ?>;
 	window.ucf_searchSuggestions = <?= json_encode( $search_suggestions ) ?>;
+	window.ucf_service_categories = <?= json_encode( $categories ) ?>;
 
 </script>
 <style>

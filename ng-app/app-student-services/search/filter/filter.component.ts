@@ -30,17 +30,15 @@ import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
     pipes: [ UnescapeHtmlPipe ],
 })
 export class SearchFilterComponent {
-    categories: any[] = window.ucf_service_categories = [
-            { name: 'Advising', cat_ID: 5, checked: false },
-            { name: 'Food', cat_ID: 6, checked: false },
-            { name: 'Stuff', cat_ID: 1, checked: false },
-            { name: 'Health &amp; Wellness', cat_ID: 2, checked: false },
-        ];
+    categories: any[] = window.ucf_service_categories;
 
     @Output() filterChanged = new EventEmitter<any>();
 
     constructor( public elementRef: ElementRef ) {
         window.ucf_comp_searchFilter = (window.ucf_comp_searchFilter || []).concat(this);
+        for(let category of this.categories) {
+            category["checked"] = false;
+        }
     }
 
     ngOnChanges( changes: SimpleChanges ): any { }
