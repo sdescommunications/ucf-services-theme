@@ -38,32 +38,7 @@ $categories = get_categories( array(
       <div class="row">
         <section id="filter" class="col-md-3 col-md-push-9 side-bar">
             <ucf-search-filter>
-                <span class="filter-by">
-                    <h2>Filter By</h2>
-                    <div class="panel panel-default">
-                        <ul class="list-group">
-                            <?php if ( null !== $categories ) :
-                              foreach ( $categories  as $category ) : ?>
-                                <li class="cat-item cat-item-<?= $category->cat_ID ?>">
-                                    <input class="filter-checkbox" type="checkbox" id="filter-services-<?= $category->cat_ID ?>">
-                                    <label class="list-group-item filter-label" for="filter-services-<?= $category->cat_ID ?>">
-                                        <a href="<?= get_category_link( $category ) ?>">
-                                            <?= $category->name ?>
-                                        </a>
-                                    </label>
-                                </li>
-                            <?php endforeach;
-                            else:
-                                 echo '<!-- No categories -->';
-                            endif; ?>
-                          </span><!-- hide PHP -->
-                        </ul>
-                        <script>
-                            // Remove link to category if javascript is enabled.
-                            jQuery('label.filter-label a').each( function() { $(this).contents().unwrap(); } );
-                        </script>
-                    </div>
-                </span>
+                <?php include( get_stylesheet_directory() . '/ng-app/app-student-services/search/filter/filter.component.php' ); ?>
             </ucf-search-filter>
             <div class="clearfix"></div>
 
