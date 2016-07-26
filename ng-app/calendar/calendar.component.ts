@@ -1,6 +1,8 @@
 import { Component, OnInit, OnChanges, Input } from "@angular/core";
 import moment from 'moment';
 
+import { CalendarService } from "./calendar.service";
+
 @Component({
     selector: "ucf-calendar-events",
     moduleId: __moduleName,
