@@ -55,7 +55,7 @@ $categories = get_categories( array(
 
             <div class="row">
                 <div class="col-xs-12">
-                <ucf-academic-calendar>
+                <ucf-calendar-events>
                     <?php
                     // TODO: make calendar_events into a shortcode.
                     $academic_feed = UcfAcademicCalendarModel::$calendar_url;
@@ -68,7 +68,10 @@ $categories = get_categories( array(
                         'events_cal_title' => 'Academic Calendar',
                         'more_events' => UcfAcademicCalendarModel::more_link(),
                     )); ?>
-                </ucf-academic-calendar>
+                </ucf-calendar-events>
+                <script>
+                    window.ucf_calendar_events = <?= json_encode( $events ) ?>;
+                </script>
                 </div>
             </div>
         </section> <!-- /#filter -->
