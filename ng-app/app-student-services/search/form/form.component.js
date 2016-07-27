@@ -1,4 +1,4 @@
-System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime", "ng2-bootstrap/components/typeahead", "pipes/unescapeHtml.pipe"], function(exports_1, context_1) {
+System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime", "ng2-bootstrap/ng2-bootstrap", "pipes/unescapeHtml.pipe"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime", "
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, Rx_1, typeahead_1, unescapeHtml_pipe_1;
+    var core_1, Rx_1, ng2_bootstrap_1, unescapeHtml_pipe_1;
     var SearchFormComponent;
     return {
         setters:[
@@ -21,8 +21,8 @@ System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime", "
                 Rx_1 = Rx_1_1;
             },
             function (_1) {},
-            function (typeahead_1_1) {
-                typeahead_1 = typeahead_1_1;
+            function (ng2_bootstrap_1_1) {
+                ng2_bootstrap_1 = ng2_bootstrap_1_1;
             },
             function (unescapeHtml_pipe_1_1) {
                 unescapeHtml_pipe_1 = unescapeHtml_pipe_1_1;
@@ -38,7 +38,6 @@ System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime", "
                     this.searchSuggestions = window.ucf_searchSuggestions;
                     this.typeaheadLoading = false;
                     this.typeaheadNoResults = false;
-                    this.frontsearch_query = "";
                     this.search = new core_1.EventEmitter();
                     window.ucf_comp_searchForm = (window.ucf_comp_searchForm || []).concat(this);
                 }
@@ -88,6 +87,10 @@ System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime", "
                     __metadata('design:type', String)
                 ], SearchFormComponent.prototype, "action", void 0);
                 __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], SearchFormComponent.prototype, "frontsearch_query", void 0);
+                __decorate([
                     core_1.Output(), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], SearchFormComponent.prototype, "search", void 0);
@@ -97,7 +100,7 @@ System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime", "
                         moduleId: __moduleName,
                         templateUrl: "./form.component.html",
                         // styleUrls: ["../../scss/_search.scss"],
-                        directives: [typeahead_1.TYPEAHEAD_DIRECTIVES,],
+                        directives: [ng2_bootstrap_1.TYPEAHEAD_DIRECTIVES,],
                         pipes: [unescapeHtml_pipe_1.UnescapeHtmlPipe],
                     }), 
                     __metadata('design:paramtypes', [core_1.ElementRef])

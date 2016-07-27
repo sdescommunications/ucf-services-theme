@@ -1,4 +1,4 @@
-System.register(['./form', './results', './service'], function(exports_1, context_1) {
+System.register(['./filter', './form', './results', './service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function exportStar_1(m) {
@@ -10,6 +10,9 @@ System.register(['./form', './results', './service'], function(exports_1, contex
     }
     return {
         setters:[
+            function (filter_1_1) {
+                exportStar_1(filter_1_1);
+            },
             function (form_1_1) {
                 exportStar_1(form_1_1);
             },

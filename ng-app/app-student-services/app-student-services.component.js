@@ -1,4 +1,4 @@
-System.register(["@angular/core", "rxjs/Rx", "./search"], function(exports_1, context_1) {
+System.register(["@angular/core", "rxjs/Rx", "./search", '../calendar/calendar.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "rxjs/Rx", "./search"], function(exports_1, co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, search_1;
+    var core_1, search_1, calendar_component_1;
     var AppStudentServicesComponent;
     return {
         setters:[
@@ -20,23 +20,32 @@ System.register(["@angular/core", "rxjs/Rx", "./search"], function(exports_1, co
             function (_1) {},
             function (search_1_1) {
                 search_1 = search_1_1;
+            },
+            function (calendar_component_1_1) {
+                calendar_component_1 = calendar_component_1_1;
             }],
         execute: function() {
             AppStudentServicesComponent = (function () {
                 // Can't use @Input() (or ng-content) with a root Angular2 element.
                 // http://stackoverflow.com/a/33641842 and https://github.com/angular/angular/issues/1858#issuecomment-137696843
                 // http://stackoverflow.com/a/32574733
-                function AppStudentServicesComponent(elementRef, _searchService) {
+                function AppStudentServicesComponent(elementRef, _searchService, _renderer) {
+                    var _this = this;
                     this.elementRef = elementRef;
                     this._searchService = _searchService;
+                    this._renderer = _renderer;
                     this.title = "Student Services";
                     this.initialResults = window.ucf_searchResults_initial;
-                    this.query = "";
                     this.form = "#";
+                    this.filters = {};
+                    this.noServicesVisible = function () { return 0 === jQuery('.service:visible').length; };
+                    this.filterClear = function () { return jQuery.map(_this.filters, function (cat) { return cat.checked; }).every(function (x) { return 'false' == x; }); };
                     var native = this.elementRef.nativeElement;
                     this.api = native.getAttribute("[api]");
                     this.title = native.getAttribute("[title]");
                     this.query = native.getAttribute("[query]");
+                    this._renderer.setElementProperty(this.elementRef.nativeElement, 'value', this.query);
+                    window.ucf_comp_studentServices = (window.ucf_comp_studentServices || []).concat(this);
                 }
                 // Receive event from SearchFormComponent.search EventEmitter.
                 AppStudentServicesComponent.prototype.onSearch = function (newSearch) {
@@ -45,6 +54,14 @@ System.register(["@angular/core", "rxjs/Rx", "./search"], function(exports_1, co
                 // Receive event from onChange and onBlur.
                 AppStudentServicesComponent.prototype.onSearchChanged = function (change) {
                     this.query = (change.target).value;
+                };
+                AppStudentServicesComponent.prototype.onResultsChanged = function (results) {
+                    this.query = results.query;
+                    // this.searchForm.frontsearch_query = results.query;
+                };
+                AppStudentServicesComponent.prototype.onFilterChanged = function (category) {
+                    this.filters[category.name] = category;
+                    this.searchResults.filters = this.filters;
                 };
                 AppStudentServicesComponent.prototype.ngOnInit = function () { };
                 AppStudentServicesComponent.prototype.ngOnChanges = function () { };
@@ -68,15 +85,19 @@ System.register(["@angular/core", "rxjs/Rx", "./search"], function(exports_1, co
                     core_1.Input(), 
                     __metadata('design:type', String)
                 ], AppStudentServicesComponent.prototype, "form", void 0);
+                __decorate([
+                    core_1.ViewChild(search_1.SearchResultsComponent), 
+                    __metadata('design:type', search_1.SearchResultsComponent)
+                ], AppStudentServicesComponent.prototype, "searchResults", void 0);
                 AppStudentServicesComponent = __decorate([
                     core_1.Component({
                         selector: "ucf-app-student-services",
                         moduleId: __moduleName,
                         // template: `${window.ucfAppStudentServices}`, // http://stackoverflow.com/questions/32568808/angular2-root-component-with-ng-content
                         templateUrl: "./app-student-services.component.html",
-                        directives: [search_1.SearchFormComponent, search_1.SearchResultsComponent],
+                        directives: [search_1.SearchFormComponent, search_1.SearchResultsComponent, search_1.SearchFilterComponent, calendar_component_1.CalendarEventsComponent,],
                     }), 
-                    __metadata('design:paramtypes', [core_1.ElementRef, search_1.SearchService])
+                    __metadata('design:paramtypes', [core_1.ElementRef, search_1.SearchService, core_1.Renderer])
                 ], AppStudentServicesComponent);
                 return AppStudentServicesComponent;
             }());

@@ -26,13 +26,16 @@ System.register(["@angular/core", "app-student-services/search", "pipes/unescape
         execute: function() {
             SearchResultsComponent = (function () {
                 function SearchResultsComponent(_searchService) {
+                    var _this = this;
                     this._searchService = _searchService;
-                    this.query = "";
                     this.api = "";
+                    this.filters = {};
+                    this.filterClear = function () { return jQuery.map(_this.filters, function (cat) { return cat.checked; }).every(function (x) { return 'false' == x; }); };
                     this.studentServices = window.ucf_searchResults_initial;
                     this.errorMessage = "";
                     this.isInit = true;
                     this.isLoading = false;
+                    this.resultsChanged = new core_1.EventEmitter();
                     window.ucf_comp_searchResults = (window.ucf_comp_searchResults || []).concat(this);
                 }
                 SearchResultsComponent.prototype.ngOnInit = function () {
@@ -43,17 +46,35 @@ System.register(["@angular/core", "app-student-services/search", "pipes/unescape
                 SearchResultsComponent.prototype.ngOnChanges = function () {
                     var _this = this;
                     this._searchService.restApiUrl = this.api;
-                    this.isLoading = (this.isInit) ? false : true;
+                    if (this.query === this._previousQuery && !this.isInit) {
+                        return;
+                    } // Prevent loop between events this.resultsChanged() <-> SearchFormComponent.search()
+                    this.isLoading = (this.isInit) ? false : true; // Don't show loading text on initial load.
                     // TODO: observe this.query instead of creating a new subscription on every change.
                     this._searchService.getStudentServices(this.query)
                         .subscribe(function (studentServices) {
+                        _this._previousQuery = _this.query;
                         _this.studentServices = studentServices;
+                        _this.resultsChanged.emit({ query: _this.query, results: _this.studentServices });
                         _this.isLoading = false;
                     }, function (error) { return _this.errorMessage = error; });
                     this.isInit = false;
                 };
                 SearchResultsComponent.prototype.hasResults = function () {
                     return null !== this.studentServices;
+                };
+                SearchResultsComponent.prototype.clearResults = function () {
+                    this.query = "";
+                    this.studentServices = window.ucf_searchResults_initial;
+                    this.resultsChanged.emit({ query: this.query, results: this.studentServices });
+                };
+                SearchResultsComponent.prototype.shouldFilter = function (categoryName) {
+                    if ('undefined' == typeof categoryName) {
+                        return false;
+                    }
+                    return this.filterClear() ||
+                        (this.filters[categoryName]
+                            && 'true' == this.filters[categoryName].checked);
                 };
                 __decorate([
                     core_1.Input(), 
@@ -63,6 +84,14 @@ System.register(["@angular/core", "app-student-services/search", "pipes/unescape
                     core_1.Input(), 
                     __metadata('design:type', String)
                 ], SearchResultsComponent.prototype, "api", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], SearchResultsComponent.prototype, "filters", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], SearchResultsComponent.prototype, "resultsChanged", void 0);
                 SearchResultsComponent = __decorate([
                     core_1.Component({
                         selector: "ucf-search-results",
