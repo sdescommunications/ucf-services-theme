@@ -2,6 +2,14 @@
  * Display a service within a list.
  */
 
+.clear-results {
+    font-size: 0.5em;
+    opacity: 0.3;
+    &:hover { 
+        opacity: 0.8; 
+    }
+}
+
 .student_service-list {
     list-style: none;
     padding: 0;
@@ -42,6 +50,9 @@
         font-family: "archer_boldregular", Georgia, serif;
         font-size: 27px;
         margin-top: -10px;
+        a { 
+            color: #337ab7;
+        }
         &::after {
             content: " ";
             background: #ffc904;

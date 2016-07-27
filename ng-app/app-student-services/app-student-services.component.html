@@ -6,7 +6,6 @@
         (blur)='onSearchChanged($event)'
         [action]='form'
     >
-        Loading search...
     </ucf-search-form>
 
     <div class="container-fluid">
@@ -17,8 +16,6 @@
                     <h2>Filter By</h2>
                     <div class="panel panel-default">
                         <ul class="list-group">
-                            <li>List</li>
-                            <li>of</li>
                             <li>Categories</li>
                         </ul>
                     </div>
@@ -55,7 +52,7 @@
                 [results]='initialResults'
                 [filters]='filters'
                 (resultsChanged)='onResultsChanged($event)'>
-                Loading results...
+
             </ucf-search-results>
         </section>
       </div>
