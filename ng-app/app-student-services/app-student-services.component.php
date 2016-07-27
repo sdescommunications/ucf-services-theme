@@ -46,8 +46,8 @@ $categories = get_categories( array(
                 <div class="col-xs-12">
                     <ucf-campaign [type]="square">
                         <?php
-                            $spotlight_id = get_post_meta( $post->ID, 'page_spotlight', true );
-                            echo do_shortcode( "[campaign spotlight_id='{$spotlight_id}' layout='square']" );
+                            // $spotlight_id = get_post_meta( $post->ID, 'page_spotlight', true );
+                            // echo do_shortcode( "[campaign spotlight_id='{$spotlight_id}' layout='square']" );
                         ?>
                     </ucf-campaign>
                 </div>
@@ -81,8 +81,8 @@ $categories = get_categories( array(
 
             <ucf-campaign [type]="rectangle">
                 <?php
-                    $spotlight_id = get_post_meta( $post->ID, 'page_spotlight', true );
-                    echo do_shortcode( "[campaign spotlight_id='{$spotlight_id}' layout='rectangle']" );
+                    // $spotlight_id = get_post_meta( $post->ID, 'page_spotlight', true );
+                    // echo do_shortcode( "[campaign spotlight_id='{$spotlight_id}' layout='rectangle']" );
                 ?>
             </ucf-campaign>
             <div class="clearfix"></div>
