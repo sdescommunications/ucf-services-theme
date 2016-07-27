@@ -24,7 +24,7 @@ get_header();
 <?php
 	$services_limit = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-services_limit', 7 );
 	$request = new \WP_REST_Request();
-	$search_query = array_key_exists("search", $_REQUEST) ? $_REQUEST["search"] : "";
+	$search_query = array_key_exists("q", $_REQUEST) ? $_REQUEST["q"] : "";
 	$request->set_query_params( array( "limit" => $services_limit, 'search' => $search_query ) );
 	$services_contexts = API\route_services( $request );
 	$json_services = json_encode( $services_contexts );

@@ -131,9 +131,9 @@ function route_services( $request = null ) {
 
 	// TODO: Make and merge multiple WP_Query statements instead of calling $wpdb. $query_search $query_tax $query_meta
 
-	// ?search=&s= // Set to 'search' if both are present.
-	if ( $request->get_param( 'search' ) || $request->get_param( 's' ) ) {
-		$search_term = $request->get_param( 'search' ) ?: $request->get_param( 's' );
+	// ?q=&search=&s= // Set to 'search' if both are present.
+	if ( $request->get_param( 'q' ) || $request->get_param( 'search' ) || $request->get_param( 's' ) ) {
+		$search_term = $request->get_param( 'q' ) ?: $request->get_param( 'search' ) ?: $request->get_param( 's' );
 		$args = array_merge( $args, array(
 			'ucf_search_filter' => UCF_SEARCH_FILTER::SERVICES,
 			'ucf_query_services' => $search_term,

@@ -1205,7 +1205,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 				<div class="tag-cloud">
 				  <?php if( null != $context['tag_cloud']) :
 				  foreach( $context['tag_cloud'] as $tag ) : ?>
-					<a href="<?= get_term_link( $tag, $tag->taxonomy ) ?>">
+					<a href="<?= get_site_url() . '/?q=' . $tag->name ?>">
 						<span class="label label-default"><?= $tag->name ?></span>
 					</a>
 				  <?php endforeach;
