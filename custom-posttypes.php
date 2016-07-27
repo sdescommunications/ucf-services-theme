@@ -375,7 +375,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$use_shortcode  = true,
 		$taxonomies     = array( 'post_tag', 'category', 'curation_groups', 'service_cost', 'service_type', ),
 		$menu_icon      = null,
-
+		$rewrite        = array( 'slug' => 's', 'with_front' => true ),
 		$built_in       = false,
 		// Optional default ordering for generic shortcode if not specified by user.
 		$default_orderby = null,
