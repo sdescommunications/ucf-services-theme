@@ -6,7 +6,7 @@ var  php_context   = {
 	'action': '<?= get_permalink( $post->ID ); ?>',
 	'frontsearch_lead': '<?= $frontsearch_lead ?>',
 	'frontsearch_placeholder': '<?= $frontsearch_placeholder ?>',
-	'ng_input_params': ''
+	'ng_input_params': `value="<?= $search_query ?>"`,
 }
 
 var angular_context = {

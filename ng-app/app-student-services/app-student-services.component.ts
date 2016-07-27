@@ -46,9 +46,9 @@ export class AppStudentServicesComponent {
         this.query = (<HTMLInputElement>(change.target)).value;
      }
 
-     onResultsChanged( results: any): void {
+    onResultsChanged( results: any ): void {
          this.query = results.query;
-     }
+    }
 
     ngOnInit(): void { }
 

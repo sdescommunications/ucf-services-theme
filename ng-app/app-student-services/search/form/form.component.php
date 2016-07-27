@@ -15,7 +15,7 @@
 						placeholder="<?= $frontsearch_placeholder ?>"
 						autocomplete="off"
 						aria-label="Search for student services."
-						>
+						value="<?= $search_query ?>">
 				</form>
 			</div>
 		</div>

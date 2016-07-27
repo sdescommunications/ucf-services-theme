@@ -110,7 +110,9 @@ $categories = get_categories( array(
             <div class="clearfix"></div>
             <br>
 
-            <ucf-search-results [query]='query' [api]='api'>
+            <ucf-search-results [query]='query' [api]='api'
+                [results]='initialResults'
+                (resultsChanged)='onResultsChanged($event)'>
                 <?php foreach ( $services_contexts as $ctxt_search_results ) {
                     include( get_stylesheet_directory() . '/ng-app/app-student-services/search/results/results.component.php' );
                 } ?>

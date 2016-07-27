@@ -53,7 +53,8 @@
 
             <ucf-search-results [query]='query' [api]='api'
                 [results]='initialResults'
-                (onResultsChanged)='onResultsChanged($event)'>
+                [filters]='filters'
+                (resultsChanged)='onResultsChanged($event)'>
                 Loading results...
             </ucf-search-results>
         </section>
