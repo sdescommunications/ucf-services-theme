@@ -30,10 +30,16 @@
 	<script src="https://npmcdn.com/systemjs@0.19.31/dist/system.js"></script>
 	<!-- <script src="./jspm_packages/system.js"></script> -->
 	<!-- <script src="./config.js"></script> -->
-	<script src="./config.js"></script>
+	<script>configjs = { baseURL: '.' };</script>
+	<script src="./config.cdn.js"></script>
 	<script src="./config.ucf_local.js"></script> <!-- Set window.ucf_local_config -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.0.24/ng2-bootstrap.min.js"></script>
 	<script>
+		// NOTE: hard-coding sample values for filter categories. A pure Angular implementation would pull these in via a service, similiar to the one in app-student-services/search/search.service.ts
+		window.ucf_service_categories = [
+			{ name: "Advising", cat_ID: 5 },
+			{ name: "Health &amp; Wellness", cat_ID: 2 },
+		];
 		System.import('main')
 			  .then(
 			  	function( success ) { },
@@ -97,9 +103,12 @@
   <div class="container">
 	<ucf-app-student-services 
 		[results]='initialResults'
-		[query]='query'
+		[query]=''
 		[api]='../../../../wp-json/rest/v1/services/' 
 		[title]="Student Services">
+			<span class="loading fa fa-spinner" 
+				style="font-size: 2em; padding: 12px 0;"> Loading Student Services...<br>
+        	</span>
 	</ucf-app-student-services>
   </div>
 </main>

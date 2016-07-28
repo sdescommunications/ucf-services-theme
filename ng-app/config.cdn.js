@@ -1,5 +1,5 @@
 System.config({
-  baseURL: ".",
+  baseURL: configjs.baseURL,
   defaultJSExtensions: true,
   transpiler: false,
   babelOptions: {
@@ -67,11 +67,11 @@ System.config({
     "@angular": "https://npmcdn.com/@angular",
     "@angular/router": "https://npmcdn.com/@angular/router",
     "angular/angular": "github:angular/angular@2.0.0-rc.4",
-    "app": ".",
+    "app": "",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@2.4.0",
-    "main": ".",
+    "main": "",
     "ng2-bootstrap": "https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.0.24/ng2-bootstrap.min.js",
     "reflect-metadata": "npm:reflect-metadata@0.1.3",
     "rxjs": "npm:rxjs@5.0.0-beta.6",

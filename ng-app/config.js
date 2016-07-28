@@ -1,5 +1,5 @@
 System.config({
-  baseURL: ".",
+  baseURL: configjs.baseURL,
   defaultJSExtensions: true,
   transpiler: false,
   babelOptions: {
@@ -15,6 +15,10 @@ System.config({
 
   packages: {
     "app": {
+      "main": "main.js",
+      "defaultExtension": "js"
+    },
+    "main": {
       "main": "main.js",
       "defaultExtension": "js"
     },

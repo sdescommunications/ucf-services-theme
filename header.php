@@ -34,13 +34,13 @@ use SDES\SDES_Static as SDES_Static;
 	<script src="https://npmcdn.com/systemjs@0.19.31/dist/system.js"></script>
 	<!--
 		<script src="jspm_packages/system.js"></script>
-		<script src="<?= get_stylesheet_directory_uri(); ?>/config.cdn.js"></script>
+		<script src="<?= get_stylesheet_directory_uri(); ?>/ng-app/config.js"></script>
 	 -->
 	<?php
 		function header_load_scripts() {
-			wp_enqueue_script('config-cdn', get_stylesheet_directory_uri() . '/config.cdn.js');
-			wp_enqueue_script('config-local', get_stylesheet_directory_uri() . '/config.ucf_local.js'); // Set window.ucf_local_config.
-			wp_localize_script('config-cdn', 'config_cdn', array(
+			wp_enqueue_script('config-cdn', get_stylesheet_directory_uri() . '/ng-app/config.cdn.js');
+			wp_enqueue_script('config-local', get_stylesheet_directory_uri() . '/ng-app/config.ucf_local.js'); // Set window.ucf_local_config.
+			wp_localize_script('config-cdn', 'configjs', array(
 					'baseURL' => get_stylesheet_directory_uri() . '/ng-app/'
 				));
 			wp_enqueue_script('ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.0.24/ng2-bootstrap.min.js');
