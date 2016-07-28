@@ -108,6 +108,21 @@
         font-size: 65px;
         margin-bottom: 30px;
     }
+    .tag-cloud a {
+        text-decoration: none;
+        .label {
+            display: inline-block;
+            padding: 7px 13px;
+            color: #fff;
+            background: #ffc409;
+            text-transform: uppercase;
+            color: #101010;
+            margin: 3px 0;
+            &:hover {
+                background: #c90;
+            }
+        }
+    }
     @media screen and (max-width: $screen-xs-max) {
         .table-responsive {
             border: none;

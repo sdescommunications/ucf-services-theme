@@ -32,10 +32,73 @@ require_once( get_stylesheet_directory().'/functions/class-custom-taxonomy.php' 
 // 		$hierarchical       = True;
 // } // END class 
 
+class CurationGroups extends CustomTaxonomy
+{
+	public
+		$name               = 'curation_groups',
+		$general_name       = 'Curation Groups',
+		$singular_name      = 'Curation Group',
+		$search_items       = 'Search Curation Groups',
+		$popular_items      = 'Popular Curation Groups',
+		$all_times          = 'All Curation Groups',
+		$parent_item        = 'Parent Curation Group',
+		$parent_item_colon  = 'Parent Curation Group:',
+		$edit_item          = 'Edit Curation Group',
+		$update_item        = 'Update Curation Group',
+		$add_new_item       = 'Add New Curation Group',
+		$new_item_name      = 'New Tag Curation Group',
+		
+		$show_admin_column  = True,
+		$hierarchical       = True;
+} // END class 
+
+class ServiceCost extends CustomTaxonomy
+{
+	public
+		$name               = 'service_cost',
+		$general_name       = 'Service Cost',
+		$singular_name      = 'Service Cost',
+		$search_items       = 'Search Service Costs',
+		$popular_items      = 'Popular Service Costs',
+		$all_times          = 'All Service Costs',
+		$parent_item        = 'Parent Service Cost',
+		$parent_item_colon  = 'Parent Service Cost:',
+		$edit_item          = 'Edit Service Cost',
+		$update_item        = 'Update Service Cost',
+		$add_new_item       = 'Add New Service Cost',
+		$new_item_name      = 'New Tag Service Cost',
+		
+		$show_admin_column  = True,
+		$hierarchical       = True;
+} // END class 
+
+class ServiceType extends CustomTaxonomy
+{
+	public
+		$name               = 'service_type',
+		$general_name       = 'Service Type',
+		$singular_name      = 'Service Type',
+		$search_items       = 'Search Service Types',
+		$popular_items      = 'Popular Service Types',
+		$all_times          = 'All Service Types',
+		$parent_item        = 'Parent Service Type',
+		$parent_item_colon  = 'Parent Service Type:',
+		$edit_item          = 'Edit Service Type',
+		$update_item        = 'Update Service Type',
+		$add_new_item       = 'Add New Service Type',
+		$new_item_name      = 'New Tag Service Type',
+		
+		$show_admin_column  = True,
+		$hierarchical       = True;
+} // END class 
+
 
 function register_custom_taxonomies() {
 	CustomTaxonomy::Register_Taxonomies( array(
 		// __NAMESPACE__.'\OrganizationalGroups',
+		__NAMESPACE__.'\CurationGroups',
+		__NAMESPACE__.'\ServiceCost',
+		__NAMESPACE__.'\ServiceType',
 	));
 }
 add_action('init', __NAMESPACE__.'\register_custom_taxonomies');

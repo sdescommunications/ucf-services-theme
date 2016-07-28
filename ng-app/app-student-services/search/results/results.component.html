@@ -1,14 +1,18 @@
-        <h2 *ngIf="query">Results for: "{{ query }}"</h2>
+        <h2 *ngIf="query">
+            Results for: &ldquo;{{ query }}&rdquo;
+            <span class="clear-results fa fa-times-circle-o" (click)="clearResults()" title="Clear search term."></span>
+        </h2>
         <span *ngIf="isLoading" class="loading fa fa-spinner" aria-hidden="true" 
               style="font-size: 2em; padding: 12px 0;"> Loading results...<br>
         </span>
         
 <span class="student_service-list" *ngIf="!isLoading">
-    <div class="row service" *ngFor="let service of studentServices">
-        <div class="col-sm-4">
+    <div class="row service" *ngFor="let service of studentServices"
+        [attr.data-category]="service?.main_category_name">
+        <div class="col-sm-4" *ngIf="shouldFilter(service?.main_category_name)">
             <img class="service-image" src="{{service.image_thumbnail_src}}" alt="{{service.image_alt}}">
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-8" *ngIf="shouldFilter(service?.main_category_name)">
             <ucf-like-tweet-share>
                 <div class="service-social pull-md-right">
                     <a href="{{service.social_facebook}}"><span class="fa fa-thumbs-o-up"></span></a>       

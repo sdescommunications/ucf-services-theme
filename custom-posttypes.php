@@ -367,7 +367,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$use_order      = false,
 		$use_metabox    = true,
 		$use_shortcode  = true,
-		$taxonomies     = array( 'post_tag', 'category' ),
+		$taxonomies     = array( 'post_tag', 'category', 'curation_groups', 'service_cost', 'service_type', ),
 		$menu_icon      = null,
 		$built_in       = false,
 		// Optional default ordering for generic shortcode if not specified by user.
@@ -799,6 +799,10 @@ class StudentService extends CustomPostType_ServicesTheme {
 			( null !== $category && property_exists( $category, 'name' ) ) 
 			? $category->name 
 			: null;
+		$taxonomies = wp_get_object_terms( $stusvc->ID,
+				array( 'curation_groups', 'service_cost', 'service_type', ),
+				array( 'orderby' => 'name', )
+			);
 		return array(
 			'permalink' => get_permalink( $stusvc ),
 			'heading' => $metadata_fields['stusvc_heading_text'],
@@ -839,6 +843,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 	 		'events_cal_feed' => $metadata_fields['stusvc_events_cal_feed'],
 	 		'map_id' => $metadata_fields['stusvc_map_id'],
 			'news_feed' => $metadata_fields['stusvc_news_feed'],
+			'tag_cloud' => $taxonomies,
 		);
 	}
 
@@ -968,6 +973,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 							?>
 							<?= '<!-- Map -->' //self::render_map( $context ); ?>
 							<?= '<!-- News Feed -->' //self::render_news_feed( $context ); ?>
+							<?= self::render_tag_cloud( $context ) ?>
 						</div>
 					</div>
 				</div> <!-- /.side-bar -->
@@ -1188,6 +1194,25 @@ class StudentService extends CustomPostType_ServicesTheme {
 		?>
 				<div class="news_feed"><?= $context['news_feed'] ?></div>
 				<hr>
+		<?php
+		$html = ob_get_clean();
+		return $html;
+	}
+
+	public static function render_tag_cloud( $context ){
+		ob_start();
+		?>
+				<div class="tag-cloud">
+				  <?php if( null != $context['tag_cloud']) :
+				  foreach( $context['tag_cloud'] as $tag ) : ?>
+					<a href="<?= get_site_url() . '/?q=' . $tag->name ?>">
+						<span class="label label-default"><?= $tag->name ?></span>
+					</a>
+				  <?php endforeach;
+				  else: ?>
+				  	<span class="no-tags"><!-- No tags for this service. --></span>
+				  <?php endif; ?>
+				</div>
 		<?php
 		$html = ob_get_clean();
 		return $html;

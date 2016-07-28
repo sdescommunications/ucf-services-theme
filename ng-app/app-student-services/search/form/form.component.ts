@@ -3,8 +3,9 @@ import { SafeHtml } from "@angular/platform-browser";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/debounceTime";
 
-// import { TYPEAHEAD_DIRECTIVES } from "ng2-bootstrap/ng2-bootstrap";
-import { TYPEAHEAD_DIRECTIVES } from "ng2-bootstrap/components/typeahead";
+// import { TYPEAHEAD_DIRECTIVES } from "ng2-bootstrap";
+import { TYPEAHEAD_DIRECTIVES } from "ng2-bootstrap/ng2-bootstrap";
+// import { TYPEAHEAD_DIRECTIVES } from "ng2-bootstrap/components/typeahead";
 
 import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
 
@@ -25,7 +26,7 @@ export class SearchFormComponent implements OnInit, OnChanges {
     typeaheadLoading: boolean = false;
     typeaheadNoResults: boolean = false;
 
-    frontsearch_query: string = "";
+    @Input() frontsearch_query: string;
     @Output() search: EventEmitter<string> = new EventEmitter<string>();
 
     constructor( public elementRef: ElementRef ) {

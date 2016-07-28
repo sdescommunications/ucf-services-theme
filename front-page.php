@@ -6,12 +6,8 @@
 require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
 	use SDES\WeatherBox;
 
-require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
-	use SDES\ServicesTheme\PostTypes\Spotlight;
-	use SDES\ServicesTheme\PostTypes\StudentService;
-
-require_once( get_stylesheet_directory() . '/footer-settings.php' );
-	use SDES\ServicesTheme\ThemeCustomizer\Footer_Settings as Footer_Settings;
+require_once( get_stylesheet_directory() . '/functions/rest-api.php' );
+	use SDES\ServicesTheme\API;
 
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static;
@@ -21,8 +17,68 @@ $sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'service
 $frontsearch_lead = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-frontsearch_lead',
 	'From orientation to graduation, the UCF experience creates<br>opportunities that last a lifetime. <b>Let\'s get started</b>.' );
 $frontsearch_placeholder = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-frontsearch_placeholder', 'What can we help you with today?' );
-get_header();
+$student_services_api = get_rest_url() . 'rest/v1/services/';
 ?>
+
+<!-- Angular scripts -->
+<!-- Polyfill(s) for older browsers -->
+<script src="https://cdn.jsdelivr.net/core-js/2.4.0/shim.min.js" integrity="sha256-iIdcT94SZY9oCsJj8VTkuvshEfKPXRXaA8nT8lCKG5U=" crossorigin="anonymous"></script>
+
+<script src="https://npmcdn.com/zone.js@0.6.12/dist/zone.js"></script>
+<script src="https://npmcdn.com/reflect-metadata@0.1.3/Reflect.js"></script>
+<script src="https://npmcdn.com/systemjs@0.19.31/dist/system.js"></script>
+<!--
+	<script src="jspm_packages/system.js"></script>
+	<script src="<?= get_stylesheet_directory_uri(); ?>/ng-app/config.js"></script>
+ -->
+<?php
+	function header_load_scripts() {
+		wp_enqueue_script('config-cdn', get_stylesheet_directory_uri() . '/ng-app/config.cdn.js');
+		wp_enqueue_script('config-local', get_stylesheet_directory_uri() . '/ng-app/config.ucf_local.js'); // Set window.ucf_local_config.
+		wp_localize_script('config-cdn', 'configjs', array(
+				'baseURL' => get_stylesheet_directory_uri() . '/ng-app/'
+			));
+		wp_enqueue_script('ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.0.24/ng2-bootstrap.min.js');
+		wp_add_inline_script('config-local', "
+			System.import('main')
+				  .then(
+				  	function( success ) { },
+				  	function( cdnErr) {
+						// Local fallbacks. See: https://github.com/systemjs/systemjs/issues/986#issuecomment-168422454
+						System.paths = window.ucf_local_config.paths;
+						System.packages = window.ucf_local_config.packages;
+						System.map = window.ucf_local_config.map;
+						System.import('main')
+							  .then(
+							  	function ( success ) { console.info('Successfully loaded from local files after CDN failure: ', cdnErr ); }
+							  , function( err ) {
+							  	console.error( 'Failed loading from CDN: ', cdnErr );
+							  	console.error( err );
+							  } );
+				  });"
+		);
+	}
+	add_action('wp_enqueue_scripts', 'header_load_scripts');
+	
+get_header(); 
+?>
+
+<script>
+<?php
+	$services_limit = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-services_limit', 7 );
+	$request = new \WP_REST_Request();
+	$search_query = array_key_exists("q", $_REQUEST) ? $_REQUEST["q"] : "";
+	$request->set_query_params( array( "limit" => $services_limit, 'search' => $search_query ) );
+	$services_contexts = API\route_services( $request );
+	$json_services = json_encode( $services_contexts );
+	$search_suggestions = API\route_services_titles();
+	$categories = API\route_categories();
+?>
+	window.ucf_searchResults_initial = <?= $json_services ?>;
+	window.ucf_searchSuggestions = <?= json_encode( $search_suggestions ) ?>;
+	window.ucf_service_categories = <?= json_encode( $categories ) ?>;
+
+</script>
 <style>
 	.header-center a {
 		max-width: <?= $sitetitle_anchor_maxwidth ?> !important;
@@ -47,106 +103,18 @@ get_header();
 	</div>
 </header>
 
-
 <main>
   <div class="container">
-	<article class="row page-wrap">
-		<section id="search-frontpage" class="container-fluid">
-			<div class="row search">
-				<div class="col-md-10 col-md-offset-1">
-					<div class="search-lead"><?=  $frontsearch_lead ?></div>
-				</div>
-				<div class="col-md-6 col-md-offset-3 search-bar">
-					<div class="search-bar">
-						<form action="#">
-							<span class="fa fa-search"></span>
-							<input type="search" class="form-control"
-								placeholder="<?= $frontsearch_placeholder ?>"
-								aria-label="Search for student services.">
-						</form>
-					</div>
-				</div>
-			</div>
-		</section> <!-- /.search -->
-
-		<div class="container-fluid">
-		  <div class="row">
-			<section id="filter" class="col-md-3 col-md-push-9 side-bar">
-				<span class="filter-by">
-					<h2>Filter By</h2>
-					<div class="panel panel-default">
-						<ul class="list-group">
-							<?php
-							$categories = get_categories( array(
-								'orderby' => 'name',
-								'exclude' => array( 1, ), // Uncategorized.
-								'parent' => 0,
-								'taxonomy' => 'category',
-							) );
-							if ( null !== $categories ) :
-							  foreach ( $categories  as $category ) : ?>
-								<li class="cat-item cat-item-<?= $category->cat_ID ?>">
-									<input class="filter-checkbox" type="checkbox" id="filter-services-<?= $category->cat_ID ?>">
-									<label class="list-group-item filter-label" for="filter-services-<?= $category->cat_ID ?>">
-										<a href="<?= get_category_link( $category ) ?>">
-											<?= $category->name ?>
-										</a>
-									</label>
-								</li>
-							<?php endforeach;
-							else:
-								 echo '<!-- No categories -->';
-							endif; ?>
-						</ul>
-						<script>
-							// Remove link to category if javascript is enabled.
-							jQuery('label.filter-label a').each( function() { $(this).contents().unwrap(); } );
-						</script>
-					</div>
-				</span>
-				<div class="clearfix"></div>
-
-				<div class="row">
-					<div class="col-xs-12">
-					<?php
-					// TODO: make calendar_events into a shortcode.
-					$academic_feed = UcfAcademicCalendarModel::$calendar_url;
-					$max_events = 5;
-					$events = UcfAcademicCalendarModel::get_academic_calendar_items();
-					echo StudentService::render_events_calendar( array(
-						'events_cal_feed' => $academic_feed,
-						'events' => $events,
-						'academic_cal' => true,
-						'events_cal_title' => 'Academic Calendar',
-						'more_events' => UcfAcademicCalendarModel::more_link(),
-					)); ?>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-					<?php
-						$spotlight_id = get_post_meta( $post->ID, 'page_spotlight', true );
-						echo do_shortcode( "[campaign spotlight_id='{$spotlight_id}' layout='square']" );
-					?>
-					</div>
-				</div>
-			</section> <!-- /#filter -->
-
-			<section id="services" class="col-sm-12 col-md-9 col-lg-9 col-md-pull-3">
-				<h2 class="title"><?= the_title() ?></h2>
-				<?php if (have_posts()) :
-					 while (have_posts()) : the_post();
-						the_content();
-					endwhile;
-				else:
-					SDES_Static::Get_No_Posts_Message();
-				endif; ?>
-			</section> <!-- /#services -->
-		  </div>
-		</div>
-	</article>
+	<ucf-app-student-services 
+		[results]='initialResults'
+		[api]='<?= $student_services_api ?>'
+		[query]='<?= $search_query ?>'
+		[title]="<?= the_title() ?>">
+		<?php include( get_stylesheet_directory() . '/ng-app/app-student-services/app-student-services.component.php' ); ?>
+	</ucf-app-student-services>
   </div>
 </main>
+
 <div class="clearfix"></div>
 
 <?php

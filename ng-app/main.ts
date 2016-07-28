@@ -4,6 +4,7 @@ import { HTTP_PROVIDERS } from "@angular/http";
 import "rxjs/Rx";   // Load all features
 
 import { SearchService } from "./app-student-services/search/service/search.service";
+import { CalendarService } from "./calendar/calendar.service";
 // import { SearchFormComponent } from "./app-student-services/search/search-form.component";
 // import { SearchResultsComponent } from "./app-student-services/search/search-results.component";
 
@@ -16,7 +17,7 @@ import { AppStudentServicesComponent } from "./app-student-services/app-student-
 //  .catch(err => console.error(err) );
 
 bootstrap( AppStudentServicesComponent , [
-        disableDeprecatedForms(), provideForms(), HTTP_PROVIDERS, SearchService
+        disableDeprecatedForms(), provideForms(), HTTP_PROVIDERS, SearchService, CalendarService,
     ] )
     .then( ( comp_ref ) => {
         window.ucf_app_comp_ref = comp_ref;

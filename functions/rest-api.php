@@ -27,6 +27,12 @@ function register_routes() {
 	//register_rest_route( string $namespace, string $route, array $args = array(), bool $override = false );
 
 	// ~/wp-json/rest/v1/services/titles
+	register_rest_route( 'rest/v1', '/categories', array(
+		'methods'  => 'GET',
+		'callback' => __NAMESPACE__ . '\route_categories',
+	) );
+
+	// ~/wp-json/rest/v1/services/titles
 	register_rest_route( 'rest/v1', '/services/titles', array(
 		'methods'  => 'GET',
 		'callback' => __NAMESPACE__ . '\route_services_titles',
@@ -58,6 +64,20 @@ add_action( 'rest_api_init', __NAMESPACE__ . '\register_routes');
 
 
 /**
+ * ~/wp-json/rest/v1/categories
+ */
+function route_categories( $request = null ) {
+	if ( null === $request ) { $request = new \WP_REST_Request(); }
+	return 
+		get_categories( array(
+			'orderby' => 'name',
+			'exclude' => array( 1, ), // Uncategorized.
+			'parent' => 0,
+			'taxonomy' => 'category',
+		) );
+}
+
+/**
  * ~/wp-json/rest/v1/services/titles
  */
 function route_services_titles( $request = null ) {
@@ -79,7 +99,6 @@ function route_services_titles( $request = null ) {
 	wp_reset_postdata();
 	return $retval;
 }
-
 
 /**
  * ~/wp-json/rest/v1/services/{slug}
@@ -112,9 +131,9 @@ function route_services( $request = null ) {
 
 	// TODO: Make and merge multiple WP_Query statements instead of calling $wpdb. $query_search $query_tax $query_meta
 
-	// ?search=&s= // Set to 'search' if both are present.
-	if ( $request->get_param( 'search' ) || $request->get_param( 's' ) ) {
-		$search_term = $request->get_param( 'search' ) ?: $request->get_param( 's' );
+	// ?q=&search=&s= // Set to 'search' if both are present.
+	if ( $request->get_param( 'q' ) || $request->get_param( 'search' ) || $request->get_param( 's' ) ) {
+		$search_term = $request->get_param( 'q' ) ?: $request->get_param( 'search' ) ?: $request->get_param( 's' );
 		$args = array_merge( $args, array(
 			'ucf_search_filter' => UCF_SEARCH_FILTER::SERVICES,
 			'ucf_query_services' => $search_term,
@@ -185,6 +204,9 @@ function ucf_search_filter_services( $search, &$wp_query ) {
 					AND ( /* Search associated taxonomies: */
 						taxonomy = 'category' 
 						OR taxonomy = 'post_tag'
+						OR taxonomy = 'curation_groups'
+						OR taxonomy = 'service_cost'
+						OR taxonomy = 'service_type'
 					)
 					AND $wpdb->terms.name LIKE %s
 			)

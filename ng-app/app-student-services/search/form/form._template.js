@@ -6,7 +6,7 @@ var  php_context   = {
 	'action': '<?= get_permalink( $post->ID ); ?>',
 	'frontsearch_lead': '<?= $frontsearch_lead ?>',
 	'frontsearch_placeholder': '<?= $frontsearch_placeholder ?>',
-	'ng_input_params': ''
+	'ng_input_params': `value="<?= $search_query ?>"`,
 }
 
 var angular_context = {
@@ -35,7 +35,7 @@ search_form_template = _.template(
 					<span class="fa fa-search">
 						<button type="submit" value="Submit" class="hide-if-js">Search</button>
 					</span>
-					<input type="text" name="search" class="form-control"
+					<input type="text" name="q" class="form-control"
 						placeholder="<%= frontsearch_placeholder %>"
 						autocomplete="off"
 						aria-label="Search for student services."

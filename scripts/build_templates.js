@@ -6,6 +6,7 @@ var childProcess = require('child_process'),
 var buildmap = {
     'results._template.js':  __dirname + `/../ng-app/app-student-services/search/results/results._template.js`,
     'form._template.js':  __dirname + `/../ng-app/app-student-services/search/form/form._template.js`,
+    'filter._template.js':  __dirname + `/../ng-app/app-student-services/search/filter/filter._template.js`,
 };
 
 function BuildTemplates() {
