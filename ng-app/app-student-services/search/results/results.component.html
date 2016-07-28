@@ -7,12 +7,13 @@
         </span>
         
 <span class="student_service-list" *ngIf="!isLoading">
-    <div class="row service" *ngFor="let service of studentServices"
+    <div class="service" *ngFor="let service of studentServices"
         [attr.data-category]="service?.main_category_name">
-        <div class="col-sm-4" *ngIf="shouldFilter(service?.main_category_name)">
+      <div class="row" *ngIf="shouldFilter(service?.main_category_name)">
+        <div class="col-sm-4">
             <img class="service-image" src="{{service.image_thumbnail_src}}" alt="{{service.image_alt}}">
         </div>
-        <div class="col-sm-8" *ngIf="shouldFilter(service?.main_category_name)">
+        <div class="col-sm-8">
             <ucf-like-tweet-share>
                 <div class="service-social pull-md-right">
                     <a href="{{service.social_facebook}}"><span class="fa fa-thumbs-o-up"></span></a>       
@@ -38,6 +39,7 @@
                 </p>
             </div>
         </div>
+      </div>
     </div> <!-- /.service -->
 </span>
         <h3 *ngIf="! hasResults() && !isLoading" class="noResults">

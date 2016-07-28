@@ -5,7 +5,8 @@ var _ = require('lodash'),
 var  php_context   = {
     'before_services': '',
     'after_services': '',
-    'ng_forService': '',
+    'ng_forService': ` [attr.data-category]="<?= $ctxt_search_results['main_category_name'] ?>"`,
+    'ng_ifRow': '',
     'image_thumbnail_src': "<?= $ctxt_search_results['image_thumbnail_src'] ?>",
     'social_facebook': "<?= $ctxt_search_results['social_facebook'] ?>",
     'social_twitter':  "<?= $ctxt_search_results['social_twitter'] ?>",
@@ -40,7 +41,10 @@ var angular_context = {
               No results found for "{{ query }}".
         </h3>
         `,
-    'ng_forService': ' *ngFor="let service of studentServices"',
+    'ng_forService':
+                        ` *ngFor="let service of studentServices"
+        [attr.data-category]="service?.main_category_name"`,
+    'ng_ifRow': ` *ngIf="shouldFilter(service?.main_category_name)"`,
     'image_thumbnail_src': '{{service.image_thumbnail_src}}',
     'social_facebook' : '{{service.social_facebook}}',
     'social_twitter' : '{{service.social_twitter}}',
@@ -60,7 +64,8 @@ var angular_context = {
 search_results_template = _.template(
 `        <%= before_services %>
 <span class="student_service-list" *ngIf="!isLoading">
-    <div class="row service"<%= ng_forService %>>
+    <div class="service"<%= ng_forService %>>
+      <div class="row"<%= ng_ifRow %>>
         <div class="col-sm-4">
             <img class="service-image" src="<%= image_thumbnail_src %>" alt="<%= image_alt %>">
         </div>
@@ -87,6 +92,7 @@ search_results_template = _.template(
                 </p>
             </div>
         </div>
+      </div>
     </div> <!-- /.service -->
 </span>
         <%= after_services %>

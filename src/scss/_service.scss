@@ -18,7 +18,9 @@
 
 /* services */
 .service {
-    margin-bottom: 30px;
+    .row {
+        margin-bottom: 30px;
+    }
 
     .service-details a {
         color: #272727;
