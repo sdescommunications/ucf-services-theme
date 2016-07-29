@@ -24,6 +24,8 @@ export class AppStudentServicesComponent {
     @Input("results") initialResults: IStudentService[] = window.ucf_searchResults_initial;
     @Input() query: string;
     @Input() form: string = "#";
+    @Input() campaign_primary = window.ucf_campaign_primary;
+    @Input() campaign_sidebar = window.ucf_campaign_sidebar;
     filters: any = {};
     noServicesVisible = () => 0 === jQuery('.service:visible').length;
     filterClear = () => jQuery.map( this.filters, (cat) => cat.checked ).every( (x) => 'false' == x )

@@ -49,15 +49,21 @@ export class CampaignComponent {
     @Input() long: string;
     @Input() short: string;
     @Input() btn_text: string;
+    @Input() model: any;
 
     constructor() {
         window.ucf_comp_campaign = ( window.ucf_comp_campaign || [] ).concat( this );
-        this.image_url = ( this.image_url ) ? this.image_url : "#";
-        this.url = ( this.url ) ? this.url : "#";
-        this.title = ( this.title ) ? this.title : "Title";
-        this.long = ( this.long ) ? this.long : "A long description of this campaign.";
-        this.short = ( this.short ) ? this.short : "Short text.";
-        this.btn_text = ( this.btn_text ) ? this.btn_text : "More";
+    }
+
+    ngOnInit() {
+        if( null != this.model && "" != this.model ) {
+            this.image_url = this.model.image_url;
+            this.url = this.model.url;
+            this.title = this.model.title;
+            this.long = this.model.long;
+            this.short = this.model.short;
+            this.btn_text = this.model.btn_text;
+        }
     }
 
 }

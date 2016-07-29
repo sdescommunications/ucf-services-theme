@@ -92,9 +92,16 @@ class Page extends CustomPostType_ServicesTheme {
 		$prefix = $this->options( 'name' ).'_';
 		return array(
 			array(
-				'name'  => 'Spotlight',
-				'descr' => 'Select a spotlight.',
-				'id'    => $prefix.'spotlight',
+				'name'  => 'Campaig - Primary',
+				'descr' => 'Select a primary campaign.',
+				'id'    => $prefix.'campaign_primary',
+				'type'  => 'spotlight',
+			),
+
+			array(
+				'name'  => 'Campaign - Sidebar',
+				'descr' => 'Select a sidebar campaign.',
+				'id'    => $prefix.'campaign_sidebar',
 				'type'  => 'spotlight',
 			),
 			array(
@@ -209,7 +216,6 @@ class Spotlight extends CustomPostType {
 		if ( $btn_foreground ) : $btn_styles[] = 'color: '.$btn_foreground; endif;
 		$btn_styles = ( !empty( $btn_styles) ) ? implode( ' ', $btn_styles ) : '';
 		ob_start();
-		if ( ! ( $image_url && $url ) ) return;
 		return array(
 			'url' => $url,
 			'image_id' => null,
@@ -369,6 +375,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$use_shortcode  = true,
 		$taxonomies     = array( 'post_tag', 'category', 'curation_groups', 'service_cost', 'service_type', ),
 		$menu_icon      = null,
+
 		$built_in       = false,
 		// Optional default ordering for generic shortcode if not specified by user.
 		$default_orderby = null,
