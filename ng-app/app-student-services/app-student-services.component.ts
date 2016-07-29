@@ -16,8 +16,7 @@ import { IStudentService } from "./interfaces/studentservice";
     moduleId: __moduleName,
     // template: `${window.ucfAppStudentServices}`, // http://stackoverflow.com/questions/32568808/angular2-root-component-with-ng-content
     templateUrl: "./app-student-services.component.html",
-    // directives: [ SearchFormComponent, SearchResultsComponent, SearchFilterComponent, CalendarEventsComponent, CampaignComponent, ],
-    directives: [ SearchFormComponent, SearchResultsComponent, SearchFilterComponent, CalendarEventsComponent, ],
+    directives: [ SearchFormComponent, SearchResultsComponent, SearchFilterComponent, CalendarEventsComponent, CampaignComponent, ],
 })
 export class AppStudentServicesComponent {
     @Input() api: string;
