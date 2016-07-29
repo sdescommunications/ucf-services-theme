@@ -8,7 +8,8 @@ import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
     // templateUrl: "./campaign.component.html",
     template:
         `<div class="container-fluid" *ngIf='type == "rectangle"'>
-            <div class="row campaign" style="background-image: url( {{ image_url | unescapeHtml }} );"> <!-- primary bg -->
+            <div class="row campaign" style="background-image: url( {{ image_url | unescapeHtml }} );"
+                 *ngIf="shouldShow()"> <!-- primary bg -->
                 <div class="col-sm-6 col-md-offset-6 campaign-content">
                     <div class="campaign-title">
                         <a href="{{ url }}">{{ title }}</a>
@@ -24,7 +25,7 @@ import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
         </div>
 
         <div class="campaign" style="background: #f3f3f3;" *ngIf='type == "square"'>
-            <div class="campaign-content">
+            <div class="campaign-content" *ngIf="shouldShow()">
                 <div class="campaign-title">
                     <a href="{{ url }}">{{ title }}</a>
                 </div>
@@ -36,6 +37,7 @@ import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
                 </a>
             </div>
         </div>
+        <span class="campaign-invalid" *ngIf="!shouldShow()"><!-- Invalid Campaign --></span>
         `,
     // styleUrls: ["../../scss/_campaign.scss"],
     // directives: [  ],
@@ -66,4 +68,11 @@ export class CampaignComponent {
         }
     }
 
+    shouldShow(): boolean {
+        if ( "undefined" == typeof this.title || "undefined" == typeof this.btn_text
+            || "" == this.title || "" == this.btn_text ) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -514,6 +514,8 @@ class sc_campaign extends ShortcodeBase {
 		$context->image_url = ( ! SDES_Static::is_null_or_whitespace( $context->image_url ) )
 			? $context->image_url
 			: wp_get_attachment_image_src( $context->image_id, 'thumb' )[0];
+
+		if( ! static::shouldShow($context) ) { return '<span class="campaign-invalid"><!-- Invalid Campaign --></span>'; }
 		ob_start();
 		switch ( $attr['layout'] ) {
 			case 'square':
@@ -525,6 +527,11 @@ class sc_campaign extends ShortcodeBase {
 				break;
 		}
 		return ob_get_clean();
+	}
+
+	public static function shouldShow( $ctxt ) {
+		if( "" == $ctxt->title || "" == $ctxt->btn_text ) { return false; }
+		return true;
 	}
 
 	public static function render( $ctxt ) {
