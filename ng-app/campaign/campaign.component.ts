@@ -1,6 +1,5 @@
 import { Component, OnInit, OnChanges, Input } from "@angular/core";
-
-import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
+import { DomSanitizationService } from "@angular/platform-browser"
 
 @Component({
     selector: "ucf-campaign",
@@ -8,7 +7,7 @@ import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
     // templateUrl: "./campaign.component.html",
     template:
         `<div class="container-fluid" *ngIf='type == "rectangle"'>
-            <div class="row campaign" style="background-image: url( {{ image_url | unescapeHtml }} );"
+            <div class="row campaign" [style.background-image]="background_image"
                  *ngIf="shouldShow()"> <!-- primary bg -->
                 <div class="col-sm-6 col-md-offset-6 campaign-content">
                     <div class="campaign-title">
@@ -41,7 +40,7 @@ import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
         `,
     // styleUrls: ["../../scss/_campaign.scss"],
     // directives: [  ],
-    pipes: [ UnescapeHtmlPipe ],
+    // pipes: [  ],
 })
 export class CampaignComponent {
     @Input() type: string = "square";
@@ -52,8 +51,9 @@ export class CampaignComponent {
     @Input() short: string;
     @Input() btn_text: string;
     @Input() model: any;
+    background_image: string = `url()`;
 
-    constructor() {
+    constructor( private sanitizer: DomSanitizationService ) {
         window.ucf_comp_campaign = ( window.ucf_comp_campaign || [] ).concat( this );
     }
 
@@ -66,6 +66,7 @@ export class CampaignComponent {
             this.short = this.model.short;
             this.btn_text = this.model.btn_text;
         }
+        this.background_image = this.sanitizer.bypassSecurityTrustStyle( `url(${this.image_url})` );
     }
 
     shouldShow(): boolean {
