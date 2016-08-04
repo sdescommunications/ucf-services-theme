@@ -1,4 +1,4 @@
-System.register(["@angular/core", "pipes/unescapeHtml.pipe"], function(exports_1, context_1) {
+System.register(["@angular/core", "@angular/platform-browser"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,28 +10,42 @@ System.register(["@angular/core", "pipes/unescapeHtml.pipe"], function(exports_1
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, unescapeHtml_pipe_1;
+    var core_1, platform_browser_1;
     var CampaignComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (unescapeHtml_pipe_1_1) {
-                unescapeHtml_pipe_1 = unescapeHtml_pipe_1_1;
+            function (platform_browser_1_1) {
+                platform_browser_1 = platform_browser_1_1;
             }],
         execute: function() {
             CampaignComponent = (function () {
-                function CampaignComponent() {
+                function CampaignComponent(sanitizer) {
+                    this.sanitizer = sanitizer;
                     this.type = "square";
+                    this.background_image = "url()";
                     window.ucf_comp_campaign = (window.ucf_comp_campaign || []).concat(this);
-                    this.image_url = (this.image_url) ? this.image_url : "#";
-                    this.url = (this.url) ? this.url : "#";
-                    this.title = (this.title) ? this.title : "Title";
-                    this.long = (this.long) ? this.long : "A long description of this campaign.";
-                    this.short = (this.short) ? this.short : "Short text.";
-                    this.btn_text = (this.btn_text) ? this.btn_text : "More";
                 }
+                CampaignComponent.prototype.ngOnInit = function () {
+                    if (null != this.model && "" != this.model) {
+                        this.image_url = this.model.image_url;
+                        this.url = this.model.url;
+                        this.title = this.model.title;
+                        this.long = this.model.long;
+                        this.short = this.model.short;
+                        this.btn_text = this.model.btn_text;
+                    }
+                    this.background_image = this.sanitizer.bypassSecurityTrustStyle("url(" + this.image_url + ")");
+                };
+                CampaignComponent.prototype.shouldShow = function () {
+                    if ("undefined" == typeof this.title || "undefined" == typeof this.btn_text
+                        || "" == this.title || "" == this.btn_text) {
+                        return false;
+                    }
+                    return true;
+                };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
@@ -60,17 +74,18 @@ System.register(["@angular/core", "pipes/unescapeHtml.pipe"], function(exports_1
                     core_1.Input(), 
                     __metadata('design:type', String)
                 ], CampaignComponent.prototype, "btn_text", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], CampaignComponent.prototype, "model", void 0);
                 CampaignComponent = __decorate([
                     core_1.Component({
                         selector: "ucf-campaign",
                         moduleId: __moduleName,
                         // templateUrl: "./campaign.component.html",
-                        template: "<div class=\"container-fluid\" *ngIf='type == \"rectangle\"'>\n            <div class=\"row campaign\" style=\"background-image: url( {{ image_url | unescapeHtml }} );\"> <!-- primary bg -->\n                <div class=\"col-sm-6 col-md-offset-6 campaign-content\">\n                    <div class=\"campaign-title\">\n                        <a href=\"{{ url }}\">{{ title }}</a>\n                    </div>\n                    <p>{{ long }}</p>\n                    <a href=\"{{ url }}\">\n                        <span class=\"btn btn-default btn-lg\" type=\"button\">\n                            {{ btn_text }}\n                        </span>\n                    </a>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"campaign\" style=\"background: #f3f3f3;\" *ngIf='type == \"square\"'>\n            <div class=\"campaign-content\">\n                <div class=\"campaign-title\">\n                    <a href=\"{{ url }}\">{{ title }}</a>\n                </div>\n                <p>{{ short }}</p>\n                <a href=\"{{ url }}\">\n                    <span class=\"btn btn-default btn-lg\" type=\"button\">\n                        {{ btn_text }}\n                    </span>\n                </a>\n            </div>\n        </div>\n        ",
-                        // styleUrls: ["../../scss/_campaign.scss"],
-                        // directives: [  ],
-                        pipes: [unescapeHtml_pipe_1.UnescapeHtmlPipe],
+                        template: "<div class=\"container-fluid\" *ngIf='type == \"rectangle\"'>\n            <div class=\"row campaign\" [style.background-image]=\"background_image\"\n                 *ngIf=\"shouldShow()\"> <!-- primary bg -->\n                <div class=\"col-sm-6 col-md-offset-6 campaign-content\">\n                    <div class=\"campaign-title\">\n                        <a href=\"{{ url }}\">{{ title }}</a>\n                    </div>\n                    <p>{{ long }}</p>\n                    <a href=\"{{ url }}\">\n                        <span class=\"btn btn-default btn-lg\" type=\"button\">\n                            {{ btn_text }}\n                        </span>\n                    </a>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"campaign\" style=\"background: #f3f3f3;\" *ngIf='type == \"square\"'>\n            <div class=\"campaign-content\" *ngIf=\"shouldShow()\">\n                <div class=\"campaign-title\">\n                    <a href=\"{{ url }}\">{{ title }}</a>\n                </div>\n                <p>{{ short }}</p>\n                <a href=\"{{ url }}\">\n                    <span class=\"btn btn-default btn-lg\" type=\"button\">\n                        {{ btn_text }}\n                    </span>\n                </a>\n            </div>\n        </div>\n        <span class=\"campaign-invalid\" *ngIf=\"!shouldShow()\"><!-- Invalid Campaign --></span>\n        ",
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [platform_browser_1.DomSanitizationService])
                 ], CampaignComponent);
                 return CampaignComponent;
             }());

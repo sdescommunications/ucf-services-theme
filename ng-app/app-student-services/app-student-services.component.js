@@ -1,4 +1,4 @@
-System.register(["@angular/core", "rxjs/Rx", "./search", '../calendar/calendar.component'], function(exports_1, context_1) {
+System.register(["@angular/core", "rxjs/Rx", "./search", '../calendar/calendar.component', '../campaign/campaign.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "rxjs/Rx", "./search", '../calendar/calendar.c
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, search_1, calendar_component_1;
+    var core_1, search_1, calendar_component_1, campaign_component_1;
     var AppStudentServicesComponent;
     return {
         setters:[
@@ -23,6 +23,9 @@ System.register(["@angular/core", "rxjs/Rx", "./search", '../calendar/calendar.c
             },
             function (calendar_component_1_1) {
                 calendar_component_1 = calendar_component_1_1;
+            },
+            function (campaign_component_1_1) {
+                campaign_component_1 = campaign_component_1_1;
             }],
         execute: function() {
             AppStudentServicesComponent = (function () {
@@ -37,6 +40,10 @@ System.register(["@angular/core", "rxjs/Rx", "./search", '../calendar/calendar.c
                     this.title = "Student Services";
                     this.initialResults = window.ucf_searchResults_initial;
                     this.form = "#";
+                    this.search_lead = window.ucf_search_lead;
+                    this.search_placeholder = window.ucf_search_placeholder;
+                    this.campaign_primary = window.ucf_campaign_primary;
+                    this.campaign_sidebar = window.ucf_campaign_sidebar;
                     this.filters = {};
                     this.noServicesVisible = function () { return 0 === jQuery('.service:visible').length; };
                     this.filterClear = function () { return jQuery.map(_this.filters, function (cat) { return cat.checked; }).every(function (x) { return 'false' == x; }); };
@@ -86,6 +93,22 @@ System.register(["@angular/core", "rxjs/Rx", "./search", '../calendar/calendar.c
                     __metadata('design:type', String)
                 ], AppStudentServicesComponent.prototype, "form", void 0);
                 __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], AppStudentServicesComponent.prototype, "search_lead", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], AppStudentServicesComponent.prototype, "search_placeholder", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], AppStudentServicesComponent.prototype, "campaign_primary", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], AppStudentServicesComponent.prototype, "campaign_sidebar", void 0);
+                __decorate([
                     core_1.ViewChild(search_1.SearchResultsComponent), 
                     __metadata('design:type', search_1.SearchResultsComponent)
                 ], AppStudentServicesComponent.prototype, "searchResults", void 0);
@@ -95,7 +118,7 @@ System.register(["@angular/core", "rxjs/Rx", "./search", '../calendar/calendar.c
                         moduleId: __moduleName,
                         // template: `${window.ucfAppStudentServices}`, // http://stackoverflow.com/questions/32568808/angular2-root-component-with-ng-content
                         templateUrl: "./app-student-services.component.html",
-                        directives: [search_1.SearchFormComponent, search_1.SearchResultsComponent, search_1.SearchFilterComponent, calendar_component_1.CalendarEventsComponent,],
+                        directives: [search_1.SearchFormComponent, search_1.SearchResultsComponent, search_1.SearchFilterComponent, calendar_component_1.CalendarEventsComponent, campaign_component_1.CampaignComponent,],
                     }), 
                     __metadata('design:paramtypes', [core_1.ElementRef, search_1.SearchService, core_1.Renderer])
                 ], AppStudentServicesComponent);
