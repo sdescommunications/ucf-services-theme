@@ -82,6 +82,8 @@ get_header();
 	window.ucf_searchResults_initial = <?= $json_services ?>;
 	window.ucf_searchSuggestions = <?= json_encode( $search_suggestions ) ?>;
 	window.ucf_service_categories = <?= json_encode( $categories ) ?>;
+	window.ucf_search_lead = "<?= wp_kses_post( $frontsearch_lead ) ?>";
+	window.ucf_search_placeholder = "<?= esc_attr( $frontsearch_placeholder ) ?>"; 
 	window.ucf_campaign_primary = <?= json_encode( $campaign_primary ) ?>;
 	window.ucf_campaign_sidebar = <?= json_encode( $campaign_sidebar ) ?>;
 

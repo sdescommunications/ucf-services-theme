@@ -38,7 +38,10 @@ function register_theme_customizer( $wp_customizer ) {
 
 	add_to_section_TitleAndTagline( $wp_customizer );
 
+	add_section_home_custom( $wp_customizer );
+
 	add_section_social_options( $wp_customizer );
+
 
 }
 add_action( 'customize_register', __NAMESPACE__.'\register_theme_customizer' );
@@ -63,6 +66,79 @@ function add_to_section_TitleAndTagline( $wp_customizer, $args = null ) {
 		'Title Max Width',				// Label.
 		$section,						// Section.
 		$sitetitle_anchor_maxwidth_args	// Arguments array.
+	);
+}
+
+function add_section_home_custom( $wp_customizer, $args = null ) {
+	/* SECTION */
+	$section = 'services_theme-home_custom';
+	$wp_customizer->add_section(
+		$section,
+		array(
+			'title'    => 'Home Customization',
+			'priority' => 200,
+			'panel' => $args['panelId'],
+		)
+	);
+
+	/** ARGS */
+	$frontsearch_args = $args['services_theme-frontsearch_lead'];
+	SDES_Static::set_default_keyValue_array( $frontsearch_args, array(
+		'sanitize_callback' => 'wp_kses_post',
+		'sanitize_js_callback' => 'wp_kses_post',
+	));
+
+	$placeholder_args = $args['services_theme-frontsearch_placeholder'];
+	SDES_Static::set_default_keyValue_array( $placeholder_args, array(
+		'sanitize_callback' => 'wp_kses_post',
+		'sanitize_js_callback' => 'wp_kses_post',
+	));
+	$services_limit_args = $args['services_theme-services_limit'];
+	SDES_Static::set_default_keyValue_array( $services_limit_args, array(
+		'sanitize_callback' => 'esc_attr',
+		'sanitize_js_callback' => 'esc_attr',
+		'default' => 7,
+		'description' => 'Limit the initial number of services to display.',
+	));
+	$calendar_args = $args['services_theme-academic_cal_feed_url'];
+	SDES_Static::set_default_keyValue_array( $calendar_args, array(
+		'sanitize_callback' => 'esc_url',
+		'sanitize_js_callback' => 'esc_url',
+		'default' => 'http://calendar.ucf.edu/json',
+	));
+
+
+	/** FIELDS */
+	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
+		$wp_customizer,			// WP_Customize_Manager.
+		'services_theme-frontsearch_lead',	// Id.
+		'Search Lead Text',			// Label.
+		$section,				// Section.
+		$frontsearch_args		// Arguments array.
+	);
+
+	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
+		$wp_customizer,			// WP_Customize_Manager.
+		'services_theme-frontsearch_placeholder',	// Id.
+		'Search Placeholder Text',	// Label.
+		$section,				// Section.
+		$placeholder_args		// Arguments array.
+	);
+
+	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
+		$wp_customizer,			// WP_Customize_Manager.
+		'services_theme-services_limit',	// Id.
+		'Services Limit',			// Label.
+		$section,				// Section.
+		$services_limit_args	// Arguments array.
+	);
+
+	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
+		$wp_customizer,			// WP_Customize_Manager.
+		'services_theme-academic_cal_feed_url',	// Id.
+		'Front Page Calendar Feed',	// Label.
+		$section,				// Section.
+		$calendar_args		// Arguments array.
 	);
 }
 

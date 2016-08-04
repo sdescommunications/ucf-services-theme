@@ -26,6 +26,8 @@ $categories = get_categories( array(
 ?>
 <article class="row page-wrap">
     <ucf-search-form
+        [lead]='search_lead'
+        [placeholder]='search_placeholder'
         (search)='onSearch($event)'
         (change)='onSearchChanged($event)'
         (blur)='onSearchChanged($event)'
