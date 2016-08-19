@@ -2,9 +2,18 @@
 
 .campaign,
 .primary-action {
-    outline: 1px solid #ffc409;
+    background: #f3f3f3;
+    outline: 1px solid #dedede;
     margin-bottom: 30px;
     background-size: cover!important; /* need !important if changing image inline */
+}
+
+.campaign-image,
+.primary-action-image {
+    padding: 20px 0 20px 20px;
+    > img {
+        max-width: 100%;
+    }
 }
 
 .campaign-content,

@@ -7,9 +7,11 @@ import { DomSanitizationService } from "@angular/platform-browser"
     // templateUrl: "./campaign.component.html",
     template:
         `<div class="container-fluid" *ngIf='type == "rectangle"'>
-            <div class="row campaign" [style.background-image]="background_image"
-                 *ngIf="shouldShow()"> <!-- primary bg -->
-                <div class="col-sm-6 col-md-offset-6 campaign-content">
+            <div class="row campaign" *ngIf="shouldShow()">
+                <div class="col-sm-5 campaign-image">
+                    <img [src]="image_url">
+                </div>
+                <div class="col-sm-7 campaign-content">
                     <div class="campaign-title">
                         <a href="{{ url }}">{{ title }}</a>
                     </div>
@@ -51,7 +53,6 @@ export class CampaignComponent {
     @Input() short: string;
     @Input() btn_text: string;
     @Input() model: any;
-    background_image: string = `url()`;
 
     constructor( private sanitizer: DomSanitizationService ) {
         window.ucf_comp_campaign = ( window.ucf_comp_campaign || [] ).concat( this );
@@ -66,7 +67,6 @@ export class CampaignComponent {
             this.short = this.model.short;
             this.btn_text = this.model.btn_text;
         }
-        this.background_image = this.sanitizer.bypassSecurityTrustStyle( `url(${this.image_url})` );
     }
 
     shouldShow(): boolean {

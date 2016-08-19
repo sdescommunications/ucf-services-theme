@@ -538,8 +538,11 @@ class sc_campaign extends ShortcodeBase {
 		ob_start();
 		?>
 			<div class="container-fluid">
-				<div class="row campaign" style="background-image: url( <?= $ctxt->image_url ?> );"> <!-- primary bg -->
-					<div class="col-sm-6 col-md-offset-6 campaign-content">
+				<div class="row campaign">
+					<div class="col-sm-5 campaign-image">
+						<img src="<?= $ctxt->image_url ?>">
+					</div>
+					<div class="col-sm-7 campaign-content">
 						<div class="campaign-title">
 							<a href="<?= $ctxt->url ?>"><?= $ctxt->title ?></a>
 						</div>
