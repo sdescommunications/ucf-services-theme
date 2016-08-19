@@ -25,7 +25,6 @@ System.register(["@angular/core", "@angular/platform-browser"], function(exports
                 function CampaignComponent(sanitizer) {
                     this.sanitizer = sanitizer;
                     this.type = "square";
-                    this.background_image = "url()";
                     window.ucf_comp_campaign = (window.ucf_comp_campaign || []).concat(this);
                 }
                 CampaignComponent.prototype.ngOnInit = function () {
@@ -37,7 +36,6 @@ System.register(["@angular/core", "@angular/platform-browser"], function(exports
                         this.short = this.model.short;
                         this.btn_text = this.model.btn_text;
                     }
-                    this.background_image = this.sanitizer.bypassSecurityTrustStyle("url(" + this.image_url + ")");
                 };
                 CampaignComponent.prototype.shouldShow = function () {
                     if ("undefined" == typeof this.title || "undefined" == typeof this.btn_text
@@ -83,7 +81,7 @@ System.register(["@angular/core", "@angular/platform-browser"], function(exports
                         selector: "ucf-campaign",
                         moduleId: __moduleName,
                         // templateUrl: "./campaign.component.html",
-                        template: "<div class=\"container-fluid\" *ngIf='type == \"rectangle\"'>\n            <div class=\"row campaign\" [style.background-image]=\"background_image\"\n                 *ngIf=\"shouldShow()\"> <!-- primary bg -->\n                <div class=\"col-sm-6 col-md-offset-6 campaign-content\">\n                    <div class=\"campaign-title\">\n                        <a href=\"{{ url }}\">{{ title }}</a>\n                    </div>\n                    <p>{{ long }}</p>\n                    <a href=\"{{ url }}\">\n                        <span class=\"btn btn-default btn-lg\" type=\"button\">\n                            {{ btn_text }}\n                        </span>\n                    </a>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"campaign\" style=\"background: #f3f3f3;\" *ngIf='type == \"square\"'>\n            <div class=\"campaign-content\" *ngIf=\"shouldShow()\">\n                <div class=\"campaign-title\">\n                    <a href=\"{{ url }}\">{{ title }}</a>\n                </div>\n                <p>{{ short }}</p>\n                <a href=\"{{ url }}\">\n                    <span class=\"btn btn-default btn-lg\" type=\"button\">\n                        {{ btn_text }}\n                    </span>\n                </a>\n            </div>\n        </div>\n        <span class=\"campaign-invalid\" *ngIf=\"!shouldShow()\"><!-- Invalid Campaign --></span>\n        ",
+                        template: "<div class=\"container-fluid\" *ngIf='type == \"rectangle\"'>\n            <div class=\"row campaign\" *ngIf=\"shouldShow()\">\n                <div class=\"col-sm-5 campaign-image\">\n                    <img [src]=\"image_url\">\n                </div>\n                <div class=\"col-sm-7 campaign-content\">\n                    <div class=\"campaign-title\">\n                        <a href=\"{{ url }}\">{{ title }}</a>\n                    </div>\n                    <p>{{ long }}</p>\n                    <a href=\"{{ url }}\">\n                        <span class=\"btn btn-default btn-lg\" type=\"button\">\n                            {{ btn_text }}\n                        </span>\n                    </a>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"campaign\" style=\"background: #f3f3f3;\" *ngIf='type == \"square\"'>\n            <div class=\"campaign-content\" *ngIf=\"shouldShow()\">\n                <div class=\"campaign-title\">\n                    <a href=\"{{ url }}\">{{ title }}</a>\n                </div>\n                <p>{{ short }}</p>\n                <a href=\"{{ url }}\">\n                    <span class=\"btn btn-default btn-lg\" type=\"button\">\n                        {{ btn_text }}\n                    </span>\n                </a>\n            </div>\n        </div>\n        <span class=\"campaign-invalid\" *ngIf=\"!shouldShow()\"><!-- Invalid Campaign --></span>\n        ",
                     }), 
                     __metadata('design:paramtypes', [platform_browser_1.DomSanitizationService])
                 ], CampaignComponent);
