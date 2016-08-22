@@ -792,6 +792,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 
 	// TODO: cast output to `(object) array()` to save on typing and code noise. i.e, $context->title instead of $context['title'].
 	// TODO: group hours into a single container, e.g., $context->hours->monday->open.
+	// TODO: create a get_render_context_summary for a ~/wp-json/rest/v1/services/summary route returning: image_thumbnail_src, image_alt, share_facebook, share_twitter, permalink, title, main_category_link, main_category_name, short_descr
 	/**
 	 * Generate a render context for a student_service, given its WP_Post object and an array of its metadata fields.
 	 * Expected fields:
@@ -810,8 +811,11 @@ class StudentService extends CustomPostType_ServicesTheme {
 				array( 'curation_groups', 'service_cost', 'service_type', ),
 				array( 'orderby' => 'name', )
 			);
+		$permalink = get_permalink( $stusvc );
+		$permalink_encoded = urlencode( $permalink );
+		$title_encoded = urlencode( $stusvc->post_title );
 		return array(
-			'permalink' => get_permalink( $stusvc ),
+			'permalink' => $permalink,
 			'heading' => $metadata_fields['stusvc_heading_text'],
 			'title' => $stusvc->post_title,
 			'main_category' => $category,
@@ -851,6 +855,8 @@ class StudentService extends CustomPostType_ServicesTheme {
 	 		'map_id' => $metadata_fields['stusvc_map_id'],
 			'news_feed' => $metadata_fields['stusvc_news_feed'],
 			'tag_cloud' => $taxonomies,
+			'share_facebook' => "https://www.facebook.com/sharer.php?u={$permalink_encoded}",
+			'share_twitter' => "https://twitter.com/intent/tweet?text={$title_encoded}&url={$permalink_encoded}&via=" . ($metadata_fields['stusvc_social_twitter'] ?: 'ucf'),
 		);
 	}
 
@@ -1010,13 +1016,17 @@ class StudentService extends CustomPostType_ServicesTheme {
 		return $html;
 	}
 
+	/**
+	 * Renders social buttons to Like, Tweet, and Share a page.
+	 * @see https://developers.facebook.com/docs/plugins/faqs#faq_805887612880073 Facebook Sharer
+	 * @see https://dev.twitter.com/web/tweet-button/web-intent Twitter Web Intent URLs
+	 */
 	public static function render_like_tweet_share( $context ){
 		ob_start();
 		?>
 			<div class="service-social pull-md-right">
-				<a href="<?= $context['social_facebook'] ?>"><span class="fa fa-thumbs-o-up"></span></a>		
-				<a href="<?= $context['social_twitter'] ?>"><span class="fa fa-twitter"></span></a>
-				<a href="#"><span class="fa fa-share-alt"></span></a>
+				<a target="_blank" href="<?= $context['share_facebook'] ?>"><span class="fa fa-thumbs-o-up"></span></a>
+				<a target="_blank" href="<?= $context['share_twitter'] ?>"><span class="fa fa-twitter"></span></a>
 			</div>
 		<?php
 		$html = ob_get_clean();

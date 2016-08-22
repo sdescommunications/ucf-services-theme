@@ -47,4 +47,6 @@ export interface IStudentService {
     events_cal_feed: string;
     map_id: string;
     news_feed: string;
+    share_facebook: string;
+    share_twitter: string;
 }

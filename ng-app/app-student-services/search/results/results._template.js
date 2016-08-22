@@ -8,8 +8,8 @@ var  php_context   = {
     'ng_forService': ` [attr.data-category]="<?= $ctxt_search_results['main_category_name'] ?>"`,
     'ng_ifRow': '',
     'image_thumbnail_src': "<?= $ctxt_search_results['image_thumbnail_src'] ?>",
-    'social_facebook': "<?= $ctxt_search_results['social_facebook'] ?>",
-    'social_twitter':  "<?= $ctxt_search_results['social_twitter'] ?>",
+    'share_facebook': "<?= $ctxt_search_results['share_facebook'] ?>",
+    'share_twitter':  "<?= $ctxt_search_results['share_twitter'] ?>",
     'image_alt': "<?= $ctxt_search_results['image_alt'] ?>",
     'permalink': "<?= $ctxt_search_results['permalink'] ?>",
     'title':     "<?= $ctxt_search_results['title'] ?>",
@@ -46,8 +46,8 @@ var angular_context = {
         [attr.data-category]="service?.main_category_name"`,
     'ng_ifRow': ` *ngIf="shouldFilter(service?.main_category_name)"`,
     'image_thumbnail_src': '{{service.image_thumbnail_src}}',
-    'social_facebook' : '{{service.social_facebook}}',
-    'social_twitter' : '{{service.social_twitter}}',
+    'share_facebook' : '{{ service.share_facebook }}',
+    'share_twitter' : '{{ service.share_twitter }}',
     'image_alt': '{{service.image_alt}}',
     'permalink': '{{service.permalink}}',
     'title': '{{service.title}}',
@@ -72,9 +72,8 @@ search_results_template = _.template(
         <div class="col-sm-8">
             <ucf-like-tweet-share>
                 <div class="service-social pull-md-right">
-                    <a href="<%= social_facebook %>"><span class="fa fa-thumbs-o-up"></span></a>       
-                    <a href="<%= social_twitter %>"><span class="fa fa-twitter"></span></a>
-                    <a href="#"><span class="fa fa-share-alt"></span></a>
+                    <a target="_blank" href="<%= share_facebook %>"><span class="fa fa-thumbs-o-up"></span></a>       
+                    <a target="_blank" href="<%= share_twitter %>"><span class="fa fa-twitter"></span></a>
                 </div>
             </ucf-like-tweet-share>
 

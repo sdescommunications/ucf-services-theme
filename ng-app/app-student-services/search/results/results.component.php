@@ -8,9 +8,8 @@
         <div class="col-sm-8">
             <ucf-like-tweet-share>
                 <div class="service-social pull-md-right">
-                    <a href="<?= $ctxt_search_results['social_facebook'] ?>"><span class="fa fa-thumbs-o-up"></span></a>       
-                    <a href="<?= $ctxt_search_results['social_twitter'] ?>"><span class="fa fa-twitter"></span></a>
-                    <a href="#"><span class="fa fa-share-alt"></span></a>
+                    <a target="_blank" href="<?= $ctxt_search_results['share_facebook'] ?>"><span class="fa fa-thumbs-o-up"></span></a>       
+                    <a target="_blank" href="<?= $ctxt_search_results['share_twitter'] ?>"><span class="fa fa-twitter"></span></a>
                 </div>
             </ucf-like-tweet-share>
 
