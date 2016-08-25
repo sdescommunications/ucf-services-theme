@@ -72,7 +72,7 @@ get_header();
   <div class="container">
 	<article class="row page-wrap">
 	  <div class="container-fluid">
-	  	<section id="categories" class="col-sm-12 col-md-12 col-lg-12 col-md-pull-1">
+		<section id="categories" class="col-sm-12 col-md-12 col-lg-12">
 			<h1 class='title'><?= single_cat_title() ?></h1>
 			<p class='description'><?= category_description() ?></p>
 		  <?php
@@ -80,9 +80,7 @@ get_header();
 			$category_posts = get_posts( $args );
 			if ( 0 !== count( $category_posts ) ) :
 				foreach( $category_posts as $post ) :	setup_postdata($post); ?>
-					<div class="row service">
-						<?= StudentService::toHTML( $post ); ?>
-					</div>
+					<?= StudentService::toHTML( $post ); ?>
 				<?php endforeach;
 			else:
 				SDES_Static::Get_No_Posts_Message();
