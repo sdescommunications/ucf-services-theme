@@ -22,7 +22,7 @@ $cat_name = single_cat_title( '', false ) ?: 'Student Services';
 get_header();
 ?>
 
-<header class="site-header category-page-header">
+<header class="subpage-header category-page-header">
 	<div class="header-image" style="background-image: url(<?= \header_image(); ?>);">
 		<div class="container">
 			<div class="header-center">

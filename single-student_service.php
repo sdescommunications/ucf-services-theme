@@ -58,7 +58,7 @@ get_header();
 		<ul class="nav navbar-nav">
 			<li><a href="<?= bloginfo( 'url' ); ?>"><?= bloginfo( 'name' ); ?></a></li>
 		<?php if ( $mainCategory && property_exists( $mainCategory, 'name' ) ) : ?>
-			<li><a href="#"><?= $mainCategory->name; ?></a></li>
+			<li><a href="<?= get_category_link( $mainCategory ); ?>"><?= $mainCategory->name; ?></a></li>
 		<?php endif; ?>
 			<li class="active-breadcrumb"><span class="active-pad"><?= the_title(); ?></span></li>
 		</ul>
