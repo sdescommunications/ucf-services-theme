@@ -856,7 +856,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'news_feed' => $metadata_fields['stusvc_news_feed'],
 			'tag_cloud' => $taxonomies,
 			'share_facebook' => "https://www.facebook.com/sharer.php?u={$permalink_encoded}",
-			'share_twitter' => "https://twitter.com/intent/tweet?text={$title_encoded}&url={$permalink_encoded}&via=" . ($metadata_fields['stusvc_social_twitter'] ?: 'ucf'),
+			'share_twitter' => "https://twitter.com/intent/tweet?text={$title_encoded}&url={$permalink_encoded}&via=" . ($metadata_fields['stusvc_social_twitter'] ?: 'UCF'),
 		);
 	}
 
