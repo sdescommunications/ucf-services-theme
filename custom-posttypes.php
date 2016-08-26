@@ -587,7 +587,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			),
 			array(
 				'name'  => 'Primary Action URL',
-				'descr' => '',
+				'descr' => 'Link to a website, a phone number, or an email.',
 				'id'    => $prefix.'primary_action_url',
 				'type'  => 'text',
 			),
@@ -814,6 +814,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$permalink = get_permalink( $stusvc );
 		$permalink_encoded = urlencode( $permalink );
 		$title_encoded = urlencode( $stusvc->post_title );
+		$primary_action_url = SDES_Static::href_prepend_protocols_filter( $metadata_fields['stusvc_primary_action_url'] );
 		return array(
 			'permalink' => $permalink,
 			'heading' => $metadata_fields['stusvc_heading_text'],
@@ -829,7 +830,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'image_alt' => $metadata_fields['stusvc_image_alt'],
 			'image_thumbnail_src' => $metadata_fields['stusvc_image_thumbnail_src'],
 			'primary_action' => $metadata_fields['stusvc_primary_action'],
-			'primary_action_url' => $metadata_fields['stusvc_primary_action_url'],
+			'primary_action_url' => $primary_action_url,
 			'spotlight' => $metadata_fields['stusvc_spotlight'],
 			'phone' => $metadata_fields['stusvc_phone'],
 			'email' => $metadata_fields['stusvc_email'],
@@ -1034,13 +1035,24 @@ class StudentService extends CustomPostType_ServicesTheme {
 	}
 
 	public static function render_spotlight( $context ){
+		$btn_text = $context['primary_action'];
+		$btn_icon = '';
+		$primaryActionIsMailTo = preg_match( '/^mailto:/', $context['primary_action_url'] );
+		$primaryActionIsTel = preg_match( '/^tel:/', $context['primary_action_url'] );
+		if ( $primaryActionIsMailTo ) { $btn_icon = 'fa-envelope-o'; }
+		if ( $primaryActionIsTel ) 	  { $btn_icon = 'fa-phone'; }
+		$btn_text = 
+			( $primaryActionIsMailTo || $primaryActionIsTel )
+				? "<span class='fa {$btn_icon}'></span> " . $btn_text
+				: $btn_text;
+
 		$service_spotlight_context = (object) array(
 			'url' => $context['primary_action_url'],
 			'image_url' => $context['image_thumbnail_src'],
 			'image_alt' => $context['image_alt'],
 			'title' => '',
 			'title_color' => '',
-			'btn_text' => $context['primary_action'],
+			'btn_text' => $btn_text,
 			'btn_styles' => '',
 		);
 		ob_start();

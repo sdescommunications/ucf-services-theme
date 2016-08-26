@@ -151,6 +151,56 @@ class SDES_Static
 		return $value;
 	}
 
+	/**
+	 * Match any string that resembles an email (i.e., contains '@' between any other characters).
+	 * Example: isEmail('some+thing@anything.whatever') returns true.
+	 * @param string $href A string assumed to be a valid href.
+	 * @see https://davidcel.is/posts/stop-validating-email-addresses-with-regex/
+	 * @see https://tools.ietf.org/html/rfc2368 RFC: 2368 "The mailto URL scheme"
+	 */
+	public static function isEmail( $href ) { return preg_match( '/.+@.+/', $href );	}
+
+	/**
+	 * Match any string that looks like a telephone number (per RFC3966).
+	 * Example: isTelephone('3213214321;ext=1') returns true.
+	 * @param string $href A string assumed to be a valid href.
+	 * @see https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers Wiki: Telephone number conventions
+	 * @see https://tools.ietf.org/html/rfc3966 RFC: 3966 "The tel URI for Telephone Numbers"
+	 */
+	public static function isTelephone( $href ) {
+		 /* Match if ends with a digit "\d", and contains only: parentheses, digits, whitespace, pluses '+', forward slashes '/' or dashes '-'.
+		 Optionally, followed by 1 semicolon, and any text (a rough approximation of RFC 3966 parameters). */
+		return preg_match( '/^[\(\)\d\s\+\/-]+\d\;?.*$/', trim( $href ) );
+	}
+
+	/**
+	 * Prepend a string with 'mailto:' if it looks like an email address.
+	 */
+	public static function href_prepend_mailto( $href ) {
+		return ( static::isEmail( $href ) )
+			? 'mailto:' . $href
+			: $href;
+	}
+
+	/**
+	 * Prepend a string with 'tel:' if it looks like an telephone number.
+	 */
+	public static function href_prepend_tel( $href ) {
+		return ( static::isTelephone( $href ) )
+			? 'tel:' . preg_replace( '/\s+/', '', $href ) // Prepend "tel:", remove whitespace.
+			: $href;
+	}
+
+	/**
+	 * Prepend a string with 'mailto:', 'tel:', or the http protocol if appropriate.
+	 * @param string $href A string assumed to be a valid href.
+	 */
+	public static function href_prepend_protocols_filter( $href ) {
+		$href = static::href_prepend_mailto( $href );
+		$href = static::href_prepend_tel( $href );
+		$href = static::url_ensure_prefix( $href );
+		return $href;
+	}
 
 	/**
 	 * Add a protocol to a URL if it does not exist.
@@ -158,9 +208,10 @@ class SDES_Static
 	 * @param string $protocol The protocol to prepend to the url. (defaults to http://).
 	 */
 	public static function url_ensure_prefix( $url, $protocol = 'http' ) {
-		// Guard to return EITHER same-page anchor links.
-		if ( 0 === strpos( $url, '#')
-		 	|| false !== strrpos( $url, '//' ) // OR protocol-neutral links.
+		// Guard to return string unchanged:
+		if ( 0 === strpos( $url, '#')			// IF same-page anchor links
+		 	|| false !== strrpos( $url, '//' )  // OR protocol-neutral links.
+		 	|| preg_match('/^\w+\:.+/', $url ) 	// OR starts with word characters followed by a semicolon.
 		 	|| static::is_null_or_whitespace( $url ) ) { 
 			return $url;
 		}
