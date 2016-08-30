@@ -118,6 +118,11 @@ class TextMetaField extends MetaField{
 	}
 }
 
+/** A time selector, as defined by HTML5. */
+class TimeMetaField extends TextMetaField{
+	protected $type_attr = 'time';
+}
+
 /**
  * A color picker (or color-well) control, as defined by HTML5.
  *

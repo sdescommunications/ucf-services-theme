@@ -11,6 +11,7 @@ require_once( get_stylesheet_directory() . '/functions/classes-metabox-metafield
 	use SDES\Metafields\MetaField as Metafield;
 	use SDES\Metafields\ChoicesMetaField as ChoicesMetaField;
 	use SDES\Metafields\TextMetaField as TextMetaField;
+	use SDES\Metafields\TimeMetaField as TimeMetaField;
 	use SDES\Metafields\ColorMetaField as ColorMetaField;
 	use SDES\Metafields\DatePickerMetaField as DatePickerMetaField;
 	use SDES\Metafields\PasswordMetaField as PasswordMetaField;
@@ -185,6 +186,9 @@ class SDES_Metaboxes {
 		switch ( $field['type'] ) {
 			case 'text':
 				$field_obj = new TextMetaField( $field );
+				break;
+			case 'time':
+				$field_obj = new TimeMetaField( $field );
 				break;
 			case 'color':
 				$field_obj = new ColorMetaField( $field );
