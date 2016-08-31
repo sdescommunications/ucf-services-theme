@@ -1241,7 +1241,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 					var CLOSING_SOON_MINUTES = <?= SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-closing_soon_minutes', 60 ); ?>;
 					var NOW = new Date();
 					var dayOfWeek = NOW.getDay();
-					dayOfWeek = ( 0 === dayOfWeek ) ? 7 : dayOfWeek - 1; // Shift so week starts with Monday as 0.
+					dayOfWeek = ( 0 === dayOfWeek ) ? 6 : dayOfWeek - 1; // Shift so week starts with Monday as 0.
 					var $today_tds = jQuery('.table-responsive.hours tbody tr').eq(dayOfWeek).children('td');
 					var $closing_time = $today_tds.find('time.closing');
 					try {
