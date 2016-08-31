@@ -423,13 +423,20 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_email
 		 * student_service_url
 		 * student_service_location
-		 * student_service_hours_monday
-		 * student_service_hours_tuesday
-		 * student_service_hours_wednesday
-		 * student_service_hours_thursday
-		 * student_service_hours_friday
-		 * student_service_hours_saturday
-		 * student_service_hours_sunday
+		 * student_service_hours_monday_open
+		 * student_service_hours_monday_close
+		 * student_service_hours_tuesday_open
+		 * student_service_hours_tuesday_close
+		 * student_service_hours_wednesday_open
+		 * student_service_hours_wednesday_close
+		 * student_service_hours_thursday_open
+		 * student_service_hours_thursday_close
+		 * student_service_hours_friday_open
+		 * student_service_hours_friday_close
+		 * student_service_hours_saturday_open
+		 * student_service_hours_saturday_close
+		 * student_service_hours_sunday_open
+		 * student_service_hours_sunday_close
 		 * student_service_social_facebook
 		 * student_service_social_twitter
 		 * student_service_social_youtube
@@ -622,46 +629,88 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Hours - Monday',
+				'name'  => 'Hours - Monday Open',
 				'descr' => '',
-				'id'    => $prefix.'hours_monday',
-				'type'  => 'text',
+				'id'    => $prefix.'hours_monday_open',
+				'type'  => 'time',
 			),
 			array(
-				'name'  => 'Hours - Tuesday',
+				'name'  => 'Hours - Monday Close',
 				'descr' => '',
-				'id'    => $prefix.'hours_tuesday',
-				'type'  => 'text',
+				'id'    => $prefix.'hours_monday_close',
+				'type'  => 'time',
 			),
 			array(
-				'name'  => 'Hours - Wednesday',
+				'name'  => 'Hours - Tuesday Open',
 				'descr' => '',
-				'id'    => $prefix.'hours_wednesday',
-				'type'  => 'text',
+				'id'    => $prefix.'hours_tuesday_open',
+				'type'  => 'time',
 			),
 			array(
-				'name'  => 'Hours - Thursday',
+				'name'  => 'Hours - Tuesday Close',
 				'descr' => '',
-				'id'    => $prefix.'hours_thursday',
-				'type'  => 'text',
+				'id'    => $prefix.'hours_tuesday_close',
+				'type'  => 'time',
 			),
 			array(
-				'name'  => 'Hours - Friday',
+				'name'  => 'Hours - Wednesday Open',
 				'descr' => '',
-				'id'    => $prefix.'hours_friday',
-				'type'  => 'text',
+				'id'    => $prefix.'hours_wednesday_open',
+				'type'  => 'time',
 			),
 			array(
-				'name'  => 'Hours - Saturday',
+				'name'  => 'Hours - Wednesday Close',
 				'descr' => '',
-				'id'    => $prefix.'hours_saturday',
-				'type'  => 'text',
+				'id'    => $prefix.'hours_wednesday_close',
+				'type'  => 'time',
 			),
 			array(
-				'name'  => 'Hours - Sunday',
+				'name'  => 'Hours - Thursday Open',
 				'descr' => '',
-				'id'    => $prefix.'hours_sunday',
-				'type'  => 'text',
+				'id'    => $prefix.'hours_thursday_open',
+				'type'  => 'time',
+			),
+			array(
+				'name'  => 'Hours - Thursday Close',
+				'descr' => '',
+				'id'    => $prefix.'hours_thursday_close',
+				'type'  => 'time',
+			),
+			array(
+				'name'  => 'Hours - Friday Open',
+				'descr' => '',
+				'id'    => $prefix.'hours_friday_open',
+				'type'  => 'time',
+			),
+			array(
+				'name'  => 'Hours - Friday Close',
+				'descr' => '',
+				'id'    => $prefix.'hours_friday_close',
+				'type'  => 'time',
+			),
+			array(
+				'name'  => 'Hours - Saturday Open',
+				'descr' => '',
+				'id'    => $prefix.'hours_saturday_open',
+				'type'  => 'time',
+			),
+			array(
+				'name'  => 'Hours - Saturday Close',
+				'descr' => '',
+				'id'    => $prefix.'hours_saturday_close',
+				'type'  => 'time',
+			),
+			array(
+				'name'  => 'Hours - Sunday Open',
+				'descr' => '',
+				'id'    => $prefix.'hours_sunday_open',
+				'type'  => 'time',
+			),
+			array(
+				'name'  => 'Hours - Sunday Close',
+				'descr' => '',
+				'id'    => $prefix.'hours_sunday_close',
+				'type'  => 'time',
 			),
 			array(
 				'name'  => 'Social - Facebook',
@@ -768,13 +817,20 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$metadata_fields['stusvc_email']           = get_post_meta( $stusvc->ID, 'student_service_email', true );
 		$metadata_fields['stusvc_url']             = get_post_meta( $stusvc->ID, 'student_service_url', true );
 		$metadata_fields['stusvc_location']        = get_post_meta( $stusvc->ID, 'student_service_location', true );
-		$metadata_fields['stusvc_hours_monday']    = get_post_meta( $stusvc->ID, 'student_service_hours_monday', true );
-		$metadata_fields['stusvc_hours_tuesday']   = get_post_meta( $stusvc->ID, 'student_service_hours_tuesday', true );
-		$metadata_fields['stusvc_hours_wednesday'] = get_post_meta( $stusvc->ID, 'student_service_hours_wednesday', true );
-		$metadata_fields['stusvc_hours_thursday']  = get_post_meta( $stusvc->ID, 'student_service_hours_thursday', true );
-		$metadata_fields['stusvc_hours_friday']    = get_post_meta( $stusvc->ID, 'student_service_hours_friday', true );
-		$metadata_fields['stusvc_hours_saturday']  = get_post_meta( $stusvc->ID, 'student_service_hours_saturday', true );
-		$metadata_fields['stusvc_hours_sunday']    = get_post_meta( $stusvc->ID, 'student_service_hours_sunday', true );
+		$metadata_fields['stusvc_hours_monday_open']    = get_post_meta( $stusvc->ID, 'student_service_hours_monday_open', true );
+		$metadata_fields['stusvc_hours_monday_close']    = get_post_meta( $stusvc->ID, 'student_service_hours_monday_close', true );
+		$metadata_fields['stusvc_hours_tuesday_open']   = get_post_meta( $stusvc->ID, 'student_service_hours_tuesday_open', true );
+		$metadata_fields['stusvc_hours_tuesday_close']   = get_post_meta( $stusvc->ID, 'student_service_hours_tuesday_close', true );
+		$metadata_fields['stusvc_hours_wednesday_open'] = get_post_meta( $stusvc->ID, 'student_service_hours_wednesday_open', true );
+		$metadata_fields['stusvc_hours_wednesday_close'] = get_post_meta( $stusvc->ID, 'student_service_hours_wednesday_close', true );
+		$metadata_fields['stusvc_hours_thursday_open']  = get_post_meta( $stusvc->ID, 'student_service_hours_thursday_open', true );
+		$metadata_fields['stusvc_hours_thursday_close']  = get_post_meta( $stusvc->ID, 'student_service_hours_thursday_close', true );
+		$metadata_fields['stusvc_hours_friday_open']    = get_post_meta( $stusvc->ID, 'student_service_hours_friday_open', true );
+		$metadata_fields['stusvc_hours_friday_close']    = get_post_meta( $stusvc->ID, 'student_service_hours_friday_close', true );
+		$metadata_fields['stusvc_hours_saturday_open']  = get_post_meta( $stusvc->ID, 'student_service_hours_saturday_open', true );
+		$metadata_fields['stusvc_hours_saturday_close']  = get_post_meta( $stusvc->ID, 'student_service_hours_saturday_close', true );
+		$metadata_fields['stusvc_hours_sunday_open']    = get_post_meta( $stusvc->ID, 'student_service_hours_sunday_open', true );
+		$metadata_fields['stusvc_hours_sunday_close']    = get_post_meta( $stusvc->ID, 'student_service_hours_sunday_close', true );
 		$metadata_fields['stusvc_social_facebook'] = get_post_meta( $stusvc->ID, 'student_service_social_facebook', true );
 		$metadata_fields['stusvc_social_twitter']  = get_post_meta( $stusvc->ID, 'student_service_social_twitter', true );
 		$metadata_fields['stusvc_social_youtube']  = get_post_meta( $stusvc->ID, 'student_service_social_youtube', true );
@@ -836,13 +892,20 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'email' => $metadata_fields['stusvc_email'],
 			'url' => $metadata_fields['stusvc_url'],
 			'location' => $metadata_fields['stusvc_location'],
-			'hours_monday' => $metadata_fields['stusvc_hours_monday'],
-			'hours_tuesday' => $metadata_fields['stusvc_hours_tuesday'],
-			'hours_wednesday' => $metadata_fields['stusvc_hours_wednesday'],
-			'hours_thursday' => $metadata_fields['stusvc_hours_thursday'],
-			'hours_friday' => $metadata_fields['stusvc_hours_friday'],
-			'hours_saturday' => $metadata_fields['stusvc_hours_saturday'],
-			'hours_sunday' => $metadata_fields['stusvc_hours_sunday'],
+			'hours_monday_open' => $metadata_fields['stusvc_hours_monday_open'],
+			'hours_monday_close' => $metadata_fields['stusvc_hours_monday_close'],
+			'hours_tuesday_open' => $metadata_fields['stusvc_hours_tuesday_open'],
+			'hours_tuesday_close' => $metadata_fields['stusvc_hours_tuesday_close'],
+			'hours_wednesday_open' => $metadata_fields['stusvc_hours_wednesday_open'],
+			'hours_wednesday_close' => $metadata_fields['stusvc_hours_wednesday_close'],
+			'hours_thursday_open' => $metadata_fields['stusvc_hours_thursday_open'],
+			'hours_thursday_close' => $metadata_fields['stusvc_hours_thursday_close'],
+			'hours_friday_open' => $metadata_fields['stusvc_hours_friday_open'],
+			'hours_friday_close' => $metadata_fields['stusvc_hours_friday_close'],
+			'hours_saturday_open' => $metadata_fields['stusvc_hours_saturday_open'],
+			'hours_saturday_close' => $metadata_fields['stusvc_hours_saturday_close'],
+			'hours_sunday_open' => $metadata_fields['stusvc_hours_sunday_open'],
+			'hours_sunday_close' => $metadata_fields['stusvc_hours_sunday_close'],
 			'social_facebook' => $metadata_fields['stusvc_social_facebook'],
 			'social_twitter' => $metadata_fields['stusvc_social_twitter'],
 			'social_youtube' => $metadata_fields['stusvc_social_youtube'],
@@ -1104,50 +1167,99 @@ class StudentService extends CustomPostType_ServicesTheme {
 		return $html;
 	}
 
+	public static function render_hours_cell( $open, $close ) {
+		if ( SDES_Static::is_null_or_whitespace( $open ) 
+		  || SDES_Static::is_null_or_whitespace( $close ) ) {
+			return "CLOSED";
+		}
+		ob_start();
+		?>
+			<time class="open" datetime="<?= $open ?>"><?= date( 'h:i A', strtotime( $open ) ) ?></time> -
+			<time class="closing" datetime="<?= $close ?>"><?= date( 'h:i A', strtotime( $close ) ) ?></time>
+		<?php
+		$html = ob_get_clean();
+		return $html;
+	}
+
 	public static function render_hours_table( $context ){
 		ob_start();
 		?>
 			<div class="table-responsive hours">
 				<table class="table table-bordered">
 					<thead>
-						<tr><th colspan="2"><span class="fa fa-clock-o"></span> HOURS OF OPERATION</th></tr>
+						<tr><th colspan="2"><span class="fa fa-clock-o"></span> TYPICAL HOURS</th></tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td><div class="day">M</div></td>
-							<td><?= $context['hours_monday'] ?></td>
+							<td>
+								<?= static::render_hours_cell( $context['hours_monday_open'], $context['hours_monday_close'] ); ?>
+							</td>
 						</tr>
 						<tr>
 							<td><div class="day">T</div></td>
-							<td><?= $context['hours_tuesday'] ?></td>
+							<td>
+								<?= static::render_hours_cell( $context['hours_tuesday_open'], $context['hours_tuesday_close'] ); ?>
+							</td>
 						</tr>
 						<tr>
 							<td><div class="day">W</div></td>
-							<td><?= $context['hours_wednesday'] ?></td>
+							<td>
+								<?= static::render_hours_cell( $context['hours_wednesday_open'], $context['hours_wednesday_close'] ); ?>
+							</td>
 						</tr>
 						<tr>
 							<td><div class="day">TH</div></td>
-							<td><?= $context['hours_thursday'] ?></td>
+							<td>
+								<?= static::render_hours_cell( $context['hours_thursday_open'], $context['hours_thursday_close'] ); ?>
+							</td>
 						</tr>
 						<tr>
 							<td><div class="day">F</div></td>
-							<td><?= $context['hours_tuesday'] ?></td>
+							<td>
+								<?= static::render_hours_cell( $context['hours_friday_open'], $context['hours_friday_close'] ); ?>
+							</td>
 						</tr>
 						<tr>
 							<td><div class="day">SA</div></td>
-							<td><?= $context['hours_saturday'] ?></td>
+							<td>
+								<?= static::render_hours_cell( $context['hours_saturday_open'], $context['hours_saturday_close'] ); ?>
+							</td>
 						</tr>
 						<tr>
 							<td><div class="day">SU</div></td>
-							<td><?= $context['hours_sunday'] ?></td>
+							<td>
+								<?= static::render_hours_cell( $context['hours_sunday_open'], $context['hours_sunday_close'] ); ?>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+			<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js" integrity="sha256-De/cgZoAkgvqoxL9yJpJzPHyozUETFnSv7EQGfQWQ4o=" crossorigin="anonymous"></script>
 			<script>
-				var dayOfWeek = (new Date()).getDay();
-				dayOfWeek = ( 0 == dayOfWeek ) ? 7 : dayOfWeek - 1; // Shift so Monday is 0 instead of Sunday.
-				jQuery('.table-responsive.hours tbody tr').eq(dayOfWeek).children('td').addClass('active')
+				(function () {
+					var CLOSING_SOON_MINUTES = <?= SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-closing_soon_minutes', 60 ); ?>;
+					var NOW = new Date();
+					var dayOfWeek = NOW.getDay();
+					dayOfWeek = ( 0 === dayOfWeek ) ? 7 : dayOfWeek - 1; // Shift so week starts with Monday as 0.
+					var $today_tds = jQuery('.table-responsive.hours tbody tr').eq(dayOfWeek).children('td');
+					var $closing_time = $today_tds.find('time.closing');
+					try {
+						var closing_moment  = moment( $closing_time[0].getAttribute('datetime'), 'HH:mm' );
+						var to_closing_ms   = moment( NOW ).diff( closing_moment );
+						var to_closing_mins = moment.duration( to_closing_ms ).asMinutes();
+						var isClosed       = to_closing_ms > 0;
+						var isClosingSoon  = !isClosed && ( to_closing_mins > ( -1*CLOSING_SOON_MINUTES ) );
+						$today_tds.addClass('active');
+						if( isClosed )      { $today_tds.addClass('closed'); }
+						if( isClosingSoon ) { $today_tds.addClass('closing-soon'); }
+					} catch(e) {
+						// If no TIME element, mark as closed.
+						if ( 0 === $closing_time.length ) { $today_tds.addClass('closed'); }
+						// If moment.js did not load, ensure no misleading styling.
+						if ( 'undefined' === typeof( moment ) ) { $today_tds.removeClass('active'); }
+					}
+				}());
 			</script>
 		<?php
 		$html = ob_get_clean();

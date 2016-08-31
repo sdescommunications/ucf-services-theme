@@ -42,6 +42,7 @@ function register_theme_customizer( $wp_customizer ) {
 
 	add_section_social_options( $wp_customizer );
 
+	add_section_other( $wp_customizer );
 
 }
 add_action( 'customize_register', __NAMESPACE__.'\register_theme_customizer' );
@@ -201,6 +202,37 @@ function add_section_social_options( $wp_customizer, $args = null ) {
 		'Youtube',				 // Label.
 		$section,				 // Section.
 		$twitter_args			 // Arguments array.
+	);
+}
+
+function add_section_other( $wp_customizer, $args = null ) {
+	/* SECTION */
+	$section = 'services_theme-other';
+	$wp_customizer->add_section(
+		$section,
+		array(
+			'title'    => 'Other',
+			'priority' => 900,
+			'panel' => $args['panelId'],
+		)
+	);
+
+	/** ARGS */
+	$closing_soon_args = $args['services_theme-closing_soon_minutes'];
+	SDES_Static::set_default_keyValue_array( $closing_soon_args, array(
+		'sanitize_callback' => 'wp_kses_post',
+		'sanitize_js_callback' => 'wp_kses_post',
+		'description' => 'Number of minutes to show "closing soon" styling for services before they close.',
+		'default' => 60,
+	));
+
+	/** FIELDS */
+	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
+		$wp_customizer,			// WP_Customize_Manager.
+		'services_theme-closing_soon_minutes',	// Id.
+		'Closing Soon Minutes',			// Label.
+		$section,				// Section.
+		$closing_soon_args		// Arguments array.
 	);
 }
 

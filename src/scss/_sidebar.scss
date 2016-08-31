@@ -97,6 +97,12 @@
             td.active:nth-child(even) { 
                 background: #d5f1dd;
             }
+            
+            td.closing-soon:nth-child(odd)  { background-color: #fef3b9 !important; }
+            td.closing-soon:nth-child(even) { background-color: #fcf8e3 !important; }
+
+            td.closed:nth-child(odd)   { background-color: #edbbbb !important; }
+            td.closed:nth-child(even)  { background-color: #f2dede !important; }
         }
     }
     .campaign, 
