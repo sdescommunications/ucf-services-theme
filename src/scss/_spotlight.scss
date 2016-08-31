@@ -1,0 +1,60 @@
+/* @see: https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_home.scss#L9-L68 */
+
+// Requires Bootstrap:
+// @import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+// graphviz.gv: "_spotlight.scss" -> { "bootstrap-sass-official"; "_components.scss; };
+
+.spotlight {
+  display: block;
+
+  img {
+    position: relative;
+    width: 100%;
+  }
+
+  h2 {
+    display: block;
+    font-size: 22px;
+    font-weight: 700;
+    left: 55px;
+    letter-spacing: 3px;
+    line-height: 1.3;
+    position: absolute;
+    right: 55px;
+    text-align: center;
+    text-shadow: 1px 1px 8px #000;
+    text-transform: uppercase;
+    top: 20px;
+
+    @media (min-width: $screen-lg-min) {
+      font-size: 27px;
+    }
+
+    @media (max-width: $screen-sm-max) {
+      font-size: 27px;
+    }
+
+    @media (max-width: $screen-xs-max) {
+      font-size: 7vw;
+      letter-spacing: 2px;
+      line-height: 1.2;
+    }
+  }
+
+  .btn-wrapper {
+    bottom: 20px;
+    left: 20px;
+    margin: auto;
+    position: absolute;
+    right: 20px;
+    text-align: center;
+    width: 75%;
+  }
+
+  // See ".btn-ucf" in _components.scss
+
+  .btn {
+    text-align: center;
+    white-space: normal;
+  }
+}

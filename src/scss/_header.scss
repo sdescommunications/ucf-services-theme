@@ -1,0 +1,127 @@
+// Styles that are directly tied to the site header/navigation should go in
+// this file.
+
+// Requires _Variables, Bootstrap:
+// @import 'variables';
+// @import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+// Extends: .h1
+// graphviz.gv: "_header.scss" -> { "_variables.scss"; "bootstrap-sass-official"; };
+// graphviz.gv: "_header.scss" -> { "_type.scss"; }[style="dashed"];
+
+body.nojs,
+body.no-js {
+  .header-image {
+    height: 300px;
+  }
+}
+
+/* https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_header.scss#L170-L259 */
+.site-header {
+  padding-bottom: 0px;
+  margin-bottom: 30px;
+
+  @media (max-width: $screen-xs-max) {
+    padding-bottom: 20px;
+  }
+}
+
+.header-image {
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+}
+.header-image,
+.header-image > .container {
+  min-height: 300px;
+  height: 520px;
+
+  @media (max-width: $screen-xs-max) {
+    min-height: 0;
+  }
+}
+
+.header-center {
+  display: table;
+  position: relative;
+  top: 245px;
+  float: right;
+  height: auto;
+  width: auto;
+
+  @media (max-width: $screen-sm-max) {
+    top: 200px;
+  }
+  @media (max-width: $screen-xs-max) {
+    height: 400px;
+    position: relative;
+    top: 100px;
+  }
+
+  .title-wrapper {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .header-title {
+    display: inline-block;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+  }
+
+  .title-header-container {
+    display: table;
+    margin: 0 auto;
+    position: relative;
+    top: -80px;
+
+    @media (max-width: $screen-xs-max) {
+      top: -100px;
+    }
+
+    > h1,
+    > span {
+      @extend .h1;
+      background-color: #FC0;
+      background-color: rgba(255, 204, 0, 1);
+      display: block;
+      font-size: 80px;
+      font-weight: 800;
+      margin: 0;
+      padding: 4px 30px;
+      text-transform: uppercase;
+
+      @media (max-width: $screen-md-max) {
+        font-size: 68px;
+        padding: 4px 10px;
+      }
+      @media (max-width: $screen-sm-max) {
+        font-size: 55px;
+        padding: 4px 5px;
+      }
+      @media (max-width: $screen-xs-max) {
+        font-size: 40px;
+      }
+    }
+  }
+
+  a {
+    &:link,
+    &:visited,
+    &:active,
+    &:hover {
+      color: #000;
+      text-decoration: none;
+      display: block;
+      width: auto;
+      max-width: 400px;  // Override with a Theme Customizer setting and !important.
+
+      @media (max-width: $screen-xs-max) {
+        max-width: initial;
+        width: initial;
+      }
+    }
+  }
+}

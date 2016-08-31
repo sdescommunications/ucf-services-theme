@@ -1,0 +1,103 @@
+/* @see: https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_components.scss#L243-L293 */
+
+// Requires Bootstrap and Font-Awesome:
+// @import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+// @import '../components/font-awesome/scss/font-awesome';
+// graphviz.gv: "_icon-link.scss" -> { "bootstrap-sass-official"; "font-awesome"; };
+
+.icon-link {
+  font-family: "gotham_lightregular", helvetica, arial, sans-serif;
+  font-weight: 600;
+  a {
+    color: #000;
+    margin-bottom: 40px;
+    display: block;
+    &:hover {
+        text-decoration: none
+    }
+    .fa {
+      font-size: 80px;
+      margin-bottom: 12px;
+      transition: color .25s;
+    }
+    p {
+      font-size: 16px;
+      font-style: italic;
+      padding-top: 18px;
+      max-width: 220px;
+      margin: 0 auto;
+    }
+
+    h3 {
+      background: #c7a107;
+      border-radius: 4px;
+      display: inline;
+      font-family: "gotham_lightregular", Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 8px 34px;
+    }
+    &:active,
+    &:focus,
+    &:hover {
+      .fa {
+        color: #fff;
+      }
+      h3 {
+          background: #786105;
+          color: #ffc409;
+      }
+    }
+  }
+}
+
+.icon-link-small {
+  display: inline-block;
+  margin: 10px auto;
+  width: 25%;
+
+  @media (max-width: $screen-xs-max) {
+    width: 50%;
+  }
+
+  a {
+    color: #000;
+
+    .fa {
+      font-size: 80px;
+      margin-bottom: 12px;
+      @include transition(color .25s);
+    }
+
+    h3 {
+      background: rgba(30, 30, 30, 0.25);
+      border-radius: 4px;
+      display: inline;
+      font-family: $font-family-sans-serif;
+      font-size: 14px;
+      padding: 2px 14px;
+      @include transition(background .25s, color .25s);
+    }
+
+    p {
+      font-size: 12px;
+      font-style: italic;
+      padding-top: 8px;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: none;
+
+      .fa {
+        color: #fff;
+      }
+
+      h3 {
+        background: rgba(10, 10, 10, 0.55);
+        color: #fc0;
+      }
+    }
+  }
+}

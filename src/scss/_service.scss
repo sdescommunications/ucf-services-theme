@@ -1,0 +1,86 @@
+/**
+ * Display a service within a list.
+ */
+
+.clear-results {
+    font-size: 0.5em;
+    opacity: 0.3;
+    &:hover { 
+        opacity: 0.8; 
+    }
+}
+
+.student_service-list {
+    list-style: none;
+    padding: 0;
+}
+
+
+/* services */
+.service {
+    .row {
+        margin-bottom: 30px;
+    }
+
+    .service-details a {
+        color: #272727;
+        text-decoration: none;
+        &:hover {
+            color: #666;
+       }
+    }
+
+    .service-social {
+        float: right;
+        a {
+            text-decoration: none;
+            position: relative;
+            display: inline;
+            font-size: 25px;
+            margin-left: 47px;
+            color: #909090;
+            &:hover {
+                color: #d0d0d0;
+            }
+            @media (max-width: $screen-sm-max) {
+                margin-left: 20px;
+            }
+        }
+    }
+
+    .service-title {
+        font-family: "archer_boldregular", Georgia, serif;
+        font-size: 27px;
+        margin-top: -10px;
+        a { 
+            color: #337ab7;
+        }
+        &::after {
+            content: " ";
+            background: #ffc904;
+            display: block;
+            height: 2px;
+            margin-top: 0px;
+            width: 25px;
+            margin-bottom: 9px;
+        }
+    }
+
+    .service-category {
+        font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+        text-transform: uppercase;
+        font-weight: 900;
+        margin-bottom: 15px;
+        display: block;
+        font-size: 12px;
+    }
+
+    img {
+        width: 100%;
+        margin-bottom: 20px;
+        transition: .3s all;
+        &:hover {
+            opacity: .8;
+        }
+    }
+}

@@ -1,0 +1,57 @@
+// @see: https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/src/scss/admin/_icon-field.scss
+
+// Requires _Variables, Font-Awesome:
+// @import 'variables';
+// @import '../components/font-awesome/scss/font-awesome';
+// graphviz.gv: "_icon-field.scss" -> { "_variables.scss"; "font-awesome"; };
+
+#meta-icon-search {
+  display: inline-block;
+  width: 500px;
+}
+
+.meta-icon-modal-footer {
+  background-color: #fff;
+  bottom: -2px;
+  left: 0;
+  padding: 10px 0;
+  position: absolute;
+  width: 100%;
+}
+
+#meta-icon-submit {
+  float: right;
+  margin-right: 20px;
+}
+
+.meta-fa-icons {
+    list-style: none;
+    
+    .meta-fa-icon {
+        border: 1px solid #efefef;
+        display: inline-block;
+        height: 175px;
+        margin-left: 5px;
+        text-align: center;
+        vertical-align: middle;
+        width: 175px;
+        
+        &:nth-of-type(2n+1) {
+            margin-left: 10px;
+        }
+        
+        i {
+            font-size: 120px;
+            margin-top: 25px;
+        }
+    }
+    
+     .selected {
+        border-color: #c90;
+        color: #c90;
+     }
+}
+
+.fa-preview {
+  font-size: 48px;
+}

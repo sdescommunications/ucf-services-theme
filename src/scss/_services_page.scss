@@ -1,0 +1,124 @@
+/*
+ * Services page
+ */ 
+
+.subpage-header,
+.services-page-header,
+.category-page-header {
+    margin-bottom: 0px;
+    height: 420px;
+
+    .header-image {
+        height: 420px;
+    }
+
+    .header-center {
+        display: table;
+        position: relative;
+        top: 250px;
+        float: right;
+        height: auto;
+        width: auto;
+        .title-header-container {
+            top: 0px;
+            .site-title {
+                font-size: 50px;
+            }
+        }
+    }
+
+ }
+
+
+.services-page,
+.category-page {
+    p {
+        font-family: "gotham_lightregular", helvetica, arial, sans-serif;
+        font-size: 18px;
+        color: #272727;
+        font-weight: 600;
+        margin-bottom: 38px;
+        &.lead {
+            font-family: "archer_mediumregular", Georgia, serif;
+            font-size: 24px;
+            font-weight: 300;
+        }
+    }
+    h1 {
+        font-family: "archer_boldregular", Georgia, serif;
+        display: inline-block;
+        font-size: 47px;
+        margin: 40px 0 30px 0;
+        &::after {
+            content: " ";
+            background: #ffc904;
+            display: block;
+            height: 2px;
+            margin-top: 13px;
+            width: 25px;
+            margin-bottom: 8px;
+        }
+        @media (max-width: $screen-xs-max) {
+            float: left;
+        }
+    }
+
+    h2 {
+        font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        font-size: 18px;
+        text-transform: uppercase;
+        margin-top: 20px;
+    }
+    .side-bar h2 {
+        text-transform: none;
+    }
+
+
+    h2::after {
+        content: " ";
+        background: #ffc904;
+        display: block;
+        height: 2px;
+        margin-top: 12px;
+        width: 25px;
+        margin-bottom: 18px;
+    }
+
+    .service-social {
+        margin-top: 55px;
+        a {
+            text-decoration: none;
+            position: relative;
+            display: inline;
+            font-size: 22px;
+            margin-left: 39px;
+            color: #909090;
+        }
+        @media (max-width: $screen-sm-max) {
+            margin: 0 0 25px 0;
+            a {
+                margin: 0 39px 0 0;
+            }
+        }
+    }
+
+
+
+    h3.external-link a {
+        font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+        font-weight: 900;
+        font-size: 17px;
+        text-transform: uppercase;
+        text-decoration: none;
+        &::after {    
+            font-family: 'FontAwesome';
+            content: '\f08e';
+            margin:0 5px;
+            text-decoration: none;
+        }
+    }
+}

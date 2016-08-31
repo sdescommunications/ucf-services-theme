@@ -1,0 +1,35 @@
+{
+	"name": "ucf-sdes-it/ucf-services-theme",
+	"description": "Student services theme.",
+	"require": {
+		"anahkiasen/underscore-php": "^2.0"
+	},
+	"license": "MIT",
+	"require-dev": {
+		"phpunit/phpunit": "^4.8",
+		"phpunit/php-code-coverage": "^2.2",
+		"squizlabs/php_codesniffer": "^2.3",
+		"fabpot/php-cs-fixer": "^1.10",
+		"wp-coding-standards/wpcs": "^0.8",
+		"phpdocumentor/phpdocumentor": "2.8.*",
+		"phpdocumentor/graphviz": "^1.0"
+	},
+	"scripts": {
+		"install:global": "composer global require -- phpunit/phpunit phpunit/php-code-coverage squizlabs/php_codesniffer fabpot/php-cs-fixer wp-coding-standards/wpcs:^0.8 phpdocumentor/phpdocumentor phpdocumentor/graphviz",
+		"test": "phpunit -v -c ./tests/phpunit.xml --coverage-html ./tests/cov ./tests/SDES_Static_Tests.php",
+		"test:simple": "phpunit -v -c .\\tests\\phpunit.xml .\\tests\\SDES_Static_Tests.php",
+		"phplint": "php -d display_errors=1 -l",
+		"csfix": "php-cs-fixer fix",
+		"csfixer": "php-cs-fixer",
+		"phpcs:wp-install": "phpcs --config-set installed_paths %cd%\\vendor\\wp-coding-standards\\wpcs",
+		"phpcs": ["@phpcs:wp-install", "phpcs -p --ignore=vendor --standard=.\\tests\\ucfsdes_wordpress_ruleset.xml"],
+		"phpcs-": "phpcs --ignore=vendor",
+		"phpcs:sum": "phpcs --report=summary --ignore=vendor .",
+		"phpcbf": ["phpcbf --no-patch --standard=.\\tests\\ucfsdes_wordpress_ruleset.xml", "@phpcs"],
+		"phpcbf-": "phpcbf --no-patch --standard=.\\tests\\ucfsdes_wordpress_ruleset.xml",
+		"phpcbf--": "phpcbf",
+		"phpdoc": "phpdoc -t ./docs --ignore vendor/*,tests/* --progressbar",
+		"phpdoc:all": "phpdoc -d . -t ./docs --ignore vendor/*,tests/* --progressbar",
+		"some-php-script": "php .\\json_escaped\\path\\to\\the\\file.php"
+	}
+}

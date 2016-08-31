@@ -1,0 +1,118 @@
+@charset "utf-8";
+
+// Variable overrides
+@import 'variables';
+
+// Import vendor assets
+@import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap'; 
+@import '../components/font-awesome/scss/font-awesome';
+@import '../components/weather-icons/sass/weather-icons';
+
+
+// Base mixins, utility styles
+@import 'mixins';
+
+// Base styles for typography, tables, forms, and images
+@import 'type';
+@import 'forms';
+
+// Styles for custom components and Bootstrap component overrides
+@import 'callout';
+@import 'spotlight';
+@import 'icon_link';
+@import 'weather';
+
+// Styles for custom components and Bootstrap component overrides
+@import 'components';
+@import 'search';
+@import 'service';
+@import 'filterby';
+@import 'services_page';
+@import 'sidebar';
+@import 'calendar_events';
+@import 'campaign';
+
+// Styles for our base header/footer templates
+@import 'header';
+@import 'footer';
+
+@import 'future';
+
+/* generics -------------------------------------------------------------------------------------------------------- */
+a{
+	color: #337ab7;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+a:hover, a:focus{
+	color: #23527c;
+	text-decoration: underline;
+}
+
+#ucfhb a,
+#ucfhb label {
+	color: #edba03; /* Pass accessibility contrast test.*/
+}
+
+/* Hide noscript content without DOM flickering (and avoid WebAIM WAVE alert for <noscript> tags).
+ * http://askthecssguy.com/articles/getting-around-the-flicker-of-javascript-modifying-the-dom-while-the-page-is-loading/ */
+body.jsEnabled {
+	.noscript,
+	.hide-if-js {
+		display: none;
+	}
+}
+body.nojs,
+body.no-js {
+  .hide-if-no-js {
+    display: none;
+  }
+}
+
+
+
+/* general */
+body {
+    font-family: "gotham_lightregular", helvetica, arial, sans-serif;
+    // font-size: 15px;
+    line-height: 1.72857;
+    // color: #272727;
+    // font-weight: 600;
+
+}
+
+* {
+    transition : all .1s linear
+}
+
+
+article.page-wrap {
+	margin-bottom: 32px;
+	h2.title {
+	    font-family: "gotham_lightregular", Helvetica, Arial, sans-serif;
+	    font-weight: 700;
+	    margin-bottom: 30px;
+	    margin-top: 0;
+	    border-bottom: 1px solid #cecece;
+	    padding-bottom: 10px;
+	}
+}
+
+
+
+
+
+/* WP new image alignment -------------------------------------------------------------------------------------------
+https://codex.wordpress.org/Wrapping_Text_Around_Images*/
+img.alignright { float: right; margin: 0 0 1em 1em; }
+img.alignleft { float: left; margin: 0 1em 1em 0; }
+img.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+.alignright { float: right; }
+.alignleft { float: left; }
+.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+
+
+.adminmsg {
+	color: #e90000;
+}

@@ -1,0 +1,44 @@
+/* https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/src/scss/_forms.scss */
+
+// Force sans-serif font on common elements
+input,
+label,
+select,
+textarea {
+  @include no-font-smoothing();
+  font-family: $font-family-sans-serif;
+}
+
+#gform_fields_1 {
+  list-style: none;
+  padding: 0;
+}
+
+
+
+.ginput_container {
+  > input,
+  textarea {
+    @extend .form-control;
+  }
+
+  > textarea {
+    height: 100px;
+  }
+}
+
+.gfield {
+  margin-bottom: 12px;
+
+  .gfield_label {
+    display: none !important;
+  }
+}
+
+.gform_button {
+  @extend .btn;
+  @extend .btn-lg;
+
+  background: #fc0;
+  color: #fff;
+}

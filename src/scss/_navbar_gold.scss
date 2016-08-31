@@ -1,0 +1,270 @@
+// Requires _Variables, Bootstrap:
+// @import 'variables';
+// @import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+// graphviz.gv: "_navbar_gold.scss" -> { "_variables.scss"; "bootstrap-sass-official"; };
+
+/* https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_components.scss#L312-L433 */
+.navbar-gold {
+  background-color: $ucf-bg-default;
+  border: none;
+  border-radius: 0;
+
+  .navbar-brand {
+    color: $ucf-col-default;
+
+    &:hover,
+    &:focus {
+      color: $ucf-col-highlight;
+    }
+  }
+
+  .navbar-text {
+    color: $ucf-col-default;
+  }
+
+  .navbar-nav {
+    > li {
+      > a {
+        color: $ucf-col-default;
+        &:focus {
+          background-color: $ucf-bg-default;
+          color: $ucf-col-default;
+        }
+
+        &:hover {
+          background: $ucf-bg-highlight;
+          color: $ucf-col-highlight;
+        }
+      }
+
+      > .dropdown-menu {
+        background-color: $ucf-bg-default;
+        > li {
+          > a {
+            color: $ucf-col-default;
+            &:hover,
+            &:focus {
+              color: $ucf-col-highlight;
+              background-color: $ucf-bg-highlight;
+            }
+          }
+          > .divider {
+            background-color: $ucf-bg-highlight;
+          }
+        }
+      }
+    }
+    .open .dropdown-menu > .active {
+      > a,
+      > a:hover,
+      > a:focus {
+        color: $ucf-col-highlight;
+        background-color: $ucf-bg-highlight;
+      }
+    }
+    > .active {
+      > a,
+      > a:hover,
+      > a:focus {
+        color: $ucf-col-highlight;
+        background-color: $ucf-bg-highlight;
+      }
+    }
+    > .open {
+      > a,
+      > a:hover,
+      > a:focus {
+        color: $ucf-col-highlight;
+        background-color: $ucf-bg-highlight;
+      }
+    }
+  }
+
+  .navbar-toggle {
+    border-color: $ucf-bg-highlight;
+
+    &:hover,
+    &:focus {
+      background-color: $ucf-bg-highlight;
+    }
+    .icon-bar {
+      background-color: $ucf-col-default;
+    }
+  }
+
+  .navbar-collapse,
+  .navbar-form {
+    border-color: $ucf-col-default;
+  }
+
+  .navbar-link {
+    color: $ucf-col-default;
+    &:hover {
+      color: $ucf-col-highlight;
+    }
+  }
+}
+
+@media (max-width: $screen-xs-max) {
+  .navbar-gold {
+    .navbar-nav .open .dropdown-menu {
+      > li > a {
+        color: $ucf-col-default;
+        &:hover,
+        &:focus {
+          color: $ucf-col-highlight;
+        }
+      }
+      > .active {
+        > a,
+        > a:hover,
+        > a:focus {
+          color: $ucf-col-highlight;
+          background-color: $ucf-bg-highlight;
+        }
+      }
+    }
+  }
+}
+
+
+
+/* https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_header.scss#L92-L114 */
+// Mobile nav
+#site-nav-xs {
+  border: none;
+  border-radius: 4px;
+  margin: 0 auto;
+  top: 10px;
+  z-index: 100;
+
+  .navbar-brand {
+    color: #333;
+    background: #fc0;
+    font-family: $font-family-serif-alt, serif;
+    font-size: 20px;
+  }
+
+  .navbar-title {
+    color: #fff;
+    float: left;
+    font-family: $font-family-serif-alt, serif;
+    font-size: 20px;
+    padding: 11px 16px;
+    position: relative;
+  }
+}
+
+
+
+/* https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/src/scss/_home.scss#L70-L117 */
+.navbar-gold {
+  // TODO: move box-shadow to .navbar-fixed-top;
+  /*
+  box-shadow: 0 2px 32px rgba(0, 0, 0, 0.50);
+  transition: box-shadow .75s;
+  */
+  font-size: 11px;
+  font-weight: 800;
+  overflow: hidden;
+  text-transform: uppercase;
+
+  @media (max-width: $screen-sm-max) {
+    overflow: visible;
+  }
+
+  &.center {
+    box-shadow: none;
+    margin-bottom: 0;
+    margin: 0 auto;
+  }
+
+  .navbar-nav {
+    > li {
+      > a {
+        padding-bottom: 17px;
+        padding-top: 17px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .navbar-title {
+    float: left;
+    padding: 18px 0 0 18px;
+
+    @media (min-width: $screen-md-min) {
+      display: none;
+    }
+  }
+}
+
+
+// TODO: replace hard-coded scss variables (e.g., font-family, UCF colors).
+.navbar-gold.breadcrumbs {
+  font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+  margin-bottom: 0;
+  .navbar-header {
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+      display: none;
+    }
+  }
+  .navbar-nav {
+    > li {
+      /*
+      font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+      float: left;
+      */
+      list-style-type: none;
+      /*
+      margin: 0;
+      padding: 17px 11px 10px 0;
+      text-transform: uppercase;
+      */
+      font-size: 13px;
+      &:hover,
+      &:focus,
+      a:hover {
+        background: none;
+      }
+      &.active-breadcrumb {
+        color: #fff;
+        background-color: $ucf-gold;
+        text-decoration: underline;
+        > .active-pad {
+          padding: 17px 15px;
+          display: block;
+          position: relative;
+        }
+      }
+      + li:before {
+        content: ">";
+        float: left;
+        padding: 17px 6px 17px 0px;
+        color: #272727;
+      }
+      > a {
+        color: #272727;
+        margin-right: 0px;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    @media (max-width: $screen-xs-max) {
+      > li {
+        margin-left: 18px;
+        + li:before {
+          content: "";
+        }
+      }
+    }
+  }
+  .navbar-right .weather {
+    padding-bottom: 19px;
+    margin-right: 30px;
+  }
+}

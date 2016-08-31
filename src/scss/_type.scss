@@ -1,0 +1,86 @@
+// Requires _Variables, Mixins, and Bootstrap:
+// @import 'variables';
+// @import 'mixins';
+// @import '../components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+// graphviz.gv: "_type.scss" -> { "_variables.scss"; "_mixins.scss"; "bootstrap-sass-official"; };
+
+/* https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/src/scss/_type.scss */
+p:empty {
+  display: none;
+}
+
+// Force sans-serif on particular elements
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+.lead {
+  @include no-font-smoothing();
+  font-family: $font-family-serif;
+}
+
+.lead {
+  line-height: 1.5;
+  font-family: "archer_mediumregular", Georgia, serif;
+}
+
+.ucf-gold {
+  color: $ucf-gold;
+}
+
+.text-weight-light {
+  font-weight: 300;
+}
+
+.text-weight-heavy {
+  font-weight: 800;
+}
+
+hr {
+  margin-bottom: 30px;
+  margin-top: 30px;
+
+  @media (max-width: $screen-xs-max) {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+}
+
+strong {
+    font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+}
+
+.main-site-footer .main-site-title {
+    font-family: "gotham_lightregular", Helvetica, Arial, sans-serif;
+}
+
+.header-center .title-header-container>span, .header-center, .header-center .weather, .header-center .weather .location, .site-footer .all-link, .calendar-events .all-link {
+    font-family: "archer_boldregular", Georgia, serif;
+
+}
+
+.site-footer .footer-news h3, .site-footer .footer-events .event-details h4 {
+    font-family: "archer_mediumregular", Georgia, serif;
+}
+
+
+
+.btn, .btn-ucf, .table, input, label, select, textarea, 
+.gform_button, .site-footer, .site-footer h2, .callout .icon-linkz a h3, 
+.calendar-events .event-details  {
+    font-family: "gotham_lightregular", Helvetica, Arial, sans-serif;
+}
+
+ 
+
+.alert, .badge, .breadcrumb, .btn, .carousel, .collapse, .gform_button, .jumbotron, .label, .list-group, .media, .modal, .nav, .navbar, .pagination, .panel, .ucf-dropdown, .well, .calendar-events {
+    font-family: "gotham_boldregular", Helvetica, Arial, sans-serif;
+}

@@ -1,0 +1,22 @@
+{
+	"name": "UCF-Services-Theme",
+	"version": "v0.0.0",
+	"homepage": "https://github.com/ucf-sdes-it/ucf-services-theme",
+	"authors": [
+		"UCF SDES IT"
+	],
+	"license": "MIT",
+	"private": true,
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"components",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"bootstrap-sass-official": "~3.3.6",
+		"font-awesome": "~4.5.0",
+		"weather-icons": "~2.0.10"
+	}
+}

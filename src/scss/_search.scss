@@ -1,0 +1,58 @@
+/**
+ * Search section on front page.
+ */
+ 
+.search {
+    padding: 0;
+    border-bottom: 0;
+    margin: 0 0 30px 0;
+
+    a {
+        color: #272727;
+        text-decoration: none;
+    }
+
+    .search-lead {
+        font-family: "gotham_lightregular", helvetica, arial, sans-serif;
+        margin: 0 auto 30px auto;
+        display: block;
+        text-align: center;
+        font-size: 27px;
+        letter-spacing: 1px;
+    }
+}
+
+
+.search-bar {
+    position: relative;
+
+    .fa-search {
+        position: absolute;
+        padding: 16px;
+        font-size: 23px;
+        color: #999;
+        background: transparent;
+        border: 0;
+        transition: .3s all;
+        right: 0px;
+        &:hover {
+            color: #272727;
+        }
+    }
+
+    input {
+        padding-right: 30px;
+        color: #555
+    }
+
+    .form-control {
+        height: 57px;
+        box-shadow: none;
+        // NOTE: relies on autoprefixer. Otherwise, add a mixin to _mixins.scss, maybe http://stackoverflow.com/a/17181946.
+        &::placeholder {
+            color: #272727;
+            font-size: 17px;
+            font-family: "gotham_boldregular", helvetica, arial, sans-serif;
+        }
+    }
+}

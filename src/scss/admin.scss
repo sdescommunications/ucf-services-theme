@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+@import 'variables';
+@import '../components/font-awesome/scss/font-awesome';
+
+
+@import 'admin/icon-field';
+
+/* Hide noscript content without DOM flickering (and avoid WebAIM WAVE alert for <noscript> tags).
+ * http://askthecssguy.com/articles/getting-around-the-flicker-of-javascript-modifying-the-dom-while-the-page-is-loading/ */
+body.jsEnabled {
+	.noscript,
+	.hide-if-js {
+		display: none;
+	}
+}
+
+.custom-metabox {
+	input[type=text],
+	textarea {
+		min-width: 600px;
+	}
+	textarea {
+		min-height: 150px;
+	}
+}

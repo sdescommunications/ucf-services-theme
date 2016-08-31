@@ -1,0 +1,47 @@
+        <h2 *ngIf="query">
+            Results for: &ldquo;{{ query }}&rdquo;
+            <span class="clear-results fa fa-times-circle-o" (click)="clearResults()" title="Clear search term."></span>
+        </h2>
+        <span *ngIf="isLoading" class="loading fa fa-spinner" aria-hidden="true" 
+              style="font-size: 2em; padding: 12px 0;"> Loading results...<br>
+        </span>
+        
+<span class="student_service-list" *ngIf="!isLoading">
+    <div class="service" *ngFor="let service of studentServices"
+        [attr.data-category]="service?.main_category_name">
+      <div class="row" *ngIf="shouldFilter(service?.main_category_name)">
+        <div class="col-sm-4">
+            <img class="service-image" src="{{service.image_thumbnail_src}}" alt="{{service.image_alt}}">
+        </div>
+        <div class="col-sm-8">
+            <ucf-like-tweet-share>
+                <div class="service-social pull-md-right">
+                    <a target="_blank" href="{{ service.share_facebook }}"><span class="fa fa-thumbs-o-up"></span></a>       
+                    <a target="_blank" href="{{ service.share_twitter }}"><span class="fa fa-twitter"></span></a>
+                </div>
+            </ucf-like-tweet-share>
+
+            <div class="service-details">
+                <div class="service-title">
+                    <a href="{{service.permalink}}">
+                        {{service.title}}
+                    </a>
+                </div>
+                <div class="service-category">
+                    <a href="{{service.main_category_link}}"
+                       [innerHTML]='service.main_category_name | unescapeHtml'
+                       >
+                    </a>
+                </div>
+                <p>
+                    {{service.short_descr}}
+                </p>
+            </div>
+        </div>
+      </div>
+    </div> <!-- /.service -->
+</span>
+        <h3 *ngIf="! hasResults() && !isLoading" class="noResults">
+              No results found for "{{ query }}".
+        </h3>
+        

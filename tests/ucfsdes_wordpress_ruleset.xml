@@ -1,0 +1,22 @@
+<ruleset name="UCF SDES WordPress">
+	<description>WordPress codesniffer standards customized for UCF SDES development. For help, see: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml.</description>
+
+	<arg value="s" />
+
+
+	<rule ref="WordPress">
+		<exclude name="Generic.PHP.DisallowShortOpenTag.EchoFound" />
+		<exclude name="Generic.Commenting.DocComment.ShortNotCapital" />
+		<exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
+
+		<exclude name="WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid" />
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamTag" />
+	</rule>
+
+	<rule ref="WordPress.XSS.EscapeOutput">
+		<type>warning</type> <!-- Doesn't appear to be working. -->
+		<properties>
+			<property name="customEscapingFunctions" type="array" value="1=>$esc_attr" /> <!-- Does not work with WordPress_Sniff ($function_opener at EscapeOutputSniff.php:281 isn't retrieving properly?). -->
+		</properties>
+	</rule>
+</ruleset>

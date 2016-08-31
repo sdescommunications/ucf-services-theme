@@ -1,0 +1,11 @@
+/* Future Bootstrap Shims */
+
+// Future shim. http://v4-alpha.getbootstrap.com/components/utilities/#responsive-floats
+// https://github.com/twbs/bootstrap/pull/18340/commits/a8dc4812a49d8467e8642abb510b523a9a51cd48#diff-1d192d727d5709ecd8fef0b790aff5e8R18
+.pull {
+  &-md-right {
+    @media (min-width: $screen-md-min) {
+      float: right;
+    }
+  }
+}

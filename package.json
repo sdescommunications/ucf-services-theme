@@ -1,0 +1,43 @@
+{
+  "private": true,
+  "config": {
+    "cmd_jshint": "jshint --verbose --show-non-errors",
+    "cmd_jscs": "jscs --preset=wordpress"
+  },
+  "scripts": {
+    "//Descriptions": {
+      "test": "Default command to run javascript tests.",
+      "install:global": "Choose to install reusable developer dependecies globally.",
+      "jshint": "A code linter for javascript files.",
+      "jscs": "Javascript codesniffer with a wordpress preset."
+    },
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:global": "npm install -g bower jshint jscs typescript typings tslint jspm lodash",
+    "jshint": "npm run from_config -- cmd_jshint",
+    "jscs": "npm run from_config -- cmd_jscs",
+    "tslint": "tslint ./ng-app/**/*.ts -t verbose",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "typings": "typings",
+    "build": "node ./scripts/build_templates.js",
+    "build:w": "node ./scripts/build_templates.js -w",
+    "postinstall": "typings install",
+
+    "//Utility npm scripts": {
+      "from_config": "Store and run a command from the environment's package (cross-platform) variable, i.e., `%npm_package_config_VAR%` or `$npm_package_config_VAR`.",
+      "in_node": "Wrapper for running shell commands within `node --eval` (allows error catching, cross-platform environmental variables)."
+    },
+    "from_config": "node -e \"try{ cmd=`${process.env['npm_package_config_'+process.argv[1]]} ${process.argv.splice(2)}`;console.log(cmd); require('child_process').execSync(cmd, {stdio:'inherit'}) }catch(e){}\"",
+    "in_node": "node -e \"try{ argv=process.argv;cmd=`${argv.splice(1).join(' ')}`;console.log(cmd); require('child_process').execSync(cmd, {stdio:'inherit'}) }catch(e){}\""
+  },
+  "optionalDependencies": {
+    "bower": "^1.7.9",
+    "lodash": "^4.13.1",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.1",
+    "tslint": "^3.13.0",
+    "jscs": "^3.0.3",
+    "jshint": "^2.9.2",
+    "jspm": "^0.16.39"
+  },
+}
