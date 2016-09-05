@@ -27,9 +27,9 @@ $student_services_api = get_rest_url() . 'rest/v1/services/';
 <!-- Polyfill(s) for older browsers -->
 <script src="https://cdn.jsdelivr.net/core-js/2.4.0/shim.min.js" integrity="sha256-iIdcT94SZY9oCsJj8VTkuvshEfKPXRXaA8nT8lCKG5U=" crossorigin="anonymous"></script>
 
-<script src="https://npmcdn.com/zone.js@0.6.12/dist/zone.js"></script>
-<script src="https://npmcdn.com/reflect-metadata@0.1.3/Reflect.js"></script>
-<script src="https://npmcdn.com/systemjs@0.19.31/dist/system.js"></script>
+<script src="https://unpkg.com/zone.js@0.6.12/dist/zone.js"></script>
+<script src="https://unpkg.com/reflect-metadata@0.1.3/Reflect.js"></script>
+<script src="https://unpkg.com/systemjs@0.19.31/dist/system.js"></script>
 <!--
 	<script src="jspm_packages/system.js"></script>
 	<script src="<?= get_stylesheet_directory_uri(); ?>/ng-app/config.js"></script>
