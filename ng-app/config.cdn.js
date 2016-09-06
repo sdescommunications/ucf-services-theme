@@ -64,8 +64,8 @@ System.config({
   },
 
   map: {
-    "@angular": "https://npmcdn.com/@angular",
-    "@angular/router": "https://npmcdn.com/@angular/router",
+    "@angular": "https://unpkg.com/@angular",
+    "@angular/router": "https://unpkg.com/@angular/router",
     "angular/angular": "github:angular/angular@2.0.0-rc.4",
     "app": "",
     "babel": "npm:babel-core@5.8.38",
