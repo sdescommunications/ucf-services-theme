@@ -1,7 +1,8 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
 import { SafeHtml } from "@angular/platform-browser";
 
-import { SearchService } from "app-student-services/search";
+// import { SearchService } from "app-student-services/search";
+import { SearchService } from "../service";
 import { IStudentService } from "app-student-services/interfaces";
 import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
 
@@ -12,14 +13,14 @@ import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
     // templateUrl: "./results._template.php",
     // styleUrls: ["../../scss/_service.scss"],
     // directives: [],
-    pipes: [ UnescapeHtmlPipe ],
+    // pipes: [ UnescapeHtmlPipe ],
 })
 export class SearchResultsComponent {
     @Input() query: string;
     @Input() api: string = "";
     @Input() filters: any = {};
     filterClear = () => jQuery.map( this.filters, (cat) => cat.checked ).every( (x) => 'false' == x )
-    studentServices: IStudentService[] = window.ucf_searchResults_initial;
+    @Input("results") studentServices: IStudentService[] = window.ucf_searchResults_initial;
     errorMessage: string = "";
     isInit: boolean = true;
     isLoading: boolean = false;
