@@ -1,5 +1,5 @@
 System.config({
-  baseURL: configjs.baseURL,
+  baseURL: configjs.baseURL,  // Set configjs.baseURL in calling code, e.g., via wp_localize_script().
   defaultJSExtensions: true,
   transpiler: false,
   babelOptions: {
@@ -9,14 +9,23 @@ System.config({
     ]
   },
   paths: {
+    "unpkg:*": "https://unpkg.com/*",
+    "cdnjs:*": "https://cdnjs.cloudflare.com/ajax/libs/*",
     "github:*": "https://github.jspm.io/*",
     "npm:*": "https://npm.jspm.io/*"
   },
 
   packages: {
     "app": {
-      "main": "main.js",
+      "main": "main",
       "defaultExtension": "js"
+    },
+    "main": {
+      "main": "main",
+      "defaultExtension": "js"
+    },
+    "moment": {
+      "main": "moment.js/2.14.1/moment.js"
     },
     "rxjs": {
       "defaultExtension": "js"
@@ -64,19 +73,27 @@ System.config({
   },
 
   map: {
-    "@angular": "https://unpkg.com/@angular",
-    "@angular/router": "https://unpkg.com/@angular/router",
-    "angular/angular": "github:angular/angular@2.0.0-rc.4",
+    "@angular": "unpkg:@angular",
+    "@angular/common": "unpkg:@angular/common@2.0.0-rc.6",
+    "@angular/compiler": "unpkg:@angular/compiler@2.0.0-rc.6",
+    "@angular/core": "unpkg:@angular/core@2.0.0-rc.6",
+    "@angular/forms": "unpkg:@angular/forms@2.0.0-rc.6",
+    "@angular/http": "unpkg:@angular/http@2.0.0-rc.6",
+    "@angular/platform-browser": "unpkg:@angular/platform-browser@2.0.0-rc.6",
+    "@angular/platform-browser-dynamic": "unpkg:@angular/platform-browser-dynamic@2.0.0-rc.6",
+    "@angular/router": "unpkg:@angular/router",
+    "@angular/upgrade": "unpkg:@angular/upgrade@2.0.0-rc.6",
+    "angular/angular": "github:angular/angular@2.0.0-rc.6",
     "app": "",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@2.4.0",
     "main": "",
-    "ng2-bootstrap": "https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.0.24/ng2-bootstrap.min.js",
-    "moment": "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js",
+    "moment": "cdnjs:moment.js/2.14.1/moment.min.js",
+    "ng2-bootstrap": "cdnjs:ng2-bootstrap/1.1.1/ng2-bootstrap.min.js",
     "reflect-metadata": "npm:reflect-metadata@0.1.3",
-    "rxjs": "npm:rxjs@5.0.0-beta.6",
-    "zone.js": "npm:zone.js@0.6.6",
+    "rxjs": "unpkg:rxjs@5.0.0-beta.11",
+    "zone.js": "npm:zone.js@0.6.17",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },
@@ -87,7 +104,7 @@ System.config({
       "path-browserify": "npm:path-browserify@0.0.0"
     },
     "github:jspm/nodelibs-process@0.1.2": {
-      "process": "npm:process@0.11.5"
+      "process": "npm:process@0.11.9"
     },
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
@@ -95,24 +112,44 @@ System.config({
     "github:jspm/nodelibs-vm@0.1.0": {
       "vm-browserify": "npm:vm-browserify@0.0.4"
     },
-    "npm:@angular/common@2.0.0-rc.4": {
-      "@angular/core": "npm:@angular/core@2.0.0-rc.4",
+    "unpkg:@angular/common@2.0.0-rc.6": {
+      "@angular/core": "unpkg:@angular/core@2.0.0-rc.6"
+    },
+    "unpkg:@angular/compiler@2.0.0-rc.6": {
+      "@angular/core": "unpkg:@angular/core@2.0.0-rc.6",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:@angular/compiler@2.0.0-rc.4": {
-      "@angular/core": "npm:@angular/core@2.0.0-rc.4",
-      "process": "github:jspm/nodelibs-process@0.1.2"
-    },
-    "npm:@angular/core@2.0.0-rc.4": {
+    "unpkg:@angular/core@2.0.0-rc.6": {
       "process": "github:jspm/nodelibs-process@0.1.2",
-      "rxjs": "npm:rxjs@5.0.0-beta.6",
-      "zone.js": "npm:zone.js@0.6.6"
+      "rxjs": "unpkg:rxjs@5.0.0-beta.11",
+      "zone.js": "npm:zone.js@0.6.17"
     },
-    "npm:@angular/forms@0.2.0": {
-      "@angular/common": "npm:@angular/common@2.0.0-rc.4",
-      "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.4",
-      "@angular/core": "npm:@angular/core@2.0.0-rc.4",
+    "unpkg:@angular/forms@2.0.0-rc.6": {
+      "@angular/common": "unpkg:@angular/common@2.0.0-rc.6",
+      "@angular/core": "unpkg:@angular/core@2.0.0-rc.6",
       "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "unpkg:@angular/http@2.0.0-rc.6": {
+      "@angular/core": "unpkg:@angular/core@2.0.0-rc.6",
+      "@angular/platform-browser": "unpkg:@angular/platform-browser@2.0.0-rc.6",
+      "rxjs": "unpkg:rxjs@5.0.0-beta.11"
+    },
+    "unpkg:@angular/platform-browser-dynamic@2.0.0-rc.6": {
+      "@angular/common": "unpkg:@angular/common@2.0.0-rc.6",
+      "@angular/compiler": "unpkg:@angular/compiler@2.0.0-rc.6",
+      "@angular/core": "unpkg:@angular/core@2.0.0-rc.6",
+      "@angular/platform-browser": "unpkg:@angular/platform-browser@2.0.0-rc.6"
+    },
+    "unpkg:@angular/platform-browser@2.0.0-rc.6": {
+      "@angular/common": "unpkg:@angular/common@2.0.0-rc.6",
+      "@angular/core": "unpkg:@angular/core@2.0.0-rc.6",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "unpkg:@angular/upgrade@2.0.0-rc.6": {
+      "@angular/compiler": "unpkg:@angular/compiler@2.0.0-rc.6",
+      "@angular/core": "unpkg:@angular/core@2.0.0-rc.6",
+      "@angular/platform-browser": "unpkg:@angular/platform-browser@2.0.0-rc.6",
+      "@angular/platform-browser-dynamic": "unpkg:@angular/platform-browser-dynamic@2.0.0-rc.6"
     },
     "npm:assert@1.4.1": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
@@ -140,31 +177,25 @@ System.config({
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
-    "npm:ng2-bootstrap@1.0.24": {
-      "@angular/common": "npm:@angular/common@2.0.0-rc.4",
-      "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.4",
-      "@angular/core": "npm:@angular/core@2.0.0-rc.4",
-      "@angular/forms": "npm:@angular/forms@0.2.0",
-      "moment": "npm:moment@2.14.1"
-    },
-    "ng2-bootstrap@1.0.24": {
-      "@angular/common": "npm:@angular/common@2.0.0-rc.4",
-      "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.4",
-      "@angular/core": "npm:@angular/core@2.0.0-rc.4",
-      "@angular/forms": "npm:@angular/forms@0.2.0",
+    "npm:ng2-bootstrap@1.1.1": {
+      "@angular/common": "unpkg:@angular/common@2.0.0-rc.6",
+      "@angular/compiler": "unpkg:@angular/compiler@2.0.0-rc.6",
+      "@angular/core": "unpkg:@angular/core@2.0.0-rc.6",
+      "@angular/forms": "unpkg:@angular/forms@2.0.0-rc.6",
       "moment": "npm:moment@2.14.1"
     },
     "npm:path-browserify@0.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:process@0.11.5": {
+    "npm:process@0.11.9": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "vm": "github:jspm/nodelibs-vm@0.1.0"
     },
-    "npm:rxjs@5.0.0-beta.6": {
+    "unpkg:rxjs@5.0.0-beta.11": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
-      "process": "github:jspm/nodelibs-process@0.1.2"
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "symbol-observable": "npm:symbol-observable@1.0.2"
     },
     "npm:util@0.10.3": {
       "inherits": "npm:inherits@2.0.1",
@@ -173,7 +204,8 @@ System.config({
     "npm:vm-browserify@0.0.4": {
       "indexof": "npm:indexof@0.0.1"
     },
-    "npm:zone.js@0.6.6": {
+    "npm:zone.js@0.6.17": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     }
   }
