@@ -1,4 +1,4 @@
-System.register(["@angular/core", "app-student-services/search", "pipes/unescapeHtml.pipe"], function(exports_1, context_1) {
+System.register(["@angular/core", "../service"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,18 +10,15 @@ System.register(["@angular/core", "app-student-services/search", "pipes/unescape
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, search_1, unescapeHtml_pipe_1;
+    var core_1, service_1;
     var SearchResultsComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (search_1_1) {
-                search_1 = search_1_1;
-            },
-            function (unescapeHtml_pipe_1_1) {
-                unescapeHtml_pipe_1 = unescapeHtml_pipe_1_1;
+            function (service_1_1) {
+                service_1 = service_1_1;
             }],
         execute: function() {
             SearchResultsComponent = (function () {
@@ -89,6 +86,10 @@ System.register(["@angular/core", "app-student-services/search", "pipes/unescape
                     __metadata('design:type', Object)
                 ], SearchResultsComponent.prototype, "filters", void 0);
                 __decorate([
+                    core_1.Input("results"), 
+                    __metadata('design:type', Array)
+                ], SearchResultsComponent.prototype, "studentServices", void 0);
+                __decorate([
                     core_1.Output(), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], SearchResultsComponent.prototype, "resultsChanged", void 0);
@@ -97,15 +98,10 @@ System.register(["@angular/core", "app-student-services/search", "pipes/unescape
                         selector: "ucf-search-results",
                         moduleId: __moduleName,
                         templateUrl: "./results.component.html",
-                        // templateUrl: "./results._template.php",
-                        // styleUrls: ["../../scss/_service.scss"],
-                        // directives: [],
-                        pipes: [unescapeHtml_pipe_1.UnescapeHtmlPipe],
                     }), 
-                    __metadata('design:paramtypes', [(typeof (_a = typeof search_1.SearchService !== 'undefined' && search_1.SearchService) === 'function' && _a) || Object])
+                    __metadata('design:paramtypes', [service_1.SearchService])
                 ], SearchResultsComponent);
                 return SearchResultsComponent;
-                var _a;
             }());
             exports_1("SearchResultsComponent", SearchResultsComponent);
         }

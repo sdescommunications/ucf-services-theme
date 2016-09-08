@@ -3,9 +3,10 @@ import { SafeHtml } from "@angular/platform-browser";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/debounceTime";
 
-// import { TYPEAHEAD_DIRECTIVES } from "ng2-bootstrap";
-import { TYPEAHEAD_DIRECTIVES } from "ng2-bootstrap/ng2-bootstrap";
-// import { TYPEAHEAD_DIRECTIVES } from "ng2-bootstrap/components/typeahead";
+// import { TypeaheadDirective } from "ng2-bootstrap";
+import { TypeaheadDirective } from "ng2-bootstrap/ng2-bootstrap";
+// import { TypeaheadDirective } from 'ng2-bootstrap/components/typeahead';
+// import { TypeaheadDirective } from "ng2-bootstrap/components/typeahead";
 
 import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
 
@@ -14,15 +15,15 @@ import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
     moduleId: __moduleName,
     templateUrl: "./form.component.html",
     // styleUrls: ["../../scss/_search.scss"],
-    directives: [ TYPEAHEAD_DIRECTIVES, ],
-    pipes: [ UnescapeHtmlPipe ],
+    // directives: [ TypeaheadDirective, ],
+    // pipes: [ UnescapeHtmlPipe ],
 })
 export class SearchFormComponent implements OnInit, OnChanges {
     @Input() debounce: number = 350;
     @Input() lead: string = "From orientation to graduation, the UCF experience creates opportunities that last a lifetime. <b>Let's get started</b>";
     @Input() placeholder: string = "What can we help you with today?";
     @Input() action: string = "#";
-    searchSuggestions = window.ucf_searchSuggestions;
+    searchSuggestions = window.ucf_searchSuggestions || {};
     typeaheadLoading: boolean = false;
     typeaheadNoResults: boolean = false;
 

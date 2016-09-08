@@ -56,6 +56,7 @@ abstract class CustomPostType {
 							 // (see also objectsToHTML and toHTML methods).
 	$taxonomies     = array( 'post_tag' ),
 	$menu_icon      = null,
+	$rewrite        = null,  // URL Rewrite - https://codex.wordpress.org/Function_Reference/register_post_type#rewrite
 	$built_in       = false,
 	// Optional default ordering for generic shortcode if not specified by user.
 	$default_orderby = null,
@@ -426,6 +427,7 @@ abstract class CustomPostType {
 		'taxonomies' => $this->options( 'taxonomies' ),
 		'_builtin'   => $this->options( 'built_in' ),
 		'menu_icon'  => $this->options( 'menu_icon' ),
+		'rewrite'  => $this->options( 'rewrite' )
 		);
 		if ( $this->options( 'use_order' ) ) {
 			$registration = array_merge( $registration, array( 'hierarchical' => true ) );

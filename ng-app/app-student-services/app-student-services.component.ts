@@ -24,7 +24,7 @@ export class AppStudentServicesComponent {
     @Input("results") initialResults: IStudentService[] = window.ucf_searchResults_initial;
     @Input() query: string;
     @Input() form: string = "#";
-    @Input() search_lead = window.ucf_search_lead;
+    @Input() search_lead = window.ucf_search_lead || {};
     @Input() search_placeholder = window.ucf_search_placeholder;
     @Input() campaign_primary = window.ucf_campaign_primary;
     @Input() campaign_sidebar = window.ucf_campaign_sidebar;

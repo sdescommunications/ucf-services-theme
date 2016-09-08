@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Input } from "@angular/core";
-import { DomSanitizationService } from "@angular/platform-browser"
+import { DomSanitizer } from "@angular/platform-browser"
 
 @Component({
     selector: "ucf-campaign",
@@ -54,7 +54,7 @@ export class CampaignComponent {
     @Input() btn_text: string;
     @Input() model: any;
 
-    constructor( private sanitizer: DomSanitizationService ) {
+    constructor( private sanitizer: DomSanitizer ) {
         window.ucf_comp_campaign = ( window.ucf_comp_campaign || [] ).concat( this );
     }
 

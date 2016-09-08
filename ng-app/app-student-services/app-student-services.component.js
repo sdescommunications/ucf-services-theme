@@ -40,7 +40,7 @@ System.register(["@angular/core", "rxjs/Rx", "./search", '../calendar/calendar.c
                     this.title = "Student Services";
                     this.initialResults = window.ucf_searchResults_initial;
                     this.form = "#";
-                    this.search_lead = window.ucf_search_lead;
+                    this.search_lead = window.ucf_search_lead || {};
                     this.search_placeholder = window.ucf_search_placeholder;
                     this.campaign_primary = window.ucf_campaign_primary;
                     this.campaign_sidebar = window.ucf_campaign_sidebar;

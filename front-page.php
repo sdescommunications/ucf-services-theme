@@ -27,7 +27,7 @@ $student_services_api = get_rest_url() . 'rest/v1/services/';
 <!-- Polyfill(s) for older browsers -->
 <script src="https://cdn.jsdelivr.net/core-js/2.4.0/shim.min.js" integrity="sha256-iIdcT94SZY9oCsJj8VTkuvshEfKPXRXaA8nT8lCKG5U=" crossorigin="anonymous"></script>
 
-<script src="https://unpkg.com/zone.js@0.6.12/dist/zone.js"></script>
+<script src="https://unpkg.com/zone.js@0.6.17/dist/zone.js"></script>
 <script src="https://unpkg.com/reflect-metadata@0.1.3/Reflect.js"></script>
 <script src="https://unpkg.com/systemjs@0.19.31/dist/system.js"></script>
 <!--
@@ -36,22 +36,19 @@ $student_services_api = get_rest_url() . 'rest/v1/services/';
  -->
 <?php
 	function header_load_scripts() {
+		$baseURL = get_stylesheet_directory_uri() . '/ng-app/';
 		wp_enqueue_script('config-cdn', get_stylesheet_directory_uri() . '/ng-app/config.cdn.js');
 		wp_enqueue_script('config-local', get_stylesheet_directory_uri() . '/ng-app/config.ucf_local.js'); // Set window.ucf_local_config.
-		wp_localize_script('config-cdn', 'configjs', array(
-				'baseURL' => get_stylesheet_directory_uri() . '/ng-app/'
-			));
-		wp_enqueue_script('ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.0.24/ng2-bootstrap.min.js');
-		wp_add_inline_script('config-local', "
-			System.import('main')
+		wp_localize_script('config-cdn', 'configjs', array( 'baseURL' => $baseURL ) );
+		wp_enqueue_script('ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.1.1/ng2-bootstrap.min.js');
+		wp_add_inline_script('config-local',
+			"System.import('" . $baseURL . "/main')
 				  .then(
 				  	function( success ) { },
-				  	function( cdnErr) {
+				  	function( cdnErr ) {
 						// Local fallbacks. See: https://github.com/systemjs/systemjs/issues/986#issuecomment-168422454
-						System.paths = window.ucf_local_config.paths;
-						System.packages = window.ucf_local_config.packages;
-						System.map = window.ucf_local_config.map;
-						System.import('main')
+						System.config(window.ucf_local_config);
+						System.import('" . $baseURL . "/main')
 							  .then(
 							  	function ( success ) { console.info('Successfully loaded from local files after CDN failure: ', cdnErr ); }
 							  , function( err ) {
@@ -59,7 +56,7 @@ $student_services_api = get_rest_url() . 'rest/v1/services/';
 							  	console.error( err );
 							  } );
 				  });"
-		);
+		); // /inline_script
 	}
 	add_action('wp_enqueue_scripts', 'header_load_scripts');
 	

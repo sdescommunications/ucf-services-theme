@@ -1,4 +1,4 @@
-System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime", "ng2-bootstrap/ng2-bootstrap", "pipes/unescapeHtml.pipe"], function(exports_1, context_1) {
+System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime", "
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, Rx_1, ng2_bootstrap_1, unescapeHtml_pipe_1;
+    var core_1, Rx_1;
     var SearchFormComponent;
     return {
         setters:[
@@ -20,13 +20,7 @@ System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime", "
             function (Rx_1_1) {
                 Rx_1 = Rx_1_1;
             },
-            function (_1) {},
-            function (ng2_bootstrap_1_1) {
-                ng2_bootstrap_1 = ng2_bootstrap_1_1;
-            },
-            function (unescapeHtml_pipe_1_1) {
-                unescapeHtml_pipe_1 = unescapeHtml_pipe_1_1;
-            }],
+            function (_1) {}],
         execute: function() {
             SearchFormComponent = (function () {
                 function SearchFormComponent(elementRef) {
@@ -35,7 +29,7 @@ System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime", "
                     this.lead = "From orientation to graduation, the UCF experience creates opportunities that last a lifetime. <b>Let's get started</b>";
                     this.placeholder = "What can we help you with today?";
                     this.action = "#";
-                    this.searchSuggestions = window.ucf_searchSuggestions;
+                    this.searchSuggestions = window.ucf_searchSuggestions || {};
                     this.typeaheadLoading = false;
                     this.typeaheadNoResults = false;
                     this.search = new core_1.EventEmitter();
@@ -99,9 +93,6 @@ System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime", "
                         selector: "ucf-search-form",
                         moduleId: __moduleName,
                         templateUrl: "./form.component.html",
-                        // styleUrls: ["../../scss/_search.scss"],
-                        directives: [ng2_bootstrap_1.TYPEAHEAD_DIRECTIVES,],
-                        pipes: [unescapeHtml_pipe_1.UnescapeHtmlPipe],
                     }), 
                     __metadata('design:paramtypes', [core_1.ElementRef])
                 ], SearchFormComponent);
