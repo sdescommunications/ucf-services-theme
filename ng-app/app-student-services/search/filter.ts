@@ -1,1 +1,1 @@
-export { SearchFilterComponent } from './filter/filter.component';
+export { SearchFilterComponent } from "./filter/filter.component";

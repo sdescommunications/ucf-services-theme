@@ -1,1 +1,1 @@
-export { SearchService } from './service/search.service';
+export { SearchService } from "./service/search.service";

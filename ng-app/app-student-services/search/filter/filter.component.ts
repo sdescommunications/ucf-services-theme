@@ -18,8 +18,8 @@ export class SearchFilterComponent {
 
     constructor( public elementRef: ElementRef ) {
         window.ucf_comp_searchFilter = (window.ucf_comp_searchFilter || []).concat(this);
-        if( null != this.categories) {
-            for(let category of this.categories) {
+        if ( null != this.categories) {
+            for (let category of this.categories) {
                 category["checked"] = false;
             }
         }
@@ -31,12 +31,12 @@ export class SearchFilterComponent {
         let target = <HTMLInputElement>e.target;
         let category: any = target.dataset;
         category["checked"] = target.checked;
-        this.filterChanged.emit( category );  
+        this.filterChanged.emit( category );
     }
 
     hasCategories(): boolean {
-        return null !== this.categories 
-            && 'undefined' != typeof this.categories
+        return null !== this.categories
+            && "undefined" !== typeof this.categories
             && this.categories.length > 0;
     }
 }
@@ -46,8 +46,8 @@ export class SearchFilterComponent {
 // Boilerplate declarations for type-checking and intellisense.
 declare var __moduleName: string;  // Shim for SystemJS/ES6 module identification.
 // Window from tsserver/lib.d.ts
-interface Window_ucf_comp extends Window {
+interface WindowUcfComp extends Window {
     ucf_comp_searchFilter: SearchFilterComponent[];
     ucf_service_categories: IWpCategory[];
 }
-declare var window: Window_ucf_comp;
+declare var window: WindowUcfComp;

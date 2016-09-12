@@ -1,2 +1,2 @@
-export { IStudentService } from './studentservice';
-export { IWpCategory } from './IWpCategory';
+export { IStudentService } from "./studentservice";
+export { IWpCategory } from "./IWpCategory";

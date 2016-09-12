@@ -19,7 +19,7 @@ export class SearchResultsComponent {
     @Input() query: string;
     @Input() api: string = "";
     @Input() filters: any = {};
-    filterClear = () => jQuery.map( this.filters, (cat) => cat.checked ).every( (x) => 'false' == x )
+    filterClear = () => jQuery.map( this.filters, (cat) => cat.checked ).every( (x) => "false" === x )
     @Input("results") studentServices: IStudentService[] = window.ucf_searchResults_initial;
     errorMessage: string = "";
     isInit: boolean = true;
@@ -67,10 +67,10 @@ export class SearchResultsComponent {
     }
 
     shouldFilter( categoryName ): boolean {
-        if ( 'undefined' == typeof categoryName ) { return false; }
+        if ( "undefined" === typeof categoryName ) { return false; }
         return this.filterClear() ||
             ( this.filters[categoryName]
-              && 'true' == this.filters[categoryName].checked );
+              && "true" === this.filters[categoryName].checked );
     }
 }
 
@@ -79,8 +79,8 @@ export class SearchResultsComponent {
 // Boilerplate declarations for type-checking and intellisense.
 declare var __moduleName: string;  // Shim for SystemJS/ES6 module identification.
 // Window from tsserver/lib.d.ts
-interface Window_ucf_comp extends Window {
+interface WindowUcfComp extends Window {
     ucf_comp_searchResults: SearchResultsComponent[];
     ucf_searchResults_initial: IStudentService[];
 }
-declare var window: Window_ucf_comp;
+declare var window: WindowUcfComp;

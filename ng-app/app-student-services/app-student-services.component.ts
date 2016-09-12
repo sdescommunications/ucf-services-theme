@@ -7,8 +7,8 @@ import { Observable } from "rxjs/Observable";
 // import { SearchResultsComponent } from "./search/results";
 // import { SearchService } from "./search/service";
 import { SearchFormComponent, SearchResultsComponent, SearchFilterComponent, SearchService } from "./search";
-import { CalendarEventsComponent } from '../calendar/calendar.component';
-import { CampaignComponent, ICampaignModel } from '../campaign/index';
+import { CalendarEventsComponent } from "../calendar/calendar.component";
+import { CampaignComponent, ICampaignModel } from "../campaign/index";
 import { IStudentService } from "./interfaces";
 
 @Component({
@@ -29,20 +29,20 @@ export class AppStudentServicesComponent {
     @Input() campaign_primary = window.ucf_campaign_primary;
     @Input() campaign_sidebar = window.ucf_campaign_sidebar;
     filters: any = {};
-    noServicesVisible = () => 0 === jQuery('.service:visible').length;
-    filterClear = () => jQuery.map( this.filters, (cat) => cat.checked ).every( (x) => 'false' == x )
+    noServicesVisible = () => 0 === jQuery(".service:visible").length;
+    filterClear = () => jQuery.map( this.filters, (cat) => cat.checked ).every( (x) => "false" === x )
     @ViewChild(SearchResultsComponent) private searchResults: SearchResultsComponent;
 
     // Can't use @Input() (or ng-content) with a root Angular2 element.
     // http://stackoverflow.com/a/33641842 and https://github.com/angular/angular/issues/1858#issuecomment-137696843
     // http://stackoverflow.com/a/32574733
-    constructor( public elementRef: ElementRef, protected _searchService: SearchService, 
+    constructor( public elementRef: ElementRef, protected _searchService: SearchService,
             protected _renderer: Renderer ) {
         let native = this.elementRef.nativeElement;
         this.api = native.getAttribute("[api]");
         this.title = native.getAttribute("[title]");
         this.query = native.getAttribute("[query]");
-        this._renderer.setElementProperty( this.elementRef.nativeElement, 'value', this.query );
+        this._renderer.setElementProperty( this.elementRef.nativeElement, "value", this.query );
         window.ucf_comp_studentServices = ( window.ucf_comp_studentServices || [] ).concat( this );
     }
 
@@ -51,7 +51,7 @@ export class AppStudentServicesComponent {
     onSearch( newSearch: string ): void {
         this.query = newSearch;
     }
- 
+
     // Receive event from onChange and onBlur.
     onSearchChanged( change: Event ): void {
         this.query = (<HTMLInputElement>(change.target)).value;
@@ -77,7 +77,7 @@ export class AppStudentServicesComponent {
 // Boilerplate declarations for type-checking and intellisense.
 declare var __moduleName: string;
 // Window from tsserver/lib.d.ts
-interface Window_ucf extends Window {
+interface WindowUcf extends Window {
     ucf_searchResults_initial: IStudentService[];
     ucf_comp_studentServices: AppStudentServicesComponent[];
     ucf_search_lead: string;
@@ -85,4 +85,4 @@ interface Window_ucf extends Window {
     ucf_campaign_primary: ICampaignModel;
     ucf_campaign_sidebar: ICampaignModel;
 }
-declare var window: Window_ucf;
+declare var window: WindowUcf;

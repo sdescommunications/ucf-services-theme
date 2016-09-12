@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 // import "rxjs/Rx"; // Load all features (uncomment during development for intellisense).
 
-import { ICalendarEvent } from './ICalendarEvent';
+import { ICalendarEvent } from "./ICalendarEvent";
 
 @Injectable()
 export class CalendarService {
@@ -26,8 +26,8 @@ export class CalendarService {
 // Boilerplate declarations for type-checking and intellisense.
 declare var __moduleName: string;
 // Window from tsserver/lib.d.ts
-interface Window_ucf_svc extends Window {
+interface WindowUcfSvc extends Window {
     ucf_svc_calendarService: CalendarService[];
     ucf_calendar_events: ICalendarEvent[];
 }
-declare var window: Window_ucf_svc;
+declare var window: WindowUcfSvc;

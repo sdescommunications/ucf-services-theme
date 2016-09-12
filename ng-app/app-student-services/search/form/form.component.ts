@@ -41,14 +41,14 @@ export class SearchFormComponent implements OnInit, OnChanges {
     ngOnInit(): void {
         jQuery("article>section#search-frontpage").hide();
         // Debounce Tutorial: https://manuel-rauber.com/2015/12/31/debouncing-angular-2-input-component/
-        const debouncedInputStream = Observable.fromEvent( this.elementRef.nativeElement, 'keyup' )
+        const debouncedInputStream = Observable.fromEvent( this.elementRef.nativeElement, "keyup" )
             .map( () => this.frontsearch_query )
             .debounceTime( this.debounce )
             .distinctUntilChanged();
 
         debouncedInputStream.subscribe(input => {
             // Don't unload results if user clears search input.
-            if( "" !== input ) {
+            if ( "" !== input ) {
                 this.frontsearch_query = input;
                 this.search.emit( this.frontsearch_query );
             }
@@ -77,8 +77,8 @@ export class SearchFormComponent implements OnInit, OnChanges {
 
 // Boilerplate declarations for type-checking and intellisense.
 declare var __moduleName: string;
-interface Window_ucf_search_form extends Window { // Window from tsserver/lib.d.ts
+interface WindowUcfSearchForm extends Window { // Window from tsserver/lib.d.ts
     ucf_searchSuggestions: Object;
     ucf_comp_searchForm: any[];
-} 
-declare var window: Window_ucf_search_form;
+}
+declare var window: WindowUcfSearchForm;

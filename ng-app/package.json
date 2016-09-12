@@ -6,7 +6,7 @@
     },
     "test": "echo \"Error: no test specified\" && exit 1",
     "install:global": "npm install -g typescript typings tslint jspm",
-    "tslint": "tslint ./**/*.ts -t verbose",
+    "tslint": "tslint ./**/*.ts -t verbose -c ./tslint.json -e ./**/jspm_packages/** -e ./**/node_modules/** -e ./**/typings/**",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings",

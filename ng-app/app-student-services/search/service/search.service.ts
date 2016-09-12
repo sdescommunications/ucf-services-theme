@@ -58,7 +58,7 @@ export class SearchService {
 // Boilerplate declarations for type-checking and intellisense.
 declare var __moduleName: string;  // Shim for SystemJS/ES6 module identification.
 // Window from tsserver/lib.d.ts
-interface Window_ucf_svc extends Window {
+interface WindowUcfSvc extends Window {
     ucf_svc_searchService: SearchService[];
 }
-declare var window: Window_ucf_svc;
+declare var window: WindowUcfSvc;

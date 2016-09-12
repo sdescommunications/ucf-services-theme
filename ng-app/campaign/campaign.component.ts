@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Input } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser"
+import { DomSanitizer } from "@angular/platform-browser";
 
 import { ICampaignModel } from "./ICampaignModel";
 
@@ -61,7 +61,7 @@ export class CampaignComponent {
     }
 
     ngOnInit() {
-        if( null != this.model ) {
+        if ( null != this.model ) {
             this.image_url = this.model.image_url;
             this.url = this.model.url;
             this.title = this.model.title;
@@ -72,8 +72,8 @@ export class CampaignComponent {
     }
 
     shouldShow(): boolean {
-        if ( "undefined" == typeof this.title || "undefined" == typeof this.btn_text
-            || "" == this.title || "" == this.btn_text ) {
+        if ( "undefined" === typeof this.title || "undefined" === typeof this.btn_text
+            || "" === this.title || "" === this.btn_text ) {
             return false;
         }
         return true;
@@ -85,7 +85,7 @@ export class CampaignComponent {
 // Boilerplate declarations for type-checking and intellisense.
 declare var __moduleName: string;
 // Window from tsserver/lib.d.ts
-interface Window_ucf_comp extends Window {
+interface WindowUcfComp extends Window {
     ucf_comp_campaign: CampaignComponent[];
 }
-declare var window: Window_ucf_comp;
+declare var window: WindowUcfComp;
