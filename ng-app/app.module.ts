@@ -3,7 +3,7 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { FormsModule }   from "@angular/forms";
 import { HttpModule } from "@angular/http";
 
-// import "rxjs/Rx";   // Load all features
+// import "rxjs/Rx"; // Load all features (uncomment during development for intellisense).
 import { TypeaheadModule } from "ng2-bootstrap/ng2-bootstrap";
 
 
@@ -13,7 +13,7 @@ import { CalendarEventsComponent } from './calendar/calendar.component';
 import { CalendarService } from "./calendar/calendar.service";
 import { CampaignComponent } from './campaign/campaign.component';
 // TODO: remove pipe from templates - duplicates functionality from DomSanitizer.
-import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
+import { UnescapeHtmlPipe } from "./pipes/unescapeHtml.pipe";
 
 
 @NgModule({

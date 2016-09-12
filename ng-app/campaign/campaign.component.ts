@@ -1,6 +1,8 @@
 import { Component, OnInit, OnChanges, Input } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser"
 
+import { ICampaignModel } from "./ICampaignModel";
+
 @Component({
     selector: "ucf-campaign",
     moduleId: __moduleName,
@@ -52,14 +54,14 @@ export class CampaignComponent {
     @Input() long: string;
     @Input() short: string;
     @Input() btn_text: string;
-    @Input() model: any;
+    @Input() model: ICampaignModel;
 
     constructor( private sanitizer: DomSanitizer ) {
         window.ucf_comp_campaign = ( window.ucf_comp_campaign || [] ).concat( this );
     }
 
     ngOnInit() {
-        if( null != this.model && "" != this.model ) {
+        if( null != this.model ) {
             this.image_url = this.model.image_url;
             this.url = this.model.url;
             this.title = this.model.title;
@@ -77,3 +79,13 @@ export class CampaignComponent {
         return true;
     }
 }
+
+
+
+// Boilerplate declarations for type-checking and intellisense.
+declare var __moduleName: string;
+// Window from tsserver/lib.d.ts
+interface Window_ucf_comp extends Window {
+    ucf_comp_campaign: CampaignComponent[];
+}
+declare var window: Window_ucf_comp;

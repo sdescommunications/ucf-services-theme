@@ -1,22 +1,22 @@
 import { Component, ElementRef, OnInit, OnChanges,
     Input, EventEmitter, Renderer, ViewChild } from "@angular/core";
-import { HTTP_PROVIDERS } from "@angular/http";
-import "rxjs/Rx";   // Load all features
+import { Observable } from "rxjs/Observable";
+// import "rxjs/Rx";   // Load all features (uncomment during development for intellisense).
 
 // import { SearchFormComponent } from "./search/form";
 // import { SearchResultsComponent } from "./search/results";
 // import { SearchService } from "./search/service";
 import { SearchFormComponent, SearchResultsComponent, SearchFilterComponent, SearchService } from "./search";
 import { CalendarEventsComponent } from '../calendar/calendar.component';
-import { CampaignComponent } from '../campaign/campaign.component';
-import { IStudentService } from "./interfaces/studentservice";
+import { CampaignComponent, ICampaignModel } from '../campaign/index';
+import { IStudentService } from "./interfaces";
 
 @Component({
     selector: "ucf-app-student-services",
     moduleId: __moduleName,
     // template: `${window.ucfAppStudentServices}`, // http://stackoverflow.com/questions/32568808/angular2-root-component-with-ng-content
     templateUrl: "./app-student-services.component.html",
-    directives: [ SearchFormComponent, SearchResultsComponent, SearchFilterComponent, CalendarEventsComponent, CampaignComponent, ],
+    // directives: [ SearchFormComponent, SearchResultsComponent, SearchFilterComponent, CalendarEventsComponent, CampaignComponent, ],
 })
 export class AppStudentServicesComponent {
     @Input() api: string;
@@ -24,7 +24,7 @@ export class AppStudentServicesComponent {
     @Input("results") initialResults: IStudentService[] = window.ucf_searchResults_initial;
     @Input() query: string;
     @Input() form: string = "#";
-    @Input() search_lead = window.ucf_search_lead || {};
+    @Input() search_lead = window.ucf_search_lead || "";
     @Input() search_placeholder = window.ucf_search_placeholder;
     @Input() campaign_primary = window.ucf_campaign_primary;
     @Input() campaign_sidebar = window.ucf_campaign_sidebar;
@@ -72,3 +72,17 @@ export class AppStudentServicesComponent {
     ngOnChanges(): void { }
 }
 
+
+
+// Boilerplate declarations for type-checking and intellisense.
+declare var __moduleName: string;
+// Window from tsserver/lib.d.ts
+interface Window_ucf extends Window {
+    ucf_searchResults_initial: IStudentService[];
+    ucf_comp_studentServices: AppStudentServicesComponent[];
+    ucf_search_lead: string;
+    ucf_search_placeholder: string;
+    ucf_campaign_primary: ICampaignModel;
+    ucf_campaign_sidebar: ICampaignModel;
+}
+declare var window: Window_ucf;

@@ -1,14 +1,18 @@
 import { Component, ElementRef, OnInit, OnChanges, Output, Input, EventEmitter } from "@angular/core";
 import { SafeHtml } from "@angular/platform-browser";
-import { Observable } from "rxjs/Rx";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/observable/fromEvent";
+import "rxjs/add/operator/map";
 import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/distinctUntilChanged";
+// import "rxjs/Rx"; // Load all features (uncomment during development for intellisense).
 
 // import { TypeaheadDirective } from "ng2-bootstrap";
 import { TypeaheadDirective } from "ng2-bootstrap/ng2-bootstrap";
 // import { TypeaheadDirective } from 'ng2-bootstrap/components/typeahead';
 // import { TypeaheadDirective } from "ng2-bootstrap/components/typeahead";
 
-import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
+import { UnescapeHtmlPipe } from "../../../pipes/unescapeHtml.pipe";
 
 @Component({
     selector: "ucf-search-form",
@@ -68,3 +72,13 @@ export class SearchFormComponent implements OnInit, OnChanges {
       this.typeaheadNoResults = e;
     }
 }
+
+
+
+// Boilerplate declarations for type-checking and intellisense.
+declare var __moduleName: string;
+interface Window_ucf_search_form extends Window { // Window from tsserver/lib.d.ts
+    ucf_searchSuggestions: Object;
+    ucf_comp_searchForm: any[];
+} 
+declare var window: Window_ucf_search_form;

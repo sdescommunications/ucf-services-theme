@@ -1,10 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/catch";
+// import "rxjs/Rx"; // Load all features (uncomment during development for intellisense).
 
-import { IStudentService } from "app-student-services/interfaces";
+import { IStudentService } from "../../../app-student-services/interfaces";
 
 @Injectable()
 export class SearchService {
@@ -36,7 +38,7 @@ export class SearchService {
         return Observable.throw( error.json().error || "Server error" );
     }
 
-    private debugInfo( data: JSON, request: string ): void {
+    private debugInfo( data: any, request: string ): void {
         switch ( this.DEBUG ) {
             case 1:
                 console.debug( `GET: ${request}` );
@@ -50,3 +52,13 @@ export class SearchService {
         }
     }
 }
+
+
+
+// Boilerplate declarations for type-checking and intellisense.
+declare var __moduleName: string;  // Shim for SystemJS/ES6 module identification.
+// Window from tsserver/lib.d.ts
+interface Window_ucf_svc extends Window {
+    ucf_svc_searchService: SearchService[];
+}
+declare var window: Window_ucf_svc;

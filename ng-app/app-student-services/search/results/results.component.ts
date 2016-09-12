@@ -3,8 +3,8 @@ import { SafeHtml } from "@angular/platform-browser";
 
 // import { SearchService } from "app-student-services/search";
 import { SearchService } from "../service";
-import { IStudentService } from "app-student-services/interfaces";
-import { UnescapeHtmlPipe } from "pipes/unescapeHtml.pipe";
+import { IStudentService } from "../../../app-student-services/interfaces";
+import { UnescapeHtmlPipe } from "../../../pipes/unescapeHtml.pipe";
 
 @Component({
     selector: "ucf-search-results",
@@ -73,3 +73,14 @@ export class SearchResultsComponent {
               && 'true' == this.filters[categoryName].checked );
     }
 }
+
+
+
+// Boilerplate declarations for type-checking and intellisense.
+declare var __moduleName: string;  // Shim for SystemJS/ES6 module identification.
+// Window from tsserver/lib.d.ts
+interface Window_ucf_comp extends Window {
+    ucf_comp_searchResults: SearchResultsComponent[];
+    ucf_searchResults_initial: IStudentService[];
+}
+declare var window: Window_ucf_comp;

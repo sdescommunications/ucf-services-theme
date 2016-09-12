@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, Input } from "@angular/core";
 import moment from 'moment';
 
 import { CalendarService } from "./calendar.service";
+import { ICalendarEvent } from './ICalendarEvent';
 
 @Component({
     selector: "ucf-calendar-events",
@@ -63,3 +64,14 @@ export class CalendarEventsComponent {
         return moment( event.dtstart ).format( "MMM DD" );
     }
 }
+
+
+
+// Boilerplate declarations for type-checking and intellisense.
+declare var __moduleName: string;
+// Window from tsserver/lib.d.ts
+interface Window_ucf_comp extends Window {
+    ucf_comp_calendar: CalendarEventsComponent[];
+    ucf_calendar_events: ICalendarEvent[];
+}
+declare var window: Window_ucf_comp;
