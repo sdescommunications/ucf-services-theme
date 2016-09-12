@@ -854,6 +854,14 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$permalink_encoded = urlencode( $permalink );
 		$title_encoded = urlencode( $stusvc->post_title );
 		$primary_action_url = SDES_Static::href_prepend_protocols_filter( $metadata_fields['stusvc_primary_action_url'] );
+		$hours_closed =
+			static::HoursAreClosed( $metadata_fields['stusvc_hours_monday_open'], $metadata_fields['stusvc_hours_monday_close'] )
+			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_tuesday_open'], $metadata_fields['stusvc_hours_tuesday_close'] )
+			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_wednesday_open'], $metadata_fields['stusvc_hours_wednesday_close'] )
+			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_thursday_open'], $metadata_fields['stusvc_hours_thursday_close'] )
+			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_friday_open'], $metadata_fields['stusvc_hours_friday_close'] )
+			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_saturday_open'], $metadata_fields['stusvc_hours_saturday_close'] )
+			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_sunday_open'], $metadata_fields['stusvc_hours_sunday_close'] );
 		return array(
 			'permalink' => $permalink,
 			'heading' => $metadata_fields['stusvc_heading_text'],
@@ -874,6 +882,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'email' => $metadata_fields['stusvc_email'],
 			'url' => $metadata_fields['stusvc_url'],
 			'location' => $metadata_fields['stusvc_location'],
+			'hours_closed' => $hours_closed,
 			'hours_monday_open' => $metadata_fields['stusvc_hours_monday_open'],
 			'hours_monday_close' => $metadata_fields['stusvc_hours_monday_close'],
 			'hours_tuesday_open' => $metadata_fields['stusvc_hours_tuesday_open'],
@@ -1147,9 +1156,12 @@ class StudentService extends CustomPostType_ServicesTheme {
 		return $html;
 	}
 
+	public static function HoursAreClosed( $open, $close ) {
+		return SDES_Static::is_null_or_whitespace( $open ) || SDES_Static::is_null_or_whitespace( $close );
+	}
+
 	public static function render_hours_cell( $open, $close ) {
-		if ( SDES_Static::is_null_or_whitespace( $open ) 
-		  || SDES_Static::is_null_or_whitespace( $close ) ) {
+		if ( static::HoursAreClosed( $open, $close ) ) {
 			return "CLOSED";
 		}
 		ob_start();
@@ -1162,6 +1174,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 	}
 
 	public static function render_hours_table( $context ){
+		if( $context['hours_closed'] ) { return '<div class="table-responsive hours"><!-- Closed --></div>'; }
 		ob_start();
 		?>
 			<div class="table-responsive hours">
