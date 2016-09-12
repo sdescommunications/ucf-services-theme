@@ -76,7 +76,11 @@ get_header();
 			<h1 class='title'><?= single_cat_title() ?></h1>
 			<p class='description'><?= category_description() ?></p>
 		  <?php
-			$args = array ( 'post_type' => StudentService::NAME, 'category' => $cat_id );
+			$args = array ( 'post_type' => StudentService::NAME,
+				'category' => $cat_id,
+				'orderby' => 'post_title',
+				'order' => 'ASC',
+			);
 			$category_posts = get_posts( $args );
 			if ( 0 !== count( $category_posts ) ) :
 				foreach( $category_posts as $post ) :	setup_postdata($post); ?>
