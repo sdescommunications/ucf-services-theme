@@ -15,10 +15,10 @@ import { ICampaignModel } from "./ICampaignModel";
                 </div>
                 <div class="col-sm-7 campaign-content">
                     <div class="campaign-title">
-                        <a href="{{ url }}">{{ title }}</a>
+                        <a href="{{ url }}" target="_blank">{{ title }}</a>
                     </div>
                     <p>{{ long }}</p>
-                    <a href="{{ url }}">
+                    <a href="{{ url }}" target="_blank">
                         <span class="btn btn-default btn-lg" type="button">
                             {{ btn_text }}
                         </span>
@@ -30,10 +30,10 @@ import { ICampaignModel } from "./ICampaignModel";
         <div class="campaign" style="background: #f3f3f3;" *ngIf='type == "square"'>
             <div class="campaign-content" *ngIf="shouldShow()">
                 <div class="campaign-title">
-                    <a href="{{ url }}">{{ title }}</a>
+                    <a href="{{ url }}" target="_blank">{{ title }}</a>
                 </div>
                 <p>{{ short }}</p>
-                <a href="{{ url }}">
+                <a href="{{ url }}" target="_blank">
                     <span class="btn btn-default btn-lg" type="button">
                         {{ btn_text }}
                     </span>
