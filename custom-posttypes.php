@@ -389,7 +389,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 	// TODO: create additional_#-* fields programmatically using self::ADDITIONAL_FIELDS_COUNT.
 	// TODO: separate open and close times - create programmatically from an array of days of the week.
 	// TODO: implement by calling a static `get_fields` method (to also be called from get_render_metadata).
-	// TODO: remove spotlight field from StudentService.
 	public function fields() {
 		$prefix = $this->options( 'name' ).'_';
 		/*
@@ -398,7 +397,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_short_description
 		 * student_service_events_cal_feed
 		 * student_service_map_id
-		 * student_service_news_feed
 		 * student_service_gallery_url-flickr
 		 * student_service_additional_1-title
 		 * student_service_additional_1-url
@@ -418,7 +416,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_image
 		 * student_service_primary_action
 		 * student_service_primary_url
-		 * student_service_spotlight
 		 * student_service_phone
 		 * student_service_email
 		 * student_service_url
@@ -476,12 +473,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'name'  => 'UCF Map ID',
 				'descr' => 'The UCF Map ID from map.ucf.edu.',
 				'id'    => $prefix.'map_id',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'News Feed (RSS or XML)',
-				'descr' => 'A news feed to display for this service.',
-				'id'    => $prefix.'news_feed',
 				'type'  => 'text',
 			),
 			array(
@@ -597,12 +588,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'descr' => 'Link to a website, a phone number, or an email.',
 				'id'    => $prefix.'primary_action_url',
 				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Spotlight',
-				'descr' => 'Select a spotlight.',
-				'id'    => $prefix.'spotlight',
-				'type'  => 'spotlight',
 			),
 			array(
 				'name'  => 'Phone',
@@ -812,7 +797,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 
 		$metadata_fields['stusvc_primary_action']  = get_post_meta( $stusvc->ID, 'student_service_primary_action', true );
 		$metadata_fields['stusvc_primary_action_url']  = get_post_meta( $stusvc->ID, 'student_service_primary_action_url', true );
-		$metadata_fields['stusvc_spotlight']       = get_post_meta( $stusvc->ID, 'student_service_spotlight', true );
 		$metadata_fields['stusvc_phone']           = get_post_meta( $stusvc->ID, 'student_service_phone', true );
 		$metadata_fields['stusvc_email']           = get_post_meta( $stusvc->ID, 'student_service_email', true );
 		$metadata_fields['stusvc_url']             = get_post_meta( $stusvc->ID, 'student_service_url', true );
@@ -842,7 +826,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$metadata_fields['stusvc_social_flickr']  = get_post_meta( $stusvc->ID, 'student_service_social_flickr', true );
 		$metadata_fields['stusvc_events_cal_feed']   = get_post_meta( $stusvc->ID, 'student_service_events_cal_feed', true );
 		$metadata_fields['stusvc_map_id']           = get_post_meta( $stusvc->ID, 'student_service_map_id', true );
-		$metadata_fields['stusvc_news_feed']       = get_post_meta( $stusvc->ID, 'student_service_news_feed', true );
 		return $metadata_fields;
 	}
 
@@ -887,7 +870,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'image_thumbnail_src' => $metadata_fields['stusvc_image_thumbnail_src'],
 			'primary_action' => $metadata_fields['stusvc_primary_action'],
 			'primary_action_url' => $primary_action_url,
-			'spotlight' => $metadata_fields['stusvc_spotlight'],
 			'phone' => $metadata_fields['stusvc_phone'],
 			'email' => $metadata_fields['stusvc_email'],
 			'url' => $metadata_fields['stusvc_url'],
@@ -917,7 +899,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'social_flickr' => $metadata_fields['stusvc_social_flickr'],
 	 		'events_cal_feed' => $metadata_fields['stusvc_events_cal_feed'],
 	 		'map_id' => $metadata_fields['stusvc_map_id'],
-			'news_feed' => $metadata_fields['stusvc_news_feed'],
 			'tag_cloud' => $taxonomies,
 			'share_facebook' => "https://www.facebook.com/sharer.php?u={$permalink_encoded}",
 			'share_twitter' => "https://twitter.com/intent/tweet?text={$title_encoded}&url={$permalink_encoded}&via=" . ($metadata_fields['stusvc_social_twitter'] ?: 'UCF'),
@@ -1049,7 +1030,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 								echo self::render_events_calendar( $context ); 
 							?>
 							<?= '<!-- Map -->' //self::render_map( $context ); ?>
-							<?= '<!-- News Feed -->' //self::render_news_feed( $context ); ?>
 							<?= self::render_tag_cloud( $context ) ?>
 						</div>
 					</div>
@@ -1324,16 +1304,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 		ob_start();
 		?>
 				<div class="map_id"><?= $context['map_id'] ?></div>
-				<hr>
-		<?php
-		$html = ob_get_clean();
-		return $html;
-	}
-
-	public static function render_news_feed( $context ){
-		ob_start();
-		?>
-				<div class="news_feed"><?= $context['news_feed'] ?></div>
 				<hr>
 		<?php
 		$html = ob_get_clean();
