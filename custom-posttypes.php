@@ -1030,6 +1030,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 							<?= self::render_hours_table( $context ) ?>
 							<?= self::render_social_buttons( $context ) ?>
 							<?php
+							if( $context['events_cal_feed'] ) {
 								$max_events = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_max_items', 4 );
 								$context['events']  = array_reverse( FeedManager::get_items( $context['events_cal_feed'] ) );
 								$context['events']  = array_slice( $context['events'], 0, $max_events );
@@ -1037,6 +1038,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 								$context['more_events'] = UcfEventModel::more_link();
 								$context['events_cal_title'] = 'Events Calendar';
 								echo self::render_events_calendar( $context ); 
+							} else { echo '<div class="calendar-events" style="display: none;"></div>'; }
 							?>
 							<?= '<!-- Map -->' //self::render_map( $context ); ?>
 							<?= self::render_tag_cloud( $context ) ?>
