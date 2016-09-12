@@ -1,4 +1,4 @@
-System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime"], function(exports_1, context_1) {
+System.register(["@angular/core", "rxjs/Observable", "rxjs/add/observable/fromEvent", "rxjs/add/operator/map", "rxjs/add/operator/debounceTime", "rxjs/add/operator/distinctUntilChanged"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,17 +10,20 @@ System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime"], 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, Rx_1;
+    var core_1, Observable_1;
     var SearchFormComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (Rx_1_1) {
-                Rx_1 = Rx_1_1;
+            function (Observable_1_1) {
+                Observable_1 = Observable_1_1;
             },
-            function (_1) {}],
+            function (_1) {},
+            function (_2) {},
+            function (_3) {},
+            function (_4) {}],
         execute: function() {
             SearchFormComponent = (function () {
                 function SearchFormComponent(elementRef) {
@@ -39,7 +42,7 @@ System.register(["@angular/core", "rxjs/Rx", "rxjs/add/operator/debounceTime"], 
                     var _this = this;
                     jQuery("article>section#search-frontpage").hide();
                     // Debounce Tutorial: https://manuel-rauber.com/2015/12/31/debouncing-angular-2-input-component/
-                    var debouncedInputStream = Rx_1.Observable.fromEvent(this.elementRef.nativeElement, 'keyup')
+                    var debouncedInputStream = Observable_1.Observable.fromEvent(this.elementRef.nativeElement, "keyup")
                         .map(function () { return _this.frontsearch_query; })
                         .debounceTime(this.debounce)
                         .distinctUntilChanged();

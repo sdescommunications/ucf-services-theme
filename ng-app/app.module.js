@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/platform-browser', "@angular/forms", "@angular/http", "ng2-bootstrap/ng2-bootstrap", "./app-student-services/app-student-services.component", "./app-student-services/search", './calendar/calendar.component', "./calendar/calendar.service", './campaign/campaign.component', "pipes/unescapeHtml.pipe"], function(exports_1, context_1) {
+System.register(["@angular/core", "@angular/platform-browser", "@angular/forms", "@angular/http", "ng2-bootstrap/ng2-bootstrap", "./app-student-services/app-student-services.component", "./app-student-services/search", "./calendar/calendar.component", "./calendar/calendar.service", "./campaign/campaign.component", "./pipes/unescapeHtml.pipe"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {

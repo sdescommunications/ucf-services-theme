@@ -28,7 +28,7 @@ System.register(["@angular/core", "@angular/platform-browser"], function(exports
                     window.ucf_comp_campaign = (window.ucf_comp_campaign || []).concat(this);
                 }
                 CampaignComponent.prototype.ngOnInit = function () {
-                    if (null != this.model && "" != this.model) {
+                    if (null != this.model) {
                         this.image_url = this.model.image_url;
                         this.url = this.model.url;
                         this.title = this.model.title;
@@ -38,8 +38,8 @@ System.register(["@angular/core", "@angular/platform-browser"], function(exports
                     }
                 };
                 CampaignComponent.prototype.shouldShow = function () {
-                    if ("undefined" == typeof this.title || "undefined" == typeof this.btn_text
-                        || "" == this.title || "" == this.btn_text) {
+                    if ("undefined" === typeof this.title || "undefined" === typeof this.btn_text
+                        || "" === this.title || "" === this.btn_text) {
                         return false;
                     }
                     return true;
@@ -83,10 +83,9 @@ System.register(["@angular/core", "@angular/platform-browser"], function(exports
                         // templateUrl: "./campaign.component.html",
                         template: "<div class=\"container-fluid\" *ngIf='type == \"rectangle\"'>\n            <div class=\"row campaign\" *ngIf=\"shouldShow()\">\n                <div class=\"col-sm-5 campaign-image\">\n                    <img [src]=\"image_url\">\n                </div>\n                <div class=\"col-sm-7 campaign-content\">\n                    <div class=\"campaign-title\">\n                        <a href=\"{{ url }}\">{{ title }}</a>\n                    </div>\n                    <p>{{ long }}</p>\n                    <a href=\"{{ url }}\">\n                        <span class=\"btn btn-default btn-lg\" type=\"button\">\n                            {{ btn_text }}\n                        </span>\n                    </a>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"campaign\" style=\"background: #f3f3f3;\" *ngIf='type == \"square\"'>\n            <div class=\"campaign-content\" *ngIf=\"shouldShow()\">\n                <div class=\"campaign-title\">\n                    <a href=\"{{ url }}\">{{ title }}</a>\n                </div>\n                <p>{{ short }}</p>\n                <a href=\"{{ url }}\">\n                    <span class=\"btn btn-default btn-lg\" type=\"button\">\n                        {{ btn_text }}\n                    </span>\n                </a>\n            </div>\n        </div>\n        <span class=\"campaign-invalid\" *ngIf=\"!shouldShow()\"><!-- Invalid Campaign --></span>\n        ",
                     }), 
-                    __metadata('design:paramtypes', [(typeof (_a = typeof platform_browser_1.DomSanitizer !== 'undefined' && platform_browser_1.DomSanitizer) === 'function' && _a) || Object])
+                    __metadata('design:paramtypes', [platform_browser_1.DomSanitizer])
                 ], CampaignComponent);
                 return CampaignComponent;
-                var _a;
             }());
             exports_1("CampaignComponent", CampaignComponent);
         }

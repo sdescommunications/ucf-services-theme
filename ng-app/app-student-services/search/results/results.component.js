@@ -27,7 +27,7 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                     this._searchService = _searchService;
                     this.api = "";
                     this.filters = {};
-                    this.filterClear = function () { return jQuery.map(_this.filters, function (cat) { return cat.checked; }).every(function (x) { return 'false' == x; }); };
+                    this.filterClear = function () { return jQuery.map(_this.filters, function (cat) { return cat.checked; }).every(function (x) { return "false" === x; }); };
                     this.studentServices = window.ucf_searchResults_initial;
                     this.errorMessage = "";
                     this.isInit = true;
@@ -66,12 +66,12 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                     this.resultsChanged.emit({ query: this.query, results: this.studentServices });
                 };
                 SearchResultsComponent.prototype.shouldFilter = function (categoryName) {
-                    if ('undefined' == typeof categoryName) {
+                    if ("undefined" === typeof categoryName) {
                         return false;
                     }
                     return this.filterClear() ||
                         (this.filters[categoryName]
-                            && 'true' == this.filters[categoryName].checked);
+                            && "true" === this.filters[categoryName].checked);
                 };
                 __decorate([
                     core_1.Input(), 

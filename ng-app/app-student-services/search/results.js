@@ -1,4 +1,4 @@
-System.register(['./results/results.component'], function(exports_1, context_1) {
+System.register(["./results/results.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     return {

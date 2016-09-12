@@ -1,4 +1,4 @@
-System.register(['@angular/platform-browser-dynamic', './app.module'], function(exports_1, context_1) {
+System.register(["@angular/platform-browser-dynamic", "./app.module"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var platform_browser_dynamic_1, app_module_1;
@@ -15,7 +15,7 @@ System.register(['@angular/platform-browser-dynamic', './app.module'], function(
                 .then(function (comp_ref) {
                 window.ucf_app_comp_ref = comp_ref;
                 window.ucf_app_instance = comp_ref.instance;
-                // window.ucf_app_instance = window.ng.probe( document.getElementsByTagName('ucf-app-student-services'[0] ).componentInstance;
+                // window.ucf_app_instance = window.ng.probe( document.getElementsByTagName("ucf-app-student-services"[0] ).componentInstance;
             })
                 .catch(function (err) { return console.error(err); });
         }

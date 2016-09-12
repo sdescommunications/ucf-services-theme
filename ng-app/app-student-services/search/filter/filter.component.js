@@ -1,4 +1,4 @@
-System.register(["@angular/core", "pipes/unescapeHtml.pipe"], function(exports_1, context_1) {
+System.register(["@angular/core"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,12 @@ System.register(["@angular/core", "pipes/unescapeHtml.pipe"], function(exports_1
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, unescapeHtml_pipe_1;
+    var core_1;
     var SearchFilterComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (unescapeHtml_pipe_1_1) {
-                unescapeHtml_pipe_1 = unescapeHtml_pipe_1_1;
             }],
         execute: function() {
             SearchFilterComponent = (function () {
@@ -36,13 +33,14 @@ System.register(["@angular/core", "pipes/unescapeHtml.pipe"], function(exports_1
                 }
                 SearchFilterComponent.prototype.ngOnChanges = function (changes) { };
                 SearchFilterComponent.prototype.onFilterChanged = function (e) {
-                    var category = e.target.dataset;
-                    category["checked"] = e.target.checked;
+                    var target = e.target;
+                    var category = target.dataset;
+                    category["checked"] = target.checked;
                     this.filterChanged.emit(category);
                 };
                 SearchFilterComponent.prototype.hasCategories = function () {
-                    return;
-                    null !== this.categories && 'undefined' != typeof this.categories
+                    return null !== this.categories
+                        && "undefined" !== typeof this.categories
                         && this.categories.length > 0;
                 };
                 __decorate([
@@ -54,9 +52,6 @@ System.register(["@angular/core", "pipes/unescapeHtml.pipe"], function(exports_1
                         selector: "ucf-search-filter",
                         moduleId: __moduleName,
                         templateUrl: "./filter.component.html",
-                        // styleUrls: ["../../scss/_search.scss"],
-                        // directives: [ TYPEAHEAD_DIRECTIVES, ],
-                        pipes: [unescapeHtml_pipe_1.UnescapeHtmlPipe],
                     }), 
                     __metadata('design:paramtypes', [core_1.ElementRef])
                 ], SearchFilterComponent);

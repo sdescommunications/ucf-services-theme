@@ -1,4 +1,4 @@
-System.register(["@angular/core", 'moment', "./calendar.service"], function(exports_1, context_1) {
+System.register(["@angular/core", "moment", "./calendar.service"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -29,11 +29,11 @@ System.register(["@angular/core", 'moment', "./calendar.service"], function(expo
                     this._calendarService = _calendarService;
                     this.title = "Academic Calendar";
                     this.events = window.ucf_calendar_events; // = [
-                    //  { summary: 'An Event', url: '#', dtstart: '2016-07-01 00:00:00Z' },
-                    //  { summary: 'Another Event', url: '#', dtstart: '2017-01-01 00:00:00Z' },
+                    //  { summary: "An Event", url: "#", dtstart: "2016-07-01 00:00:00Z" },
+                    //  { summary: "Another Event", url: "#", dtstart: "2017-01-01 00:00:00Z" },
                     // ];
-                    this.moreEventsLink = '#';
-                    this.moreEventsText = 'More Events ›';
+                    this.moreEventsLink = "#";
+                    this.moreEventsText = "More Events ›";
                     this.errorMessage = "";
                     window.ucf_comp_calendar = (window.ucf_comp_calendar || []).concat(this);
                 }
@@ -43,7 +43,7 @@ System.register(["@angular/core", 'moment', "./calendar.service"], function(expo
                         .subscribe(function (event) { _this.events.concat(event); }, function (error) { _this.errorMessage = error; });
                 };
                 CalendarEventsComponent.prototype.hasEvents = function () {
-                    return 'undefined' != typeof this.events && this.events && this.events.length > 0;
+                    return "undefined" !== typeof this.events && this.events && this.events.length > 0;
                 };
                 CalendarEventsComponent.prototype.month_day = function (event) {
                     return moment_1.default(event.dtstart).format("MMM DD");

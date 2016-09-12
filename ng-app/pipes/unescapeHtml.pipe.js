@@ -75,7 +75,7 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                 return UnescapeHtmlPipe;
             }());
             exports_1("UnescapeHtmlPipe", UnescapeHtmlPipe);
-            window.ucf_pipe_unescapeHtml = UnescapeHtmlPipe;
+            window.ucf_pipe_unescapeHtml = new UnescapeHtmlPipe();
         }
     }
 });

@@ -79,7 +79,6 @@ System.config({
     "@angular/http": "npm:@angular/http@2.0.0-rc.6",
     "@angular/platform-browser": "npm:@angular/platform-browser@2.0.0-rc.6",
     "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.0.0-rc.6",
-    "@angular/platform-browser-dynamic@2.0.0-rc.6": "npm:@angular/platform-browser-dynamic@2.0.0-rc.6",
     "@angular/router": "npm:@angular/router",
     "@angular/upgrade": "npm:@angular/upgrade@2.0.0-rc.6",
     "angular/angular": "github:angular/angular@2.0.0-rc.6",
