@@ -95,14 +95,14 @@ class Page extends CustomPostType_ServicesTheme {
 				'name'  => 'Campaig - Primary',
 				'descr' => 'Select a primary campaign.',
 				'id'    => $prefix.'campaign_primary',
-				'type'  => 'spotlight',
+				'type'  => 'campaign',
 			),
 
 			array(
 				'name'  => 'Campaign - Sidebar',
 				'descr' => 'Select a sidebar campaign.',
 				'id'    => $prefix.'campaign_sidebar',
-				'type'  => 'spotlight',
+				'type'  => 'campaign',
 			),
 			array(
 				'name'  => 'Icon Link 1',
@@ -128,19 +128,19 @@ class Page extends CustomPostType_ServicesTheme {
 
 
 /**
- * Spotlight - a box with text and a background image or a solid background color.
+ * Campaign - a box with text and a background image or a solid background color.
  *
  * @see https://github.com/UCF/Students-Theme/blob/master/custom-post-types.php#L617-L710
  */
-class Spotlight extends CustomPostType {
-	const NAME = 'spotlight';
+class Campaign extends CustomPostType {
+	const NAME = 'campaign';
 	public
-		$name           = 'spotlight',
-		$plural_name    = 'Spotlights',
-		$singular_name  = 'Spotlight',
-		$add_new_item   = 'Add New Spotlight',
-		$edit_item      = 'Edit Spotlight',
-		$new_item       = 'New Spotlight',
+		$name           = 'campaign',
+		$plural_name    = 'Campaigns',
+		$singular_name  = 'Campaign',
+		$add_new_item   = 'Add New Campaign',
+		$edit_item      = 'Edit Campaign',
+		$new_item       = 'New Campaign',
 		$public         = True,
 		$use_editor     = False,
 		$use_thumbnails = True,
@@ -199,18 +199,18 @@ class Spotlight extends CustomPostType {
 		);
 	}
 
-	public static function get_render_context ( $spotlight, $metadata_fields = null ) {
-		$image_url = has_post_thumbnail( $spotlight->ID ) ?
-			wp_get_attachment_image_src( get_post_thumbnail_id( $spotlight->ID ), 'spotlight' ) :
+	public static function get_render_context ( $campaign, $metadata_fields = null ) {
+		$image_url = has_post_thumbnail( $campaign->ID ) ?
+			wp_get_attachment_image_src( get_post_thumbnail_id( $campaign->ID ), 'campaign' ) :
 			null;
 		if ( $image_url ) {
 			$image_url = $image_url[0];
 		}
-		$url = get_post_meta( $spotlight->ID, 'spotlight_url', true );
-		$title_color = get_post_meta( $spotlight->ID, 'spotlight_text_color', true );
-		$btn_background = get_post_meta( $spotlight->ID, 'spotlight_btn_background', true );
-		$btn_foreground = get_post_meta( $spotlight->ID, 'spotlight_btn_foreground', true );
-		$btn_text = get_post_meta( $spotlight->ID, 'spotlight_btn_text', true );
+		$url = get_post_meta( $campaign->ID, 'campaign_url', true );
+		$title_color = get_post_meta( $campaign->ID, 'campaign_text_color', true );
+		$btn_background = get_post_meta( $campaign->ID, 'campaign_btn_background', true );
+		$btn_foreground = get_post_meta( $campaign->ID, 'campaign_btn_foreground', true );
+		$btn_text = get_post_meta( $campaign->ID, 'campaign_btn_text', true );
 		$btn_styles = array();
 		if ( $btn_background ) : $btn_styles[] = 'background: '.$btn_background; endif;
 		if ( $btn_foreground ) : $btn_styles[] = 'color: '.$btn_foreground; endif;
@@ -220,10 +220,10 @@ class Spotlight extends CustomPostType {
 			'url' => $url,
 			'image_id' => null,
 			'image_url' => $image_url,
-			'image_alt' => $spotlight->post_title,
-			'title' => $spotlight->post_title,
-			'long' => get_post_meta( $spotlight->ID, 'spotlight_long', true ),
-			'short' => get_post_meta( $spotlight->ID, 'spotlight_short', true ),
+			'image_alt' => $campaign->post_title,
+			'title' => $campaign->post_title,
+			'long' => get_post_meta( $campaign->ID, 'campaign_long', true ),
+			'short' => get_post_meta( $campaign->ID, 'campaign_short', true ),
 			'title_color' => $title_color,
 			'btn_text' => $btn_text,
 			'btn_styles' => $btn_styles,
@@ -240,7 +240,7 @@ class Spotlight extends CustomPostType {
 	}
 
 	/**
-	 * Render the HTML template for listing a spotlight.
+	 * Render the HTML template for listing a campaign.
 	 * Expected properties:
 	 * $context - url, image_url, image_alt, title, title_color, btn_text, btn_styles.
 	 */
@@ -250,7 +250,7 @@ class Spotlight extends CustomPostType {
 			: '';
 		ob_start();
 		?>
-			<a class="spotlight" href="<?= $context->url ?>" target="_blank">
+			<a class="campaign-spotlight" href="<?= $context->url ?>" target="_blank">
 				<img src="<?= $context->image_url ?>" alt="<?= $context->image_alt ?>">
 			  <?php if ( $context->title ) : ?>
 				<h2 style="<?= $context->style ?>">
@@ -1021,7 +1021,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 				<div class="col-md-4 col-md-push-8 side-bar">
 					<div class="row">
 						<div class="col-xs-12" style="margin-bottom: 30px;">
-							<?= self::render_spotlight( $context ) ?>
+							<?= self::render_campaign( $context ) ?>
 						</div>
 					</div>
 					<div class="row">
@@ -1088,7 +1088,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		return $html;
 	}
 
-	public static function render_spotlight( $context ){
+	public static function render_campaign( $context ){
 		$btn_text = $context['primary_action'];
 		$btn_icon = '';
 		$primaryActionIsMailTo = preg_match( '/^mailto:/', $context['primary_action_url'] );
@@ -1100,7 +1100,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 				? "<span class='fa {$btn_icon}'></span> " . $btn_text
 				: $btn_text;
 
-		$service_spotlight_context = (object) array(
+		$service_campaign_context = (object) array(
 			'url' => $context['primary_action_url'],
 			'image_url' => $context['image_thumbnail_src'],
 			'image_alt' => $context['image_alt'],
@@ -1111,7 +1111,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		);
 		ob_start();
 		?>
-			<?= Spotlight::render_to_html( $service_spotlight_context ); ?>
+			<?= Campaign::render_to_html( $service_campaign_context ); ?>
 		<?php
 		$html = ob_get_clean();
 		return $html;
@@ -1355,7 +1355,7 @@ function register_custom_posttypes() {
 		__NAMESPACE__.'\Post',
 		__NAMESPACE__.'\Page',
 		__NAMESPACE__.'\StudentService',
-		__NAMESPACE__.'\Spotlight',
+		__NAMESPACE__.'\Campaign',
 		__NAMESPACE__.'\IconLink',
 	));
 }

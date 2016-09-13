@@ -23,7 +23,7 @@ export interface IStudentService {
     image_thumbnail_src: string;
     primary_action: string;
     primary_action_url: string;
-    spotlight: string;
+    campaign: string;
     phone: string;
     email: string;
     url: string;

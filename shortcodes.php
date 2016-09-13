@@ -363,9 +363,9 @@ class sc_callout extends ShortcodeBase {
 
 
 require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
-	use SDES\ServicesTheme\PostTypes\Spotlight;
+	use SDES\ServicesTheme\PostTypes\Campaign;
 /**
- * [call_to_action] - A square "Call to Action" box (aka, Spotlight).
+ * [call_to_action] - A square "Call to Action" box (aka, Campaign).
  *
  * @see https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/shortcodes.php#L113-160
  */
@@ -389,7 +389,7 @@ class sc_call_to_action extends ShortcodeBase {
 		$this->params[0]['choices'] = $this->get_choices();
 	}
 	private function get_choices() {
-		$posts = get_posts( array( 'post_type' => 'spotlight' ) );
+		$posts = get_posts( array( 'post_type' => 'campaign' ) );
 		$retval = array( array( 'name' => '--- Choose ---', 'value' => null ) );
 		foreach( $posts as $post ) {
 			$retval[] = array(
@@ -407,7 +407,7 @@ class sc_call_to_action extends ShortcodeBase {
 		ob_start();
 		if ( $attr['cta_id'] ) {
 			$post = get_post( $attr['cta_id'] );
-			echo Spotlight::toHTML( $post );
+			echo Campaign::toHTML( $post );
 		}
 		return ob_get_clean();
 	}
@@ -420,9 +420,9 @@ class sc_campaign extends ShortcodeBase {
 		$description = 'Display a campaign.', // The description of the shortcode.
 		$params      = array(
 			array(
-				'name'      => 'Spotlight Object',
-				'id'        => 'spotlight_id',
-				'help_text' => 'Choose the spotlight to display.',
+				'name'      => 'Campaign Object',
+				'id'        => 'campaign_id',
+				'help_text' => 'Choose the campaign to display.',
 				'type'      => 'dropdown',
 				'choices'   => array()
 			),
@@ -472,7 +472,7 @@ class sc_campaign extends ShortcodeBase {
 	}
 
 	private function get_choices() {
-		$posts = get_posts( array( 'post_type' => 'spotlight' ) );
+		$posts = get_posts( array( 'post_type' => 'campaign' ) );
 		$retval = array( array( 'name' => '--- Choose ---', 'value' => null ) );
 		foreach( $posts as $post ) {
 			$retval[] = array(
@@ -485,7 +485,7 @@ class sc_campaign extends ShortcodeBase {
 
 	public static function callback( $attr, $content='' ) {
 		$attr = shortcode_atts( array(
-				'spotlight_id' => null,
+				'campaign_id' => null,
 				'image_id' => '',
 				'image_url' => '',
 				'url' => '',
@@ -497,9 +497,9 @@ class sc_campaign extends ShortcodeBase {
 			), $attr
 		);
 		$context = null;
-		if ( ! SDES_Static::is_null_or_whitespace( $attr['spotlight_id'] ) ) {
-			$post = get_post( $attr['spotlight_id'] );
-			$context = (object) Spotlight::get_render_context( $post );
+		if ( ! SDES_Static::is_null_or_whitespace( $attr['campaign_id'] ) ) {
+			$post = get_post( $attr['campaign_id'] );
+			$context = (object) Campaign::get_render_context( $post );
 		} else {
 			$context = (object) array(
 				'image_id' => $attr['image_id'],

@@ -7,7 +7,7 @@ require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
 	use SDES\WeatherBox;
 
 require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
-	use SDES\ServicesTheme\PostTypes\Spotlight;
+	use SDES\ServicesTheme\PostTypes\Campaign;
 	use SDES\ServicesTheme\PostTypes\StudentService;
 
 require_once( get_stylesheet_directory() . '/footer-settings.php' );
@@ -125,8 +125,8 @@ get_header();
 				<div class="row">
 					<div class="col-xs-12">
 					<?php
-						$spotlight_id = get_post_meta( $post->ID, 'page_spotlight', true );
-						echo do_shortcode( "[campaign spotlight_id='{$spotlight_id}' layout='square']" );
+						$campaign_id = get_post_meta( $post->ID, 'page_campaign', true );
+						echo do_shortcode( "[campaign campaign_id='{$campaign_id}' layout='square']" );
 					?>
 					</div>
 				</div>

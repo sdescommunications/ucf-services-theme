@@ -10,7 +10,7 @@ require_once( get_stylesheet_directory() . '/functions/rest-api.php' );
 	use SDES\ServicesTheme\API;
 
 require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
-	use SDES\ServicesTheme\PostTypes\Spotlight;
+	use SDES\ServicesTheme\PostTypes\Campaign;
 
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static;
@@ -73,8 +73,8 @@ get_header();
 	$json_services = json_encode( $services_contexts );
 	$search_suggestions = API\route_services_titles();
 	$categories = API\route_categories();
-	$campaign_primary = Spotlight::get_render_context( get_post( get_post_meta( $post->ID, 'page_campaign_primary', true ) ) );
-	$campaign_sidebar = Spotlight::get_render_context( get_post( get_post_meta( $post->ID, 'page_campaign_sidebar', true ) ) );
+	$campaign_primary = Campaign::get_render_context( get_post( get_post_meta( $post->ID, 'page_campaign_primary', true ) ) );
+	$campaign_sidebar = Campaign::get_render_context( get_post( get_post_meta( $post->ID, 'page_campaign_sidebar', true ) ) );
 ?>
 	window.ucf_searchResults_initial = <?= $json_services ?>;
 	window.ucf_searchSuggestions = <?= json_encode( $search_suggestions ) ?>;
