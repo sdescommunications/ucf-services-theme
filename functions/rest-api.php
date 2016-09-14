@@ -38,6 +38,12 @@ function register_routes() {
 		'callback' => __NAMESPACE__ . '\route_services_titles',
 	) );
 
+	// ~/wp-json/rest/v1/services/summary
+	register_rest_route( 'rest/v1', '/services/summary', array(
+		'methods'  => 'GET',
+		'callback' => __NAMESPACE__ . '\route_services_summary',
+	) );
+
 	// ~/wp-json/rest/v1/services
 	register_rest_route( 'rest/v1', '/services/', array(
 		'methods'  => 'GET',
@@ -82,15 +88,9 @@ function route_categories( $request = null ) {
  */
 function route_services_titles( $request = null ) {
 	if ( null === $request ) { $request = new \WP_REST_Request(); }
-	$args = array(
-		'post_type' => StudentService::NAME,
-		'post_status' => array('publish'),
-		'posts_per_page' => -1,  // TODO: determine reasonable limit, implement pagination.
-		'orderby' => 'title',
-		'order' => 'ASC',
-	);
+	$args = route_services_default_args_for( $request );
 	$services = new \WP_Query( $args );
-	// Loop through queried posts and get a render context for each matching post.
+	// Loop through queried posts and get a title for each matching post.
 	$retval = null;
 	while ( $services->have_posts() ) {
 		$services->the_post();
@@ -111,6 +111,34 @@ function route_services_slug( $request = null ) {
 }
 
 /**
+ * ~/wp-json/rest/v1/services/summary
+ * Return search results that summarize student services.
+ * @see https://developer.wordpress.org/reference/classes/wp_rest_request/ WP-Ref: WP_REST_Request class
+ * @see http://codex.wordpress.org/Class_Reference/WP_Query WP-Codex: WP_Query
+ * @return An object to be converted to JSON by WordPress.
+ */
+function route_services_summary( $request = null ) {
+	// die( print_r( $request ) );
+	if ( null === $request ) { $request = new \WP_REST_Request(); }
+	$args = route_services_default_args_for( $request );
+	// die( print_r( $args ) );
+	$services = new \WP_Query( $args );
+	if ( empty( $services ) ) {
+		return null;
+	}
+	$retval = null;
+	global $post;
+	while ( $services->have_posts() ) {
+		$services->the_post();
+
+		$retval[] = StudentService::get_summary_context_from_post( $post );
+
+	}
+	wp_reset_postdata();
+	return $retval;
+}
+
+/**
  * ~/wp-json/rest/v1/services
  * Handle a JSON request, return an object to be converted to JSON by WordPress.
  * @see https://developer.wordpress.org/reference/classes/wp_rest_request/ WP-Ref: WP_REST_Request class
@@ -119,19 +147,45 @@ function route_services_slug( $request = null ) {
 function route_services( $request = null ) {
 	// die( print_r( $request ) );
 	if ( null === $request ) { $request = new \WP_REST_Request(); }
+	$args = route_services_default_args_for( $request );
+	// die( print_r( $args ) );
+	$services = new \WP_Query( $args );
+	if ( empty( $services ) ) {
+		return null;
+	}
+	// Loop through queried posts and get a render context for each matching post.
+	$retval = null;
+	global $post;
+	while ( $services->have_posts() ) {
+		$services->the_post();
+
+		$retval[] = StudentService::get_render_context_from_post( $post );
+
+	}
+	wp_reset_postdata();
+	return $retval;
+}
+
+/**
+ * Return default WP_Query args for a request searching under ~/wp-json/rest/v1/services/*.
+ * @param WP_REST_Request The request to be parsed into WP_Query args.
+ */
+function route_services_default_args_for( $request = null ) {
+	if ( ! defined('SDES\ServicesTheme\API\DEFAULT_POSTS_PER_PAGE') ) {
+		define( 'SDES\ServicesTheme\API\DEFAULT_POSTS_PER_PAGE', 7 );
+	}
 	// Build WP Query based on request.
-	// /rest/v1/services/
 	$args = array(
 		'post_type' => StudentService::NAME,
 		'post_status' => array('publish'),
-		'posts_per_page' => -1,  // TODO: determine reasonable limit, implement pagination.
+		'posts_per_page' => -1,  // Show all unless explicitly paginated with offset, paged, or overriding posts_per_page.
 		'orderby' => 'title',
 		'order' => 'ASC',
 	);
 
 	// TODO: Make and merge multiple WP_Query statements instead of calling $wpdb. $query_search $query_tax $query_meta
 
-	// ?q=&search=&s= // Set to 'search' if both are present.
+	// ?q=&search=&s= // Set to 'q', then 'search', then 's' if multiple are present.
 	if ( $request->get_param( 'q' ) || $request->get_param( 'search' ) || $request->get_param( 's' ) ) {
 		$search_term = $request->get_param( 'q' ) ?: $request->get_param( 'search' ) ?: $request->get_param( 's' );
 		$args = array_merge( $args, array(
@@ -152,26 +206,34 @@ function route_services( $request = null ) {
 			'p' => $request->get_param( 'id' ),
 		) );
 	}
-	// ?limit=
-	if ( $request->get_param( 'limit' ) ) {
+	// ?posts_per_page=&limit=  // Set to 'posts_per_page' if both are present.
+	if ( $request->get_param( 'posts_per_page' ) || $request->get_param( 'limit' ) ) {
+		$posts_per_page = $request->get_param( 'posts_per_page' ) ?: $request->get_param( 'limit' );
 		$args = array_merge( $args, array(
-			'posts_per_page' => $request->get_param( 'limit' ),
+			'posts_per_page' => $posts_per_page,
 		) );
 	}
-	$services = new \WP_Query( $args );
-	if ( empty( $services ) ) {
-		return null;
+	// ?offset=
+	if ( $request->get_param( 'offset' ) ||  "0" === $request->get_param( 'offset' ) ) {
+		$args = array_merge( $args, array(
+			'offset' => $request->get_param( 'offset' ),
+		) );
+		if ( -1 === $args["posts_per_page"] ) { 
+			$args = array_merge( $args, array( 'posts_per_page' => DEFAULT_POSTS_PER_PAGE, ) );
+		}
 	}
-	// Loop through queried posts and get a render context for each matching post.
-	$retval = null;
-	global $post;
-	while ( $services->have_posts() ) {
-		$services->the_post();
-		$retval[] = StudentService::get_render_context_from_post( $post );
+	// ?paged=
+	if ( $request->get_param( 'paged' ) ||  "0" === $request->get_param( 'paged' ) ) {
+		$args = array_merge( $args, array(
+			'paged' => $request->get_param( 'paged' ),
+		) );
+		if ( -1 === $args["posts_per_page"] ) { 
+			$args = array_merge( $args, array( 'posts_per_page' => DEFAULT_POSTS_PER_PAGE, ) );
+		}
 	}
-	wp_reset_postdata();
-	return $retval;
+	return $args;
 }
+
 
 /**
  * Enable querying student_service terms and metadata.

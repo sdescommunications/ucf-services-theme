@@ -1,4 +1,17 @@
 /* Define a Student Service */
+export interface IStudentServiceSummary {
+    permalink: string;
+    title: string;
+    main_category_name: string;
+    main_category_link: string;
+    short_descr: string;
+    image: string;
+    image_alt: string;
+    image_thumbnail_src: string;
+    share_facebook: string;
+    share_twitter: string;
+}
+
 export interface IStudentService {
     permalink: string;
     heading: string;
@@ -23,7 +36,6 @@ export interface IStudentService {
     image_thumbnail_src: string;
     primary_action: string;
     primary_action_url: string;
-    campaign: string;
     phone: string;
     email: string;
     url: string;
@@ -46,7 +58,6 @@ export interface IStudentService {
     social_flickr: string;
     events_cal_feed: string;
     map_id: string;
-    news_feed: string;
     share_facebook: string;
     share_twitter: string;
 }

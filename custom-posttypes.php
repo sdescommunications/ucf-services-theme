@@ -829,6 +829,33 @@ class StudentService extends CustomPostType_ServicesTheme {
 		return $metadata_fields;
 	}
 
+
+	/**
+	 *
+	 */
+	public static function get_summary_context( $stusvc, $metadata_fields ) {
+		$category = get_category( $metadata_fields['stusvc_main_category_id'] );
+		$category_name =
+			( null !== $category && property_exists( $category, 'name' ) ) 
+			? $category->name 
+			: null;
+		$permalink = get_permalink( $stusvc );
+		$permalink_encoded = urlencode( $permalink );
+		$title_encoded = urlencode( $stusvc->post_title );
+		return array(
+			'permalink' => $permalink,
+			'title' => $stusvc->post_title,
+			'main_category_name' => $category_name,
+			'main_category_link' => get_category_link( $category ),
+			'short_descr' => $metadata_fields['stusvc_short_descr'],
+			'image' => $metadata_fields['stusvc_image'],
+			'image_alt' => $metadata_fields['stusvc_image_alt'],
+			'image_thumbnail_src' => $metadata_fields['stusvc_image_thumbnail_src'],
+						'share_facebook' => "https://www.facebook.com/sharer.php?u={$permalink_encoded}",
+			'share_twitter' => "https://twitter.com/intent/tweet?text={$title_encoded}&url={$permalink_encoded}&via=" . ($metadata_fields['stusvc_social_twitter'] ?: 'UCF'),
+		);
+	}
+
 	// TODO: cast output to `(object) array()` to save on typing and code noise. i.e, $context->title instead of $context['title'].
 	// TODO: group hours into a single container, e.g., $context->hours->monday->open.
 	// TODO: create a get_render_context_summary for a ~/wp-json/rest/v1/services/summary route returning: image_thumbnail_src, image_alt, share_facebook, share_twitter, permalink, title, main_category_link, main_category_name, short_descr
@@ -933,14 +960,25 @@ class StudentService extends CustomPostType_ServicesTheme {
 		return $html;
 	}
 
-	/**
-	 * Return single student_service post object's context, for consumption by either internal templates or REST routes.
-	 */
-	public static function get_render_context_from_post( $post_object ) {
+	public static function get_metadata_fields_from_post( $post_object ) {
 		$post_object = get_post( $post_object );
 		if ( SDES_Static::is_null_or_whitespace( $post_object ) 
 			 || self::NAME !== $post_object->post_type ) {return sprintf("<!-- No %s provided. -->", self::NAME); }
 		$metadata_fields = static::get_render_metadata( $post_object );
+		return $metadata_fields;
+	}
+
+	public static function get_summary_context_from_post( $post_object ) {
+		$metadata_fields = static::get_metadata_fields_from_post( $post_object );
+		$stusvc_context = static::get_summary_context( $post_object, $metadata_fields );
+		return $stusvc_context;
+	}
+
+	/**
+	 * Return single student_service post object's context, for consumption by either internal templates or REST routes.
+	 */
+	public static function get_render_context_from_post( $post_object ) {
+		$metadata_fields = static::get_metadata_fields_from_post( $post_object );
 		$stusvc_context = static::get_render_context( $post_object, $metadata_fields );
 		return $stusvc_context;
 	}
