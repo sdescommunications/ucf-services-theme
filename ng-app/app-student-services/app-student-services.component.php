@@ -1,4 +1,9 @@
 <?php
+/**
+ * Pre-render this component (app-student-services) and its subcomponents using PHP includes.
+ * For non-Wordpress servers like NodeJS or ASP.NET Core Server, consider using Angular Universal instead of this pattern.
+ * For PHP, Angular Univeral integration might be possible using the V8JS engine. See: https://github.com/angular/universal/issues/281
+ */
 
 require_once( get_stylesheet_directory() . '/functions/rest-api.php' );
     use SDES\ServicesTheme\API;
@@ -96,7 +101,12 @@ $categories = get_categories( array(
                 <?php foreach ( $services_contexts as $ctxt_search_results ) {
                     include( get_stylesheet_directory() . '/ng-app/app-student-services/search/results/results.component.php' );
                 } ?>
-                <span *ngIf="!isLoading" (click)="showNextPage()">Show more...</span>
+                <span *ngIf="!isLoadingMore" style="font-size: 2em; padding: 12px 0;">
+                    <span class="fa fa-angle-double-down" aria-hidden="true"></span>
+                    <a href="" (click)="showNextPage($event)" title="Load more results">
+                        Load more results...
+                    </a>
+                </span>
             </ucf-search-results>
         </section>
       </div>

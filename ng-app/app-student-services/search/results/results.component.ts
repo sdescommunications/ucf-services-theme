@@ -10,7 +10,6 @@ import { UnescapeHtmlPipe } from "../../../pipes/unescapeHtml.pipe";
     selector: "ucf-search-results",
     moduleId: __moduleName,
     templateUrl: "./results.component.html",
-    // templateUrl: "./results._template.php",
     // styleUrls: ["../../scss/_service.scss"],
     // directives: [],
     // pipes: [ UnescapeHtmlPipe ],
@@ -24,6 +23,7 @@ export class SearchResultsComponent {
     errorMessage: string = "";
     isInit: boolean = true;
     isLoading: boolean = false;
+    isLoadingMore = false;
     protected _previousQuery: string;
 
     @Output() resultsChanged: EventEmitter<any> = new EventEmitter<any>();
@@ -56,11 +56,14 @@ export class SearchResultsComponent {
         this.isInit = false;
     }
 
-    showNextPage(): void {
+    showNextPage( click: Event ): void {
+        click.preventDefault();
+        this.isLoadingMore = true;  // Track state instead of figuring out how to debounceWithSelector.
         this._searchService.getNextPage()
             .subscribe(
                 nextPageResults => {
                     this.studentServices = this.studentServices.concat( nextPageResults );
+                    this.isLoadingMore = false;
                     // Force Angular to detect changes.
                     this._detector.detectChanges();
                     this.resultsChanged.emit( { query: this.query, results: this.studentServices } );

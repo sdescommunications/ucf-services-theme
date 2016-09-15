@@ -54,7 +54,10 @@
                 [results]='initialResults'
                 [filters]='filters'
                 (resultsChanged)='onResultsChanged($event)'>
-
+                <span *ngIf="isLoading" style="font-size: 2em; padding: 12px 0;">
+                    <span class="loading fa fa-spinner fa-pulse" aria-hidden="true"></span>
+                    Loading results...<br>
+                </span>
             </ucf-search-results>
         </section>
       </div>
