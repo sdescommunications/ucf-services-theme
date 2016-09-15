@@ -96,6 +96,7 @@ $categories = get_categories( array(
                 <?php foreach ( $services_contexts as $ctxt_search_results ) {
                     include( get_stylesheet_directory() . '/ng-app/app-student-services/search/results/results.component.php' );
                 } ?>
+                <span *ngIf="!isLoading" (click)="showNextPage()">Show more...</span>
             </ucf-search-results>
         </section>
       </div>

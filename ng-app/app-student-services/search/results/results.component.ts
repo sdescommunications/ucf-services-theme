@@ -1,9 +1,9 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ChangeDetectorRef } from "@angular/core";
 import { SafeHtml } from "@angular/platform-browser";
 
 // import { SearchService } from "app-student-services/search";
 import { SearchService } from "../service";
-import { IStudentService } from "../../../app-student-services/interfaces";
+import { IStudentServiceSummary } from "../../../app-student-services/interfaces";
 import { UnescapeHtmlPipe } from "../../../pipes/unescapeHtml.pipe";
 
 @Component({
@@ -20,7 +20,7 @@ export class SearchResultsComponent {
     @Input() api: string = "";
     @Input() filters: any = {};
     filterClear = () => jQuery.map( this.filters, (cat) => cat.checked ).every( (x) => "false" === x )
-    @Input("results") studentServices: IStudentService[] = window.ucf_searchResults_initial;
+    @Input("results") studentServices: IStudentServiceSummary[] = window.ucf_searchResults_initial;
     errorMessage: string = "";
     isInit: boolean = true;
     isLoading: boolean = false;
@@ -28,7 +28,7 @@ export class SearchResultsComponent {
 
     @Output() resultsChanged: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor( protected _searchService: SearchService ) {
+    constructor( protected _searchService: SearchService, protected _detector: ChangeDetectorRef ) {
         window.ucf_comp_searchResults = ( window.ucf_comp_searchResults || [] ).concat( this );
     }
 
@@ -56,6 +56,19 @@ export class SearchResultsComponent {
         this.isInit = false;
     }
 
+    showNextPage(): void {
+        this._searchService.getNextPage()
+            .subscribe(
+                nextPageResults => {
+                    this.studentServices = this.studentServices.concat( nextPageResults );
+                    // Force Angular to detect changes.
+                    this._detector.detectChanges();
+                    this.resultsChanged.emit( { query: this.query, results: this.studentServices } );
+                },
+                error => this.errorMessage = <any>error
+            );
+    }
+
     hasResults(): boolean {
         return null !== this.studentServices;
     }
@@ -81,6 +94,6 @@ declare var __moduleName: string;  // Shim for SystemJS/ES6 module identificatio
 // Window from tsserver/lib.d.ts
 interface WindowUcfComp extends Window {
     ucf_comp_searchResults: SearchResultsComponent[];
-    ucf_searchResults_initial: IStudentService[];
+    ucf_searchResults_initial: IStudentServiceSummary[];
 }
 declare var window: WindowUcfComp;

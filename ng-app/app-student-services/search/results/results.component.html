@@ -40,6 +40,7 @@
         </div>
       </div>
     </div> <!-- /.service -->
+    <span (click)="showNextPage()">Show more...</span>
 </span>
         <h3 *ngIf="! hasResults() && !isLoading" class="noResults">
               No results found for "{{ query }}".

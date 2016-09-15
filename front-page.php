@@ -20,7 +20,7 @@ $sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'service
 $frontsearch_lead = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-frontsearch_lead',
 	'From orientation to graduation, the UCF experience creates<br>opportunities that last a lifetime. <b>Let\'s get started</b>.' );
 $frontsearch_placeholder = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-frontsearch_placeholder', 'What can we help you with today?' );
-$student_services_api = get_rest_url() . 'rest/v1/services/';
+$student_services_api = get_rest_url() . 'rest/v1/services/summary';
 ?>
 
 <!-- Angular scripts -->
@@ -69,7 +69,7 @@ get_header();
 	$request = new \WP_REST_Request();
 	$search_query = array_key_exists("q", $_REQUEST) ? $_REQUEST["q"] : "";
 	$request->set_query_params( array( "limit" => $services_limit, 'search' => $search_query ) );
-	$services_contexts = API\route_services( $request );
+	$services_contexts = API\route_services_summary( $request );
 	$json_services = json_encode( $services_contexts );
 	$search_suggestions = API\route_services_titles();
 	$categories = API\route_categories();
