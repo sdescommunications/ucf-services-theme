@@ -1,12 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { Subject } from 'rxjs/Subject'
+import { Subject } from "rxjs/Subject";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/catch";
-// import "rxjs/add/operator/flatmap";
-import "rxjs/add/operator/take";
 // import "rxjs/Rx"; // Load all features (uncomment during development for intellisense).
 
 import { IStudentServiceSummary } from "../../../app-student-services/interfaces";
@@ -33,55 +31,52 @@ export class SearchService {
      * For API discoverability, see http://v2.wp-api.org/guide/discovery/ and https://www.ucf.edu/services/wp-json/rest/v1/
      */
     getStudentServices( search: string, limit = LIMIT_DEFAULT, paged = PAGED_DEFAULT ): Observable<IStudentServiceSummary[]> {
-        let query =
-            ( search ) 
-                ? `?limit=${limit}&search=${search}&paged=${paged}`
-                : `?limit=${limit}&paged=${paged}`;
-        let request = this.restApiUrl + query;
-        let observableStream =
-            this._http.get( request )
-                .map( (response: Response) => <IStudentServiceSummary[]>response.json() )
-                .do(
-                    ( data ) => { 
-                        this.debugInfo( data, request );
+        let requestUrl = this.buildRequestUrl(limit, search, paged);  // (number, string, number) -> Observable<string>
+        let resultsStream =
+                this.requestJsonFrom( requestUrl )    // string -> Observable<IStudentServiceSummary[]>
+                .do( (_) => {
                         // Save state if successful.
                         this._search = search;
                         this._paged = paged;
                         this._limit = limit;
-                })
-                .catch( this.handleError );
-        return observableStream;
-        // Cast and store Observable as Subject. Would this work better if not returning an array? I.e., Observable<IStudentServiceSummary>
-        // this._resultsStream = <Subject<IStudentServiceSummary[]>>observableStream;
-        // return this._resultsStream;
+                });
+        return resultsStream;
     };
 
-    getNextPage() : Observable<IStudentServiceSummary[]> {
+    /**
+     * Fetch the next page of results for the current search term.
+     */
+    getNextPage(): Observable<IStudentServiceSummary[]> {
         let nextPage = this._paged + 1;
-        let query =
-            ( this._search ) 
-                ? `?limit=${this._limit}&search=${this._search}&paged=${nextPage}`
-                : `?limit=${this._limit}&paged=${nextPage}`;
-        let request = this.restApiUrl + query;
-        let nextPageResults = this._http.get( request )
-            .map( (response: Response) => <IStudentServiceSummary[]>response.json() )
-            .do(
-                ( data ) => {
-                    this.debugInfo( data, request );
-                    this._paged++; // Save state if successful.
-            })
-            .catch( this.handleError )
-            // .flatMap( 
-            //     ( nextResult, idx ) => { 
-            //         this._resultsStream.next( nextResult );
-            //         return nextResult; 
-            // });
-        return nextPageResults;
+        let requestUrl = this.buildRequestUrl(this._limit, this._search, nextPage);  // (number, string, number) -> Observable<string>
+        let resultsStream =
+                this.requestJsonFrom( requestUrl )    // string -> Observable<IStudentServiceSummary[]>
+                .do( (_) => {
+                    // Save state if successful.
+                    this._paged = nextPage;
+                });
+        return resultsStream;
     }
 
-    // TODO: extract shared code between getStudentServices and getNextPage.
-    // buildRequestUrl(limit, search, paged): Observable<string>
-    // requestJson( requestUrl )
+    /** Build a the url to fetch using values for the query parameters. */
+    buildRequestUrl(limit = LIMIT_DEFAULT, search = "", paged = PAGED_DEFAULT): string {
+        let query =
+            ( search )
+                ? `?limit=${limit}&search=${search}&paged=${paged}`
+                : `?limit=${limit}&paged=${paged}`;
+        let request = this.restApiUrl + query;
+        return request;
+    }
+
+    /** Get JSON from a URL, log with debugInfo, and catch errors. */
+    protected requestJsonFrom( requestUrl: string ): Observable<IStudentServiceSummary[]> {
+        return this._http.get( requestUrl )
+            .map( (response: Response) => <IStudentServiceSummary[]>response.json() )
+            .do( (data) => {
+                this.debugInfo( data, requestUrl );
+            })
+            .catch( this.handleError );
+    }
 
     private handleError( error: Response ) {
         if ( this.DEBUG ) { console.error( error ); }
