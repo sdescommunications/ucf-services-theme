@@ -22,6 +22,7 @@ export class AppStudentServicesComponent {
     @Input() api: string;
     @Input() title: string = "Student Services";
     @Input("results") initialResults: IStudentService[] = window.ucf_searchResults_initial;
+    @Input() limit: number = window.ucf_searchResults_limit;
     @Input() query: string;
     @Input() form: string = "#";
     @Input() search_lead = window.ucf_search_lead || "";

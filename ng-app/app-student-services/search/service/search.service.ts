@@ -11,8 +11,8 @@ import "rxjs/add/operator/take";
 
 import { IStudentServiceSummary } from "../../../app-student-services/interfaces";
 
-const PAGED_DEFAULT = 1;
 const LIMIT_DEFAULT = 7;
+const PAGED_DEFAULT = 1;
 
 @Injectable()
 export class SearchService {
@@ -20,8 +20,8 @@ export class SearchService {
     public DEBUG = 0;
     private _search = "";
     private _resultsStream: Subject<IStudentServiceSummary[]>;
-    private _paged = PAGED_DEFAULT;
     private _limit = LIMIT_DEFAULT;
+    private _paged = PAGED_DEFAULT;
 
     constructor( protected _http: Http ) {
         window.ucf_svc_searchService = ( window.ucf_svc_searchService || [] ).concat( this );
@@ -32,7 +32,7 @@ export class SearchService {
      * Implemented with a REST API, e.g.: https://www.ucf.edu/services/wp-json/rest/v1/services/?search=${query}
      * For API discoverability, see http://v2.wp-api.org/guide/discovery/ and https://www.ucf.edu/services/wp-json/rest/v1/
      */
-    getStudentServices( search: string, paged = PAGED_DEFAULT, limit = LIMIT_DEFAULT ): Observable<IStudentServiceSummary[]> {
+    getStudentServices( search: string, limit = LIMIT_DEFAULT, paged = PAGED_DEFAULT ): Observable<IStudentServiceSummary[]> {
         let query =
             ( search ) 
                 ? `?limit=${limit}&search=${search}&paged=${paged}`

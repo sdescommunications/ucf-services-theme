@@ -29,6 +29,9 @@ $categories = get_categories( array(
     'taxonomy' => 'category',
 ) );
 ?>
+<script>
+    window.ucf_searchResults_limit = Number(<?= $services_limit ?>);
+</script>
 <article class="row page-wrap">
     <ucf-search-form
         [lead]='search_lead'
@@ -97,6 +100,7 @@ $categories = get_categories( array(
 
             <ucf-search-results [query]='query' [api]='api'
                 [results]='initialResults'
+                [limit]='limit'
                 (resultsChanged)='onResultsChanged($event)'>
                 <?php foreach ( $services_contexts as $ctxt_search_results ) {
                     include( get_stylesheet_directory() . '/ng-app/app-student-services/search/results/results.component.php' );

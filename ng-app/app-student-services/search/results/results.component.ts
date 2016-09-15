@@ -20,6 +20,7 @@ export class SearchResultsComponent {
     @Input() filters: any = {};
     filterClear = () => jQuery.map( this.filters, (cat) => cat.checked ).every( (x) => "false" === x )
     @Input("results") studentServices: IStudentServiceSummary[] = window.ucf_searchResults_initial;
+    @Input() limit: number = window.ucf_searchResults_limit;
     errorMessage: string = "";
     isInit: boolean = true;
     isLoading: boolean = false;
@@ -45,7 +46,7 @@ export class SearchResultsComponent {
         if ( this.query === this._previousQuery && ! this.isInit ) { return; } // Prevent loop between events this.resultsChanged() <-> SearchFormComponent.search()
         this.isLoading = ( this.isInit ) ? false : true;  // Don't show loading text on initial load.
         // TODO: observe this.query instead of creating a new subscription on every change.
-        this._searchService.getStudentServices( this.query )
+        this._searchService.getStudentServices( this.query, this.limit )
             .subscribe(
                 studentServices => {
                     this._previousQuery = this.query;
@@ -105,5 +106,6 @@ declare var __moduleName: string;  // Shim for SystemJS/ES6 module identificatio
 interface WindowUcfComp extends Window {
     ucf_comp_searchResults: SearchResultsComponent[];
     ucf_searchResults_initial: IStudentServiceSummary[];
+    ucf_searchResults_limit: number;
 }
 declare var window: WindowUcfComp;
