@@ -24,6 +24,8 @@ export class SearchResultsComponent {
     isInit: boolean = true;
     isLoading: boolean = false;
     isLoadingMore = false;
+    canLoadMore = true;
+
     protected _previousQuery: string;
 
     @Output() resultsChanged: EventEmitter<any> = new EventEmitter<any>();
@@ -50,6 +52,7 @@ export class SearchResultsComponent {
                     this.studentServices = studentServices;
                     this.resultsChanged.emit( { query: this.query, results: this.studentServices } );
                     this.isLoading = false;
+                    this.canLoadMore = true;
                 },
                 error => this.errorMessage = <any>error
             );
@@ -62,8 +65,12 @@ export class SearchResultsComponent {
         this._searchService.getNextPage()
             .subscribe(
                 nextPageResults => {
-                    this.studentServices = this.studentServices.concat( nextPageResults );
                     this.isLoadingMore = false;
+                    if ( null === nextPageResults ) {
+                        this.canLoadMore = false;
+                        return;
+                    }
+                    this.studentServices = this.studentServices.concat( nextPageResults );
                     // Force Angular to detect changes.
                     this._detector.detectChanges();
                     this.resultsChanged.emit( { query: this.query, results: this.studentServices } );

@@ -38,7 +38,7 @@ var angular_context = {
         </span>
         `,
     'after_services': 
-        `<span *ngIf="!isLoadingMore" style="font-size: 2em; padding: 12px 0;">
+        `<span *ngIf="!isLoadingMore && canLoadMore" style="font-size: 2em; padding: 12px 0;">
             <span class="fa fa-angle-double-down" aria-hidden="true"></span>
             <a href="" (click)="showNextPage($event)" title="Load more results">
                 Load more results...
