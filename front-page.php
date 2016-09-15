@@ -27,7 +27,7 @@ $student_services_api = get_rest_url() . 'rest/v1/services/summary';
 <!-- Polyfill(s) for older browsers -->
 <script src="https://cdn.jsdelivr.net/core-js/2.4.0/shim.min.js" integrity="sha256-iIdcT94SZY9oCsJj8VTkuvshEfKPXRXaA8nT8lCKG5U=" crossorigin="anonymous"></script>
 
-<script src="https://unpkg.com/zone.js@0.6.17/dist/zone.js"></script>
+<script src="https://unpkg.com/zone.js@0.6.21/dist/zone.js"></script>
 <script src="https://unpkg.com/reflect-metadata@0.1.3/Reflect.js"></script>
 <script src="https://unpkg.com/systemjs@0.19.31/dist/system.js"></script>
 <!--
@@ -40,7 +40,7 @@ $student_services_api = get_rest_url() . 'rest/v1/services/summary';
 		wp_enqueue_script('config-cdn', get_stylesheet_directory_uri() . '/ng-app/config.cdn.js');
 		wp_enqueue_script('config-local', get_stylesheet_directory_uri() . '/ng-app/config.ucf_local.js'); // Set window.ucf_local_config.
 		wp_localize_script('config-cdn', 'configjs', array( 'baseURL' => $baseURL ) );
-		wp_enqueue_script('ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.1.1/ng2-bootstrap.min.js');
+		wp_enqueue_script('ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.1.4/ng2-bootstrap.min.js');
 		wp_add_inline_script('config-local',
 			"System.import('" . $baseURL . "/main')
 				  .then(
