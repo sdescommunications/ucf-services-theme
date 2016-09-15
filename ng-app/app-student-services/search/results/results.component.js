@@ -30,6 +30,7 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                     this.filters = {};
                     this.filterClear = function () { return jQuery.map(_this.filters, function (cat) { return cat.checked; }).every(function (x) { return "false" === x; }); };
                     this.studentServices = window.ucf_searchResults_initial;
+                    this.limit = window.ucf_searchResults_limit;
                     this.errorMessage = "";
                     this.isInit = true;
                     this.isLoading = false;
@@ -51,7 +52,7 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                     } // Prevent loop between events this.resultsChanged() <-> SearchFormComponent.search()
                     this.isLoading = (this.isInit) ? false : true; // Don't show loading text on initial load.
                     // TODO: observe this.query instead of creating a new subscription on every change.
-                    this._searchService.getStudentServices(this.query)
+                    this._searchService.getStudentServices(this.query, this.limit)
                         .subscribe(function (studentServices) {
                         _this._previousQuery = _this.query;
                         _this.studentServices = studentServices;
@@ -110,6 +111,10 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                     core_1.Input("results"), 
                     __metadata('design:type', Array)
                 ], SearchResultsComponent.prototype, "studentServices", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Number)
+                ], SearchResultsComponent.prototype, "limit", void 0);
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', core_1.EventEmitter)

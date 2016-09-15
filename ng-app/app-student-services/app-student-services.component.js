@@ -32,6 +32,7 @@ System.register(["@angular/core", "./search"], function(exports_1, context_1) {
                     this._renderer = _renderer;
                     this.title = "Student Services";
                     this.initialResults = window.ucf_searchResults_initial;
+                    this.limit = window.ucf_searchResults_limit;
                     this.form = "#";
                     this.search_lead = window.ucf_search_lead || "";
                     this.search_placeholder = window.ucf_search_placeholder;
@@ -77,6 +78,10 @@ System.register(["@angular/core", "./search"], function(exports_1, context_1) {
                     core_1.Input("results"), 
                     __metadata('design:type', Array)
                 ], AppStudentServicesComponent.prototype, "initialResults", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Number)
+                ], AppStudentServicesComponent.prototype, "limit", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)

@@ -11,7 +11,7 @@ System.register(["@angular/core", "@angular/http", "rxjs/Observable", "rxjs/add/
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, http_1, Observable_1;
-    var PAGED_DEFAULT, LIMIT_DEFAULT, SearchService;
+    var LIMIT_DEFAULT, PAGED_DEFAULT, SearchService;
     return {
         setters:[
             function (core_1_1) {
@@ -28,16 +28,16 @@ System.register(["@angular/core", "@angular/http", "rxjs/Observable", "rxjs/add/
             function (_3) {},
             function (_4) {}],
         execute: function() {
-            PAGED_DEFAULT = 1;
             LIMIT_DEFAULT = 7;
+            PAGED_DEFAULT = 1;
             SearchService = (function () {
                 function SearchService(_http) {
                     this._http = _http;
                     this.restApiUrl = "/wp-json/rest/v1/services/summary"; // Default, should override to include entire site_url/rest_url.
                     this.DEBUG = 0;
                     this._search = "";
-                    this._paged = PAGED_DEFAULT;
                     this._limit = LIMIT_DEFAULT;
+                    this._paged = PAGED_DEFAULT;
                     window.ucf_svc_searchService = (window.ucf_svc_searchService || []).concat(this);
                 }
                 /**
@@ -45,10 +45,10 @@ System.register(["@angular/core", "@angular/http", "rxjs/Observable", "rxjs/add/
                  * Implemented with a REST API, e.g.: https://www.ucf.edu/services/wp-json/rest/v1/services/?search=${query}
                  * For API discoverability, see http://v2.wp-api.org/guide/discovery/ and https://www.ucf.edu/services/wp-json/rest/v1/
                  */
-                SearchService.prototype.getStudentServices = function (search, paged, limit) {
+                SearchService.prototype.getStudentServices = function (search, limit, paged) {
                     var _this = this;
-                    if (paged === void 0) { paged = PAGED_DEFAULT; }
                     if (limit === void 0) { limit = LIMIT_DEFAULT; }
+                    if (paged === void 0) { paged = PAGED_DEFAULT; }
                     var query = (search)
                         ? "?limit=" + limit + "&search=" + search + "&paged=" + paged
                         : "?limit=" + limit + "&paged=" + paged;
