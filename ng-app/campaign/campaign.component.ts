@@ -55,6 +55,7 @@ export class CampaignComponent {
     @Input() short: string;
     @Input() btn_text: string;
     @Input() model: ICampaignModel;
+    _shouldHide = false;
 
     constructor( private sanitizer: DomSanitizer ) {
         window.ucf_comp_campaign = ( window.ucf_comp_campaign || [] ).concat( this );
@@ -71,8 +72,12 @@ export class CampaignComponent {
         }
     }
 
+    hide() {
+        this._shouldHide = true;
+    }
+
     shouldShow(): boolean {
-        if ( "undefined" === typeof this.title || "undefined" === typeof this.btn_text
+        if ( this._shouldHide || "undefined" === typeof this.title || "undefined" === typeof this.btn_text
             || "" === this.title || "" === this.btn_text ) {
             return false;
         }

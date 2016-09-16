@@ -44,7 +44,7 @@
 
         <section id="services" class="col-sm-12 col-md-9 col-lg-9 col-md-pull-3">
             <h2 class="title">{{ title }}</h2>
-            <ucf-campaign type="rectangle" [model]='campaign_primary'>
+            <ucf-campaign *ngIf="showCampaignPrimary" type="rectangle" [model]='campaign_primary'>
 
             </ucf-campaign>
             <div class="clearfix"></div>

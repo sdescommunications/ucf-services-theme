@@ -29,6 +29,8 @@ export class AppStudentServicesComponent {
     @Input() search_placeholder = window.ucf_search_placeholder;
     @Input() campaign_primary = window.ucf_campaign_primary;
     @Input() campaign_sidebar = window.ucf_campaign_sidebar;
+    hasSearched = false;
+    showCampaignPrimary = true;
     filters: any = {};
     noServicesVisible = () => 0 === jQuery(".service:visible").length;
     filterClear = () => jQuery.map( this.filters, (cat) => cat.checked ).every( (x) => "false" === x )
@@ -51,6 +53,9 @@ export class AppStudentServicesComponent {
     // Receive event from SearchFormComponent.search EventEmitter.
     onSearch( newSearch: string ): void {
         this.query = newSearch;
+        ( this.hasSearched )
+            ? this.showCampaignPrimary = false
+            : this.hasSearched = true;
     }
 
     // Receive event from onChange and onBlur.
@@ -80,6 +85,7 @@ declare var __moduleName: string;
 // Window from tsserver/lib.d.ts
 interface WindowUcf extends Window {
     ucf_searchResults_initial: IStudentService[];
+    ucf_searchResults_limit: number;
     ucf_comp_studentServices: AppStudentServicesComponent[];
     ucf_search_lead: string;
     ucf_search_placeholder: string;
