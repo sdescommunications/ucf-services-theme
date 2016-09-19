@@ -24,12 +24,17 @@ export class AppStudentServicesComponent {
     @Input("results") initialResults: IStudentService[] = window.ucf_searchResults_initial;
     @Input() limit: number = window.ucf_searchResults_limit;
     @Input() query: string;
+    @Input() defaultQuery: string;  // Default search value that won't set search indicators (i.e., "Results for" and input text).
+    frontsearch_query: string;
+    showResultsHeading = false;
     @Input() form: string = "#";
     @Input() search_lead = window.ucf_search_lead || "";
     @Input() search_placeholder = window.ucf_search_placeholder;
     @Input() campaign_primary = window.ucf_campaign_primary;
     @Input() campaign_sidebar = window.ucf_campaign_sidebar;
     hasSearched = false;
+    hasSearchInitialized = false;
+    hasSearchChanged = false;
     showCampaignPrimary = true;
     filters: any = {};
     noServicesVisible = () => 0 === jQuery(".service:visible").length;
@@ -44,7 +49,9 @@ export class AppStudentServicesComponent {
         let native = this.elementRef.nativeElement;
         this.api = native.getAttribute("[api]");
         this.title = native.getAttribute("[title]");
-        this.query = native.getAttribute("[query]");
+        this.query = native.getAttribute("[defaultQuery]") || native.getAttribute("[query]");
+        this.defaultQuery = native.getAttribute("[defaultQuery]")
+        this.frontsearch_query = native.getAttribute("[query]");
         this._renderer.setElementProperty( this.elementRef.nativeElement, "value", this.query );
         window.ucf_comp_studentServices = ( window.ucf_comp_studentServices || [] ).concat( this );
     }
@@ -53,9 +60,9 @@ export class AppStudentServicesComponent {
     // Receive event from SearchFormComponent.search EventEmitter.
     onSearch( newSearch: string ): void {
         this.query = newSearch;
-        ( this.hasSearched )
-            ? this.showCampaignPrimary = false
-            : this.hasSearched = true;
+        this.showCampaignPrimary = false;
+        this.showResultsHeading = true;
+        this.hasSearched = true;
     }
 
     // Receive event from onChange and onBlur.
@@ -65,6 +72,10 @@ export class AppStudentServicesComponent {
 
     onResultsChanged( results: any ): void {
          this.query = results.query;
+         this.showResultsHeading = this.showResultsHeading && ("" !== this.query);
+         if( this.hasSearched ) {
+             this.frontsearch_query = this.query;
+         }
          // this.searchForm.frontsearch_query = results.query;
     }
 

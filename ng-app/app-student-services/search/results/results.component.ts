@@ -21,6 +21,7 @@ export class SearchResultsComponent {
     filterClear = () => jQuery.map( this.filters, (cat) => cat.checked ).every( (x) => "false" === x )
     @Input("results") studentServices: IStudentServiceSummary[] = window.ucf_searchResults_initial;
     @Input() limit: number = window.ucf_searchResults_limit;
+    @Input() showResultsHeading;
     errorMessage: string = "";
     isInit: boolean = true;
     isLoading: boolean = false;

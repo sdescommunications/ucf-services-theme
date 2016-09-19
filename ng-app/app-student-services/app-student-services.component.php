@@ -34,6 +34,7 @@ $categories = get_categories( array(
 </script>
 <article class="row page-wrap">
     <ucf-search-form
+        [frontsearch_query]="frontsearch_query"
         [lead]='search_lead'
         [placeholder]='search_placeholder'
         (search)='onSearch($event)'
@@ -101,6 +102,7 @@ $categories = get_categories( array(
             <ucf-search-results [query]='query' [api]='api'
                 [results]='initialResults'
                 [limit]='limit'
+                [showResultsHeading]='showResultsHeading'
                 (resultsChanged)='onResultsChanged($event)'>
                 <?php foreach ( $services_contexts as $ctxt_search_results ) {
                     include( get_stylesheet_directory() . '/ng-app/app-student-services/search/results/results.component.php' );

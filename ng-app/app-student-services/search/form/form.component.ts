@@ -27,6 +27,7 @@ export class SearchFormComponent implements OnInit, OnChanges {
     @Input() lead: string = "From orientation to graduation, the UCF experience creates opportunities that last a lifetime. <b>Let's get started</b>";
     @Input() placeholder: string = "What can we help you with today?";
     @Input() action: string = "#";
+    hasSearched = false;
     searchSuggestions = window.ucf_searchSuggestions || {};
     typeaheadLoading: boolean = false;
     typeaheadNoResults: boolean = false;
@@ -50,13 +51,17 @@ export class SearchFormComponent implements OnInit, OnChanges {
             // Don't unload results if user clears search input.
             if ( "" !== input ) {
                 this.frontsearch_query = input;
-                this.search.emit( this.frontsearch_query );
+                ( this.hasSearched )
+                    ? this.search.emit( this.frontsearch_query )
+                    : this.hasSearched = true;
             }
         });
     }
 
     ngOnChanges(): void {
-        this.search.emit( this.frontsearch_query );
+        ( this.hasSearched )
+            ? this.search.emit( this.frontsearch_query )
+            : this.hasSearched = true;
     }
 
     typeaheadOnSelect( e: any ): void {

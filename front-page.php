@@ -20,7 +20,7 @@ $sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'service
 $frontsearch_lead = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-frontsearch_lead',
 	'From orientation to graduation, the UCF experience creates<br>opportunities that last a lifetime. <b>Let\'s get started</b>.' );
 $frontsearch_placeholder = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-frontsearch_placeholder', 'What can we help you with today?' );
-$student_services_api = get_rest_url() . 'rest/v1/services/summary';
+$student_services_api = get_rest_url() . 'rest/v1/services/summary'; // The API attribute for ucf-app-student-services.
 ?>
 
 <!-- Angular scripts -->
@@ -65,11 +65,17 @@ get_header();
 
 <script>
 <?php
+	// Load settings.
 	$services_limit = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-services_limit', 7 );
+	$search_default = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-search_default', "" );  // Also sent to defaultQuery attribute for ucf-app-student-services.
+	// Build REST request object.
 	$request = new \WP_REST_Request();
-	$search_query = array_key_exists("q", $_REQUEST) ? $_REQUEST["q"] : "";
-	$request->set_query_params( array( "limit" => $services_limit, 'search' => $search_query ) );
+	$search_query = array_key_exists("q", $_REQUEST) ? $_REQUEST["q"] : "";  // Also sent to query attribute for ucf-app-student-services.
+	$request_search = ("" !== $search_query ) ? $search_query : $search_default;
+	$request->set_query_params( array( "limit" => $services_limit, 'search' => $request_search ) );
+	// Send request directly to API backend.
 	$services_contexts = API\route_services_summary( $request );
+
 	$json_services = json_encode( $services_contexts );
 	$search_suggestions = API\route_services_titles();
 	$categories = API\route_categories();
@@ -115,6 +121,7 @@ get_header();
 		[results]='initialResults'
 		[api]='<?= $student_services_api ?>'
 		[query]='<?= $search_query ?>'
+		[defaultQuery]='<?= $search_default ?>'
 		[title]="<?= the_title() ?>">
 		<?php include( get_stylesheet_directory() . '/ng-app/app-student-services/app-student-services.component.php' ); ?>
 	</ucf-app-student-services>
