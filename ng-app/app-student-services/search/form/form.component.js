@@ -32,6 +32,7 @@ System.register(["@angular/core", "rxjs/Observable", "rxjs/add/observable/fromEv
                     this.lead = "From orientation to graduation, the UCF experience creates opportunities that last a lifetime. <b>Let's get started</b>";
                     this.placeholder = "What can we help you with today?";
                     this.action = "#";
+                    this.hasSearched = false;
                     this.searchSuggestions = window.ucf_searchSuggestions || {};
                     this.typeaheadLoading = false;
                     this.typeaheadNoResults = false;
@@ -50,12 +51,16 @@ System.register(["@angular/core", "rxjs/Observable", "rxjs/add/observable/fromEv
                         // Don't unload results if user clears search input.
                         if ("" !== input) {
                             _this.frontsearch_query = input;
-                            _this.search.emit(_this.frontsearch_query);
+                            (_this.hasSearched)
+                                ? _this.search.emit(_this.frontsearch_query)
+                                : _this.hasSearched = true;
                         }
                     });
                 };
                 SearchFormComponent.prototype.ngOnChanges = function () {
-                    this.search.emit(this.frontsearch_query);
+                    (this.hasSearched)
+                        ? this.search.emit(this.frontsearch_query)
+                        : this.hasSearched = true;
                 };
                 SearchFormComponent.prototype.typeaheadOnSelect = function (e) {
                     this.frontsearch_query = e.item;

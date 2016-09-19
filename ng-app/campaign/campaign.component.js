@@ -25,6 +25,7 @@ System.register(["@angular/core", "@angular/platform-browser"], function(exports
                 function CampaignComponent(sanitizer) {
                     this.sanitizer = sanitizer;
                     this.type = "square";
+                    this._shouldHide = false;
                     window.ucf_comp_campaign = (window.ucf_comp_campaign || []).concat(this);
                 }
                 CampaignComponent.prototype.ngOnInit = function () {
@@ -37,8 +38,11 @@ System.register(["@angular/core", "@angular/platform-browser"], function(exports
                         this.btn_text = this.model.btn_text;
                     }
                 };
+                CampaignComponent.prototype.hide = function () {
+                    this._shouldHide = true;
+                };
                 CampaignComponent.prototype.shouldShow = function () {
-                    if ("undefined" === typeof this.title || "undefined" === typeof this.btn_text
+                    if (this._shouldHide || "undefined" === typeof this.title || "undefined" === typeof this.btn_text
                         || "" === this.title || "" === this.btn_text) {
                         return false;
                     }

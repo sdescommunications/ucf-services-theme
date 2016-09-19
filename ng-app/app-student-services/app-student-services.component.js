@@ -33,24 +33,34 @@ System.register(["@angular/core", "./search"], function(exports_1, context_1) {
                     this.title = "Student Services";
                     this.initialResults = window.ucf_searchResults_initial;
                     this.limit = window.ucf_searchResults_limit;
+                    this.showResultsHeading = false;
                     this.form = "#";
                     this.search_lead = window.ucf_search_lead || "";
                     this.search_placeholder = window.ucf_search_placeholder;
                     this.campaign_primary = window.ucf_campaign_primary;
                     this.campaign_sidebar = window.ucf_campaign_sidebar;
+                    this.hasSearched = false;
+                    this.hasSearchInitialized = false;
+                    this.hasSearchChanged = false;
+                    this.showCampaignPrimary = true;
                     this.filters = {};
                     this.noServicesVisible = function () { return 0 === jQuery(".service:visible").length; };
                     this.filterClear = function () { return jQuery.map(_this.filters, function (cat) { return cat.checked; }).every(function (x) { return "false" === x; }); };
                     var native = this.elementRef.nativeElement;
                     this.api = native.getAttribute("[api]");
                     this.title = native.getAttribute("[title]");
-                    this.query = native.getAttribute("[query]");
+                    this.query = native.getAttribute("[defaultQuery]") || native.getAttribute("[query]");
+                    this.defaultQuery = native.getAttribute("[defaultQuery]");
+                    this.frontsearch_query = native.getAttribute("[query]");
                     this._renderer.setElementProperty(this.elementRef.nativeElement, "value", this.query);
                     window.ucf_comp_studentServices = (window.ucf_comp_studentServices || []).concat(this);
                 }
                 // Receive event from SearchFormComponent.search EventEmitter.
                 AppStudentServicesComponent.prototype.onSearch = function (newSearch) {
                     this.query = newSearch;
+                    this.showCampaignPrimary = false;
+                    this.showResultsHeading = true;
+                    this.hasSearched = true;
                 };
                 // Receive event from onChange and onBlur.
                 AppStudentServicesComponent.prototype.onSearchChanged = function (change) {
@@ -58,6 +68,10 @@ System.register(["@angular/core", "./search"], function(exports_1, context_1) {
                 };
                 AppStudentServicesComponent.prototype.onResultsChanged = function (results) {
                     this.query = results.query;
+                    this.showResultsHeading = this.showResultsHeading && ("" !== this.query);
+                    if (this.hasSearched) {
+                        this.frontsearch_query = this.query;
+                    }
                     // this.searchForm.frontsearch_query = results.query;
                 };
                 AppStudentServicesComponent.prototype.onFilterChanged = function (category) {
@@ -86,6 +100,10 @@ System.register(["@angular/core", "./search"], function(exports_1, context_1) {
                     core_1.Input(), 
                     __metadata('design:type', String)
                 ], AppStudentServicesComponent.prototype, "query", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], AppStudentServicesComponent.prototype, "defaultQuery", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)

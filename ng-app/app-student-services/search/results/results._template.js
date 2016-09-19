@@ -28,7 +28,7 @@ var  php_context   = {
 
 var angular_context = {
     'before_services': 
-        `<h2 *ngIf="query">
+        `<h2 *ngIf="showResultsHeading">
             Results for: &ldquo;{{ query }}&rdquo;
             <span class="clear-results fa fa-times-circle-o" (click)="clearResults()" title="Clear search term."></span>
         </h2>

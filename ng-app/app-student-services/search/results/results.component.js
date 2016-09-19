@@ -116,6 +116,10 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                     __metadata('design:type', Number)
                 ], SearchResultsComponent.prototype, "limit", void 0);
                 __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], SearchResultsComponent.prototype, "showResultsHeading", void 0);
+                __decorate([
                     core_1.Output(), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], SearchResultsComponent.prototype, "resultsChanged", void 0);
