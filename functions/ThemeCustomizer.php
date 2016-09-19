@@ -94,6 +94,13 @@ function add_section_home_custom( $wp_customizer, $args = null ) {
 		'sanitize_callback' => 'wp_kses_post',
 		'sanitize_js_callback' => 'wp_kses_post',
 	));
+	$search_default_args = $args['services_theme-search_default'];
+	SDES_Static::set_default_keyValue_array( $search_default_args, array(
+		'sanitize_callback' => 'esc_attr',
+		'sanitize_js_callback' => 'esc_attr',
+		'default' => '',
+		'description' => "The default search term for the home page's results.",
+	));
 	$services_limit_args = $args['services_theme-services_limit'];
 	SDES_Static::set_default_keyValue_array( $services_limit_args, array(
 		'sanitize_callback' => 'esc_attr',
@@ -124,6 +131,14 @@ function add_section_home_custom( $wp_customizer, $args = null ) {
 		'Search Placeholder Text',	// Label.
 		$section,				// Section.
 		$placeholder_args		// Arguments array.
+	);
+
+	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
+		$wp_customizer,			// WP_Customize_Manager.
+		'services_theme-search_default',	// Id.
+		'Search Default',			// Label.
+		$section,				// Section.
+		$search_default_args	// Arguments array.
 	);
 
 	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
