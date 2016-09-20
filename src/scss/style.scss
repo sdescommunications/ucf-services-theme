@@ -55,7 +55,7 @@ a:hover, a:focus{
 	color: #edba03; /* Pass accessibility contrast test.*/
 }
 
-img[src=""] {
+img[src=""], img[src="null"], {
     display: none;
 }
 
