@@ -1155,7 +1155,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		return $html;
 	}
 
-	public static function render_contact_table( $context ){
+	public static function render_contact_table( $context, $MAP_URL = "http://map.ucf.edu/?show=" ){
 		ob_start();
 		?>
 			<div class="table-responsive contact">
@@ -1185,7 +1185,15 @@ class StudentService extends CustomPostType_ServicesTheme {
 					    if ( ! SDES_Static::is_null_or_whitespace( $context['location'] ) ) : ?>
 						<tr>
 							<td><span class="fa fa-map-marker"></span></td>
-							<td><span class="location"><?= $context['location'] ?></span></td>
+							<td><span class="location">
+							  <?php if ( $context['map_id'] ) : ?>
+								<a href="<?= $MAP_URL . $context['map_id'] ?>">
+									<?= $context['location'] ?>
+								</a>
+							  <?php else: ?>
+								<?= $context['location'] ?>
+							  <?php endif; ?>
+							</span></td>
 						</tr>
 					  <?php endif; ?>
 					</tbody>
