@@ -419,6 +419,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_phone
 		 * student_service_email
 		 * student_service_url
+		 * student_service_url_text
 		 * student_service_location
 		 * student_service_hours_monday_open
 		 * student_service_hours_monday_close
@@ -605,6 +606,12 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'name'  => 'URL',
 				'descr' => '',
 				'id'    => $prefix.'url',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'URL Text',
+				'descr' => '',
+				'id'    => $prefix.'url_text',
 				'type'  => 'text',
 			),
 			array(
@@ -800,6 +807,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$metadata_fields['stusvc_phone']           = get_post_meta( $stusvc->ID, 'student_service_phone', true );
 		$metadata_fields['stusvc_email']           = get_post_meta( $stusvc->ID, 'student_service_email', true );
 		$metadata_fields['stusvc_url']             = get_post_meta( $stusvc->ID, 'student_service_url', true );
+		$metadata_fields['stusvc_url_text']             = get_post_meta( $stusvc->ID, 'student_service_url_text', true );
 		$metadata_fields['stusvc_location']        = get_post_meta( $stusvc->ID, 'student_service_location', true );
 		$metadata_fields['stusvc_hours_monday_open']    = get_post_meta( $stusvc->ID, 'student_service_hours_monday_open', true );
 		$metadata_fields['stusvc_hours_monday_close']    = get_post_meta( $stusvc->ID, 'student_service_hours_monday_close', true );
@@ -908,6 +916,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'phone' => $metadata_fields['stusvc_phone'],
 			'email' => $metadata_fields['stusvc_email'],
 			'url' => $metadata_fields['stusvc_url'],
+			'url_text' => $metadata_fields['stusvc_url_text'],
 			'location' => $metadata_fields['stusvc_location'],
 			'hours_closed' => $hours_closed,
 			'hours_monday_open' => $metadata_fields['stusvc_hours_monday_open'],
@@ -1178,8 +1187,8 @@ class StudentService extends CustomPostType_ServicesTheme {
 					    if ( ! SDES_Static::is_null_or_whitespace( $context['url'] ) ) : ?>
 						<tr>
 							<td><span class="fa fa-chain"></span></td>
-							<td><a class="url" title="URL" href="<?= $context['url'] ?>">
-									<?= $context['url'] ?></a></td>
+							<td><a class="url" title="URL" href="<?= SDES_Static::url_ensure_prefix( $context['url'] ) ?>">
+									<?= $context['url_text'] ?: $context['url'] ?></a></td>
 						</tr>
 					  <?php endif;
 					    if ( ! SDES_Static::is_null_or_whitespace( $context['location'] ) ) : ?>
