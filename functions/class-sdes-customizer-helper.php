@@ -5,6 +5,7 @@
 
 namespace SDES\CustomizerControls;
 use \WP_Customize_Control;
+use \WP_Customize_Media_Control;
 require_once( 'class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
 
@@ -28,6 +29,16 @@ class SDES_Customizer_Helper
 
 				break;
 
+			case 'Image_Control':
+				$args['mime_type'] = 'image';
+				static::add_setting_and_control__WP_Customize_Media_Control( $wp_customizer, $id, $label, $section, $args );
+				break;
+
+			case 'Audio_Control':
+				$args['mime_type'] = 'audio';
+				static::add_setting_and_control__WP_Customize_Media_Control( $wp_customizer, $id, $label, $section, $args );
+				break;
+
 			// ...
 			case 'WP_Customize_Control':
 			default:
@@ -35,6 +46,54 @@ class SDES_Customizer_Helper
 				break;
 		}
 	}
+
+		/**
+	 * Add a setting and control for a WP_Customize_Control.
+	 * @see http://codex.wordpress.org/Class_Reference/WP_Customize_Control
+	 * @see SDES_Customizer_Helper::add_setting_and_control
+	 */
+	public static function add_setting_and_control__WP_Customize_Media_Control( $wp_customizer, $id, $label, $section, $args ) {
+		SDES_Static::set_default_keyValue( $args, 'default', '' );
+		SDES_Static::set_default_keyValue( $args, 'transport', 'refresh' );
+		SDES_Static::set_default_keyValue( $args, 'sanitize_callback', '' );
+		SDES_Static::set_default_keyValue( $args, 'sanitize_js_callback', '' );
+		SDES_Static::set_default_keyValue( $args, 'capability', 'edit_theme_options' );
+		SDES_Static::set_default_keyValue( $args, 'setting_type', 'theme_mod' );
+		SDES_Static::set_default_keyValue( $args, 'theme_supports', '' );
+		SDES_Static::set_default_keyValue( $args, 'control_type', 'text' );
+		SDES_Static::set_default_keyValue( $args, 'choices', array() );
+		SDES_Static::set_default_keyValue( $args, 'description', '' );
+
+
+		$wp_customizer->add_setting(
+			$id,
+			array(
+				'default'    => $args['default'],
+				'transport'  => $args['transport'],  // Refresh (default) or postMessage.
+				'sanitize_callback' => $args['sanitize_callback'],
+				'sanitize_js_callback' => $args['sanitize_js_callback'],
+				'capability' => $args['capability'],
+				'type' => $args['setting_type'], // Either 'theme_mod' or 'option'.
+				'theme_supports' => $args['theme_supports'], // Rarely needed.
+			)
+		);
+		$wp_customizer->add_control(
+			new WP_Customize_Media_Control(
+				$wp_customizer,
+				$id,
+				array(
+					'label'    => $label,
+					'description' => $args['description'],
+					'section'  => $section,
+					'settings' => $id,
+					// 'type' => $args['control_type'],  // No 'type' property on WP_Customize_Media_Control.
+					'choices' => $args['choices'],
+					'mime_type' => $args['mime_type']
+				)
+			)
+		);
+	}
+
 
 	/**
 	 * Add a setting and control for a WP_Customize_Control.

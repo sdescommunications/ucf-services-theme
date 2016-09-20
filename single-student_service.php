@@ -10,9 +10,14 @@ require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 use SDES\SDES_Static;
 
+$profile_image_default = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-profile_image_default', '' );
+$default_header_image =
+	( '' !== $profile_image_default ) 
+		?  wp_get_attachment_image_src( $profile_image_default, 'thumbnail-size', true )[0]
+		: get_header_image();
 $header_image =	( has_post_thumbnail( get_the_id() ) )
 	? wp_get_attachment_image_src( get_post_thumbnail_id(), 'thumbnail-size', true )[0]
-	: get_header_image();
+	: $default_header_image;
 
 $heading_text =
 	get_post_meta( get_the_id(), 'student_service_heading_text', true )

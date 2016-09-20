@@ -233,6 +233,11 @@ function add_section_other( $wp_customizer, $args = null ) {
 	);
 
 	/** ARGS */
+	$profile_image_default_args = $args['services_theme-profile_image_default'];
+	SDES_Static::set_default_keyValue_array( $profile_image_default_args, array(
+		'description' => 'A default image for the header of a student profile.',
+	));	
+
 	$closing_soon_args = $args['services_theme-closing_soon_minutes'];
 	SDES_Static::set_default_keyValue_array( $closing_soon_args, array(
 		'sanitize_callback' => 'wp_kses_post',
@@ -242,6 +247,15 @@ function add_section_other( $wp_customizer, $args = null ) {
 	));
 
 	/** FIELDS */
+	SDES_Customizer_Helper::add_setting_and_control(
+		'Image_Control', // Control Type.
+		$wp_customizer,			// WP_Customize_Manager.
+		'services_theme-profile_image_default',	// Id.
+		'Profile Header Image',			// Label.
+		$section,				// Section.
+		$profile_image_default_args		// Arguments array.
+	);
+
 	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
 		$wp_customizer,			// WP_Customize_Manager.
 		'services_theme-closing_soon_minutes',	// Id.
@@ -249,6 +263,7 @@ function add_section_other( $wp_customizer, $args = null ) {
 		$section,				// Section.
 		$closing_soon_args		// Arguments array.
 	);
+
 }
 
 // Allow AJAX updates to theme from Theme Customizer interface by
