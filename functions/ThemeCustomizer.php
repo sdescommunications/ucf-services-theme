@@ -40,8 +40,6 @@ function register_theme_customizer( $wp_customizer ) {
 
 	add_section_home_custom( $wp_customizer );
 
-	add_section_social_options( $wp_customizer );
-
 	add_section_other( $wp_customizer );
 
 }
@@ -155,68 +153,6 @@ function add_section_home_custom( $wp_customizer, $args = null ) {
 		'Front Page Calendar Feed',	// Label.
 		$section,				// Section.
 		$calendar_args		// Arguments array.
-	);
-}
-
-/** Register the social_options section, add settings and controls. */
-function add_section_social_options( $wp_customizer, $args = null ) {
-	/* SECTION */
-	$section = 'services_theme-social_options';
-	$wp_customizer->add_section(
-		$section,
-		array(
-			'title'    => 'Social',
-			'priority' => 300,
-			'panel' => $args['panelId'],
-		)
-	);
-
-	/** ARGS */
-	// TODO: Sanitize social links.
-	$facebook_args = $args['services_theme-facebook'];
-	SDES_Static::set_default_keyValue_array( $facebook_args, array(
-		'sanitize_callback' => 'esc_url',
-		'sanitize_js_callback' => 'esc_url',
-	));
-
-	$twitter_args = $args['services_theme-twitter'];
-	SDES_Static::set_default_keyValue_array( $twitter_args, array(
-		'sanitize_callback' => 'esc_url',
-		'sanitize_js_callback' => 'esc_url',
-	));
-
-	$youtube_args = $args['services_theme-youtube'];
-	SDES_Static::set_default_keyValue_array( $youtube_args, array(
-		'sanitize_callback' => 'esc_url',
-		'sanitize_js_callback' => 'esc_url',
-	));
-
-	/** FIELDS */
-	// Facebook
-	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
-		$wp_customizer,			// WP_Customize_Manager.
-		'services_theme-facebook',	// Id.
-		'Facebook',				// Label.
-		$section,				// Section.
-		$facebook_args			// Arguments array.
-	);
-
-	// Twitter
-	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
-		$wp_customizer,			 // WP_Customize_Manager.
-		'services_theme-twitter', // Id.
-		'Twitter',				 // Label.
-		$section,				 // Section.
-		$twitter_args			 // Arguments array.
-	);
-
-	// Youtube
-	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
-		$wp_customizer,			 // WP_Customize_Manager.
-		'services_theme-youtube', // Id.
-		'Youtube',				 // Label.
-		$section,				 // Section.
-		$twitter_args			 // Arguments array.
 	);
 }
 
