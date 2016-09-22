@@ -75,19 +75,32 @@ class Footer_Settings {
 		return $result;
 	}
 
+	protected static function array_key_default($key, $array, $default) {
+		return array_key_exists($key, $array)
+			? $array[$key]
+			: $default;
+	}
+
 	public static function register_footer_settings( $wp_customizer ) {
 
-		static::add_section_remote_menus( $wp_customizer );
+		$wp_customizer->add_panel( 'footer_panel', array(
+		  'title' => __( 'Footer' ),
+		  'description' => 'Footer Settings', // Include html tags such as <p>.
+		  'priority' => 1000, // Mixed with top-level-section hierarchy.
+		) );
+		$section_args = array( 'panelId' => 'footer_panel');
 
-		static::add_section_events( $wp_customizer );
+		static::add_section_remote_menus( $wp_customizer, $section_args );
 
-		static::add_section_organization( $wp_customizer );
+		static::add_section_events( $wp_customizer, $section_args );
 
-		static::add_section_news( $wp_customizer );
+		static::add_section_organization( $wp_customizer, $section_args );
 
-		static::add_section_social( $wp_customizer );
+		static::add_section_news( $wp_customizer, $section_args );
 
-		static::add_section_home_custom( $wp_customizer );
+		static::add_section_social( $wp_customizer, $section_args );
+
+		static::add_section_home_custom( $wp_customizer, $section_args );
 
 	}
 
@@ -99,12 +112,12 @@ class Footer_Settings {
 			array(
 				'title'    => 'Remote Menus',
 				'description' => '',
-				'priority' => 200,
-				'panel' => $args['panelId'],
+				'priority' => 1000,
+				'panel' => static::array_key_default('panelId', $args, ''),
 			)
 		);
 		/** ARGS */
-		$remote_menus_footer_menu_feed_args = $args['services_theme-remote_menus_footer_menu_feed'];
+		$remote_menus_footer_menu_feed_args = static::array_key_default('services_theme-remote_menus_footer_menu_feed', $args, '');
 		SDES_Static::set_default_keyValue_array( $remote_menus_footer_menu_feed_args, array(
 			'default' => self::FOOTER_NAV_URL,
 			'description' => 'The JSON feed of the www.ucf.edu footer menu.',
@@ -129,12 +142,12 @@ class Footer_Settings {
 			array(
 				'title'    => 'Events',
 				'description' => 'Settings for event lists used throughout the site.',
-				'priority' => 200,
-				'panel' => $args['panelId'],
+				'priority' => 400,
+				'panel' => static::array_key_default('panelId', $args, ''),
 			)
 		);
 		/** ARGS */
-		$events_max_items_args = $args['services_theme-events_max_items'];
+		$events_max_items_args = static::array_key_default('services_theme-events_max_items', $args, '');
 		SDES_Static::set_default_keyValue_array( $events_max_items_args, array(
 			'control_type' => 'select',
 			'default' => 4,
@@ -147,7 +160,7 @@ class Footer_Settings {
 			),
 		));
 
-		$events_url_args = $args['services_theme-events_url'];
+		$events_url_args = static::array_key_default('services_theme-events_url', $args, '');
 		SDES_Static::set_default_keyValue_array( $events_url_args, array(
 			'default' => self::EVENTS_URL,
 			'description' => 'Base URL for the calendar you wish to use. Example: <em>http://events.ucf.edu/mycalendar</em>',
@@ -184,24 +197,24 @@ class Footer_Settings {
 			array(
 				'title'    => 'Organization Info',
 				'description' => 'Contact information',
-				'priority' => 200,
-				'panel' => $args['panelId'],
+				'priority' => 600,
+				'panel' => static::array_key_default('panelId', $args, ''),
 			)
 		);
 		/** ARGS */
-		$organization_name_args = $args['services_theme-organization_name'];
+		$organization_name_args = static::array_key_default('services_theme-organization_name', $args, '');
 		SDES_Static::set_default_keyValue_array( $organization_name_args, array(
 			'description' => 'The name that will be displayed with organization info is displayed',
 		));
 
 		// TODO: add phone number validation.
 		// TODO: add `tel:` links to BaseTheme.
-		$organization_phone_args = $args['services_theme-organization_phone'];
+		$organization_phone_args = static::array_key_default('services_theme-organization_phone', $args, '');
 		SDES_Static::set_default_keyValue_array( $organization_phone_args, array(
 			'description' => 'The phone number that will be displayed with organization info is displayed',
 		));
 
-		$organization_email_args = $args['services_theme-organization_email'];
+		$organization_email_args = static::array_key_default('services_theme-organization_email', $args, '');
 		SDES_Static::set_default_keyValue_array( $organization_email_args, array(
 			'description' => 'The email address that will be displayed with organization info is displayed',
 		));
@@ -243,13 +256,13 @@ class Footer_Settings {
 			array(
 				'title'    => 'News',
 				'description' => 'Settings for news feeds used throughout the site.',
-				'priority' => 250,
-				'panel' => $args['panelId'],
+				'priority' => 200,
+				'panel' => static::array_key_default('panelId', $args, ''),
 			)
 		);
 
 		/** ARGS */
-		$news_max_items_args = $args['services_theme-news_max_items'];
+		$news_max_items_args = static::array_key_default('services_theme-news_max_items', $args, '');
 		SDES_Static::set_default_keyValue_array( $news_max_items_args, array(
 			'control_type' => 'select',
 			'default' => 2,
@@ -263,13 +276,13 @@ class Footer_Settings {
 			),
 		));
 
-		$news_url_args = $args['services_theme-news_url'];
+		$news_url_args = static::array_key_default('services_theme-news_url', $args, '');
 		SDES_Static::set_default_keyValue_array( $news_url_args, array(
 			'default' => self::NEWS_URL,
 			'description' => 'Use the following URL for the news RSS feed <br>Example: <em>http://today.ucf.edu/feed/</em>',
 		));
 
-		$news_placeholder_image_args = $args['services_theme-news_placeholder_image'];
+		$news_placeholder_image_args = static::array_key_default('services_theme-news_placeholder_image', $args, '');
 		SDES_Static::set_default_keyValue_array( $news_placeholder_image_args, array() );
 
 		/** FIELDS */
@@ -309,8 +322,8 @@ class Footer_Settings {
 			array(
 				'title'    => 'Social Media',
 				'description' => '',
-				'priority' => 300,
-				'panel' => $args['panelId'],
+				'priority' => 900,
+				'panel' => static::array_key_default('panelId', $args, ''),
 			)
 		);
 
@@ -347,7 +360,7 @@ class Footer_Settings {
 
 		foreach ( $networks as $network => $network_args ) {
 			/** ARGS */
-			$social_url_args = $args[ "services_theme-social_{$network}_url" ];
+			$social_url_args = static::array_key_default( "services_theme-social_{$network}_url" , $args, '');
 			SDES_Static::set_default_keyValue_array( $social_url_args, array(
 				'description' => $network_args['description'],
 				'sanitize_callback' => 'esc_url',
@@ -368,14 +381,14 @@ class Footer_Settings {
 
 	public static function add_section_home_custom( $wp_customizer, $args = null ) {
 		/* SECTION */
-		$section = 'services_theme-home_custom';
+		$section = 'services_theme-contact';
 		$wp_customizer->add_section(
 			$section,
 			array(
-				'title'    => 'Home Customization',
+				'title'    => 'Contact',
 				'description' => '',
-				'priority' => 200,
-				'panel' => $args['panelId'],
+				'priority' => 800,
+				'panel' => static::array_key_default('panelId', $args, ''),
 			)
 		);
 		/** ARGS */
@@ -386,7 +399,7 @@ class Footer_Settings {
 				$form_choices[$form->id] = $form->title;
 			}
 		}
-		$home_custom_footer_contact_form_args = $args['services_theme-home_custom_footer_contact_form'];
+		$home_custom_footer_contact_form_args = static::array_key_default('services_theme-home_custom_footer_contact_form', $args, '');
 		SDES_Static::set_default_keyValue_array( $home_custom_footer_contact_form_args, array(
 			'control_type' => 'select',
 			'default' => 4,
@@ -394,7 +407,7 @@ class Footer_Settings {
 			'choices'     => $form_choices
 		));
 
-		// $home_custom_url_args = $args['services_theme-home_custom_url'];
+		// $home_custom_url_args = static::array_key_default('services_theme-home_custom_url', $args, '');
 		// SDES_Static::set_default_keyValue_array( $home_custom_url_args, array(
 		// 	'default' => self::home_custom_URL,
 		// 	'description' => 'Base URL for the calendar you wish to use. Example: <em>http://home_custom.ucf.edu/mycalendar</em>',

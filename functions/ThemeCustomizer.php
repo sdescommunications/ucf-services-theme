@@ -22,6 +22,21 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 require_once( get_stylesheet_directory() . '/footer-settings.php' );
 require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
 
+/**
+ * Removes the core 'Menus' panel from the Customizer.
+ * @see https://developer.wordpress.org/reference/hooks/customize_loaded_components/#comment-1005
+ * @param array $components Core Customizer components list.
+ * @return array (Maybe) modified components list.
+ */
+function wpdocs_remove_nav_menus_panel( $components ) {
+    $i = array_search( 'nav_menus', $components );
+    if ( false !== $i ) {
+        unset( $components[ $i ] );
+    }
+    return $components;
+}
+add_filter( 'customize_loaded_components', __NAMESPACE__.'\wpdocs_remove_nav_menus_panel' );
+do_action( 'plugins_loaded' ); // The customize_loaded_components filter generally runs during the ‘plugins_loaded’ action.
 
 /**
  * Defines all of the sections, settings, and controls for the various
@@ -36,11 +51,13 @@ require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
  */
 function register_theme_customizer( $wp_customizer ) {
 
+	// Build-in sections.
 	add_to_section_TitleAndTagline( $wp_customizer );
+	$wp_customizer->remove_section('colors');
 
 	add_section_home_custom( $wp_customizer );
 
-	add_section_other( $wp_customizer );
+	add_section_service_profile( $wp_customizer );
 
 }
 add_action( 'customize_register', __NAMESPACE__.'\register_theme_customizer' );
@@ -156,13 +173,13 @@ function add_section_home_custom( $wp_customizer, $args = null ) {
 	);
 }
 
-function add_section_other( $wp_customizer, $args = null ) {
+function add_section_service_profile( $wp_customizer, $args = null ) {
 	/* SECTION */
-	$section = 'services_theme-other';
+	$section = 'services_theme-service_profiles';
 	$wp_customizer->add_section(
 		$section,
 		array(
-			'title'    => 'Other',
+			'title'    => 'Service Profiles',
 			'priority' => 900,
 			'panel' => $args['panelId'],
 		)
