@@ -193,6 +193,9 @@
       margin: 0 5px;
       padding-top: 10px;
       width: 32px;
+      &.google-plus {
+        padding-top: 15px;
+      }
 
       &:hover {
         background: #D4D4D4;

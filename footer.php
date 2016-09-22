@@ -187,7 +187,7 @@ class Footer {
 			</a>
 		<?php endif; ?>
 		<?php if ( $googleplus_url ) : ?>
-			<a href="<?php echo $googleplus_url; ?>" target="_blank" class="social-icon ga-event-link">
+			<a href="<?php echo $googleplus_url; ?>" target="_blank" class="social-icon ga-event-link google-plus">
 				<span class="fa fa-google-plus"></span>
 				<span class="sr-only">Follow us on Google+</span>
 			</a>
