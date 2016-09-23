@@ -1317,11 +1317,20 @@ class StudentService extends CustomPostType_ServicesTheme {
 	}
 
 	public static function render_social_buttons( $context ){
-		$network_names = array( 'facebook', 'twitter', 'youtube', 'googleplus', 'linkedin', 'instagram', 'pinterest', 'tumblr', 'flickr' );
+		$network_map = array(
+			'facebook' => 'facebook-square',
+			'twitter' => 'twitter-square',
+			'youtube' => 'youtube-square',
+			'googleplus' => 'google-plus-square',
+			'linkedin' => 'linkedin-square',
+			'instagram' => 'instagram',
+			'pinterest' => 'pinterest-square',
+			'tumblr' => 'tumblr-square ',
+			'flickr' => 'flickr' );
 		$networks = array();
-		foreach ( $network_names as $name ) {
+		foreach ( $network_map as $name => $fa_icon ) {
 			array_push( $networks,
-				(object) array( 'name' => $name, 'url' => $context[ "social_{$name}" ], 'faicon' => "fa-{$name}-official" )
+				(object) array( 'name' => $name, 'url' => $context[ "social_{$name}" ], 'faicon' => "fa-{$fa_icon}" )
 			);
 		}
 		ob_start();
@@ -1330,7 +1339,9 @@ class StudentService extends CustomPostType_ServicesTheme {
 				<h2>Get social with <?= $context['title'] ?></h2>
 			  <?php foreach ( $networks as $network ) :
 			  if ( ! SDES_Static::is_null_or_whitespace( $network ) ) : ?>
-				<a href="<?= $network->url ?>"><span class="fa <?= $network->faicon ?>"></span></a>
+				<a href="<?= $network->url ?>" title="<?= ucfirst($network->name) ?>">
+					<span class="fa <?= $network->faicon ?> social-icon"></span>
+				</a>
 			  <?php endif;
 			  endforeach; ?>
 			</div>
