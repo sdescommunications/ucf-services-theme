@@ -395,9 +395,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_main_category_id
 		 * student_service_heading_text
 		 * student_service_short_description
-		 * student_service_events_cal_feed
-		 * student_service_map_id
-		 * student_service_gallery_url-flickr
 		 * student_service_additional_1-title
 		 * student_service_additional_1-url
 		 * student_service_additional_1-description
@@ -421,6 +418,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_url
 		 * student_service_url_text
 		 * student_service_location
+		 * student_service_map_id
 		 * student_service_hours_monday_open
 		 * student_service_hours_monday_close
 		 * student_service_hours_tuesday_open
@@ -436,190 +434,184 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_hours_sunday_open
 		 * student_service_hours_sunday_close
 		 * student_service_social_facebook
-		 * student_service_social_twitter
-		 * student_service_social_youtube
+		 * student_service_social_flickr
 		 * student_service_social_googleplus
-		 * student_service_social_linkedin
 		 * student_service_social_instagram
+		 * student_service_social_linkedin
 		 * student_service_social_pinterest
 		 * student_service_social_tumblr
-		 * student_service_social_flickr
+		 * student_service_social_twitter
+		 * student_service_social_youtube
+		 * student_service_events_cal_feed
+		 * student_service_gallery_url-flickr
 		 */
 		return array(
 			array(
 				'name'  => 'Main Category',
-				'descr' => 'The main category for this service, to be used by breadcrumbs navigation.',
+				'descr' => 'The main category for this service. Used for breadcrumbs navigation and search filtering.',
 				'id'    => $prefix.'main_category_id',
 				'type'  => 'taxonomy',
 			),
 			array(
 				'name'  => 'Heading Text',
-				'descr' => 'Text shown over the featured (header) image.',
+				'descr' => 'Text shown over the featured (header) image. One phrase, 2-5 words.',
 				'id'    => $prefix.'heading_text',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Short Description',
-				'descr' => 'A short description of the service.',
+				'name'  => 'Summary',
+				'descr' => 'A short description of the service (2-3 sentences). Will appear in search results.',
 				'id'    => $prefix.'short_description',
 				'type'  => 'textarea',
 			),
+
 			array(
-				'name'  => 'UCF Events Calendar Feed',
-				'descr' => 'The address of the UCF Events calendar feed from events.ucf.edu.',
-				'id'    => $prefix.'events_cal_feed',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'UCF Map ID',
-				'descr' => 'The UCF Map ID from map.ucf.edu.',
-				'id'    => $prefix.'map_id',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Gallery URL - Flickr',
-				'descr' => 'A link to a flickr gallery.',
-				'id'    => $prefix.'gallery_url-flickr',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Additional Services 1 - Title',
+				'name'  => "Add'l 1 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_1-title',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Additional Services 1 - URL',
+				'name'  => "Add'l 1 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_1-url',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Additional Services 1 - Description',
-				'descr' => '',
+				'name'  => "Add'l 1 - Summary",
+				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_1-description',
 				'type'  => 'textarea',
 			),
 			array(
-				'name'  => 'Additional Services 2 - Title',
+				'name'  => "Add'l 2 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_2-title',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Additional Services 2 - URL',
+				'name'  => "Add'l 2 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_2-url',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Additional Services 2 - Description',
-				'descr' => '',
+				'name'  => "Add'l 2 - Summary",
+				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_2-description',
 				'type'  => 'textarea',
 			),
 			array(
-				'name'  => 'Additional Services 3 - Title',
+				'name'  => "Add'l 3 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_3-title',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Additional Services 3 - URL',
+				'name'  => "Add'l 3 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_3-url',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Additional Services 3 - Description',
-				'descr' => '',
+				'name'  => "Add'l 3 - Summary",
+				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_3-description',
 				'type'  => 'textarea',
 			),
 			array(
-				'name'  => 'Additional Services 4 - Title',
+				'name'  => "Add'l 4 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_4-title',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Additional Services 4 - URL',
+				'name'  => "Add'l 4 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_4-url',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Additional Services 4 - Description',
-				'descr' => '',
+				'name'  => "Add'l 4 - Summary",
+				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_4-description',
 				'type'  => 'textarea',
 			),
 			array(
-				'name'  => 'Additional Services 5 - Title',
+				'name'  => "Add'l 5 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_5-title',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Additional Services 5 - URL',
+				'name'  => "Add'l 5 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_5-url',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Additional Services 5 - Description',
-				'descr' => '',
+				'name'  => "Add'l 5 - Summary",
+				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_5-description',
 				'type'  => 'textarea',
 			),
+
 			array(
-				'name'  => 'Image',
-				'descr' => 'Select an image.',
+				'name'  => 'Action Image',
+				'descr' => 'The image for the call-to-action section. Recommended size: 600x400.',
 				'id'    => $prefix.'image',
 				'type'  => 'image',
 			),
 			array(
-				'name'  => 'Primary Action',
-				'descr' => '',
+				'name'  => 'Action Text',
+				'descr' => 'The text for the call-to-action button. 2-4 words.',
 				'id'    => $prefix.'primary_action',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Primary Action URL',
-				'descr' => 'Link to a website, a phone number, or an email.',
+				'name'  => 'Action URL',
+				'descr' => 'Link to a website, phone number, or email address.',
 				'id'    => $prefix.'primary_action_url',
 				'type'  => 'text',
 			),
+
 			array(
-				'name'  => 'Phone',
-				'descr' => '',
+				'name'  => 'Contact Phone',
+				'descr' => 'Phone number for service, if applicable.',
 				'id'    => $prefix.'phone',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Email',
-				'descr' => '',
+				'name'  => 'Contact Email',
+				'descr' => 'Email address for service, if applicable.',
 				'id'    => $prefix.'email',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'URL',
-				'descr' => '',
+				'name'  => 'Contact URL',
+				'descr' => 'Website for service provider, if applicable.',
 				'id'    => $prefix.'url',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'URL Text',
+				'name'  => 'Contact URL Text',
 				'descr' => '',
 				'id'    => $prefix.'url_text',
 				'type'  => 'text',
 			),
 			array(
 				'name'  => 'Location',
-				'descr' => '',
+				'descr' => 'Location of service, if applicable.',
 				'id'    => $prefix.'location',
 				'type'  => 'text',
 			),
+			array(
+				'name'  => 'UCF Map ID',
+				'descr' => 'UCF Map ID of location, if applicable. Creates a link to the UCF Map.',
+				'id'    => $prefix.'map_id',
+				'type'  => 'text',
+			),
+
 			array(
 				'name'  => 'Hours - Monday Open',
 				'descr' => '',
@@ -704,72 +696,75 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'id'    => $prefix.'hours_sunday_close',
 				'type'  => 'time',
 			),
+
+
 			array(
 				'name'  => 'Social - Facebook',
-				'descr' => '',
+				'descr' => 'A direct URL to the service on Facebook.',
 				'id'    => $prefix.'social_facebook',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Social - Twitter',
-				'descr' => '',
-				'id'    => $prefix.'social_twitter',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Social - Youtube',
-				'descr' => '',
-				'id'    => $prefix.'social_youtube',
+				'name'  => 'Social - Flickr',
+				'descr' => 'A direct URL to the service on Flickr.',
+				'id'    => $prefix.'social_flickr',
 				'type'  => 'text',
 			),
 			array(
 				'name'  => 'Social - Google Plus',
-				'descr' => '',
+				'descr' => 'A direct URL to the service on Google Plus.',
 				'id'    => $prefix.'social_googleplus',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Social - LinkedIn',
-				'descr' => '',
-				'id'    => $prefix.'social_linkedin',
-				'type'  => 'text',
-			),
-			array(
 				'name'  => 'Social - Instagram',
-				'descr' => '',
+				'descr' => "The username of the service's Instagram account.",
 				'id'    => $prefix.'social_instagram',
 				'type'  => 'text',
 			),
 			array(
+				'name'  => 'Social - LinkedIn',
+				'descr' => 'A direct URL to the service on LinkedIn.',
+				'id'    => $prefix.'social_linkedin',
+				'type'  => 'text',
+			),
+			array(
 				'name'  => 'Social - Pinterest',
-				'descr' => '',
+				'descr' => 'A direct URL to the service on Pinterest.',
 				'id'    => $prefix.'social_pinterest',
 				'type'  => 'text',
 			),
 			array(
 				'name'  => 'Social - Tumblr',
-				'descr' => '',
+				'descr' => 'A direct URL to the service on Tumblr.',
 				'id'    => $prefix.'social_tumblr',
 				'type'  => 'text',
 			),
 			array(
-				'name'  => 'Social - Flickr',
-				'descr' => '',
-				'id'    => $prefix.'social_flickr',
+				'name'  => 'Social - Twitter',
+				'descr' => "The username of the service's Twitter account.",
+				'id'    => $prefix.'social_twitter',
 				'type'  => 'text',
 			),
-			// array(
-			// 	'name'  => 'Menu',
-			// 	'descr' => '',
-			// 	'id'    => $prefix.'menu',
-			// 	'type'  => 'menu_select',
-			// ),
-			// array(
-			// 	'name'  => '',
-			// 	'descr' => '',
-			// 	'id'    => $prefix.'',
-			// 	'type'  => 'text',
-			// ),
+			array(
+				'name'  => 'Social - Youtube',
+				'descr' => 'A direct URL to the service on YouTube.',
+				'id'    => $prefix.'social_youtube',
+				'type'  => 'text',
+			),
+
+			array(
+				'name'  => 'UCF Events Calendar Feed',
+				'descr' => 'A URL to the RSS or JSON feed of a UCF Event Calendar.',
+				'id'    => $prefix.'events_cal_feed',
+				'type'  => 'text',
+			),
+			array(
+				'name'  => 'Gallery URL - Flickr',
+				'descr' => 'A link to a flickr gallery.',
+				'id'    => $prefix.'gallery_url-flickr',
+				'type'  => 'text',
+			),
 		);
 	}
 
