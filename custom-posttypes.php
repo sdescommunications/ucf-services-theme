@@ -892,6 +892,15 @@ class StudentService extends CustomPostType_ServicesTheme {
 			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_friday_open'], $metadata_fields['stusvc_hours_friday_close'] )
 			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_saturday_open'], $metadata_fields['stusvc_hours_saturday_close'] )
 			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_sunday_open'], $metadata_fields['stusvc_hours_sunday_close'] );
+		$url_facebook = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_facebook'] );
+		$url_twitter = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_twitter'], 'http://twitter.com/' );
+		$url_youtube = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_youtube'] );
+		$url_googleplus = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_googleplus'] );
+		$url_linkedin = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_linkedin'] );
+		$url_instagram = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_instagram'], 'http://www.instagram.com/' );
+		$url_pinterest = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_pinterest'] );
+		$url_tumblr = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_tumblr'] );
+		$url_flickr = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_flickr'] );
 		return array(
 			'permalink' => $permalink,
 			'heading' => $metadata_fields['stusvc_heading_text'],
@@ -928,15 +937,15 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'hours_saturday_close' => $metadata_fields['stusvc_hours_saturday_close'],
 			'hours_sunday_open' => $metadata_fields['stusvc_hours_sunday_open'],
 			'hours_sunday_close' => $metadata_fields['stusvc_hours_sunday_close'],
-			'social_facebook' => $metadata_fields['stusvc_social_facebook'],
-			'social_twitter' => $metadata_fields['stusvc_social_twitter'],
-			'social_youtube' => $metadata_fields['stusvc_social_youtube'],
-			'social_googleplus' => $metadata_fields['stusvc_social_googleplus'],
-			'social_linkedin' => $metadata_fields['stusvc_social_linkedin'],
-			'social_instagram' => $metadata_fields['stusvc_social_instagram'],
-			'social_pinterest' => $metadata_fields['stusvc_social_pinterest'],
-			'social_tumblr' => $metadata_fields['stusvc_social_tumblr'],
-			'social_flickr' => $metadata_fields['stusvc_social_flickr'],
+			'social_facebook' => $url_facebook,
+			'social_twitter' => $url_twitter,
+			'social_youtube' => $url_youtube,
+			'social_googleplus' => $url_googleplus,
+			'social_linkedin' => $url_linkedin,
+			'social_instagram' => $url_instagram,
+			'social_pinterest' => $url_pinterest,
+			'social_tumblr' => $url_tumblr,
+			'social_flickr' => $url_flickr,
 	 		'events_cal_feed' => $metadata_fields['stusvc_events_cal_feed'],
 	 		'map_id' => $metadata_fields['stusvc_map_id'],
 			'tag_cloud' => $taxonomies,
