@@ -1342,7 +1342,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			<div class="social">
 				<h2>Get social with <?= $context['title'] ?></h2>
 			  <?php foreach ( $networks as $network ) :
-			  if ( ! SDES_Static::is_null_or_whitespace( $network ) ) : ?>
+			  if ( $network && ! SDES_Static::is_null_or_whitespace( $network->url ) ) : ?>
 				<a href="<?= $network->url ?>" title="<?= ucfirst($network->name) ?>">
 					<span class="fa <?= $network->faicon ?> social-icon"></span>
 				</a>
