@@ -27,18 +27,10 @@ require_once( get_stylesheet_directory() . '/vendor/autoload.php' );
 use Underscore\Types\Arrays;
 
 abstract class CustomPostType_ServicesTheme extends CustomPostType {
-	public function register_metaboxes() {
-		if ( $this->options( 'use_metabox' ) ) {
-			$metabox = $this->metabox();
-			add_meta_box(
-				$metabox['id'],
-				$metabox['title'],
-				'SDES\\ServicesTheme\\ServicesMetaboxes::show_meta_boxes',
-				$metabox['page'],
-				$metabox['context'],
-				$metabox['priority']
-			);
-		}
+	public function register_metaboxes( $callback = null , $callback_args = array(array()) ) {
+		// Register metaboxes with theme-specific metafields.
+		$callback = $callback ?: 'SDES\\ServicesTheme\\ServicesMetaboxes::show_meta_boxes';
+		parent::register_metaboxes( $callback, $callback_args );
 	}
 }
 

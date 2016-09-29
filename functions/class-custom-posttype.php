@@ -181,40 +181,80 @@ abstract class CustomPostType {
 	}
 
 	/**
+	 * Group the fields array by each field's 'metabox_id' value. Any field without a 'metabox_id' from
+	 * the $metabox_ids will be added to the default metabox's group.
+	 * @param string $default_metabox_id The metabox_id of the default metabox.
+	 * @param array $metabox_ids An explicit list of the metabox_id's you intend to create.
+	 * @return array A map of metabox_id's to fields with the same metabox_id. 
+	 */
+	public function fields_by_metabox_id(  $default_metabox_id = 'default', $metabox_ids = array() ) {
+		$metabox_fields = array_fill_keys( $metabox_ids, array() );
+		foreach ( $this->fields() as $field ) {
+			if ( array_key_exists('metabox_id', $field) ) {
+				if( array_key_exists( $field['metabox_id'], $metabox_fields) ) {
+					$metabox_fields[ $field['metabox_id'] ][] = $field;
+					continue;
+				} else {
+					$errorMsg = "The metabox '".$field['metabox_id']."' is not a key in \$metabox_fields."
+						. " Adding '". $field['id'] ."' to the default metabox instead.";
+					\trigger_error($errorMsg, \E_USER_WARNING);
+				}
+			}
+			// Add to default metabox.
+			$field['metabox_id'] = $default_metabox_id;
+			$metabox_fields[$default_metabox_id][] = $field;
+		}
+		return $metabox_fields;
+	}
+
+	/**
 	 * Creates metabox array for custom post type. Override method in
 	 * descendants to add or modify metaboxes.
 	 * @return array The metaboxes for this post_type.
 	 * */
-	public function metabox() {
+	public function metaboxes() {
 		if ( $this->options( 'use_metabox' ) ) {
+			$DEFAULT_METABOX_ID = 'custom_'.$this->options( 'name' ).'_metabox';
+			$metabox_ids = array( $DEFAULT_METABOX_ID );
+			$metabox_fields = $this->fields_by_metabox_id( $DEFAULT_METABOX_ID, $metabox_ids );
 			return array(
-			'id'       => 'custom_'.$this->options( 'name' ).'_metabox',
-			'title'    => __( $this->options( 'singular_name' ).' Fields' ),
-			'page'     => $this->options( 'name' ),
-			'context'  => 'normal',
-			'priority' => 'high',
-			'fields'   => $this->fields(),
+				array(
+					'id'       => $DEFAULT_METABOX_ID,
+					'title'    => __( $this->options( 'singular_name' ).' Fields' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$DEFAULT_METABOX_ID],
+				),
 			);
 		}
 		return null;
 	}
 
 	/**
-	 * Registers metaboxes defined for custom post type.
+	 * Registers metaboxes defined for custom post type.  The call to `add_action('do_meta_boxes')` is invoked by SDES_Metaboxes::register().
 	 * @see SDES_Metaboxes::show_meta_boxes() SDES_Metaboxes::show_meta_boxes()
 	 * @see SDES_Metaboxes::display_meta_box_field() SDES_Metaboxes::display_meta_box_field()
+	 * @see https://developer.wordpress.org/reference/functions/add_meta_box/ WP-Ref: add_meta_box
 	 * */
-	public function register_metaboxes() {
+	public function register_metaboxes( $callback = 'SDES_Metaboxes::show_meta_boxes', $args = array(array()) ) {
 		if ( $this->options( 'use_metabox' ) ) {
-			$metabox = $this->metabox();
-			add_meta_box(
-				$metabox['id'],
-				$metabox['title'],
-				'SDES_Metaboxes::show_meta_boxes',
-				$metabox['page'],
-				$metabox['context'],
-				$metabox['priority']
-			);
+			$metaboxes = $this->metaboxes();
+			foreach ( $metaboxes as $metabox ) {
+				$callback_args =
+					( array_key_exists( $metabox['id'], $args ) )
+					? $args[ $metabox['id'] ]
+					: null;
+				add_meta_box(
+					$metabox['id'],
+					$metabox['title'],
+					$callback,
+					$metabox['screen'],
+					$metabox['context'],
+					$metabox['priority'],
+					$callback_args
+				);
+			}
 		}
 	}
 

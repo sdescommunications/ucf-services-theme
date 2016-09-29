@@ -79,16 +79,16 @@ class SDES_Metaboxes {
 	/**
 	 * Returns a custom post type's metabox data.
 	 **/
-	public static function get_post_meta_box( $post_id ) {
+	public static function get_post_meta_boxes( $post_id ) {
 		static::check_installed_custom_post_types();
-		$meta_box = null;
+		$meta_boxes = null;
 		foreach ( static::$installed_custom_post_types as $custom_post_type ) {
 			if ( SDES_Static::get_post_type( $post_id ) === $custom_post_type->options( 'name' ) ) {
-				$meta_box = $custom_post_type->metabox();
+				$meta_boxes = $custom_post_type->metaboxes();
 				break;
 			}
 		}
-		return $meta_box;
+		return $meta_boxes;
 	}
 
 	/**
@@ -97,7 +97,8 @@ class SDES_Metaboxes {
 	 * @author Jared Lang
 	 * */
 	public static function save_meta_data( $post_id ) {
-		$meta_box = static::get_post_meta_box( $post_id );
+		$meta_boxes = static::get_post_meta_boxes( $post_id );
+	  foreach ($meta_boxes as $meta_box) {
 		// Verify nonce.
 		$nonce = isset( $_POST['meta_box_nonce'] ) ? $_POST['meta_box_nonce'] : null;
 		if ( ! wp_verify_nonce( $nonce, basename( __FILE__ ) ) ) {
@@ -120,6 +121,7 @@ class SDES_Metaboxes {
 				static::save_default( $post_id, $field );
 			}
 		}
+	  }
 	}
 
 	public static function save_default( $post_id, $field ) {
@@ -142,9 +144,13 @@ class SDES_Metaboxes {
 	 * @return void
 	 * @author Jared Lang
 	 * */
-	public static function show_meta_boxes( $post ) {
-		$meta_box = static::get_post_meta_box( $post );
+	public static function show_meta_boxes( $post, $args ) {
+		$meta_boxes = static::get_post_meta_boxes( $post );
+		// echo "<pre>".var_dump($meta_boxes)."</pre>";
 		ob_start();
+		foreach ($meta_boxes as $meta_box) :
+			// echo "<pre>".var_dump($meta_box)."</pre>";
+			if ( $args['id'] === $meta_box['id'] ) :
 	?>
 		<input type="hidden" name="meta_box_nonce" value="<?php echo wp_create_nonce( basename( __FILE__ ) ); ?>">
 		<table class="form-table custom-metabox">
@@ -174,6 +180,8 @@ class SDES_Metaboxes {
 			if ( $hasImageField ) {
 				echo ImageMetaField::get_meta_image_button_script();
 			}
+			endif;
+		endforeach;
 		echo ob_get_clean();
 	}
 
