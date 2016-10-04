@@ -226,6 +226,14 @@ abstract class CustomPostType {
 					'priority' => 'high',
 					'fields'   => $metabox_fields[$DEFAULT_METABOX_ID],
 				),
+				// array(
+				// 	'id'       => $______,
+				// 	'title'    => __( '______' ),
+				// 	'screen'     => $this->options( 'name' ),
+				// 	'context'  => 'normal',
+				// 	'priority' => 'high',
+				// 	'fields'   => $metabox_fields[$______],
+				// ),
 			);
 		}
 		return null;

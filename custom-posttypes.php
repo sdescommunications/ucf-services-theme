@@ -383,6 +383,13 @@ class StudentService extends CustomPostType_ServicesTheme {
 	// TODO: implement by calling a static `get_fields` method (to also be called from get_render_metadata).
 	public function fields() {
 		$prefix = $this->options( 'name' ).'_';
+		$DEFAULT_METABOX_ID = 'custom_'.$this->options( 'name' ).'_metabox';
+		$EXPLORE_FURTHER = 'custom_mb_'.$this->options( 'name' ).'-a-explore_further';
+		$CALL_TO_ACTION = 'custom_mb_'.$this->options( 'name' ).'-b-call_to_action';
+		$CONTACT_INFORMATION = 'custom_mb_'.$this->options( 'name' ).'-c-contact_information';
+		$HOURS = 'custom_mb_'.$this->options( 'name' ).'-d-hours';
+		$SOCIAL = 'custom_mb_'.$this->options( 'name' ).'-e-social';
+		$OTHER = 'custom_mb_'.$this->options( 'name' ).'-f-other';
 		/*
 		 * student_service_main_category_id
 		 * student_service_heading_text
@@ -443,109 +450,126 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'descr' => 'The main category for this service. Used for breadcrumbs navigation and search filtering.',
 				'id'    => $prefix.'main_category_id',
 				'type'  => 'taxonomy',
+				'metabox_id' => $DEFAULT_METABOX_ID,
 			),
 			array(
 				'name'  => 'Heading Text',
 				'descr' => 'Text shown over the featured (header) image. One phrase, 2-5 words.',
 				'id'    => $prefix.'heading_text',
 				'type'  => 'text',
+				'metabox_id' => $DEFAULT_METABOX_ID,
 			),
 			array(
 				'name'  => 'Summary',
 				'descr' => 'A short description of the service (2-3 sentences). Will appear in search results.',
 				'id'    => $prefix.'short_description',
 				'type'  => 'textarea',
+				'metabox_id' => $DEFAULT_METABOX_ID,
 			),
-
 			array(
 				'name'  => "Add'l 1 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_1-title',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 1 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_1-url',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 1 - Summary",
 				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_1-description',
 				'type'  => 'textarea',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 2 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_2-title',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 2 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_2-url',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 2 - Summary",
 				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_2-description',
 				'type'  => 'textarea',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 3 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_3-title',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 3 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_3-url',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 3 - Summary",
 				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_3-description',
 				'type'  => 'textarea',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 4 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_4-title',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 4 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_4-url',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 4 - Summary",
 				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_4-description',
 				'type'  => 'textarea',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 5 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_5-title',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 5 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_5-url',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
 				'name'  => "Add'l 5 - Summary",
 				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_5-description',
 				'type'  => 'textarea',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 
 			array(
@@ -553,55 +577,63 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'descr' => 'The image for the call-to-action section. Recommended size: 600x400.',
 				'id'    => $prefix.'image',
 				'type'  => 'image',
+				'metabox_id' => $CALL_TO_ACTION,
 			),
 			array(
 				'name'  => 'Action Text',
 				'descr' => 'The text for the call-to-action button. 2-4 words.',
 				'id'    => $prefix.'primary_action',
 				'type'  => 'text',
+				'metabox_id' => $CALL_TO_ACTION,
 			),
 			array(
 				'name'  => 'Action URL',
 				'descr' => 'Link to a website, phone number, or email address.',
 				'id'    => $prefix.'primary_action_url',
 				'type'  => 'text',
+				'metabox_id' => $CALL_TO_ACTION,
 			),
-
 			array(
 				'name'  => 'Contact Phone',
 				'descr' => 'Phone number for service, if applicable.',
 				'id'    => $prefix.'phone',
 				'type'  => 'text',
+				'metabox_id' => $CONTACT_INFORMATION,
 			),
 			array(
 				'name'  => 'Contact Email',
 				'descr' => 'Email address for service, if applicable.',
 				'id'    => $prefix.'email',
 				'type'  => 'text',
+				'metabox_id' => $CONTACT_INFORMATION,
 			),
 			array(
 				'name'  => 'Contact URL',
 				'descr' => 'Website for service provider, if applicable.',
 				'id'    => $prefix.'url',
 				'type'  => 'text',
+				'metabox_id' => $CONTACT_INFORMATION,
 			),
 			array(
 				'name'  => 'Contact URL Text',
 				'descr' => '',
 				'id'    => $prefix.'url_text',
 				'type'  => 'text',
+				'metabox_id' => $CONTACT_INFORMATION,
 			),
 			array(
 				'name'  => 'Location',
 				'descr' => 'Location of service, if applicable.',
 				'id'    => $prefix.'location',
 				'type'  => 'text',
+				'metabox_id' => $CONTACT_INFORMATION,
 			),
 			array(
 				'name'  => 'UCF Map ID',
 				'descr' => 'UCF Map ID of location, if applicable. Creates a link to the UCF Map.',
 				'id'    => $prefix.'map_id',
 				'type'  => 'text',
+				'metabox_id' => $CONTACT_INFORMATION,
 			),
 
 			array(
@@ -609,140 +641,161 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'descr' => '',
 				'id'    => $prefix.'hours_monday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Monday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_monday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Tuesday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_tuesday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Tuesday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_tuesday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Wednesday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_wednesday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Wednesday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_wednesday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Thursday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_thursday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Thursday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_thursday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Friday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_friday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Friday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_friday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Saturday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_saturday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Saturday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_saturday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Sunday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_sunday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Sunday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_sunday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
-
-
 			array(
 				'name'  => 'Social - Facebook',
 				'descr' => 'A direct URL to the service on Facebook.',
 				'id'    => $prefix.'social_facebook',
 				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
 			),
 			array(
 				'name'  => 'Social - Flickr',
 				'descr' => 'A direct URL to the service on Flickr.',
 				'id'    => $prefix.'social_flickr',
 				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
 			),
 			array(
 				'name'  => 'Social - Google Plus',
 				'descr' => 'A direct URL to the service on Google Plus.',
 				'id'    => $prefix.'social_googleplus',
 				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
 			),
 			array(
 				'name'  => 'Social - Instagram',
 				'descr' => "The username of the service's Instagram account.",
 				'id'    => $prefix.'social_instagram',
 				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
 			),
 			array(
 				'name'  => 'Social - LinkedIn',
 				'descr' => 'A direct URL to the service on LinkedIn.',
 				'id'    => $prefix.'social_linkedin',
 				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
 			),
 			array(
 				'name'  => 'Social - Pinterest',
 				'descr' => 'A direct URL to the service on Pinterest.',
 				'id'    => $prefix.'social_pinterest',
 				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
 			),
 			array(
 				'name'  => 'Social - Tumblr',
 				'descr' => 'A direct URL to the service on Tumblr.',
 				'id'    => $prefix.'social_tumblr',
 				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
 			),
 			array(
 				'name'  => 'Social - Twitter',
 				'descr' => "The username of the service's Twitter account.",
 				'id'    => $prefix.'social_twitter',
 				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
 			),
 			array(
 				'name'  => 'Social - Youtube',
 				'descr' => 'A direct URL to the service on YouTube.',
 				'id'    => $prefix.'social_youtube',
 				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
 			),
 
 			array(
@@ -750,14 +803,96 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'descr' => 'A URL to the RSS or JSON feed of a UCF Event Calendar.',
 				'id'    => $prefix.'events_cal_feed',
 				'type'  => 'text',
+				'metabox_id' => $OTHER,
 			),
 			array(
 				'name'  => 'Gallery URL - Flickr',
 				'descr' => 'A link to a flickr gallery.',
 				'id'    => $prefix.'gallery_url-flickr',
 				'type'  => 'text',
+				'metabox_id' => $OTHER,
 			),
 		);
+	}
+
+	/**
+	 * Creates metabox array for custom post type. Override method in
+	 * descendants to add or modify metaboxes.
+	 * @return array The metaboxes for this post_type.
+	 * */
+	public function metaboxes() {
+		if ( $this->options( 'use_metabox' ) ) {
+			$DEFAULT_METABOX_ID = 'custom_'.$this->options( 'name' ).'_metabox';
+			$EXPLORE_FURTHER = 'custom_mb_'.$this->options( 'name' ).'-a-explore_further';
+			$CALL_TO_ACTION = 'custom_mb_'.$this->options( 'name' ).'-b-call_to_action';
+			$CONTACT_INFORMATION = 'custom_mb_'.$this->options( 'name' ).'-c-contact_information';
+			$HOURS = 'custom_mb_'.$this->options( 'name' ).'-d-hours';
+			$SOCIAL = 'custom_mb_'.$this->options( 'name' ).'-e-social';
+			$OTHER = 'custom_mb_'.$this->options( 'name' ).'-f-other';
+			$metabox_ids = array( $DEFAULT_METABOX_ID, $EXPLORE_FURTHER, $CALL_TO_ACTION,
+				$CONTACT_INFORMATION, $HOURS, $SOCIAL, $OTHER, );
+			$metabox_fields = $this->fields_by_metabox_id( $DEFAULT_METABOX_ID, $metabox_ids );
+			return array(
+				array(
+					'id'       => $DEFAULT_METABOX_ID,
+					'title'    => __( 'Service Information' ),
+					'screen'   => $this->options( 'name' ),
+					'context'  => 'after_title',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$DEFAULT_METABOX_ID],
+					'default_metabox' => true,
+				),
+				array(
+					'id'       => $EXPLORE_FURTHER,
+					'title'    => __( 'Explore Further Links' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$EXPLORE_FURTHER],
+				),
+				array(
+					'id'       => $CALL_TO_ACTION,
+					'title'    => __( 'Call to Action Information' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$CALL_TO_ACTION],
+				),
+				array(
+					'id'       => $CONTACT_INFORMATION,
+					'title'    => __( 'Contact Information' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$CONTACT_INFORMATION],
+				),
+				array(
+					'id'       => $HOURS,
+					'title'    => __( 'Typical Hours of Operation' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$HOURS],
+				),
+				array(
+					'id'       => $SOCIAL,
+					'title'    => __( 'Social Media' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$SOCIAL],
+				),
+				array(
+					'id'       => $OTHER,
+					'title'    => __( 'Other' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$OTHER],
+				),
+			);
+		}
+		return null;
 	}
 
 	// TODO: generate get_render_metadata using a self::get_fields method, return as `(object)array()`.
