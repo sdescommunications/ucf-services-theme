@@ -1,5 +1,5 @@
 System.config({
-  baseURL: configjs.baseURL,  // Set configjs.baseURL in calling code, e.g., via wp_localize_script().
+  // Set System.baseURL in calling code, before calls to System.import.
   defaultJSExtensions: true,
   transpiler: false,
   babelOptions: {

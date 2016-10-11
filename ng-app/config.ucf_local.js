@@ -1,4 +1,5 @@
 window.ucf_local_config = {
+  // Set System.baseURL in calling code, before calls to System.import.
   defaultJSExtensions: true,
   transpiler: false,
   babelOptions: {
