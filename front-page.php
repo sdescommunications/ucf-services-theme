@@ -21,24 +21,17 @@ $frontsearch_lead = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-f
 	'From orientation to graduation, the UCF experience creates<br>opportunities that last a lifetime. <b>Let\'s get started</b>.' );
 $frontsearch_placeholder = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-frontsearch_placeholder', 'What can we help you with today?' );
 $student_services_api = get_rest_url() . 'rest/v1/services/summary'; // The API attribute for ucf-app-student-services.
-?>
 
-<!-- Angular scripts -->
-<!-- Polyfill(s) for older browsers -->
-<script src="https://cdn.jsdelivr.net/core-js/2.4.0/shim.min.js" integrity="sha256-iIdcT94SZY9oCsJj8VTkuvshEfKPXRXaA8nT8lCKG5U=" crossorigin="anonymous"></script>
-
-<script src="https://unpkg.com/zone.js@0.6.21/dist/zone.js"></script>
-<script src="https://unpkg.com/reflect-metadata@0.1.3/Reflect.js"></script>
-<script src="https://unpkg.com/systemjs@0.19.31/dist/system.js"></script>
-<!--
-	<script src="jspm_packages/system.js"></script>
-	<script src="<?= get_stylesheet_directory_uri(); ?>/ng-app/config.js"></script>
- -->
-<?php
 	function header_load_scripts() {
-		$baseURL = get_stylesheet_directory_uri() . '/ng-app/';
-		wp_enqueue_script('config-cdn', get_stylesheet_directory_uri() . '/ng-app/config.cdn.js');
-		wp_enqueue_script('config-local', get_stylesheet_directory_uri() . '/ng-app/config.ucf_local.js'); // Set window.ucf_local_config.
+		$ng_directory = '/ng-app/';
+		$baseURL = get_stylesheet_directory_uri() . $ng_directory;
+		wp_enqueue_script('core-js-shim', 'https://cdn.jsdelivr.net/core-js/2.4.1/shim.min.js');
+		wp_enqueue_script('zonejs', 'https://unpkg.com/zone.js@0.6.21/dist/zone.js');
+		wp_enqueue_script('reflect-metadata', 'https://unpkg.com/reflect-metadata@0.1.3/Reflect.js');
+		wp_enqueue_script('systemjs', 'https://unpkg.com/systemjs@0.19.31/dist/system.js');
+		// wp_enqueue_script('config', get_stylesheet_directory_uri() . $ng_directory . 'config.js');
+		wp_enqueue_script('config-cdn', get_stylesheet_directory_uri() . $ng_directory . 'config.cdn.js');
+		wp_enqueue_script('config-local', get_stylesheet_directory_uri() . $ng_directory . 'config.ucf_local.js'); // Set window.ucf_local_config.
 		wp_localize_script('config-cdn', 'configjs', array( 'baseURL' => $baseURL ) );
 		wp_enqueue_script('ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.1.4/ng2-bootstrap.min.js');
 		wp_add_inline_script('config-local',
@@ -62,6 +55,21 @@ $student_services_api = get_rest_url() . 'rest/v1/services/summary'; // The API 
 	
 get_header(); 
 ?>
+<!-- Angular scripts -->
+<!-- Polyfill(s) for older browsers -->
+<!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> -->
+<!-- <script src="https://unpkg.com/@angular/es6/dev/src/testing/shims_for_IE.js"></script> -->
+
+<!-- 
+<script src="https://unpkg.com/zone.js@0.6.21/dist/zone.js"></script>
+<script src="https://unpkg.com/reflect-metadata@0.1.3/Reflect.js"></script>
+<script src="https://unpkg.com/systemjs@0.19.31/dist/system.js"></script>
+<script src="https://unpkg.com/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+ -->
+<!--
+	<script src="jspm_packages/system.js"></script>
+	<script src="<?= get_stylesheet_directory_uri(); ?>/ng-app/config.js"></script>
+ -->
 
 <script>
 <?php
