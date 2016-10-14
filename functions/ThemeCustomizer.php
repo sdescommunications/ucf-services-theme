@@ -97,6 +97,19 @@ function add_section_home_custom( $wp_customizer, $args = null ) {
 		)
 	);
 
+	$wp_customizer->add_setting(
+		'gtm_id'
+	);
+	$wp_customizer->add_control(
+		'gtm_id',
+		array(
+			'type'        => 'text',
+			'label'       => 'Google Tag Manager ID',
+			'description' => 'Example: <em>MTG-ABC123</em>. Leave blank for development.',
+			'section'     => $section,
+ 		)
+	);
+
 	/** ARGS */
 	$frontsearch_args = $args['services_theme-frontsearch_lead'];
 	SDES_Static::set_default_keyValue_array( $frontsearch_args, array(

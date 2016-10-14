@@ -3,7 +3,11 @@
  * Header area for the theme, as called by get_header().
  */
 
-use SDES\SDES_Static as SDES_Static;
+require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
+	use SDES\SDES_Static as SDES_Static;
+
+// TODO: add scripts, styles via Wordpress enqueueing.
+// TODO: add 'title-tag' theme support, then modify title with hooks or Yoast SEO plugin.
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,9 +44,14 @@ use SDES\SDES_Static as SDES_Static;
 	</script>
 	<script type="text/javascript" src="<?= get_stylesheet_directory_uri(); ?>/js/sdes_main_ucf.js"></script>
 
-<?php wp_head(); ?>
+<?php
+	// Instead of adding scripts or styles here, call: `add_action('wp_head', 'YOUR_FUNCTION');`
+	// See: https://codex.wordpress.org/Plugin_API/Action_Reference/wp_head#Examples
+	do_action('wp_head');
+?>
 </head>
 <body class="nojs">
+	<?php echo SDES_Static::google_tag_manager(); ?>
 	<script>
 		var bodyEl = document.getElementsByTagName('body');
 		bodyEl[0].className = bodyEl[0].className.split('nojs').join(' jsEnabled ');
