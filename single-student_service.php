@@ -1,6 +1,7 @@
 <?php
 
-
+require_once( get_stylesheet_directory() . '/header-settings.php' );
+	use SDES\ServicesTheme\ThemeCustomizer\Header as Header;
 require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
 	use SDES\ServicesTheme\PostTypes\StudentService;
 
@@ -27,7 +28,9 @@ get_header();
 ?>
 <header class="subpage-header services-page-header">
 	<div class="header-image" style="background-image: url(<?= $header_image ?>);">
+		<?php Header::display_nav_header(); ?>
 		<div class="container">
+			<?php Header::display_nav_header_xs(); ?>
 			<div class="header-center">
 				<div class="title-wrapper">
 					<div class="title-header-container">
