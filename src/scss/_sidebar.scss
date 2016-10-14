@@ -109,10 +109,16 @@
     .primary-action {
         text-align: center;
     }
-    .social-icon {
-        color: #3B598F;
-        font-size: 65px;
-        margin-bottom: 30px;
+    .social {
+        a:hover,
+        a:focus {
+            text-decoration: none;
+        }
+        .social-icon {
+            color: #000000;
+            font-size: 65px;
+            margin-bottom: 30px;
+        }
     }
     .tag-cloud a {
         text-decoration: none;
