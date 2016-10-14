@@ -100,7 +100,7 @@ class Footer_Settings {
 
 		static::add_section_social( $wp_customizer, $section_args );
 
-		static::add_section_home_custom( $wp_customizer, $section_args );
+		static::add_section_contact( $wp_customizer, $section_args );
 
 	}
 
@@ -379,7 +379,7 @@ class Footer_Settings {
 		}
 	}
 
-	public static function add_section_home_custom( $wp_customizer, $args = null ) {
+	public static function add_section_contact( $wp_customizer, $args = null ) {
 		/* SECTION */
 		$section = 'services_theme-contact';
 		$wp_customizer->add_section(
@@ -391,6 +391,7 @@ class Footer_Settings {
 				'panel' => static::array_key_default('panelId', $args, ''),
 			)
 		);
+
 		/** ARGS */
 		$form_choices = array( '' => '-- Choose Form --');
 		if ( method_exists( '\RGFormsModel', 'get_forms' ) ) {
@@ -399,38 +400,23 @@ class Footer_Settings {
 				$form_choices[$form->id] = $form->title;
 			}
 		}
-		$home_custom_footer_contact_form_args = static::array_key_default('services_theme-home_custom_footer_contact_form', $args, '');
-		SDES_Static::set_default_keyValue_array( $home_custom_footer_contact_form_args, array(
+		$footer_contact_gravityform_args = static::array_key_default('services_theme-footer_contact_gravityform', $args, '');
+		SDES_Static::set_default_keyValue_array( $footer_contact_gravityform_args, array(
 			'control_type' => 'select',
 			'default' => 4,
 			'description' => 'The form that will be shown in the footer.',
 			'choices'     => $form_choices
 		));
 
-		// $home_custom_url_args = static::array_key_default('services_theme-home_custom_url', $args, '');
-		// SDES_Static::set_default_keyValue_array( $home_custom_url_args, array(
-		// 	'default' => self::home_custom_URL,
-		// 	'description' => 'Base URL for the calendar you wish to use. Example: <em>http://home_custom.ucf.edu/mycalendar</em>',
-		// ));
-
 		/** FIELDS */		
-		// home_custom_footer_contact_form
+		// footer_contact_gravityform
 		SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
 			$wp_customizer,			// WP_Customize_Manager.
-			'services_theme-home_custom_footer_contact_form',					// Id.
+			'services_theme-footer_contact_gravityform',	// Id.
 			__( 'Footer Contact Form' ),	// Label.
 			$section,				// Section.
-			$home_custom_footer_contact_form_args	// Arguments array.
+			$footer_contact_gravityform_args	// Arguments array.
 		);
-
-		// // home_custom_url
-		// SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
-		// 	$wp_customizer,			// WP_Customize_Manager.
-		// 	'services_theme-home_custom_url',	// Id.
-		// 	'home_custom Calendar URL',			// Label.
-		// 	$section,			// Section.
-		// 	$home_custom_url_args	// Arguments array.
-		// );
 	}
 }
 add_action( 'customize_register', __NAMESPACE__.'\Footer_Settings::register_footer_settings' );
