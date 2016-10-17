@@ -55,12 +55,14 @@ class Header_Settings {
 	}
 
 	public static function register_header_settings( $wp_customize ) {
-		$wp_customize->add_panel( 'header_panel', array(
-		  'title' => __( 'Header' ),
-		  'description' => 'Header Settings', // Include html tags such as <p>.
-		  'priority' => 1000, // Mixed with top-level-section hierarchy.
-		) );
-		$section_args = array( 'panelId' => 'header_panel');
+		// $panelId = 'header_panel';
+		// $wp_customize->add_panel( $panelId, array(
+		  // 'title' => __( 'Header' ),
+		  // 'description' => 'Header Settings', // Include html tags such as <p>.
+		  // 'priority' => 1000, // Mixed with top-level-section hierarchy.
+		// ) );
+		// $section_args = array( 'panelId' => $panelId );
+		$section_args = array();
 
 		static::add_section_remote_menus( $wp_customize, $section_args );
 	}
@@ -73,7 +75,7 @@ class Header_Settings {
 			array(
 				'title'    => 'Remote Menus',
 				'description' => '',
-				'priority' => 1000,
+				'priority' => 1000, // Set to 30 to be just below "Site Identity".
 				'panel' => array_key_exists('panelId', $args) ? $args['panelId'] : '',
 			)
 		);

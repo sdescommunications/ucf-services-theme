@@ -3,6 +3,8 @@
  * Header area for the theme, as called by get_header().
  */
 
+require_once( get_stylesheet_directory() . '/header-settings.php' );
+
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
 

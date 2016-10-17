@@ -19,6 +19,7 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 /**
  * Add component settings.
  */
+require_once( get_stylesheet_directory() . '/header-settings.php' );
 require_once( get_stylesheet_directory() . '/footer-settings.php' );
 require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
 
@@ -107,6 +108,7 @@ function add_section_home_custom( $wp_customizer, $args = null ) {
 			'label'       => 'Google Tag Manager ID',
 			'description' => 'Example: <em>MTG-ABC123</em>. Leave blank for development.',
 			'section'     => $section,
+			'priority'    => 5,  // Default control priority is 10.
  		)
 	);
 

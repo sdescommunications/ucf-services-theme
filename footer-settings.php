@@ -82,15 +82,17 @@ class Footer_Settings {
 	}
 
 	public static function register_footer_settings( $wp_customizer ) {
-
-		$wp_customizer->add_panel( 'footer_panel', array(
+		$panelId = 'footer_panel';
+		$wp_customizer->add_panel( $panelId, array(
 		  'title' => __( 'Footer' ),
 		  'description' => 'Footer Settings', // Include html tags such as <p>.
 		  'priority' => 1000, // Mixed with top-level-section hierarchy.
 		) );
-		$section_args = array( 'panelId' => 'footer_panel');
+		$section_args = array( 'panelId' => $panelId );
 
-		static::add_section_remote_menus( $wp_customizer, $section_args );
+		// Leave "Remote Menus" outside of the footer panel.
+		$footer_section_args = array( 'panelId' => '' );
+		static::add_section_remote_menus( $wp_customizer, $footer_section_args );
 
 		static::add_section_events( $wp_customizer, $section_args );
 
@@ -112,7 +114,7 @@ class Footer_Settings {
 			array(
 				'title'    => 'Remote Menus',
 				'description' => '',
-				'priority' => 1000,
+				'priority' => 1000, // Set to 30 to be just below "Site Identity".
 				'panel' => static::array_key_default('panelId', $args, ''),
 			)
 		);
