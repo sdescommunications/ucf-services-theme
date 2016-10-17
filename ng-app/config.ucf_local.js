@@ -72,16 +72,16 @@ window.ucf_local_config = {
 
   map: {
     "@angular": "npm:@angular",
-    "@angular/common": "npm:@angular/common@2.0.0",
-    "@angular/compiler": "npm:@angular/compiler@2.0.0",
-    "@angular/core": "npm:@angular/core@2.0.0",
-    "@angular/forms": "npm:@angular/forms@2.0.0",
-    "@angular/http": "npm:@angular/http@2.0.0",
-    "@angular/platform-browser": "npm:@angular/platform-browser@2.0.0",
-    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.0.0",
+    "@angular/common": "npm:@angular/common@2.1.0",
+    "@angular/compiler": "npm:@angular/compiler@2.1.0",
+    "@angular/core": "npm:@angular/core@2.1.0",
+    "@angular/forms": "npm:@angular/forms@2.1.0",
+    "@angular/http": "npm:@angular/http@2.1.0",
+    "@angular/platform-browser": "npm:@angular/platform-browser@2.1.0",
+    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.1.0",
     "@angular/router": "npm:@angular/router",
-    "@angular/upgrade": "npm:@angular/upgrade@2.0.0",
-    "angular/angular": "github:angular/angular@2.0.0",
+    "@angular/upgrade": "npm:@angular/upgrade@2.1.0",
+    "angular/angular": "github:angular/angular@2.1.0",
     "app": "",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
@@ -129,44 +129,44 @@ window.ucf_local_config = {
     "github:jspm/nodelibs-vm@0.1.0": {
       "vm-browserify": "npm:vm-browserify@0.0.4"
     },
-    "npm:@angular/common@2.0.0": {
-      "@angular/core": "npm:@angular/core@2.0.0"
+    "npm:@angular/common@2.1.0": {
+      "@angular/core": "npm:@angular/core@2.1.0"
     },
-    "npm:@angular/compiler@2.0.0": {
-      "@angular/core": "npm:@angular/core@2.0.0",
+    "npm:@angular/compiler@2.1.0": {
+      "@angular/core": "npm:@angular/core@2.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:@angular/core@2.0.0": {
+    "npm:@angular/core@2.1.0": {
       "process": "github:jspm/nodelibs-process@0.1.2",
       "rxjs": "npm:rxjs@5.0.0-beta.12",
       "zone.js": "npm:zone.js@0.6.21"
     },
-    "npm:@angular/forms@2.0.0": {
-      "@angular/common": "npm:@angular/common@2.0.0",
-      "@angular/core": "npm:@angular/core@2.0.0",
+    "npm:@angular/forms@2.1.0": {
+      "@angular/common": "npm:@angular/common@2.1.0",
+      "@angular/core": "npm:@angular/core@2.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:@angular/http@2.0.0": {
-      "@angular/core": "npm:@angular/core@2.0.0",
-      "@angular/platform-browser": "npm:@angular/platform-browser@2.0.0",
+    "npm:@angular/http@2.1.0": {
+      "@angular/core": "npm:@angular/core@2.1.0",
+      "@angular/platform-browser": "npm:@angular/platform-browser@2.1.0",
       "rxjs": "npm:rxjs@5.0.0-beta.12"
     },
-    "npm:@angular/platform-browser-dynamic@2.0.0": {
-      "@angular/common": "npm:@angular/common@2.0.0",
-      "@angular/compiler": "npm:@angular/compiler@2.0.0",
-      "@angular/core": "npm:@angular/core@2.0.0",
-      "@angular/platform-browser": "npm:@angular/platform-browser@2.0.0"
+    "npm:@angular/platform-browser-dynamic@2.1.0": {
+      "@angular/common": "npm:@angular/common@2.1.0",
+      "@angular/compiler": "npm:@angular/compiler@2.1.0",
+      "@angular/core": "npm:@angular/core@2.1.0",
+      "@angular/platform-browser": "npm:@angular/platform-browser@2.1.0"
     },
-    "npm:@angular/platform-browser@2.0.0": {
-      "@angular/common": "npm:@angular/common@2.0.0",
-      "@angular/core": "npm:@angular/core@2.0.0",
+    "npm:@angular/platform-browser@2.1.0": {
+      "@angular/common": "npm:@angular/common@2.1.0",
+      "@angular/core": "npm:@angular/core@2.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:@angular/upgrade@2.0.0": {
-      "@angular/compiler": "npm:@angular/compiler@2.0.0",
-      "@angular/core": "npm:@angular/core@2.0.0",
-      "@angular/platform-browser": "npm:@angular/platform-browser@2.0.0",
-      "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.0.0"
+    "npm:@angular/upgrade@2.1.0": {
+      "@angular/compiler": "npm:@angular/compiler@2.1.0",
+      "@angular/core": "npm:@angular/core@2.1.0",
+      "@angular/platform-browser": "npm:@angular/platform-browser@2.1.0",
+      "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.1.0"
     },
     "npm:asn1.js@4.8.0": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
@@ -333,10 +333,10 @@ window.ucf_local_config = {
       "brorand": "npm:brorand@1.0.6"
     },
     "npm:ng2-bootstrap@1.1.14": {
-      "@angular/common": "npm:@angular/common@2.0.0",
-      "@angular/compiler": "npm:@angular/compiler@2.0.0",
-      "@angular/core": "npm:@angular/core@2.0.0",
-      "@angular/forms": "npm:@angular/forms@2.0.0",
+      "@angular/common": "npm:@angular/common@2.1.0",
+      "@angular/compiler": "npm:@angular/compiler@2.1.0",
+      "@angular/core": "npm:@angular/core@2.1.0",
+      "@angular/forms": "npm:@angular/forms@2.1.0",
       "moment": "npm:moment@2.15.1"
     },
     "npm:parse-asn1@5.0.0": {
