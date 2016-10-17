@@ -1,5 +1,6 @@
 // import { bootstrap } from "@angular/platform-browser-dynamic";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { enableProdMode } from '@angular/core';
 // import { disableDeprecatedForms, provideForms } from "@angular/forms";
 // import { HTTP_PROVIDERS } from "@angular/http";
 
@@ -15,6 +16,7 @@ import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
 import { AppModule }              from "./app.module";
 
+enableProdMode();
 platformBrowserDynamic().bootstrapModule(AppModule)
 // bootstrap( AppStudentServicesComponent , [
 //         // disableDeprecatedForms(),

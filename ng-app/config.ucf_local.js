@@ -87,8 +87,8 @@ window.ucf_local_config = {
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@2.4.0",
     "main": "",
-    "moment": "npm:moment@2.15.0",
-    "ng2-bootstrap": "npm:ng2-bootstrap@1.1.4",
+    "moment": "npm:moment@2.15.1",
+    "ng2-bootstrap": "npm:ng2-bootstrap@1.1.14",
     "reflect-metadata": "npm:reflect-metadata@0.1.3",
     "rxjs": "npm:rxjs@5.0.0-beta.12",
     "zone.js": "npm:zone.js@0.6.21",
@@ -332,12 +332,12 @@ window.ucf_local_config = {
       "bn.js": "npm:bn.js@4.11.6",
       "brorand": "npm:brorand@1.0.6"
     },
-    "npm:ng2-bootstrap@1.1.4": {
+    "npm:ng2-bootstrap@1.1.14": {
       "@angular/common": "npm:@angular/common@2.0.0",
       "@angular/compiler": "npm:@angular/compiler@2.0.0",
       "@angular/core": "npm:@angular/core@2.0.0",
       "@angular/forms": "npm:@angular/forms@2.0.0",
-      "moment": "npm:moment@2.15.0"
+      "moment": "npm:moment@2.15.1"
     },
     "npm:parse-asn1@5.0.0": {
       "asn1.js": "npm:asn1.js@4.8.0",
