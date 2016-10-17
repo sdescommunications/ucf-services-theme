@@ -33,7 +33,7 @@ abstract class MetaField implements IMetafield {
 		$this->name        = @$attr['name'];
 		$this->id          = @$attr['id'];
 		$this->value       = @$attr['value'];
-		$this->description = @$attr['descr'];
+		$this->description = ( @$attr['descr'] ) ? @$attr['descr'] : @$attr['description'];
 		$this->default     = @$attr['default'];
 		$this->check_for_default();
 	}
