@@ -144,48 +144,27 @@ class Campaign extends CustomPostType {
 		$prefix = $this->options( 'name' ).'_';
 		return array(
 			array(
-				'name'        => 'URL',
-				'description' => 'The url of the call to action',
-				'id'          => $prefix.'url',
-				'type'        => 'text'
-			),
-			array(
-				'name'        => 'Title Text Color',
-				'description' => 'The color of the overlay text',
-				'id'          => $prefix.'text_color',
-				'type'        => 'color',
-				'default'     => '#ffffff'
-			),
-			array(
-				'name'        => 'Button Color',
-				'description' => 'The background color of the call to action button',
-				'id'          => $prefix.'btn_background',
-				'type'        => 'color',
-				'default'     => '#ffcc00'
-			),
-			array(
-				'name'        => 'Button Text Color',
-				'description' => 'The text color of the call to action button',
-				'id'          => $prefix.'btn_foreground',
-				'type'        => 'color',
-				'default'     => '#ffffff'
-			),
-			array(
-				'name'        => 'Button Text',
-				'description' => 'The text of the call to action button',
-				'id'          => $prefix.'btn_text',
-				'type'        => 'text'
-			),
-			array(
-				'name'        => 'Campaign - Long Text',
-				'description' => 'Body text for use in a large/rectangle campaign.',
+				'name'        => 'Campaign (Primary)',
+				'descr' => 'A short description that will appear if used as the primary campaign. 50 words or less.',
 				'id'          => $prefix.'long',
 				'type'        => 'text'
 			),
 			array(
-				'name'        => 'Campaign - Short Text',
-				'description' => 'Body text for use in a small/square campaign.',
+				'name'        => 'Campaign (Sidebar)',
+				'descr' => 'A very short description that will appear if used as the sidebar campaign. 25 words or less.',
 				'id'          => $prefix.'short',
+				'type'        => 'text'
+			),
+			array(
+				'name'        => 'Button URL',
+				'descr' => 'Link to the campaign website.',
+				'id'          => $prefix.'url',
+				'type'        => 'text'
+			),
+			array(
+				'name'        => 'Button Text',
+				'descr' => 'Text for the action button. 2-3 words.',
+				'id'          => $prefix.'btn_text',
 				'type'        => 'text'
 			),
 		);
