@@ -95,7 +95,7 @@ body.no-js {
 
 
 // https://github.com/UCF/Students-Theme/blob/2489e796a9438180e67f729dcd7ef655eecdd24f/src/scss/_header.scss#L92-L126
-// Mobile nav
+// Mobile nav menu
 #site-nav-xs {
   border: none;
   border-radius: 4px;
@@ -115,6 +115,23 @@ body.no-js {
     font-size: 20px;
     padding: 11px 16px;
     position: relative;
+  }
+  // Ensure menu is collapsed on sm screens.
+  @media (min-width: $screen-sm-min) {
+    .navbar-collapse.collapse { 
+      display: none !important;
+    }
+    .navbar-collapse.collapse.in { 
+      display: block !important;
+    }
+    .navbar-header,
+    .navbar-nav,
+    .navbar-nav>li {
+      float: none;
+    }
+    .navbar-toggle {
+      display: block;
+    }
   }
 }
 
