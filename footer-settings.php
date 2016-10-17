@@ -493,7 +493,7 @@ class Footer {
 		        	</div>
 		        	<div class="col-xs-10 col-sm-8 col-md-9">
 		        		<div class="event-details">
-			                <h4><?php echo $item->get_title(); ?></h4>
+			                <h3><?php echo $item->get_title(); ?></h3>
 			                <?php
 			                ?>
 			                <p class="time"><?php echo $time_string; ?></p>
@@ -516,7 +516,9 @@ class Footer {
 		$org_email = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-organization_email', '' );
 		ob_start();
 	?>
+	  <?php if ( $org_name ) : ?>
 		<h2 class="org-name"><?php echo $org_name; ?></h2>
+	  <?php endif; ?>
 		<p>Phone: <a class="read-more" href="tel:<?php echo str_replace( array( '-', '(', ')' ), '', $org_phone);?>"><?php echo $org_phone; ?></a></p>
 		<p>Email: <a class="read-more" href="mailto:<?php echo $org_email; ?>"><?php echo $org_email; ?></a></p>
 	<?php

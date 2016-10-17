@@ -70,7 +70,7 @@
     padding-left: 0;
 
     h3 {
-      font-size: 18px;
+      font-size: $font-size-h4;
       font-weight: normal;
       margin: 0 auto 8px;
     }
@@ -135,8 +135,9 @@
     }
 
     .event-details {
-      h4 {
+      h3 {
         margin: 0 auto 8px;
+        font-size: $font-size-h4;
       }
 
       .time {
