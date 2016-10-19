@@ -52,4 +52,14 @@ export class UnescapeHtmlPipe implements PipeTransform {
         });
     }
 }
-window.ucf_pipe_unescapeHtml = UnescapeHtmlPipe;
+window.ucf_pipe_unescapeHtml = new UnescapeHtmlPipe();
+
+
+
+// Boilerplate declarations for type-checking and intellisense.
+declare var __moduleName: string;
+// Window from tsserver/lib.d.ts
+interface WindowUcf extends Window {
+    ucf_pipe_unescapeHtml: UnescapeHtmlPipe;
+}
+declare var window: WindowUcf;

@@ -1,15 +1,25 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
+import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/catch";
+// import "rxjs/Rx"; // Load all features (uncomment during development for intellisense).
 
-import { IStudentService } from "app-student-services/interfaces";
+import { IStudentServiceSummary } from "../../../app-student-services/interfaces";
+
+const LIMIT_DEFAULT = 7;
+const PAGED_DEFAULT = 1;
 
 @Injectable()
 export class SearchService {
-    public restApiUrl = "/wp-json/rest/v1/services/";  // Default, should override to include entire site_url/rest_url.
+    public restApiUrl = "/wp-json/rest/v1/services/summary";  // Default, should override to include entire site_url/rest_url.
     public DEBUG = 0;
+    private _search = "";
+    private _resultsStream: Subject<IStudentServiceSummary[]>;
+    private _limit = LIMIT_DEFAULT;
+    private _paged = PAGED_DEFAULT;
 
     constructor( protected _http: Http ) {
         window.ucf_svc_searchService = ( window.ucf_svc_searchService || [] ).concat( this );
@@ -20,23 +30,60 @@ export class SearchService {
      * Implemented with a REST API, e.g.: https://www.ucf.edu/services/wp-json/rest/v1/services/?search=${query}
      * For API discoverability, see http://v2.wp-api.org/guide/discovery/ and https://www.ucf.edu/services/wp-json/rest/v1/
      */
-    getStudentServices( query: string ): Observable<IStudentService[]> {
-        query = ( query ) ? `?search=${query}` : "";
-        let request = this.restApiUrl + query;
-        return this._http.get( request )
-                .map( (response: Response) => <IStudentService[]>response.json() )
-                .do(
-                    ( data ) => { this.debugInfo( data, request ); }
-                )
-                .catch( this.handleError );
+    getStudentServices( search: string, limit = LIMIT_DEFAULT, paged = PAGED_DEFAULT ): Observable<IStudentServiceSummary[]> {
+        let requestUrl = this.buildRequestUrl(limit, search, paged);  // (number, string, number) -> Observable<string>
+        let resultsStream =
+                this.requestJsonFrom( requestUrl )    // string -> Observable<IStudentServiceSummary[]>
+                .do( (_) => {
+                        // Save state if successful.
+                        this._search = search;
+                        this._paged = paged;
+                        this._limit = limit;
+                });
+        return resultsStream;
     };
+
+    /**
+     * Fetch the next page of results for the current search term.
+     */
+    getNextPage(): Observable<IStudentServiceSummary[]> {
+        let nextPage = this._paged + 1;
+        let requestUrl = this.buildRequestUrl(this._limit, this._search, nextPage);  // (number, string, number) -> Observable<string>
+        let resultsStream =
+                this.requestJsonFrom( requestUrl )    // string -> Observable<IStudentServiceSummary[]>
+                .do( (_) => {
+                    // Save state if successful.
+                    this._paged = nextPage;
+                });
+        return resultsStream;
+    }
+
+    /** Build a the url to fetch using values for the query parameters. */
+    buildRequestUrl(limit = LIMIT_DEFAULT, search = "", paged = PAGED_DEFAULT): string {
+        let query =
+            ( search )
+                ? `?limit=${limit}&search=${search}&paged=${paged}`
+                : `?limit=${limit}&paged=${paged}`;
+        let request = this.restApiUrl + query;
+        return request;
+    }
+
+    /** Get JSON from a URL, log with debugInfo, and catch errors. */
+    protected requestJsonFrom( requestUrl: string ): Observable<IStudentServiceSummary[]> {
+        return this._http.get( requestUrl )
+            .map( (response: Response) => <IStudentServiceSummary[]>response.json() )
+            .do( (data) => {
+                this.debugInfo( data, requestUrl );
+            })
+            .catch( this.handleError );
+    }
 
     private handleError( error: Response ) {
         if ( this.DEBUG ) { console.error( error ); }
         return Observable.throw( error.json().error || "Server error" );
     }
 
-    private debugInfo( data: JSON, request: string ): void {
+    private debugInfo( data: any, request: string ): void {
         switch ( this.DEBUG ) {
             case 1:
                 console.debug( `GET: ${request}` );
@@ -50,3 +97,13 @@ export class SearchService {
         }
     }
 }
+
+
+
+// Boilerplate declarations for type-checking and intellisense.
+declare var __moduleName: string;  // Shim for SystemJS/ES6 module identification.
+// Window from tsserver/lib.d.ts
+interface WindowUcfSvc extends Window {
+    ucf_svc_searchService: SearchService[];
+}
+declare var window: WindowUcfSvc;

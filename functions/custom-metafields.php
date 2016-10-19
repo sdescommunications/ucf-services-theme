@@ -10,9 +10,9 @@ require_once( get_stylesheet_directory() . '/functions/classes-metabox-metafield
 
 // TODO: add QueryDropdownMetafield to extend SelectMetaField with a WP_Query for choices.
 // TODO: add PosttypeMetafield to extend QueryDropdownMetafield.
-// TODO: make SpotlightMetafield and IconLinkMetafield extend from PosttypeMetafield.
+// TODO: make CampaignMetafield and IconLinkMetafield extend from PosttypeMetafield.
 
-class SpotlightMetaField extends MetaField {
+class CampaignMetaField extends MetaField {
 
 	/**
 	 * @see https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/functions/custom-fields.php#L122-L154
@@ -20,22 +20,22 @@ class SpotlightMetaField extends MetaField {
 	public function input_html() {
 		$field = $this;
 		?>
-		<div class="meta-spotlight-wrapper">
-			<select class="meta-spotlight-field" id="<?php echo htmlentities( $field->id ); ?>" name="<?php echo htmlentities( $field->id ); ?>" value="<?php echo $field->value; ?>">
-				<option value="">-- Select Spotlight --</option>
-				<?php foreach( $this->get_spotlights() as $key=>$spotlight ) : ?>
+		<div class="meta-campaign-wrapper">
+			<select class="meta-campaign-field" id="<?php echo htmlentities( $field->id ); ?>" name="<?php echo htmlentities( $field->id ); ?>" value="<?php echo $field->value; ?>">
+				<option value="">-- Select Campaign --</option>
+				<?php foreach( $this->get_campaigns() as $key=>$campaign ) : ?>
 				<?php $selected = $field->value == $key ? 'selected' : ''; ?>
-				<option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $spotlight; ?></option>
+				<option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $campaign; ?></option>
 				<?php endforeach; ?>
 			</select>
 			<?php if ( $field->value ) : ?>
 				<p></p>
-				<a class="button edit-spotlight" href="<?php echo get_admin_url() . '/post.php?action=edit&post=' . $field->value; ?>" target="_blank"><span class="fa fa-pencil"></span> Edit Spotlight Items</a>
+				<a class="button edit-campaign" href="<?php echo get_admin_url() . '/post.php?action=edit&post=' . $field->value; ?>" target="_blank"><span class="fa fa-pencil"></span> Edit Campaign Items</a>
 				<p>or</p>
-				<a class="button" href="<?php echo get_admin_url() . '/post-new.php?post_type=spotlight'; ?>" target="_blank"><span class="fa fa-bars"></span> Create New Spotlight</a>
+				<a class="button" href="<?php echo get_admin_url() . '/post-new.php?post_type=campaign'; ?>" target="_blank"><span class="fa fa-bars"></span> Create New Campaign</a>
 			<?php else : ?>
 				<p>or</p>
-				<a class="button" href="<?php echo get_admin_url() . '/post-new.php?post_type=spotlight'; ?>" target="_blank"><span class="fa fa-bars"></span> Create New Spotlight</a>
+				<a class="button" href="<?php echo get_admin_url() . '/post-new.php?post_type=campaign'; ?>" target="_blank"><span class="fa fa-bars"></span> Create New Campaign</a>
 			<?php endif; ?>
 		</div>
 		<?php
@@ -45,14 +45,14 @@ class SpotlightMetaField extends MetaField {
 	 * @see https://developer.wordpress.org/reference/functions/get_posts/ WP-Ref: get_posts()
 	 * @see https://developer.wordpress.org/reference/classes/wp_query/parse_query/ WP-Ref: parse_query()
 	 */
-	function get_spotlights() {
+	function get_campaigns() {
 		$query_args = array (
-				'post_type' => 'spotlight',
+				'post_type' => 'campaign',
 			);
-		$spotlights = get_posts( $query_args );
+		$campaigns = get_posts( $query_args );
 		$retval = array();
-		foreach( $spotlights as $spotlight ) {
-			$retval[$spotlight->ID] = $spotlight->post_title;
+		foreach( $campaigns as $campaign ) {
+			$retval[$campaign->ID] = $campaign->post_title;
 		}
 		return $retval;
 	}
@@ -115,7 +115,7 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-metaboxes.php'
 require_once( get_stylesheet_directory() . '/functions/classes-metabox-metafields.php' );
 	use SDES\Metafields\IMetaField as IMetafield;
 
-use SDES\ServicesTheme\Metafields\SpotlightMetaField;
+use SDES\ServicesTheme\Metafields\CampaignMetaField;
 use SDES\ServicesTheme\Metafields\IconLinkMetaField;
 
 class ServicesMetaboxes extends SDES_Metaboxes {
@@ -126,8 +126,8 @@ class ServicesMetaboxes extends SDES_Metaboxes {
 		$field_obj = null;
 		$field['value'] = get_post_meta( $post_id, $field['id'], true );
 		switch ( $field['type'] ) {
-			case 'spotlight':
-				$field_obj = new SpotlightMetaField( $field );
+			case 'campaign':
+				$field_obj = new CampaignMetaField( $field );
 				break;
 			case 'icon_link':
 				$field_obj = new IconLinkMetaField( $field );

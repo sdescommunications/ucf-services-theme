@@ -22,16 +22,20 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
             }],
         execute: function() {
             SearchResultsComponent = (function () {
-                function SearchResultsComponent(_searchService) {
+                function SearchResultsComponent(_searchService, _detector) {
                     var _this = this;
                     this._searchService = _searchService;
+                    this._detector = _detector;
                     this.api = "";
                     this.filters = {};
-                    this.filterClear = function () { return jQuery.map(_this.filters, function (cat) { return cat.checked; }).every(function (x) { return 'false' == x; }); };
+                    this.filterClear = function () { return jQuery.map(_this.filters, function (cat) { return cat.checked; }).every(function (x) { return "false" === x; }); };
                     this.studentServices = window.ucf_searchResults_initial;
+                    this.limit = window.ucf_searchResults_limit;
                     this.errorMessage = "";
                     this.isInit = true;
                     this.isLoading = false;
+                    this.isLoadingMore = false;
+                    this.canLoadMore = true;
                     this.resultsChanged = new core_1.EventEmitter();
                     window.ucf_comp_searchResults = (window.ucf_comp_searchResults || []).concat(this);
                 }
@@ -48,14 +52,32 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                     } // Prevent loop between events this.resultsChanged() <-> SearchFormComponent.search()
                     this.isLoading = (this.isInit) ? false : true; // Don't show loading text on initial load.
                     // TODO: observe this.query instead of creating a new subscription on every change.
-                    this._searchService.getStudentServices(this.query)
+                    this._searchService.getStudentServices(this.query, this.limit)
                         .subscribe(function (studentServices) {
                         _this._previousQuery = _this.query;
                         _this.studentServices = studentServices;
                         _this.resultsChanged.emit({ query: _this.query, results: _this.studentServices });
                         _this.isLoading = false;
+                        _this.canLoadMore = true;
                     }, function (error) { return _this.errorMessage = error; });
                     this.isInit = false;
+                };
+                SearchResultsComponent.prototype.showNextPage = function (click) {
+                    var _this = this;
+                    click.preventDefault();
+                    this.isLoadingMore = true; // Track state instead of figuring out how to debounceWithSelector.
+                    this._searchService.getNextPage()
+                        .subscribe(function (nextPageResults) {
+                        _this.isLoadingMore = false;
+                        if (null === nextPageResults) {
+                            _this.canLoadMore = false;
+                            return;
+                        }
+                        _this.studentServices = _this.studentServices.concat(nextPageResults);
+                        // Force Angular to detect changes.
+                        _this._detector.detectChanges();
+                        _this.resultsChanged.emit({ query: _this.query, results: _this.studentServices });
+                    }, function (error) { return _this.errorMessage = error; });
                 };
                 SearchResultsComponent.prototype.hasResults = function () {
                     return null !== this.studentServices;
@@ -66,12 +88,12 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                     this.resultsChanged.emit({ query: this.query, results: this.studentServices });
                 };
                 SearchResultsComponent.prototype.shouldFilter = function (categoryName) {
-                    if ('undefined' == typeof categoryName) {
+                    if ("undefined" === typeof categoryName) {
                         return false;
                     }
                     return this.filterClear() ||
                         (this.filters[categoryName]
-                            && 'true' == this.filters[categoryName].checked);
+                            && "true" === this.filters[categoryName].checked);
                 };
                 __decorate([
                     core_1.Input(), 
@@ -90,6 +112,14 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                     __metadata('design:type', Array)
                 ], SearchResultsComponent.prototype, "studentServices", void 0);
                 __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Number)
+                ], SearchResultsComponent.prototype, "limit", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], SearchResultsComponent.prototype, "showResultsHeading", void 0);
+                __decorate([
                     core_1.Output(), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], SearchResultsComponent.prototype, "resultsChanged", void 0);
@@ -99,7 +129,7 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                         moduleId: __moduleName,
                         templateUrl: "./results.component.html",
                     }), 
-                    __metadata('design:paramtypes', [service_1.SearchService])
+                    __metadata('design:paramtypes', [service_1.SearchService, core_1.ChangeDetectorRef])
                 ], SearchResultsComponent);
                 return SearchResultsComponent;
             }());

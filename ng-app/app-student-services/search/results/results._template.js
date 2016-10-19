@@ -28,16 +28,27 @@ var  php_context   = {
 
 var angular_context = {
     'before_services': 
-        `<h2 *ngIf="query">
+        `<h2 *ngIf="showResultsHeading">
             Results for: &ldquo;{{ query }}&rdquo;
             <span class="clear-results fa fa-times-circle-o" (click)="clearResults()" title="Clear search term."></span>
         </h2>
-        <span *ngIf="isLoading" class="loading fa fa-spinner" aria-hidden="true" 
-              style="font-size: 2em; padding: 12px 0;"> Loading results...<br>
+        <span *ngIf="isLoading" style="font-size: 2em; padding: 12px 0;">
+            <span class="loading fa fa-spinner fa-pulse" aria-hidden="true"></span>
+            Loading results...<br>
         </span>
         `,
     'after_services': 
-        `<h3 *ngIf="! hasResults() && !isLoading" class="noResults">
+        `<span *ngIf="!isLoadingMore && canLoadMore" style="font-size: 2em; padding: 12px 0;">
+            <span class="fa fa-angle-double-down" aria-hidden="true"></span>
+            <a href="" (click)="showNextPage($event)" title="Load more results">
+                Load more results...
+            </a>
+        </span>
+        <span *ngIf="isLoadingMore && !isLoading" style="font-size: 2em; padding: 12px 0;">
+            <span class="loading fa fa-spinner fa-pulse" aria-hidden="true"></span>
+            Loading more results...<br>
+        </span>
+        <h3 *ngIf="! hasResults() && !isLoading" class="noResults">
               No results found for "{{ query }}".
         </h3>
         `,

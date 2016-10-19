@@ -5,6 +5,9 @@
  * @see https://codex.wordpress.org/Category_Templates#What_categories_do_you_show_to_the_visitors.3F
  */
 
+require_once( get_stylesheet_directory() . '/header-settings.php' );
+	use SDES\ServicesTheme\ThemeCustomizer\Header as Header;
+
 require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
 	use SDES\WeatherBox;
 
@@ -24,7 +27,9 @@ get_header();
 
 <header class="subpage-header category-page-header">
 	<div class="header-image" style="background-image: url(<?= \header_image(); ?>);">
+		<?php Header::display_nav_header(); ?>
 		<div class="container">
+			<?php Header::display_nav_header_xs(); ?>
 			<div class="header-center">
 				<div class="title-wrapper">
 					<div class="title-header-container">
@@ -76,7 +81,11 @@ get_header();
 			<h1 class='title'><?= single_cat_title() ?></h1>
 			<p class='description'><?= category_description() ?></p>
 		  <?php
-			$args = array ( 'post_type' => StudentService::NAME, 'category' => $cat_id );
+			$args = array ( 'post_type' => StudentService::NAME,
+				'category' => $cat_id,
+				'orderby' => 'post_title',
+				'order' => 'ASC',
+			);
 			$category_posts = get_posts( $args );
 			if ( 0 !== count( $category_posts ) ) :
 				foreach( $category_posts as $post ) :	setup_postdata($post); ?>

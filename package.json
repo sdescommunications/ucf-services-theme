@@ -15,7 +15,7 @@
     "install:global": "npm install -g bower jshint jscs typescript typings tslint jspm lodash",
     "jshint": "npm run from_config -- cmd_jshint",
     "jscs": "npm run from_config -- cmd_jscs",
-    "tslint": "tslint ./ng-app/**/*.ts -t verbose",
+    "tslint": "tslint ./ng-app/**/*.ts -t verbose -c ./ng-app/tslint.json -e ./**/jspm_packages/** -e ./**/node_modules/** -e ./**/typings/**",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings",
@@ -39,5 +39,5 @@
     "jscs": "^3.0.3",
     "jshint": "^2.9.2",
     "jspm": "^0.16.39"
-  },
+  }
 }

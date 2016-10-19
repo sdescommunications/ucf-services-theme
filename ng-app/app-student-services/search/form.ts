@@ -1,1 +1,1 @@
-export { SearchFormComponent } from './form/form.component';
+export { SearchFormComponent } from "./form/form.component";

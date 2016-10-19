@@ -27,18 +27,10 @@ require_once( get_stylesheet_directory() . '/vendor/autoload.php' );
 use Underscore\Types\Arrays;
 
 abstract class CustomPostType_ServicesTheme extends CustomPostType {
-	public function register_metaboxes() {
-		if ( $this->options( 'use_metabox' ) ) {
-			$metabox = $this->metabox();
-			add_meta_box(
-				$metabox['id'],
-				$metabox['title'],
-				'SDES\\ServicesTheme\\ServicesMetaboxes::show_meta_boxes',
-				$metabox['page'],
-				$metabox['context'],
-				$metabox['priority']
-			);
-		}
+	public function register_metaboxes( $callback = null , $callback_args = array(array()) ) {
+		// Register metaboxes with theme-specific metafields.
+		$callback = $callback ?: 'SDES\\ServicesTheme\\ServicesMetaboxes::show_meta_boxes';
+		parent::register_metaboxes( $callback, $callback_args );
 	}
 }
 
@@ -95,14 +87,14 @@ class Page extends CustomPostType_ServicesTheme {
 				'name'  => 'Campaig - Primary',
 				'descr' => 'Select a primary campaign.',
 				'id'    => $prefix.'campaign_primary',
-				'type'  => 'spotlight',
+				'type'  => 'campaign',
 			),
 
 			array(
 				'name'  => 'Campaign - Sidebar',
 				'descr' => 'Select a sidebar campaign.',
 				'id'    => $prefix.'campaign_sidebar',
-				'type'  => 'spotlight',
+				'type'  => 'campaign',
 			),
 			array(
 				'name'  => 'Icon Link 1',
@@ -128,19 +120,19 @@ class Page extends CustomPostType_ServicesTheme {
 
 
 /**
- * Spotlight - a box with text and a background image or a solid background color.
+ * Campaign - a box with text and a background image or a solid background color.
  *
  * @see https://github.com/UCF/Students-Theme/blob/master/custom-post-types.php#L617-L710
  */
-class Spotlight extends CustomPostType {
-	const NAME = 'spotlight';
+class Campaign extends CustomPostType {
+	const NAME = 'campaign';
 	public
-		$name           = 'spotlight',
-		$plural_name    = 'Spotlights',
-		$singular_name  = 'Spotlight',
-		$add_new_item   = 'Add New Spotlight',
-		$edit_item      = 'Edit Spotlight',
-		$new_item       = 'New Spotlight',
+		$name           = 'campaign',
+		$plural_name    = 'Campaigns',
+		$singular_name  = 'Campaign',
+		$add_new_item   = 'Add New Campaign',
+		$edit_item      = 'Edit Campaign',
+		$new_item       = 'New Campaign',
 		$public         = True,
 		$use_editor     = False,
 		$use_thumbnails = True,
@@ -152,65 +144,44 @@ class Spotlight extends CustomPostType {
 		$prefix = $this->options( 'name' ).'_';
 		return array(
 			array(
-				'name'        => 'URL',
-				'description' => 'The url of the call to action',
-				'id'          => $prefix.'url',
-				'type'        => 'text'
-			),
-			array(
-				'name'        => 'Title Text Color',
-				'description' => 'The color of the overlay text',
-				'id'          => $prefix.'text_color',
-				'type'        => 'color',
-				'default'     => '#ffffff'
-			),
-			array(
-				'name'        => 'Button Color',
-				'description' => 'The background color of the call to action button',
-				'id'          => $prefix.'btn_background',
-				'type'        => 'color',
-				'default'     => '#ffcc00'
-			),
-			array(
-				'name'        => 'Button Text Color',
-				'description' => 'The text color of the call to action button',
-				'id'          => $prefix.'btn_foreground',
-				'type'        => 'color',
-				'default'     => '#ffffff'
-			),
-			array(
-				'name'        => 'Button Text',
-				'description' => 'The text of the call to action button',
-				'id'          => $prefix.'btn_text',
-				'type'        => 'text'
-			),
-			array(
-				'name'        => 'Campaign - Long Text',
-				'description' => 'Body text for use in a large/rectangle campaign.',
+				'name'        => 'Campaign (Primary)',
+				'descr' => 'A short description that will appear if used as the primary campaign. 50 words or less.',
 				'id'          => $prefix.'long',
 				'type'        => 'text'
 			),
 			array(
-				'name'        => 'Campaign - Short Text',
-				'description' => 'Body text for use in a small/square campaign.',
+				'name'        => 'Campaign (Sidebar)',
+				'descr' => 'A very short description that will appear if used as the sidebar campaign. 25 words or less.',
 				'id'          => $prefix.'short',
+				'type'        => 'text'
+			),
+			array(
+				'name'        => 'Button URL',
+				'descr' => 'Link to the campaign website.',
+				'id'          => $prefix.'url',
+				'type'        => 'text'
+			),
+			array(
+				'name'        => 'Button Text',
+				'descr' => 'Text for the action button. 2-3 words.',
+				'id'          => $prefix.'btn_text',
 				'type'        => 'text'
 			),
 		);
 	}
 
-	public static function get_render_context ( $spotlight, $metadata_fields = null ) {
-		$image_url = has_post_thumbnail( $spotlight->ID ) ?
-			wp_get_attachment_image_src( get_post_thumbnail_id( $spotlight->ID ), 'spotlight' ) :
+	public static function get_render_context ( $campaign, $metadata_fields = null ) {
+		$image_url = has_post_thumbnail( $campaign->ID ) ?
+			wp_get_attachment_image_src( get_post_thumbnail_id( $campaign->ID ), 'campaign' ) :
 			null;
 		if ( $image_url ) {
 			$image_url = $image_url[0];
 		}
-		$url = get_post_meta( $spotlight->ID, 'spotlight_url', true );
-		$title_color = get_post_meta( $spotlight->ID, 'spotlight_text_color', true );
-		$btn_background = get_post_meta( $spotlight->ID, 'spotlight_btn_background', true );
-		$btn_foreground = get_post_meta( $spotlight->ID, 'spotlight_btn_foreground', true );
-		$btn_text = get_post_meta( $spotlight->ID, 'spotlight_btn_text', true );
+		$url = get_post_meta( $campaign->ID, 'campaign_url', true );
+		$title_color = get_post_meta( $campaign->ID, 'campaign_text_color', true );
+		$btn_background = get_post_meta( $campaign->ID, 'campaign_btn_background', true );
+		$btn_foreground = get_post_meta( $campaign->ID, 'campaign_btn_foreground', true );
+		$btn_text = get_post_meta( $campaign->ID, 'campaign_btn_text', true );
 		$btn_styles = array();
 		if ( $btn_background ) : $btn_styles[] = 'background: '.$btn_background; endif;
 		if ( $btn_foreground ) : $btn_styles[] = 'color: '.$btn_foreground; endif;
@@ -220,10 +191,10 @@ class Spotlight extends CustomPostType {
 			'url' => $url,
 			'image_id' => null,
 			'image_url' => $image_url,
-			'image_alt' => $spotlight->post_title,
-			'title' => $spotlight->post_title,
-			'long' => get_post_meta( $spotlight->ID, 'spotlight_long', true ),
-			'short' => get_post_meta( $spotlight->ID, 'spotlight_short', true ),
+			'image_alt' => $campaign->post_title,
+			'title' => $campaign->post_title,
+			'long' => get_post_meta( $campaign->ID, 'campaign_long', true ),
+			'short' => get_post_meta( $campaign->ID, 'campaign_short', true ),
 			'title_color' => $title_color,
 			'btn_text' => $btn_text,
 			'btn_styles' => $btn_styles,
@@ -240,7 +211,7 @@ class Spotlight extends CustomPostType {
 	}
 
 	/**
-	 * Render the HTML template for listing a spotlight.
+	 * Render the HTML template for listing a campaign.
 	 * Expected properties:
 	 * $context - url, image_url, image_alt, title, title_color, btn_text, btn_styles.
 	 */
@@ -250,7 +221,7 @@ class Spotlight extends CustomPostType {
 			: '';
 		ob_start();
 		?>
-			<a class="spotlight" href="<?= $context->url ?>" target="_blank">
+			<a class="campaign-spotlight" href="<?= $context->url ?>" target="_blank">
 				<img src="<?= $context->image_url ?>" alt="<?= $context->image_alt ?>">
 			  <?php if ( $context->title ) : ?>
 				<h2 style="<?= $context->style ?>">
@@ -389,17 +360,19 @@ class StudentService extends CustomPostType_ServicesTheme {
 	// TODO: create additional_#-* fields programmatically using self::ADDITIONAL_FIELDS_COUNT.
 	// TODO: separate open and close times - create programmatically from an array of days of the week.
 	// TODO: implement by calling a static `get_fields` method (to also be called from get_render_metadata).
-	// TODO: remove spotlight field from StudentService.
 	public function fields() {
 		$prefix = $this->options( 'name' ).'_';
+		$DEFAULT_METABOX_ID = 'custom_'.$this->options( 'name' ).'_metabox';
+		$EXPLORE_FURTHER = 'custom_mb_'.$this->options( 'name' ).'-a-explore_further';
+		$CALL_TO_ACTION = 'custom_mb_'.$this->options( 'name' ).'-b-call_to_action';
+		$CONTACT_INFORMATION = 'custom_mb_'.$this->options( 'name' ).'-c-contact_information';
+		$HOURS = 'custom_mb_'.$this->options( 'name' ).'-d-hours';
+		$SOCIAL = 'custom_mb_'.$this->options( 'name' ).'-e-social';
+		$OTHER = 'custom_mb_'.$this->options( 'name' ).'-f-other';
 		/*
 		 * student_service_main_category_id
 		 * student_service_heading_text
 		 * student_service_short_description
-		 * student_service_events_cal_feed
-		 * student_service_map_id
-		 * student_service_news_feed
-		 * student_service_gallery_url-flickr
 		 * student_service_additional_1-title
 		 * student_service_additional_1-url
 		 * student_service_additional_1-description
@@ -418,11 +391,12 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_image
 		 * student_service_primary_action
 		 * student_service_primary_url
-		 * student_service_spotlight
 		 * student_service_phone
 		 * student_service_email
 		 * student_service_url
+		 * student_service_url_text
 		 * student_service_location
+		 * student_service_map_id
 		 * student_service_hours_monday_open
 		 * student_service_hours_monday_close
 		 * student_service_hours_tuesday_open
@@ -438,347 +412,466 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * student_service_hours_sunday_open
 		 * student_service_hours_sunday_close
 		 * student_service_social_facebook
-		 * student_service_social_twitter
-		 * student_service_social_youtube
+		 * student_service_social_flickr
 		 * student_service_social_googleplus
-		 * student_service_social_linkedin
 		 * student_service_social_instagram
+		 * student_service_social_linkedin
 		 * student_service_social_pinterest
 		 * student_service_social_tumblr
-		 * student_service_social_flickr
+		 * student_service_social_twitter
+		 * student_service_social_youtube
+		 * student_service_events_cal_feed
+		 * student_service_gallery_url-flickr
 		 */
 		return array(
 			array(
 				'name'  => 'Main Category',
-				'descr' => 'The main category for this service, to be used by breadcrumbs navigation.',
+				'descr' => 'The main category for this service. Used for breadcrumbs navigation and search filtering.',
 				'id'    => $prefix.'main_category_id',
 				'type'  => 'taxonomy',
+				'metabox_id' => $DEFAULT_METABOX_ID,
 			),
 			array(
 				'name'  => 'Heading Text',
-				'descr' => 'Text shown over the featured (header) image.',
+				'descr' => 'Text shown over the featured (header) image. One phrase, 2-5 words.',
 				'id'    => $prefix.'heading_text',
 				'type'  => 'text',
+				'metabox_id' => $DEFAULT_METABOX_ID,
 			),
 			array(
-				'name'  => 'Short Description',
-				'descr' => 'A short description of the service.',
+				'name'  => 'Summary',
+				'descr' => 'A short description of the service (2-3 sentences). Will appear in search results.',
 				'id'    => $prefix.'short_description',
 				'type'  => 'textarea',
+				'metabox_id' => $DEFAULT_METABOX_ID,
 			),
 			array(
-				'name'  => 'UCF Events Calendar Feed',
-				'descr' => 'The address of the UCF Events calendar feed from events.ucf.edu.',
-				'id'    => $prefix.'events_cal_feed',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'UCF Map ID',
-				'descr' => 'The UCF Map ID from map.ucf.edu.',
-				'id'    => $prefix.'map_id',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'News Feed (RSS or XML)',
-				'descr' => 'A news feed to display for this service.',
-				'id'    => $prefix.'news_feed',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Gallery URL - Flickr',
-				'descr' => 'A link to a flickr gallery.',
-				'id'    => $prefix.'gallery_url-flickr',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Additional Services 1 - Title',
+				'name'  => "Add'l 1 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_1-title',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 1 - URL',
+				'name'  => "Add'l 1 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_1-url',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 1 - Description',
-				'descr' => '',
+				'name'  => "Add'l 1 - Summary",
+				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_1-description',
 				'type'  => 'textarea',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 2 - Title',
+				'name'  => "Add'l 2 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_2-title',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 2 - URL',
+				'name'  => "Add'l 2 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_2-url',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 2 - Description',
-				'descr' => '',
+				'name'  => "Add'l 2 - Summary",
+				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_2-description',
 				'type'  => 'textarea',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 3 - Title',
+				'name'  => "Add'l 3 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_3-title',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 3 - URL',
+				'name'  => "Add'l 3 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_3-url',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 3 - Description',
-				'descr' => '',
+				'name'  => "Add'l 3 - Summary",
+				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_3-description',
 				'type'  => 'textarea',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 4 - Title',
+				'name'  => "Add'l 4 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_4-title',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 4 - URL',
+				'name'  => "Add'l 4 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_4-url',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 4 - Description',
-				'descr' => '',
+				'name'  => "Add'l 4 - Summary",
+				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_4-description',
 				'type'  => 'textarea',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 5 - Title',
+				'name'  => "Add'l 5 - Title",
 				'descr' => '',
 				'id'    => $prefix.'additional_5-title',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 5 - URL',
+				'name'  => "Add'l 5 - URL",
 				'descr' => '',
 				'id'    => $prefix.'additional_5-url',
 				'type'  => 'text',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
 			array(
-				'name'  => 'Additional Services 5 - Description',
-				'descr' => '',
+				'name'  => "Add'l 5 - Summary",
+				'descr' => 'One sentence describing the item.',
 				'id'    => $prefix.'additional_5-description',
 				'type'  => 'textarea',
+				'metabox_id' => $EXPLORE_FURTHER,
 			),
+
 			array(
-				'name'  => 'Image',
-				'descr' => 'Select an image.',
+				'name'  => 'Action Image',
+				'descr' => 'The image for the call-to-action section. Recommended size: 600x400.',
 				'id'    => $prefix.'image',
 				'type'  => 'image',
+				'metabox_id' => $CALL_TO_ACTION,
 			),
 			array(
-				'name'  => 'Primary Action',
-				'descr' => '',
+				'name'  => 'Action Text',
+				'descr' => 'The text for the call-to-action button. 2-4 words.',
 				'id'    => $prefix.'primary_action',
 				'type'  => 'text',
+				'metabox_id' => $CALL_TO_ACTION,
 			),
 			array(
-				'name'  => 'Primary Action URL',
-				'descr' => 'Link to a website, a phone number, or an email.',
+				'name'  => 'Action URL',
+				'descr' => 'Link to a website, phone number, or email address.',
 				'id'    => $prefix.'primary_action_url',
 				'type'  => 'text',
+				'metabox_id' => $CALL_TO_ACTION,
 			),
 			array(
-				'name'  => 'Spotlight',
-				'descr' => 'Select a spotlight.',
-				'id'    => $prefix.'spotlight',
-				'type'  => 'spotlight',
-			),
-			array(
-				'name'  => 'Phone',
-				'descr' => '',
+				'name'  => 'Contact Phone',
+				'descr' => 'Phone number for service, if applicable.',
 				'id'    => $prefix.'phone',
 				'type'  => 'text',
+				'metabox_id' => $CONTACT_INFORMATION,
 			),
 			array(
-				'name'  => 'Email',
-				'descr' => '',
+				'name'  => 'Contact Email',
+				'descr' => 'Email address for service, if applicable.',
 				'id'    => $prefix.'email',
 				'type'  => 'text',
+				'metabox_id' => $CONTACT_INFORMATION,
 			),
 			array(
-				'name'  => 'URL',
-				'descr' => '',
+				'name'  => 'Contact URL',
+				'descr' => 'Website for service provider, if applicable.',
 				'id'    => $prefix.'url',
 				'type'  => 'text',
+				'metabox_id' => $CONTACT_INFORMATION,
+			),
+			array(
+				'name'  => 'Contact URL Text',
+				'descr' => '',
+				'id'    => $prefix.'url_text',
+				'type'  => 'text',
+				'metabox_id' => $CONTACT_INFORMATION,
 			),
 			array(
 				'name'  => 'Location',
-				'descr' => '',
+				'descr' => 'Location of service, if applicable.',
 				'id'    => $prefix.'location',
 				'type'  => 'text',
+				'metabox_id' => $CONTACT_INFORMATION,
 			),
+			array(
+				'name'  => 'UCF Map ID',
+				'descr' => 'UCF Map ID of location, if applicable. Creates a link to the UCF Map.',
+				'id'    => $prefix.'map_id',
+				'type'  => 'text',
+				'metabox_id' => $CONTACT_INFORMATION,
+			),
+
 			array(
 				'name'  => 'Hours - Monday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_monday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Monday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_monday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Tuesday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_tuesday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Tuesday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_tuesday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Wednesday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_wednesday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Wednesday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_wednesday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Thursday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_thursday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Thursday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_thursday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Friday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_friday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Friday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_friday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Saturday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_saturday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Saturday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_saturday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Sunday Open',
 				'descr' => '',
 				'id'    => $prefix.'hours_sunday_open',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Hours - Sunday Close',
 				'descr' => '',
 				'id'    => $prefix.'hours_sunday_close',
 				'type'  => 'time',
+				'metabox_id' => $HOURS,
 			),
 			array(
 				'name'  => 'Social - Facebook',
-				'descr' => '',
+				'descr' => 'A direct URL to the service on Facebook.',
 				'id'    => $prefix.'social_facebook',
 				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Social - Twitter',
-				'descr' => '',
-				'id'    => $prefix.'social_twitter',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Social - Youtube',
-				'descr' => '',
-				'id'    => $prefix.'social_youtube',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Social - Google Plus',
-				'descr' => '',
-				'id'    => $prefix.'social_googleplus',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Social - LinkedIn',
-				'descr' => '',
-				'id'    => $prefix.'social_linkedin',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Social - Instagram',
-				'descr' => '',
-				'id'    => $prefix.'social_instagram',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Social - Pinterest',
-				'descr' => '',
-				'id'    => $prefix.'social_pinterest',
-				'type'  => 'text',
-			),
-			array(
-				'name'  => 'Social - Tumblr',
-				'descr' => '',
-				'id'    => $prefix.'social_tumblr',
-				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
 			),
 			array(
 				'name'  => 'Social - Flickr',
-				'descr' => '',
+				'descr' => 'A direct URL to the service on Flickr.',
 				'id'    => $prefix.'social_flickr',
 				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
 			),
-			// array(
-			// 	'name'  => 'Menu',
-			// 	'descr' => '',
-			// 	'id'    => $prefix.'menu',
-			// 	'type'  => 'menu_select',
-			// ),
-			// array(
-			// 	'name'  => '',
-			// 	'descr' => '',
-			// 	'id'    => $prefix.'',
-			// 	'type'  => 'text',
-			// ),
+			array(
+				'name'  => 'Social - Google Plus',
+				'descr' => 'A direct URL to the service on Google Plus.',
+				'id'    => $prefix.'social_googleplus',
+				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
+			),
+			array(
+				'name'  => 'Social - Instagram',
+				'descr' => "The username of the service's Instagram account.",
+				'id'    => $prefix.'social_instagram',
+				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
+			),
+			array(
+				'name'  => 'Social - LinkedIn',
+				'descr' => 'A direct URL to the service on LinkedIn.',
+				'id'    => $prefix.'social_linkedin',
+				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
+			),
+			array(
+				'name'  => 'Social - Pinterest',
+				'descr' => 'A direct URL to the service on Pinterest.',
+				'id'    => $prefix.'social_pinterest',
+				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
+			),
+			array(
+				'name'  => 'Social - Tumblr',
+				'descr' => 'A direct URL to the service on Tumblr.',
+				'id'    => $prefix.'social_tumblr',
+				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
+			),
+			array(
+				'name'  => 'Social - Twitter',
+				'descr' => "The username of the service's Twitter account.",
+				'id'    => $prefix.'social_twitter',
+				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
+			),
+			array(
+				'name'  => 'Social - Youtube',
+				'descr' => 'A direct URL to the service on YouTube.',
+				'id'    => $prefix.'social_youtube',
+				'type'  => 'text',
+				'metabox_id' => $SOCIAL,
+			),
+
+			array(
+				'name'  => 'UCF Events Calendar Feed',
+				'descr' => 'A URL to the RSS or JSON feed of a UCF Event Calendar.',
+				'id'    => $prefix.'events_cal_feed',
+				'type'  => 'text',
+				'metabox_id' => $OTHER,
+			),
+			array(
+				'name'  => 'Gallery URL - Flickr',
+				'descr' => 'A link to a flickr gallery.',
+				'id'    => $prefix.'gallery_url-flickr',
+				'type'  => 'text',
+				'metabox_id' => $OTHER,
+			),
 		);
+	}
+
+	/**
+	 * Creates metabox array for custom post type. Override method in
+	 * descendants to add or modify metaboxes.
+	 * @return array The metaboxes for this post_type.
+	 * */
+	public function metaboxes() {
+		if ( $this->options( 'use_metabox' ) ) {
+			$DEFAULT_METABOX_ID = 'custom_'.$this->options( 'name' ).'_metabox';
+			$EXPLORE_FURTHER = 'custom_mb_'.$this->options( 'name' ).'-a-explore_further';
+			$CALL_TO_ACTION = 'custom_mb_'.$this->options( 'name' ).'-b-call_to_action';
+			$CONTACT_INFORMATION = 'custom_mb_'.$this->options( 'name' ).'-c-contact_information';
+			$HOURS = 'custom_mb_'.$this->options( 'name' ).'-d-hours';
+			$SOCIAL = 'custom_mb_'.$this->options( 'name' ).'-e-social';
+			$OTHER = 'custom_mb_'.$this->options( 'name' ).'-f-other';
+			$metabox_ids = array( $DEFAULT_METABOX_ID, $EXPLORE_FURTHER, $CALL_TO_ACTION,
+				$CONTACT_INFORMATION, $HOURS, $SOCIAL, $OTHER, );
+			$metabox_fields = $this->fields_by_metabox_id( $DEFAULT_METABOX_ID, $metabox_ids );
+			return array(
+				array(
+					'id'       => $DEFAULT_METABOX_ID,
+					'title'    => __( 'Service Information' ),
+					'screen'   => $this->options( 'name' ),
+					'context'  => 'after_title',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$DEFAULT_METABOX_ID],
+					'default_metabox' => true,
+				),
+				array(
+					'id'       => $EXPLORE_FURTHER,
+					'title'    => __( 'Explore Further Links' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$EXPLORE_FURTHER],
+				),
+				array(
+					'id'       => $CALL_TO_ACTION,
+					'title'    => __( 'Call to Action Information' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$CALL_TO_ACTION],
+				),
+				array(
+					'id'       => $CONTACT_INFORMATION,
+					'title'    => __( 'Contact Information' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$CONTACT_INFORMATION],
+				),
+				array(
+					'id'       => $HOURS,
+					'title'    => __( 'Typical Hours of Operation' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$HOURS],
+				),
+				array(
+					'id'       => $SOCIAL,
+					'title'    => __( 'Social Media' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$SOCIAL],
+				),
+				array(
+					'id'       => $OTHER,
+					'title'    => __( 'Other' ),
+					'screen'     => $this->options( 'name' ),
+					'context'  => 'normal',
+					'priority' => 'high',
+					'fields'   => $metabox_fields[$OTHER],
+				),
+			);
+		}
+		return null;
 	}
 
 	// TODO: generate get_render_metadata using a self::get_fields method, return as `(object)array()`.
@@ -812,10 +905,10 @@ class StudentService extends CustomPostType_ServicesTheme {
 
 		$metadata_fields['stusvc_primary_action']  = get_post_meta( $stusvc->ID, 'student_service_primary_action', true );
 		$metadata_fields['stusvc_primary_action_url']  = get_post_meta( $stusvc->ID, 'student_service_primary_action_url', true );
-		$metadata_fields['stusvc_spotlight']       = get_post_meta( $stusvc->ID, 'student_service_spotlight', true );
 		$metadata_fields['stusvc_phone']           = get_post_meta( $stusvc->ID, 'student_service_phone', true );
 		$metadata_fields['stusvc_email']           = get_post_meta( $stusvc->ID, 'student_service_email', true );
 		$metadata_fields['stusvc_url']             = get_post_meta( $stusvc->ID, 'student_service_url', true );
+		$metadata_fields['stusvc_url_text']             = get_post_meta( $stusvc->ID, 'student_service_url_text', true );
 		$metadata_fields['stusvc_location']        = get_post_meta( $stusvc->ID, 'student_service_location', true );
 		$metadata_fields['stusvc_hours_monday_open']    = get_post_meta( $stusvc->ID, 'student_service_hours_monday_open', true );
 		$metadata_fields['stusvc_hours_monday_close']    = get_post_meta( $stusvc->ID, 'student_service_hours_monday_close', true );
@@ -842,8 +935,34 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$metadata_fields['stusvc_social_flickr']  = get_post_meta( $stusvc->ID, 'student_service_social_flickr', true );
 		$metadata_fields['stusvc_events_cal_feed']   = get_post_meta( $stusvc->ID, 'student_service_events_cal_feed', true );
 		$metadata_fields['stusvc_map_id']           = get_post_meta( $stusvc->ID, 'student_service_map_id', true );
-		$metadata_fields['stusvc_news_feed']       = get_post_meta( $stusvc->ID, 'student_service_news_feed', true );
 		return $metadata_fields;
+	}
+
+
+	/**
+	 *
+	 */
+	public static function get_summary_context( $stusvc, $metadata_fields ) {
+		$category = get_category( $metadata_fields['stusvc_main_category_id'] );
+		$category_name =
+			( null !== $category && property_exists( $category, 'name' ) ) 
+			? $category->name 
+			: null;
+		$permalink = get_permalink( $stusvc );
+		$permalink_encoded = urlencode( $permalink );
+		$title_encoded = urlencode( $stusvc->post_title );
+		return array(
+			'permalink' => $permalink,
+			'title' => $stusvc->post_title,
+			'main_category_name' => $category_name,
+			'main_category_link' => get_category_link( $category ),
+			'short_descr' => $metadata_fields['stusvc_short_descr'],
+			'image' => $metadata_fields['stusvc_image'],
+			'image_alt' => $metadata_fields['stusvc_image_alt'],
+			'image_thumbnail_src' => $metadata_fields['stusvc_image_thumbnail_src'],
+						'share_facebook' => "https://www.facebook.com/sharer.php?u={$permalink_encoded}",
+			'share_twitter' => "https://twitter.com/intent/tweet?text={$title_encoded}&url={$permalink_encoded}&via=" . ($metadata_fields['stusvc_social_twitter'] ?: 'UCF'),
+		);
 	}
 
 	// TODO: cast output to `(object) array()` to save on typing and code noise. i.e, $context->title instead of $context['title'].
@@ -871,6 +990,23 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$permalink_encoded = urlencode( $permalink );
 		$title_encoded = urlencode( $stusvc->post_title );
 		$primary_action_url = SDES_Static::href_prepend_protocols_filter( $metadata_fields['stusvc_primary_action_url'] );
+		$hours_closed =
+			static::HoursAreClosed( $metadata_fields['stusvc_hours_monday_open'], $metadata_fields['stusvc_hours_monday_close'] )
+			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_tuesday_open'], $metadata_fields['stusvc_hours_tuesday_close'] )
+			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_wednesday_open'], $metadata_fields['stusvc_hours_wednesday_close'] )
+			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_thursday_open'], $metadata_fields['stusvc_hours_thursday_close'] )
+			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_friday_open'], $metadata_fields['stusvc_hours_friday_close'] )
+			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_saturday_open'], $metadata_fields['stusvc_hours_saturday_close'] )
+			&& static::HoursAreClosed( $metadata_fields['stusvc_hours_sunday_open'], $metadata_fields['stusvc_hours_sunday_close'] );
+		$url_facebook = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_facebook'] );
+		$url_twitter = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_twitter'], 'http://twitter.com/' );
+		$url_youtube = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_youtube'] );
+		$url_googleplus = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_googleplus'] );
+		$url_linkedin = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_linkedin'] );
+		$url_instagram = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_instagram'], 'http://www.instagram.com/' );
+		$url_pinterest = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_pinterest'] );
+		$url_tumblr = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_tumblr'] );
+		$url_flickr = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_flickr'] );
 		return array(
 			'permalink' => $permalink,
 			'heading' => $metadata_fields['stusvc_heading_text'],
@@ -887,11 +1023,12 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'image_thumbnail_src' => $metadata_fields['stusvc_image_thumbnail_src'],
 			'primary_action' => $metadata_fields['stusvc_primary_action'],
 			'primary_action_url' => $primary_action_url,
-			'spotlight' => $metadata_fields['stusvc_spotlight'],
 			'phone' => $metadata_fields['stusvc_phone'],
 			'email' => $metadata_fields['stusvc_email'],
 			'url' => $metadata_fields['stusvc_url'],
+			'url_text' => $metadata_fields['stusvc_url_text'],
 			'location' => $metadata_fields['stusvc_location'],
+			'hours_closed' => $hours_closed,
 			'hours_monday_open' => $metadata_fields['stusvc_hours_monday_open'],
 			'hours_monday_close' => $metadata_fields['stusvc_hours_monday_close'],
 			'hours_tuesday_open' => $metadata_fields['stusvc_hours_tuesday_open'],
@@ -906,18 +1043,17 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'hours_saturday_close' => $metadata_fields['stusvc_hours_saturday_close'],
 			'hours_sunday_open' => $metadata_fields['stusvc_hours_sunday_open'],
 			'hours_sunday_close' => $metadata_fields['stusvc_hours_sunday_close'],
-			'social_facebook' => $metadata_fields['stusvc_social_facebook'],
-			'social_twitter' => $metadata_fields['stusvc_social_twitter'],
-			'social_youtube' => $metadata_fields['stusvc_social_youtube'],
-			'social_googleplus' => $metadata_fields['stusvc_social_googleplus'],
-			'social_linkedin' => $metadata_fields['stusvc_social_linkedin'],
-			'social_instagram' => $metadata_fields['stusvc_social_instagram'],
-			'social_pinterest' => $metadata_fields['stusvc_social_pinterest'],
-			'social_tumblr' => $metadata_fields['stusvc_social_tumblr'],
-			'social_flickr' => $metadata_fields['stusvc_social_flickr'],
+			'social_facebook' => $url_facebook,
+			'social_twitter' => $url_twitter,
+			'social_youtube' => $url_youtube,
+			'social_googleplus' => $url_googleplus,
+			'social_linkedin' => $url_linkedin,
+			'social_instagram' => $url_instagram,
+			'social_pinterest' => $url_pinterest,
+			'social_tumblr' => $url_tumblr,
+			'social_flickr' => $url_flickr,
 	 		'events_cal_feed' => $metadata_fields['stusvc_events_cal_feed'],
 	 		'map_id' => $metadata_fields['stusvc_map_id'],
-			'news_feed' => $metadata_fields['stusvc_news_feed'],
 			'tag_cloud' => $taxonomies,
 			'share_facebook' => "https://www.facebook.com/sharer.php?u={$permalink_encoded}",
 			'share_twitter' => "https://twitter.com/intent/tweet?text={$title_encoded}&url={$permalink_encoded}&via=" . ($metadata_fields['stusvc_social_twitter'] ?: 'UCF'),
@@ -943,14 +1079,25 @@ class StudentService extends CustomPostType_ServicesTheme {
 		return $html;
 	}
 
-	/**
-	 * Return single student_service post object's context, for consumption by either internal templates or REST routes.
-	 */
-	public static function get_render_context_from_post( $post_object ) {
+	public static function get_metadata_fields_from_post( $post_object ) {
 		$post_object = get_post( $post_object );
 		if ( SDES_Static::is_null_or_whitespace( $post_object ) 
 			 || self::NAME !== $post_object->post_type ) {return sprintf("<!-- No %s provided. -->", self::NAME); }
 		$metadata_fields = static::get_render_metadata( $post_object );
+		return $metadata_fields;
+	}
+
+	public static function get_summary_context_from_post( $post_object ) {
+		$metadata_fields = static::get_metadata_fields_from_post( $post_object );
+		$stusvc_context = static::get_summary_context( $post_object, $metadata_fields );
+		return $stusvc_context;
+	}
+
+	/**
+	 * Return single student_service post object's context, for consumption by either internal templates or REST routes.
+	 */
+	public static function get_render_context_from_post( $post_object ) {
+		$metadata_fields = static::get_metadata_fields_from_post( $post_object );
 		$stusvc_context = static::get_render_context( $post_object, $metadata_fields );
 		return $stusvc_context;
 	}
@@ -1031,7 +1178,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 				<div class="col-md-4 col-md-push-8 side-bar">
 					<div class="row">
 						<div class="col-xs-12" style="margin-bottom: 30px;">
-							<?= self::render_spotlight( $context ) ?>
+							<?= self::render_campaign( $context ) ?>
 						</div>
 					</div>
 					<div class="row">
@@ -1040,6 +1187,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 							<?= self::render_hours_table( $context ) ?>
 							<?= self::render_social_buttons( $context ) ?>
 							<?php
+							if( $context['events_cal_feed'] ) {
 								$max_events = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_max_items', 4 );
 								$context['events']  = array_reverse( FeedManager::get_items( $context['events_cal_feed'] ) );
 								$context['events']  = array_slice( $context['events'], 0, $max_events );
@@ -1047,9 +1195,9 @@ class StudentService extends CustomPostType_ServicesTheme {
 								$context['more_events'] = UcfEventModel::more_link();
 								$context['events_cal_title'] = 'Events Calendar';
 								echo self::render_events_calendar( $context ); 
+							} else { echo '<div class="calendar-events" style="display: none;"></div>'; }
 							?>
 							<?= '<!-- Map -->' //self::render_map( $context ); ?>
-							<?= '<!-- News Feed -->' //self::render_news_feed( $context ); ?>
 							<?= self::render_tag_cloud( $context ) ?>
 						</div>
 					</div>
@@ -1097,7 +1245,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		return $html;
 	}
 
-	public static function render_spotlight( $context ){
+	public static function render_campaign( $context ){
 		$btn_text = $context['primary_action'];
 		$btn_icon = '';
 		$primaryActionIsMailTo = preg_match( '/^mailto:/', $context['primary_action_url'] );
@@ -1109,7 +1257,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 				? "<span class='fa {$btn_icon}'></span> " . $btn_text
 				: $btn_text;
 
-		$service_spotlight_context = (object) array(
+		$service_campaign_context = (object) array(
 			'url' => $context['primary_action_url'],
 			'image_url' => $context['image_thumbnail_src'],
 			'image_alt' => $context['image_alt'],
@@ -1120,13 +1268,13 @@ class StudentService extends CustomPostType_ServicesTheme {
 		);
 		ob_start();
 		?>
-			<?= Spotlight::render_to_html( $service_spotlight_context ); ?>
+			<?= Campaign::render_to_html( $service_campaign_context ); ?>
 		<?php
 		$html = ob_get_clean();
 		return $html;
 	}
 
-	public static function render_contact_table( $context ){
+	public static function render_contact_table( $context, $MAP_URL = "http://map.ucf.edu/?show=" ){
 		ob_start();
 		?>
 			<div class="table-responsive contact">
@@ -1149,14 +1297,22 @@ class StudentService extends CustomPostType_ServicesTheme {
 					    if ( ! SDES_Static::is_null_or_whitespace( $context['url'] ) ) : ?>
 						<tr>
 							<td><span class="fa fa-chain"></span></td>
-							<td><a class="url" title="URL" href="<?= $context['url'] ?>">
-									<?= $context['url'] ?></a></td>
+							<td><a class="url" title="URL" href="<?= SDES_Static::url_ensure_prefix( $context['url'] ) ?>">
+									<?= $context['url_text'] ?: $context['url'] ?></a></td>
 						</tr>
 					  <?php endif;
 					    if ( ! SDES_Static::is_null_or_whitespace( $context['location'] ) ) : ?>
 						<tr>
 							<td><span class="fa fa-map-marker"></span></td>
-							<td><span class="location"><?= $context['location'] ?></span></td>
+							<td><span class="location">
+							  <?php if ( $context['map_id'] ) : ?>
+								<a href="<?= $MAP_URL . $context['map_id'] ?>">
+									<?= $context['location'] ?>
+								</a>
+							  <?php else: ?>
+								<?= $context['location'] ?>
+							  <?php endif; ?>
+							</span></td>
 						</tr>
 					  <?php endif; ?>
 					</tbody>
@@ -1167,9 +1323,12 @@ class StudentService extends CustomPostType_ServicesTheme {
 		return $html;
 	}
 
+	public static function HoursAreClosed( $open, $close ) {
+		return SDES_Static::is_null_or_whitespace( $open ) || SDES_Static::is_null_or_whitespace( $close );
+	}
+
 	public static function render_hours_cell( $open, $close ) {
-		if ( SDES_Static::is_null_or_whitespace( $open ) 
-		  || SDES_Static::is_null_or_whitespace( $close ) ) {
+		if ( static::HoursAreClosed( $open, $close ) ) {
 			return "CLOSED";
 		}
 		ob_start();
@@ -1182,6 +1341,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 	}
 
 	public static function render_hours_table( $context ){
+		if( $context['hours_closed'] ) { return '<div class="table-responsive hours"><!-- Closed --></div>'; }
 		ob_start();
 		?>
 			<div class="table-responsive hours">
@@ -1267,11 +1427,20 @@ class StudentService extends CustomPostType_ServicesTheme {
 	}
 
 	public static function render_social_buttons( $context ){
-		$network_names = array( 'facebook', 'twitter', 'youtube', 'googleplus', 'linkedin', 'instagram', 'pinterest', 'tumblr', 'flickr' );
+		$network_map = array(
+			'facebook' => 'facebook-square',
+			'twitter' => 'twitter-square',
+			'youtube' => 'youtube-square',
+			'googleplus' => 'google-plus-square',
+			'linkedin' => 'linkedin-square',
+			'instagram' => 'instagram',
+			'pinterest' => 'pinterest-square',
+			'tumblr' => 'tumblr-square ',
+			'flickr' => 'flickr' );
 		$networks = array();
-		foreach ( $network_names as $name ) {
+		foreach ( $network_map as $name => $fa_icon ) {
 			array_push( $networks,
-				(object) array( 'name' => $name, 'url' => $context[ "social_{$name}" ], 'faicon' => "fa-{$name}-official" )
+				(object) array( 'name' => $name, 'url' => $context[ "social_{$name}" ], 'faicon' => "fa-{$fa_icon}" )
 			);
 		}
 		ob_start();
@@ -1279,8 +1448,10 @@ class StudentService extends CustomPostType_ServicesTheme {
 			<div class="social">
 				<h2>Get social with <?= $context['title'] ?></h2>
 			  <?php foreach ( $networks as $network ) :
-			  if ( ! SDES_Static::is_null_or_whitespace( $network ) ) : ?>
-				<a href="<?= $network->url ?>"><span class="fa <?= $network->faicon ?>"></span></a>
+			  if ( $network && ! SDES_Static::is_null_or_whitespace( $network->url ) ) : ?>
+				<a href="<?= $network->url ?>" title="<?= ucfirst($network->name) ?>">
+					<span class="fa <?= $network->faicon ?> social-icon"></span>
+				</a>
 			  <?php endif;
 			  endforeach; ?>
 			</div>
@@ -1330,16 +1501,6 @@ class StudentService extends CustomPostType_ServicesTheme {
 		return $html;
 	}
 
-	public static function render_news_feed( $context ){
-		ob_start();
-		?>
-				<div class="news_feed"><?= $context['news_feed'] ?></div>
-				<hr>
-		<?php
-		$html = ob_get_clean();
-		return $html;
-	}
-
 	public static function render_tag_cloud( $context ){
 		ob_start();
 		?>
@@ -1370,7 +1531,7 @@ function register_custom_posttypes() {
 		__NAMESPACE__.'\Post',
 		__NAMESPACE__.'\Page',
 		__NAMESPACE__.'\StudentService',
-		__NAMESPACE__.'\Spotlight',
+		__NAMESPACE__.'\Campaign',
 		__NAMESPACE__.'\IconLink',
 	));
 }

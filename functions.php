@@ -24,7 +24,7 @@ function __init__() {
         'height' => 520
     ) );
     // add_theme_support( 'post-thumbnails' );
-    // add_image_size( 'thumb-sidebar-spotlight', 360, 275, $crop = true );
+    // add_image_size( 'thumb-sidebar-campaign', 360, 275, $crop = true );
 }
 add_action( 'after_setup_theme', '__init__' );
 

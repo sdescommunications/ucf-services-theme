@@ -1,1 +1,2 @@
-export * from './studentservice';
+export { IStudentServiceSummary, IStudentService } from "./studentservice";
+export { IWpCategory } from "./IWpCategory";

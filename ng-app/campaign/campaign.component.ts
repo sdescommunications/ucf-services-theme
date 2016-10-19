@@ -1,5 +1,7 @@
 import { Component, OnInit, OnChanges, Input } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser"
+import { DomSanitizer } from "@angular/platform-browser";
+
+import { ICampaignModel } from "./ICampaignModel";
 
 @Component({
     selector: "ucf-campaign",
@@ -13,10 +15,10 @@ import { DomSanitizer } from "@angular/platform-browser"
                 </div>
                 <div class="col-sm-7 campaign-content">
                     <div class="campaign-title">
-                        <a href="{{ url }}">{{ title }}</a>
+                        <a href="{{ url }}" target="_blank">{{ title }}</a>
                     </div>
                     <p>{{ long }}</p>
-                    <a href="{{ url }}">
+                    <a href="{{ url }}" target="_blank">
                         <span class="btn btn-default btn-lg" type="button">
                             {{ btn_text }}
                         </span>
@@ -28,10 +30,10 @@ import { DomSanitizer } from "@angular/platform-browser"
         <div class="campaign" style="background: #f3f3f3;" *ngIf='type == "square"'>
             <div class="campaign-content" *ngIf="shouldShow()">
                 <div class="campaign-title">
-                    <a href="{{ url }}">{{ title }}</a>
+                    <a href="{{ url }}" target="_blank">{{ title }}</a>
                 </div>
                 <p>{{ short }}</p>
-                <a href="{{ url }}">
+                <a href="{{ url }}" target="_blank">
                     <span class="btn btn-default btn-lg" type="button">
                         {{ btn_text }}
                     </span>
@@ -52,14 +54,15 @@ export class CampaignComponent {
     @Input() long: string;
     @Input() short: string;
     @Input() btn_text: string;
-    @Input() model: any;
+    @Input() model: ICampaignModel;
+    _shouldHide = false;
 
     constructor( private sanitizer: DomSanitizer ) {
         window.ucf_comp_campaign = ( window.ucf_comp_campaign || [] ).concat( this );
     }
 
     ngOnInit() {
-        if( null != this.model && "" != this.model ) {
+        if ( null != this.model ) {
             this.image_url = this.model.image_url;
             this.url = this.model.url;
             this.title = this.model.title;
@@ -69,11 +72,25 @@ export class CampaignComponent {
         }
     }
 
+    hide() {
+        this._shouldHide = true;
+    }
+
     shouldShow(): boolean {
-        if ( "undefined" == typeof this.title || "undefined" == typeof this.btn_text
-            || "" == this.title || "" == this.btn_text ) {
+        if ( this._shouldHide || "undefined" === typeof this.title || "undefined" === typeof this.btn_text
+            || "" === this.title || "" === this.btn_text ) {
             return false;
         }
         return true;
     }
 }
+
+
+
+// Boilerplate declarations for type-checking and intellisense.
+declare var __moduleName: string;
+// Window from tsserver/lib.d.ts
+interface WindowUcfComp extends Window {
+    ucf_comp_campaign: CampaignComponent[];
+}
+declare var window: WindowUcfComp;

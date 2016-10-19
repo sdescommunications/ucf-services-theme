@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/http", "rxjs/Observable", "rxjs/add/operator/do", "rxjs/add/operator/catch"], function(exports_1, context_1) {
+System.register(["@angular/core", "@angular/http", "rxjs/Observable", "rxjs/add/operator/map", "rxjs/add/operator/do", "rxjs/add/operator/catch"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -11,7 +11,7 @@ System.register(["@angular/core", "@angular/http", "rxjs/Observable", "rxjs/add/
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, http_1, Observable_1;
-    var SearchService;
+    var LIMIT_DEFAULT, PAGED_DEFAULT, SearchService;
     return {
         setters:[
             function (core_1_1) {
@@ -24,13 +24,19 @@ System.register(["@angular/core", "@angular/http", "rxjs/Observable", "rxjs/add/
                 Observable_1 = Observable_1_1;
             },
             function (_1) {},
-            function (_2) {}],
+            function (_2) {},
+            function (_3) {}],
         execute: function() {
+            LIMIT_DEFAULT = 7;
+            PAGED_DEFAULT = 1;
             SearchService = (function () {
                 function SearchService(_http) {
                     this._http = _http;
-                    this.restApiUrl = "/wp-json/rest/v1/services/"; // Default, should override to include entire site_url/rest_url.
+                    this.restApiUrl = "/wp-json/rest/v1/services/summary"; // Default, should override to include entire site_url/rest_url.
                     this.DEBUG = 0;
+                    this._search = "";
+                    this._limit = LIMIT_DEFAULT;
+                    this._paged = PAGED_DEFAULT;
                     window.ucf_svc_searchService = (window.ucf_svc_searchService || []).concat(this);
                 }
                 /**
@@ -38,16 +44,56 @@ System.register(["@angular/core", "@angular/http", "rxjs/Observable", "rxjs/add/
                  * Implemented with a REST API, e.g.: https://www.ucf.edu/services/wp-json/rest/v1/services/?search=${query}
                  * For API discoverability, see http://v2.wp-api.org/guide/discovery/ and https://www.ucf.edu/services/wp-json/rest/v1/
                  */
-                SearchService.prototype.getStudentServices = function (query) {
+                SearchService.prototype.getStudentServices = function (search, limit, paged) {
                     var _this = this;
-                    query = (query) ? "?search=" + query : "";
-                    var request = this.restApiUrl + query;
-                    return this._http.get(request)
-                        .map(function (response) { return response.json(); })
-                        .do(function (data) { _this.debugInfo(data, request); })
-                        .catch(this.handleError);
+                    if (limit === void 0) { limit = LIMIT_DEFAULT; }
+                    if (paged === void 0) { paged = PAGED_DEFAULT; }
+                    var requestUrl = this.buildRequestUrl(limit, search, paged); // (number, string, number) -> Observable<string>
+                    var resultsStream = this.requestJsonFrom(requestUrl) // string -> Observable<IStudentServiceSummary[]>
+                        .do(function (_) {
+                        // Save state if successful.
+                        _this._search = search;
+                        _this._paged = paged;
+                        _this._limit = limit;
+                    });
+                    return resultsStream;
                 };
                 ;
+                /**
+                 * Fetch the next page of results for the current search term.
+                 */
+                SearchService.prototype.getNextPage = function () {
+                    var _this = this;
+                    var nextPage = this._paged + 1;
+                    var requestUrl = this.buildRequestUrl(this._limit, this._search, nextPage); // (number, string, number) -> Observable<string>
+                    var resultsStream = this.requestJsonFrom(requestUrl) // string -> Observable<IStudentServiceSummary[]>
+                        .do(function (_) {
+                        // Save state if successful.
+                        _this._paged = nextPage;
+                    });
+                    return resultsStream;
+                };
+                /** Build a the url to fetch using values for the query parameters. */
+                SearchService.prototype.buildRequestUrl = function (limit, search, paged) {
+                    if (limit === void 0) { limit = LIMIT_DEFAULT; }
+                    if (search === void 0) { search = ""; }
+                    if (paged === void 0) { paged = PAGED_DEFAULT; }
+                    var query = (search)
+                        ? "?limit=" + limit + "&search=" + search + "&paged=" + paged
+                        : "?limit=" + limit + "&paged=" + paged;
+                    var request = this.restApiUrl + query;
+                    return request;
+                };
+                /** Get JSON from a URL, log with debugInfo, and catch errors. */
+                SearchService.prototype.requestJsonFrom = function (requestUrl) {
+                    var _this = this;
+                    return this._http.get(requestUrl)
+                        .map(function (response) { return response.json(); })
+                        .do(function (data) {
+                        _this.debugInfo(data, requestUrl);
+                    })
+                        .catch(this.handleError);
+                };
                 SearchService.prototype.handleError = function (error) {
                     if (this.DEBUG) {
                         console.error(error);

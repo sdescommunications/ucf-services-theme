@@ -12,7 +12,7 @@ var headerImage = function($) {
             // [ 'selector', clamp-min, clamp-max ],
             [ '.site-header .header-image', 350, 520 ],
             [ '.subpage-header', 400, 420 ],
-            [ '.subpage-header .header-image', 400, 420 ],
+            [ '.subpage-header .header-image', 400, 420 ]
         ];
         for (var i = toClamp.length - 1; i >= 0; i--) {
             var $image = $( toClamp[i][0] ),

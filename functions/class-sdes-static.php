@@ -203,11 +203,11 @@ class SDES_Static
 	}
 
 	/**
-	 * Add a protocol to a URL if it does not exist.
+	 * Add a protocol and domain path to a URL if it does not exist.
 	 * @param string $url The url variable to adjust.
-	 * @param string $protocol The protocol to prepend to the url. (defaults to http://).
+	 * @param string $prefix The protocol and domain path to prepend to the url. (defaults to http://).
 	 */
-	public static function url_ensure_prefix( $url, $protocol = 'http' ) {
+	public static function url_ensure_prefix( $url, $prefix = 'http://' ) {
 		// Guard to return string unchanged:
 		if ( 0 === strpos( $url, '#')			// IF same-page anchor links
 		 	|| false !== strrpos( $url, '//' )  // OR protocol-neutral links.
@@ -221,14 +221,40 @@ class SDES_Static
 			// Set root of relative links to the site_url (instead of defaulting to the domain).
 			$url = get_site_url() . $url;
 		} else {
-			// Otherwise, add the protocol prefix.
-			$url = $protocol . '://' . $url;
+			// Otherwise, add the prefix.
+			$url = $prefix . $url;
 		}
 		return $url;
 	}
 
 	public static function is_null_or_whitespace( $string ) {
 		return null === $string || '' === $string || ctype_space( $string );
+	}
+
+	/**
+	 * Add snippet for analytics from Google Tag Manager.  This should be called just after the BODY tag
+	 * is opened (this snippet may cause undesired behavior when called within the HEAD tag).
+	 * @param string $gtm_id The Container ID provided by Google Tag Manager.
+	 */
+	public static function google_tag_manager( $gtm_id = '' ) {
+		$gtm_id = ( $gtm_id )
+			? $gtm_id
+			: SDES_Static::get_theme_mod_defaultIfEmpty( 'gtm_id', '' );
+		ob_start();
+		if ( $gtm_id ) :
+		?>
+			<!-- Google Tag Manager -->
+			<noscript><iframe src="//www.googletagmanager.com/ns.html?id=<?php echo $gtm_id; ?>"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+			<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','<?php echo $gtm_id; ?>');</script>
+			<!-- End Google Tag Manager -->
+		<?php
+		endif;
+		return ob_get_clean();
 	}
 
 	/**

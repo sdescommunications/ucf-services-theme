@@ -1,4 +1,9 @@
 <?php
+/**
+ * Pre-render this component (app-student-services) and its subcomponents using PHP includes.
+ * For non-Wordpress servers like NodeJS or ASP.NET Core Server, consider using Angular Universal instead of this pattern.
+ * For PHP, Angular Univeral integration might be possible using the V8JS engine. See: https://github.com/angular/universal/issues/281
+ */
 
 require_once( get_stylesheet_directory() . '/functions/rest-api.php' );
     use SDES\ServicesTheme\API;
@@ -24,8 +29,12 @@ $categories = get_categories( array(
     'taxonomy' => 'category',
 ) );
 ?>
+<script>
+    window.ucf_searchResults_limit = Number(<?= $services_limit ?>);
+</script>
 <article class="row page-wrap">
     <ucf-search-form
+        [frontsearch_query]="frontsearch_query"
         [lead]='search_lead'
         [placeholder]='search_placeholder'
         (search)='onSearch($event)'
@@ -48,8 +57,8 @@ $categories = get_categories( array(
                 <div class="col-xs-12">
                     <ucf-campaign [type]="square">
                         <?php
-                            $spotlight_id = get_post_meta( $post->ID, 'page_campaign_sidebar', true );
-                            echo do_shortcode( "[campaign spotlight_id='{$spotlight_id}' layout='square']" );
+                            $campaign_id = get_post_meta( $post->ID, 'page_campaign_sidebar', true );
+                            echo do_shortcode( "[campaign campaign_id='{$campaign_id}' layout='square']" );
                         ?>
                     </ucf-campaign>
                 </div>
@@ -83,8 +92,8 @@ $categories = get_categories( array(
 
             <ucf-campaign [type]="rectangle">
                 <?php
-                    $spotlight_id = get_post_meta( $post->ID, 'page_campaign_primary', true );
-                    echo do_shortcode( "[campaign spotlight_id='{$spotlight_id}' layout='rectangle']" );
+                    $campaign_id = get_post_meta( $post->ID, 'page_campaign_primary', true );
+                    echo do_shortcode( "[campaign campaign_id='{$campaign_id}' layout='rectangle']" );
                 ?>
             </ucf-campaign>
             <div class="clearfix"></div>
@@ -92,10 +101,18 @@ $categories = get_categories( array(
 
             <ucf-search-results [query]='query' [api]='api'
                 [results]='initialResults'
+                [limit]='limit'
+                [showResultsHeading]='showResultsHeading'
                 (resultsChanged)='onResultsChanged($event)'>
                 <?php foreach ( $services_contexts as $ctxt_search_results ) {
                     include( get_stylesheet_directory() . '/ng-app/app-student-services/search/results/results.component.php' );
                 } ?>
+                <span *ngIf="!isLoadingMore" style="font-size: 2em; padding: 12px 0;">
+                    <span class="fa fa-angle-double-down" aria-hidden="true"></span>
+                    <a href="" (click)="showNextPage($event)" title="Load more results">
+                        Load more results...
+                    </a>
+                </span>
             </ucf-search-results>
         </section>
       </div>

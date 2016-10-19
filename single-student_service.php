@@ -1,6 +1,7 @@
 <?php
 
-
+require_once( get_stylesheet_directory() . '/header-settings.php' );
+	use SDES\ServicesTheme\ThemeCustomizer\Header as Header;
 require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
 	use SDES\ServicesTheme\PostTypes\StudentService;
 
@@ -10,9 +11,14 @@ require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 use SDES\SDES_Static;
 
+$profile_image_default = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-profile_image_default', '' );
+$default_header_image =
+	( '' !== $profile_image_default ) 
+		?  wp_get_attachment_image_src( $profile_image_default, 'thumbnail-size', true )[0]
+		: get_header_image();
 $header_image =	( has_post_thumbnail( get_the_id() ) )
 	? wp_get_attachment_image_src( get_post_thumbnail_id(), 'thumbnail-size', true )[0]
-	: get_header_image();
+	: $default_header_image;
 
 $heading_text =
 	get_post_meta( get_the_id(), 'student_service_heading_text', true )
@@ -22,7 +28,9 @@ get_header();
 ?>
 <header class="subpage-header services-page-header">
 	<div class="header-image" style="background-image: url(<?= $header_image ?>);">
+		<?php Header::display_nav_header(); ?>
 		<div class="container">
+			<?php Header::display_nav_header_xs(); ?>
 			<div class="header-center">
 				<div class="title-wrapper">
 					<div class="title-header-container">

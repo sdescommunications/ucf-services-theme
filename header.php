@@ -3,7 +3,13 @@
  * Header area for the theme, as called by get_header().
  */
 
-use SDES\SDES_Static as SDES_Static;
+require_once( get_stylesheet_directory() . '/header-settings.php' );
+
+require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
+	use SDES\SDES_Static as SDES_Static;
+
+// TODO: add scripts, styles via Wordpress enqueueing.
+// TODO: add 'title-tag' theme support, then modify title with hooks or Yoast SEO plugin.
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +19,6 @@ use SDES\SDES_Static as SDES_Static;
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?= wp_title( '&raquo;', true, 'right' ); bloginfo( 'name' ); ?> &raquo; UCF</title>
 
-	<link rel="shortcut icon" href="<?= get_stylesheet_directory_uri(); ?>/images/favicon_black.png" >
 	<link rel="apple-touch-icon" href="<?= get_stylesheet_directory_uri(); ?>/images/apple-touch-icon.png" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" href="<?= get_stylesheet_uri(); ?>" >
@@ -41,9 +46,14 @@ use SDES\SDES_Static as SDES_Static;
 	</script>
 	<script type="text/javascript" src="<?= get_stylesheet_directory_uri(); ?>/js/sdes_main_ucf.js"></script>
 
-<?php wp_head(); ?>
+<?php
+	// Instead of adding scripts or styles here, call: `add_action('wp_head', 'YOUR_FUNCTION');`
+	// See: https://codex.wordpress.org/Plugin_API/Action_Reference/wp_head#Examples
+	do_action('wp_head');
+?>
 </head>
 <body class="nojs">
+	<?php echo SDES_Static::google_tag_manager(); ?>
 	<script>
 		var bodyEl = document.getElementsByTagName('body');
 		bodyEl[0].className = bodyEl[0].className.split('nojs').join(' jsEnabled ');

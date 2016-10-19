@@ -19,9 +19,25 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 /**
  * Add component settings.
  */
+require_once( get_stylesheet_directory() . '/header-settings.php' );
 require_once( get_stylesheet_directory() . '/footer-settings.php' );
 require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
 
+/**
+ * Removes the core 'Menus' panel from the Customizer.
+ * @see https://developer.wordpress.org/reference/hooks/customize_loaded_components/#comment-1005
+ * @param array $components Core Customizer components list.
+ * @return array (Maybe) modified components list.
+ */
+function wpdocs_remove_nav_menus_panel( $components ) {
+    $i = array_search( 'nav_menus', $components );
+    if ( false !== $i ) {
+        unset( $components[ $i ] );
+    }
+    return $components;
+}
+add_filter( 'customize_loaded_components', __NAMESPACE__.'\wpdocs_remove_nav_menus_panel' );
+do_action( 'plugins_loaded' ); // The customize_loaded_components filter generally runs during the ‘plugins_loaded’ action.
 
 /**
  * Defines all of the sections, settings, and controls for the various
@@ -36,13 +52,13 @@ require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
  */
 function register_theme_customizer( $wp_customizer ) {
 
+	// Build-in sections.
 	add_to_section_TitleAndTagline( $wp_customizer );
+	$wp_customizer->remove_section('colors');
 
 	add_section_home_custom( $wp_customizer );
 
-	add_section_social_options( $wp_customizer );
-
-	add_section_other( $wp_customizer );
+	add_section_service_profile( $wp_customizer );
 
 }
 add_action( 'customize_register', __NAMESPACE__.'\register_theme_customizer' );
@@ -82,6 +98,20 @@ function add_section_home_custom( $wp_customizer, $args = null ) {
 		)
 	);
 
+	$wp_customizer->add_setting(
+		'gtm_id'
+	);
+	$wp_customizer->add_control(
+		'gtm_id',
+		array(
+			'type'        => 'text',
+			'label'       => 'Google Tag Manager ID',
+			'description' => 'Example: <em>MTG-ABC123</em>. Leave blank for development.',
+			'section'     => $section,
+			'priority'    => 5,  // Default control priority is 10.
+ 		)
+	);
+
 	/** ARGS */
 	$frontsearch_args = $args['services_theme-frontsearch_lead'];
 	SDES_Static::set_default_keyValue_array( $frontsearch_args, array(
@@ -93,6 +123,13 @@ function add_section_home_custom( $wp_customizer, $args = null ) {
 	SDES_Static::set_default_keyValue_array( $placeholder_args, array(
 		'sanitize_callback' => 'wp_kses_post',
 		'sanitize_js_callback' => 'wp_kses_post',
+	));
+	$search_default_args = $args['services_theme-search_default'];
+	SDES_Static::set_default_keyValue_array( $search_default_args, array(
+		'sanitize_callback' => 'esc_attr',
+		'sanitize_js_callback' => 'esc_attr',
+		'default' => '',
+		'description' => "The default search term for the home page's results.",
 	));
 	$services_limit_args = $args['services_theme-services_limit'];
 	SDES_Static::set_default_keyValue_array( $services_limit_args, array(
@@ -128,6 +165,14 @@ function add_section_home_custom( $wp_customizer, $args = null ) {
 
 	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
 		$wp_customizer,			// WP_Customize_Manager.
+		'services_theme-search_default',	// Id.
+		'Search Default',			// Label.
+		$section,				// Section.
+		$search_default_args	// Arguments array.
+	);
+
+	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
+		$wp_customizer,			// WP_Customize_Manager.
 		'services_theme-services_limit',	// Id.
 		'Services Limit',			// Label.
 		$section,				// Section.
@@ -143,81 +188,24 @@ function add_section_home_custom( $wp_customizer, $args = null ) {
 	);
 }
 
-/** Register the social_options section, add settings and controls. */
-function add_section_social_options( $wp_customizer, $args = null ) {
+function add_section_service_profile( $wp_customizer, $args = null ) {
 	/* SECTION */
-	$section = 'services_theme-social_options';
+	$section = 'services_theme-service_profiles';
 	$wp_customizer->add_section(
 		$section,
 		array(
-			'title'    => 'Social',
-			'priority' => 300,
-			'panel' => $args['panelId'],
-		)
-	);
-
-	/** ARGS */
-	// TODO: Sanitize social links.
-	$facebook_args = $args['services_theme-facebook'];
-	SDES_Static::set_default_keyValue_array( $facebook_args, array(
-		'sanitize_callback' => 'esc_url',
-		'sanitize_js_callback' => 'esc_url',
-	));
-
-	$twitter_args = $args['services_theme-twitter'];
-	SDES_Static::set_default_keyValue_array( $twitter_args, array(
-		'sanitize_callback' => 'esc_url',
-		'sanitize_js_callback' => 'esc_url',
-	));
-
-	$youtube_args = $args['services_theme-youtube'];
-	SDES_Static::set_default_keyValue_array( $youtube_args, array(
-		'sanitize_callback' => 'esc_url',
-		'sanitize_js_callback' => 'esc_url',
-	));
-
-	/** FIELDS */
-	// Facebook
-	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
-		$wp_customizer,			// WP_Customize_Manager.
-		'services_theme-facebook',	// Id.
-		'Facebook',				// Label.
-		$section,				// Section.
-		$facebook_args			// Arguments array.
-	);
-
-	// Twitter
-	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
-		$wp_customizer,			 // WP_Customize_Manager.
-		'services_theme-twitter', // Id.
-		'Twitter',				 // Label.
-		$section,				 // Section.
-		$twitter_args			 // Arguments array.
-	);
-
-	// Youtube
-	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
-		$wp_customizer,			 // WP_Customize_Manager.
-		'services_theme-youtube', // Id.
-		'Youtube',				 // Label.
-		$section,				 // Section.
-		$twitter_args			 // Arguments array.
-	);
-}
-
-function add_section_other( $wp_customizer, $args = null ) {
-	/* SECTION */
-	$section = 'services_theme-other';
-	$wp_customizer->add_section(
-		$section,
-		array(
-			'title'    => 'Other',
+			'title'    => 'Service Profiles',
 			'priority' => 900,
 			'panel' => $args['panelId'],
 		)
 	);
 
 	/** ARGS */
+	$profile_image_default_args = $args['services_theme-profile_image_default'];
+	SDES_Static::set_default_keyValue_array( $profile_image_default_args, array(
+		'description' => 'A default image for the header of a student profile.',
+	));	
+
 	$closing_soon_args = $args['services_theme-closing_soon_minutes'];
 	SDES_Static::set_default_keyValue_array( $closing_soon_args, array(
 		'sanitize_callback' => 'wp_kses_post',
@@ -227,6 +215,15 @@ function add_section_other( $wp_customizer, $args = null ) {
 	));
 
 	/** FIELDS */
+	SDES_Customizer_Helper::add_setting_and_control(
+		'Image_Control', // Control Type.
+		$wp_customizer,			// WP_Customize_Manager.
+		'services_theme-profile_image_default',	// Id.
+		'Profile Header Image',			// Label.
+		$section,				// Section.
+		$profile_image_default_args		// Arguments array.
+	);
+
 	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
 		$wp_customizer,			// WP_Customize_Manager.
 		'services_theme-closing_soon_minutes',	// Id.
@@ -234,6 +231,7 @@ function add_section_other( $wp_customizer, $args = null ) {
 		$section,				// Section.
 		$closing_soon_args		// Arguments array.
 	);
+
 }
 
 // Allow AJAX updates to theme from Theme Customizer interface by
