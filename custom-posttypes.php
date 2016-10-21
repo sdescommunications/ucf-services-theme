@@ -989,6 +989,11 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$permalink = get_permalink( $stusvc );
 		$permalink_encoded = urlencode( $permalink );
 		$title_encoded = urlencode( $stusvc->post_title );
+		$has_additional = '' !== $metadata_fields['stusvc_additional'][0]['title']
+			|| '' != $metadata_fields['stusvc_additional'][1]['title']
+			|| '' != $metadata_fields['stusvc_additional'][2]['title']
+			|| '' != $metadata_fields['stusvc_additional'][3]['title']
+			|| '' != $metadata_fields['stusvc_additional'][4]['title'];
 		$primary_action_url = SDES_Static::href_prepend_protocols_filter( $metadata_fields['stusvc_primary_action_url'] );
 		$hours_closed =
 			static::HoursAreClosed( $metadata_fields['stusvc_hours_monday_open'], $metadata_fields['stusvc_hours_monday_close'] )
@@ -1007,6 +1012,16 @@ class StudentService extends CustomPostType_ServicesTheme {
 		$url_pinterest = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_pinterest'] );
 		$url_tumblr = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_tumblr'] );
 		$url_flickr = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_flickr'] );
+		$has_social =
+			! SDES_Static::is_null_or_whitespace( $url_facebook )
+			|| ! SDES_Static::is_null_or_whitespace( $url_twitter )
+			|| ! SDES_Static::is_null_or_whitespace( $url_youtube )
+			|| ! SDES_Static::is_null_or_whitespace( $url_googleplus )
+			|| ! SDES_Static::is_null_or_whitespace( $url_linkedin )
+			|| ! SDES_Static::is_null_or_whitespace( $url_instagram )
+			|| ! SDES_Static::is_null_or_whitespace( $url_pinterest )
+			|| ! SDES_Static::is_null_or_whitespace( $url_tumblr )
+			|| ! SDES_Static::is_null_or_whitespace( $url_flickr );
 		return array(
 			'permalink' => $permalink,
 			'heading' => $metadata_fields['stusvc_heading_text'],
@@ -1018,6 +1033,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'long_descr' => wpautop( apply_filters( 'the_content', $stusvc->post_content ) ),
 			'gallery' => $metadata_fields['stusvc_gallery'],
 			'additional' => $metadata_fields['stusvc_additional'],
+			'has_additional' => $has_additional,
 			'image' => $metadata_fields['stusvc_image'],
 			'image_alt' => $metadata_fields['stusvc_image_alt'],
 			'image_thumbnail_src' => $metadata_fields['stusvc_image_thumbnail_src'],
@@ -1052,6 +1068,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			'social_pinterest' => $url_pinterest,
 			'social_tumblr' => $url_tumblr,
 			'social_flickr' => $url_flickr,
+			'has_social' => $has_social,
 	 		'events_cal_feed' => $metadata_fields['stusvc_events_cal_feed'],
 	 		'map_id' => $metadata_fields['stusvc_map_id'],
 			'tag_cloud' => $taxonomies,
@@ -1206,18 +1223,20 @@ class StudentService extends CustomPostType_ServicesTheme {
 					<p class="lead"><?= $context['short_descr'] ?></p>
 					<?= $context['long_descr'] ?>
 
-					<h2>Additional Services</h2>
-					<?php foreach ( $context['additional'] as $idx => $link ) :
-					if ( '' != $link['title'] ) :
-					?>
-						<div class="additional-<?= $idx ?>">
-							<h3 class="external-link"><a href="<?= $link['url'] ?>">
-								<?= $link['title'] ?>
-							</a></h3>
-							<p><?= $link['descr'] ?></p>
-						</div>
+					<?php if ( $context['has_additional'] ) : ?>
+						<h2>Additional Services</h2>
+						<?php foreach ( $context['additional'] as $idx => $link ) :
+							if ( '' != $link['title'] ) :
+							?>
+							<div class="additional-<?= $idx ?>">
+								<h3 class="external-link"><a href="<?= $link['url'] ?>">
+									<?= $link['title'] ?>
+								</a></h3>
+								<p><?= $link['descr'] ?></p>
+							</div>
 					<?php endif;
-					endforeach; ?>
+						endforeach; 
+					endif; ?>
 
 					<div class="gallery"><?= $context['gallery']['flickr'] ?></div>
 				</div>
@@ -1444,6 +1463,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			);
 		}
 		ob_start();
+		if ( $context['has_social'] ) :
 		?>
 			<div class="social">
 				<h2>Get social with <?= $context['title'] ?></h2>
@@ -1456,6 +1476,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			  endforeach; ?>
 			</div>
 		<?php
+		endif;
 		$html = ob_get_clean();
 		return $html;
 	}
