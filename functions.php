@@ -19,6 +19,12 @@ require_once( 'functions/rest-api.php' );   // Register REST routes here.
 
 
 function __init__() {
+    /* To edit the document title, use hooks. See: https://www.developersq.com/change-page-post-title-wordpress-4-4/
+     * https://developer.wordpress.org/reference/hooks/pre_get_document_title/
+     * https://developer.wordpress.org/reference/hooks/document_title_separator/
+     * https://developer.wordpress.org/reference/hooks/document_title_parts/
+     */
+    add_theme_support( 'title-tag' );
     add_theme_support( 'custom-header', array(
         'width' => 2000,
         'height' => 520
