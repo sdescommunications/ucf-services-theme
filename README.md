@@ -8,26 +8,27 @@ Theme for the services page on ucf.edu.
 * [Notes](#notes)
 * [Quick Install](#quick-install)
 * [Virtual Machine for Local Development](#virtual-machine-for-local-development)
+* [Installing Required Development Tools](#installing-required-development-tools)
 * [Development Toolset](#development-toolset)
 
 ## Installation Requirements:
-- WordPress v5.2+ (untested on previous versions)
+- [WordPress](https://wordpress.org/) [4.6.1+](https://codex.wordpress.org/Version_4.6.1) (untested on previous versions)
 
 ### Libraries Used:
 Included with repository. See composer.json, bower.json, and package.json for version details.
-- Anahkiasen/Underscore-php
-- jQuery
-- Bootstrap
-- Font Awesome
-- Weather Icons
-- SimplePie (provided by WordPress)
-- [WordPress REST API (version 2)](https://wordpress.org/plugins/rest-api/)
+- [Anahkiasen/Underscore-php](https://github.com/Anahkiasen/underscore-php) - PHP utility functions.
+- [jQuery](http://jquery.com/) - Javascript utility functions, including HTML document traversal and manipulation, event handling, animation, and Ajax.
+- [Bootstrap 3](getbootstrap.com/css/) - mobile-first and responsive front-end framework.
+- [Font Awesome 4](http://fontawesome.io/) - the iconic font and css toolkit.
+- [Weather Icons](https://erikflowers.github.io/weather-icons/) - weather-themed icons and css.
+- [SimplePie](http://simplepie.org/) - feed parser (provided by WordPress).
+- [WordPress REST API (version 2)](https://wordpress.org/plugins/rest-api/) - access WordPress data through an HTTP REST API.
 
-### Development Tools
-- Sass (developed on Koala v2.0.4)
-- Bower v1.7.9
-- NodeJS v5.1.0
-- Composer v1.1.2
+### Required Development Tools
+- [NodeJS](https://nodejs.org/) v6.9.1+
+- [Bower](https://bower.io/) v1.7.9+
+- [Sass](http://sass-lang.com/) (developed on [Koala](http://koala-app.com/) v2.0.4+)
+- [Composer](https://getcomposer.org/) v1.1.2+
 
 
 ## Important files/folders
@@ -104,7 +105,9 @@ found at the top of `components/bootstrap-sass-official/bower.json`.
 
 
 ## Quick Install
-Assuming you already have a WordPress/PHP/MySQL environment:
+- If you do not have the "Required Development Tools" installed, first see [Installing Required Development Tools](#installing-required-development-tools) below.
+- If you would like to use a virtual machine for your WordPress environment, first see [Virtual Machine for Local Development](#virtual-machine-for-local-development).
+- Otherwise, assuming you already have a WordPress/PHP/MySQL environment:
 
 1. Clone this repository to the "www\wordpress\wp-content\themes\" folder:<br>
 `git clone https://github.com/ucf-sdes-it/ucf-services-theme.git` and `cd ucf-services-theme`.
@@ -184,6 +187,31 @@ See [VCCW homepage](http://vccw.cc/) for more details.
 VCCW also offers another VM specifcally for [Theme Reviewing](https://github.com/vccw-team/vccw-for-theme-review).
 Testing in a fresh environment could be useful after feature completion, whether for a feature branch or alpha testing.
 
+
+## Installing Required Development Tools
+If you do not have required development tools installed already, follow the instructions below.  Note that the VCCW virtual machine comes with many of these already pre-installed.
+
+### NodeJS
+- Install NodeJS v6.9.1 (or later) from the [NodeJS homepage](https://nodejs.org/en/). [(v6.9.1 windows x64 installer)](https://nodejs.org/dist/v6.9.1/node-v6.9.1-x64.msi). If you need NodeJS for other projects, you may want to use [Node Version Manager (nvm)](https://github.com/creationix/nvm) on *nix systems or [nvm-windows](https://github.com/coreybutler/nvm-windows) on Windows.
+
+### Bower
+- After NodeJS is installed, run `npm install -g bower` from the commandline.
+
+### SCSS
+- On Windows, you can choose to run the Koala installer from the [Koala homepage](http://koala-app.com/).
+- Otherwise, follow the SASS installation instructions found on: http://sass-lang.com/install
+
+### Composer
+Composer requires PHP to be installed on your development system.
+
+1. Install PHP, if it is not already installed: 
+  - On Windows, via the (Microsoft Web Platform Installed)[http://www.microsoft.com/web/downloads/platform.aspx] - select 'PHP 5.6.0 for IIS Express' (or a later version of PHP).
+  - Or, follow the [PHP installation documentation](http://php.net/manual/en/install.php).
+2. Install Composer from https://getcomposer.org/download/
+  - On Windows:
+    - Download and run https://getcomposer.org/Composer-Setup.exe
+    - Verify that %APPDATA%\Composer\vendor\bin has been added to your PATH enviornment variable.
+  - On other platforms: follow the official [Composer command-line installation instructions](https://getcomposer.org/download/).
 
 
 ## Development Toolset
