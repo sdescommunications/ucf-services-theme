@@ -27,7 +27,7 @@
             endif; ?>
             <script>
                 // Remove link to category if javascript is enabled.
-                jQuery('label.filter-label a').each( function() { $(this).contents().unwrap(); } );
+                jQuery('label.filter-label a').each( function() { jQuery(this).contents().unwrap(); } );
             </script>
         </ul>
     </div>

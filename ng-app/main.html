@@ -81,9 +81,9 @@
 				document.write( '<script src="' + src + '">\x3C/script>' );
 			}
 			if ( ! window.jQuery ) { document_write_script( '../js/jquery.min.js' ); }
-			var bootstrap_enabled = ( 'function' === typeof $().modal ); // Will be true if bootstrap is loaded, false otherwise
+			var bootstrap_enabled = ( 'function' === typeof jQuery().modal ); // Will be true if bootstrap is loaded, false otherwise
 			if ( ! bootstrap_enabled ) { document_write_script( '/js/bootstrap.min.js' ); }
-			if ( 'undefined' === typeof $().validate ) { 
+			if ( 'undefined' === typeof jQuery().validate ) { 
 				document_write_script( '../js/jquery.validate.min.js' );
 				document_write_script( '../js/additional-methods.min.js' );
 			}

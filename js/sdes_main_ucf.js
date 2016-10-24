@@ -31,7 +31,7 @@ var headerImage = function($) {
 };
 
 
-$(function($) {
+jQuery(function($) {
     headerImage($);
 
     // Open external links and PDF files in new tabs.
