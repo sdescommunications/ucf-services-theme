@@ -14,15 +14,21 @@ Theme for the services page on ucf.edu.
 ## Installation Requirements:
 - [WordPress](https://wordpress.org/) [4.6.1+](https://codex.wordpress.org/Version_4.6.1) (untested on previous versions)
 
-### Libraries Used:
+### Libraries Used (Open-Source):
 Included with repository. See composer.json, bower.json, and package.json for version details.
 - [Anahkiasen/Underscore-php](https://github.com/Anahkiasen/underscore-php) - PHP utility functions.
-- [jQuery](http://jquery.com/) - Javascript utility functions, including HTML document traversal and manipulation, event handling, animation, and Ajax.
 - [Bootstrap 3](getbootstrap.com/css/) - mobile-first and responsive front-end framework.
 - [Font Awesome 4](http://fontawesome.io/) - the iconic font and css toolkit.
 - [Weather Icons](https://erikflowers.github.io/weather-icons/) - weather-themed icons and css.
-- [SimplePie](http://simplepie.org/) - feed parser (provided by WordPress).
-- [WordPress REST API (version 2)](https://wordpress.org/plugins/rest-api/) - access WordPress data through an HTTP REST API.
+
+### Libraries Used (Closed-Source):
+- [Gravity Forms](http://www.gravityforms.com/) - form in site footer (requires a license).
+
+### WordPress Libraries Used:
+ The following libraries are provided by WordPress:
+- [jQuery](http://jquery.com/) - Javascript utility functions, including HTML document traversal and manipulation, event handling, animation, and Ajax.
+- [SimplePie](http://simplepie.org/) - feed parser.
+- [WordPress REST API (version 2)](https://wordpress.org/plugins/rest-api/) - access WordPress data through an HTTP REST API (this will eventually be integrated with WordPress Core).
 
 ### Required Development Tools
 - [NodeJS](https://nodejs.org/) v6.9.1+
@@ -159,7 +165,10 @@ See [VCCW homepage](http://vccw.cc/) for more details.
      - what-the-file
      - wordpress-mu-domain-mapping
      - rest-api
+     - wordpress-importer
+     - wp-allow-hosts
    ```
+   Note, the above plugin names can be appended to: `https://wordpress.org/plugins/` to find their details pages.
 
 7. `vagrant up` (initial provisioning may take several minutes).
 8. Add an entry to your HOSTS file<sup id="a2">[2](#fn2)</sup>. for the VM's IP address<sup id="a3">[3](#fn3)</sup>.: `192.168.33.10 services-theme.dev`
