@@ -1,9 +1,10 @@
 <?php
 /**
- * A helper class for the Header - call from ThemeCustomizer.php to add action to 'customize_register' before it fires.
+ * Helper classes for the Header - require from ThemeCustomizer.php to add action to 'customize_register' before it fires.
  *
- * graphviz.gv: "header-settings.php" -> { "class-feedmanager.php"; "class-sdes-customizer-helper.php"; "class-sdes-static.php"; };
+ * Graphviz.gv: "header-settings.php" -> { "class-feedmanager.php"; "class-sdes-customizer-helper.php"; "class-sdes-static.php"; };
  *
+ * @package SDES\ServicesTheme\ThemeCustomizer
  * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions/config.php#L449-L502
  */
 
@@ -18,6 +19,9 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-customizer-hel
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
 
+/**
+ * Class to define header settings and Theme Customizer controls.
+ */
 class Header_Settings {
 	const HEADER_NAV_URL = 'http://www.ucf.edu/wp-json/ucf-rest-menus/v1/menus/52';
 
@@ -45,10 +49,10 @@ class Header_Settings {
 			}
 			$headers = get_headers( $file_location );
 			$response_code = substr( $headers[0], 9, 3 );
-			if ( $response_code !== '200' ) {
+			if ( '200' !== $response_code ) {
 				return;
 			}
-			$result = json_decode( file_get_contents( $file_location, false, $context ) );
+			$result = json_decode( file_get_contents( $file_location, false, $context ) ); // @codingStandardsIgnoreLine WordPress.VIP.RestrictedFunctions.file_get_contents
 			if ( ! $customizing ) {
 				set_transient( $result_name, $result, (60 * 60 * 24) );
 			}
@@ -101,6 +105,9 @@ class Header_Settings {
 add_action( 'customize_register', __NAMESPACE__.'\Header_Settings::register_header_settings' );
 
 
+/**
+ * Helper class for generating Header HTML.
+ */
 class Header {
 	/**
 	 * Display the header menu on MD and LG screens (by default, 992px or larger).

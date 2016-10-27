@@ -1,6 +1,8 @@
 <?php
 /**
  * Header area for the theme, as called by get_header().
+ *
+ * @package SDES\ServicesTheme
  */
 
 require_once( get_stylesheet_directory() . '/header-settings.php' );
@@ -15,8 +17,9 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 <head>
 <?php
 	// Instead of adding scripts or styles here, call: `add_action('wp_head', 'YOUR_FUNCTION');`
-	// See: https://codex.wordpress.org/Plugin_API/Action_Reference/wp_head#Examples
+	// See: https://codex.wordpress.org/Plugin_API/Action_Reference/wp_head#Examples .
 	do_action( 'wp_head' );
+	// @codingStandardsIgnoreStart WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
 ?>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,6 +50,7 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 		})();
 	</script>
 	<script type="text/javascript" src="<?= get_stylesheet_directory_uri(); ?>/js/sdes_main_ucf.js"></script>
+	<?php // @codingStandardsIgnoreStart WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
 </head>
 <body class="nojs">
 	<?php echo SDES_Static::google_tag_manager(); ?>
