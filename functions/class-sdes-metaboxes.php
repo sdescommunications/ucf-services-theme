@@ -20,6 +20,7 @@ require_once( get_stylesheet_directory() . '/functions/classes-metabox-metafield
 	use SDES\Metafields\TaxonomyMetaField as TaxonomyMetaField;
 	use SDES\Metafields\MultiselectMetaField as MultiselectMetaField;
 	use SDES\Metafields\RadioMetaField as RadioMetaField;
+	use SDES\Metafields\CheckboxMetaField as CheckboxMetaField;
 	use SDES\Metafields\CheckboxListMetaField as CheckboxListMetaField;
 	use SDES\Metafields\ImageMetaField as ImageMetaField;
 	use SDES\Metafields\FileMetaField as FileMetaField;
@@ -220,8 +221,9 @@ class SDES_Metaboxes {
 			case 'radio':
 				$field_obj = new RadioMetaField( $field );
 				break;
-			// TODO: add CheckboxMetaField for single checkboxes.
 			case 'checkbox':
+				$field_obj = new CheckboxMetaField( $field );
+				break;
 			case 'checkbox_list':
 				$field_obj = new CheckboxListMetaField( $field );
 				break;

@@ -283,6 +283,20 @@ class RadioMetaField extends ChoicesMetaField{
 
 /**
  * Checkbox form element
+ */
+class CheckboxMetaField extends ChoicesMetaField {
+	function input_html() {
+		ob_start();
+		?>
+			<input<?php if ( $this->value ) : ?> checked="checked"<?php endif;?> type="checkbox" name="<?php echo htmlentities( $this->id )?>" id="<?php echo htmlentities( $this->id ) ?>">
+			<label for="<?php echo $this->id?>"><?php echo htmlentities( $this->name )?></label>
+		<?php
+		return ob_get_clean();
+	}
+}
+
+/**
+ * List of checkbox form elements
  *
  * @package default
  * @author Jared Lang
