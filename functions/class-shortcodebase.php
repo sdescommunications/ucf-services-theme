@@ -75,6 +75,7 @@ interface IShortcodeUI {
 
 	/**
 	 * Base Shortcode class.
+	 *
 	 * @see https://github.com/UCF/Students-Theme/blob/d56183079c70836adfcfaa2ac7b02cb4c935237d/shortcodes.php#L2-L111
 	 **/
 abstract class ShortcodeBase implements IShortcodeUI {
@@ -96,9 +97,9 @@ abstract class ShortcodeBase implements IShortcodeUI {
 		* @author Jim Barnes
 		* @return void
 		*/
-		public function register_shortcode() {
-			add_shortcode( $this->command, array( $this, $this->callback ) );
-		}
+	public function register_shortcode() {
+		add_shortcode( $this->command, array( $this, $this->callback ) );
+	}
 
 		/*
 		* Returns the html option markup.
@@ -106,10 +107,10 @@ abstract class ShortcodeBase implements IShortcodeUI {
 		* @author Jim Barnes
 		* @return string
 		*/
-		public function get_option_markup() {
-			return sprintf('<option value="%s" data-showClosingTag="%b">%s</option>',
-			$this->command, $this->closing_tag, $this->name);
-		}
+	public function get_option_markup() {
+		return sprintf('<option value="%s" data-showClosingTag="%b">%s</option>',
+		$this->command, $this->closing_tag, $this->name);
+	}
 
 		/*
 		* Returns the description html markup.
@@ -117,9 +118,9 @@ abstract class ShortcodeBase implements IShortcodeUI {
 		* @author Jim Barnes
 		* @return string
 		*/
-		public function get_description_markup() {
-			return sprintf( '<li class="shortcode-%s">%s</li>', $this->command, $this->description );
-		}
+	public function get_description_markup() {
+		return sprintf( '<li class="shortcode-%s">%s</li>', $this->command, $this->description );
+	}
 
 		/*
 		* Returns the form html markup.
@@ -127,20 +128,20 @@ abstract class ShortcodeBase implements IShortcodeUI {
 		* @author Jim Barnes
 		* @return string
 		*/
-		public function get_form_markup() {
-			ob_start();
-			?>
-			<li class="shortcode-<?php echo $this->command; ?>">
-			<h3><?php echo $this->name; ?> Options</h3>
-			<?php
-			foreach ( $this->params as $param ) {
-				echo $this->get_field_input( $param, $this->command );
-			}
-			?>
-			</li>
-			<?php
-			return ob_get_clean();
+	public function get_form_markup() {
+		ob_start();
+		?>
+		<li class="shortcode-<?php echo $this->command; ?>">
+		<h3><?php echo $this->name; ?> Options</h3>
+		<?php
+		foreach ( $this->params as $param ) {
+			echo $this->get_field_input( $param, $this->command );
 		}
+		?>
+		</li>
+		<?php
+		return ob_get_clean();
+	}
 
 		/*
 		* Returns the appropriate markup for the field.
@@ -148,97 +149,98 @@ abstract class ShortcodeBase implements IShortcodeUI {
 		* @author Jim Barnes
 		* return string
 		*/
-		protected function get_field_input( $field, $command ) {
-			$name      = isset( $field['name'] ) ? $field['name'] : '';
-			$id        = isset( $field['id'] ) ? $field['id'] : '';
-			$help_text = isset( $field['help_text'] ) ? $field['help_text'] : '';
-			$type      = isset( $field['type'] ) ? $field['type'] : 'text';
-			$default   = isset( $field['default'] ) ? $field['default'] : '';
-			$template  = isset( $field['template'] ) ? $tempalte['template'] : '';
+	protected function get_field_input( $field, $command ) {
+		$name      = isset( $field['name'] ) ? $field['name'] : '';
+		$id        = isset( $field['id'] ) ? $field['id'] : '';
+		$help_text = isset( $field['help_text'] ) ? $field['help_text'] : '';
+		$type      = isset( $field['type'] ) ? $field['type'] : 'text';
+		$default   = isset( $field['default'] ) ? $field['default'] : '';
+		$template  = isset( $field['template'] ) ? $tempalte['template'] : '';
 
-			$retval = '<h4>' . $name . '</h4>';
-			if ( $help_text ) {
-				$retval .= '<p class="help">' . $help_text . '</p>';
-			}
-			switch ( $type ) {
-				case 'text':
-				case 'date':
-				case 'datetime':
-				case 'datetime-local':
-				case 'time':
-				case 'month':
-				case 'week':
-				case 'range':
-				case 'search':
-				case 'tel':
-				case 'email':
-				case 'url':
-				case 'number':
-				case 'color':
-					$retval .= '<input type="' . $type . '" name="' . $command . '-' . $id . '" value="'.$default.'" default-value="' . $default . '" data-parameter="' . $id . '">';
-					break;
-				case 'dropdown':
-					$choices = is_array( $field['choices'] ) ? $field['choices'] : array();
-					$retval .= '<select type="text" name="' . $command . '-' . $id . '" value="" default-value="' . $default . '" data-parameter="' . $id . '">';
-					foreach ( $choices as $choice ) {
-						$retval .= '<option value="' . $choice['value'] . '">' . $choice['name'] . '</option>';
-					}
-					$retval .= '</select>';
-					break;
-				case 'checkbox':
-					$checked = ( filter_var( $default, FILTER_VALIDATE_BOOLEAN ) ) ? 'checked' : '';
-					$retval .= '<input id="'.$command.'-'.$id.'" type="checkbox" name="' . $command . '-' . $id . '" data-parameter="' . $id . '"'. $checked .'>';
-					$retval .= '<label for="'.$command.'-'.$id.'">'.$name.'</label>';
-					break;
-				case 'image':
-					$context = (object) array( 'id' => "{$command}-{$id}", 'value' => '', 'image_src' => '', "data_param" => $id );
-					$retval .= ImageMetaField::render_html( $context );
-					$retval .= ImageMetaField::get_meta_image_button_script();
-			}
-
-			return $retval;
+		$retval = '<h4>' . $name . '</h4>';
+		if ( $help_text ) {
+			$retval .= '<p class="help">' . $help_text . '</p>';
+		}
+		switch ( $type ) {
+			case 'text':
+			case 'date':
+			case 'datetime':
+			case 'datetime-local':
+			case 'time':
+			case 'month':
+			case 'week':
+			case 'range':
+			case 'search':
+			case 'tel':
+			case 'email':
+			case 'url':
+			case 'number':
+			case 'color':
+				$retval .= '<input type="' . $type . '" name="' . $command . '-' . $id . '" value="'.$default.'" default-value="' . $default . '" data-parameter="' . $id . '">';
+				break;
+			case 'dropdown':
+				$choices = is_array( $field['choices'] ) ? $field['choices'] : array();
+				$retval .= '<select type="text" name="' . $command . '-' . $id . '" value="" default-value="' . $default . '" data-parameter="' . $id . '">';
+				foreach ( $choices as $choice ) {
+					$retval .= '<option value="' . $choice['value'] . '">' . $choice['name'] . '</option>';
+				}
+				$retval .= '</select>';
+				break;
+			case 'checkbox':
+				$checked = ( filter_var( $default, FILTER_VALIDATE_BOOLEAN ) ) ? 'checked' : '';
+				$retval .= '<input id="'.$command.'-'.$id.'" type="checkbox" name="' . $command . '-' . $id . '" data-parameter="' . $id . '"'. $checked .'>';
+				$retval .= '<label for="'.$command.'-'.$id.'">'.$name.'</label>';
+				break;
+			case 'image':
+				$context = (object) array( 'id' => "{$command}-{$id}", 'value' => '', 'image_src' => '', 'data_param' => $id );
+				$retval .= ImageMetaField::render_html( $context );
+				$retval .= ImageMetaField::get_meta_image_button_script();
 		}
 
-		public static function callback( $attrs, $content = '' ) {
-			$attrs = shortcode_atts( array(
-				'text' => '',
-				), $attrs
-			);
+		return $retval;
+	}
 
-			$ctxt = array();
-			foreach ( $attrs as $attr ) {
-				$ctx[] = esc_attr( $attr );
-			}
-			return static::render( $ctxt );
+	public static function callback( $attrs, $content = '' ) {
+		$attrs = shortcode_atts( array(
+			'text' => '',
+			), $attrs
+		);
+
+		$ctxt = array();
+		foreach ( $attrs as $attr ) {
+			$ctx[] = esc_attr( $attr );
 		}
+		return static::render( $ctxt );
+	}
 
-		public static function render( $context ) {
-			ob_start();
-			?>
-			<div>Text: <?= $context['text'] ?></div>
+	public static function render( $context ) {
+		ob_start();
+		?>
+		<div>Text: <?= $context['text'] ?></div>
 		<?php
 		return ob_get_clean();
-		}
+	}
 
-		public static function Register_Shortcodes( $shortcodes ) {
-			ShortcodeBase::$installed_shortcodes
-			= array_merge( ShortcodeBase::$installed_shortcodes, $shortcodes );
+	public static function Register_Shortcodes( $shortcodes ) {
+		ShortcodeBase::$installed_shortcodes
+		= array_merge( ShortcodeBase::$installed_shortcodes, $shortcodes );
 
-			$shortcode_instances = array();
-			foreach ( $shortcodes as $sc ) {
-				if ( class_exists( $sc ) ) {
-					$instance = new $sc;
-					$instance->register_shortcode();
-					$shortcode_instances[] = $instance;
-				}
+		$shortcode_instances = array();
+		foreach ( $shortcodes as $sc ) {
+			if ( class_exists( $sc ) ) {
+				$instance = new $sc;
+				$instance->register_shortcode();
+				$shortcode_instances[] = $instance;
 			}
-			return $shortcode_instances;
 		}
+		return $shortcode_instances;
+	}
 }
 
 // TODO: add and check for interface of CustomPostTypes with: sc_interface_fields, taxonomies, options(), etc.
 /**
  * Generate shortcodes for classes that extend CustomPostType.
+ *
  * @see CustomPostType::$sc_interface_fields
  */
 class Shortcode_CustomPostType_Wrapper extends ShortcodeBase implements IShortcodeUI {

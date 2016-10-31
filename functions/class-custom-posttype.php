@@ -72,6 +72,7 @@ abstract class CustomPostType {
 	 * Wrapper for get_posts function, that predefines post_type for this
 	 * custom post type.  Any options valid in get_posts can be passed as an
 	 * option array.
+	 *
 	 * @todo Should get_objects() be deprecated?
 	 * @see http://codex.wordpress.org/Template_Tags/get_posts WP-Codex: get_posts()
 	 * @see http://developer.wordpress.org/reference/functions/get_posts/ WP-Ref: get_posts()
@@ -95,6 +96,7 @@ abstract class CustomPostType {
 	/**
 	 * Similar to get_objects, but returns array of key values mapping post
 	 * title to id if available, otherwise it defaults to id=>id.
+	 *
 	 * @todo Should get_objects_as_options() be deprecated?
 	 * @see get_objects() get_objects()
 	 * @uses get_objects(), options(), $use_title
@@ -119,6 +121,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Return the instances values defined by $key.
+	 *
 	 * @param string|mixed $key The instance value key.
 	 * @return The value stored at the given key.
 	 * */
@@ -130,6 +133,7 @@ abstract class CustomPostType {
 	/**
 	 * Additional fields on a custom post type may be defined by overriding this
 	 * method on an descendant object.
+	 *
 	 * @see SDES_Metaboxes::display_metafield() SDES_Metaboxes::display_metafield() contains field types.
 	 * @return array Specifications of the metadata fields for this post_type (to be displayed in metaboxes).
 	 * */
@@ -140,6 +144,7 @@ abstract class CustomPostType {
 	/**
 	 * Using instance variables defined, returns an array defining what this
 	 * custom post type supports.
+	 *
 	 * @see http://codex.wordpress.org/Function_Reference/register_post_type#supports WP-Codex: register_post_type()
 	 * @see http://codex.wordpress.org/Function_Reference/add_post_type_support WP-Codex: add_post_type_support()
 	 * @return array Array of what the post_type supports.
@@ -167,6 +172,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Creates labels array, defining names for admin panel.
+	 *
 	 * @see http://codex.wordpress.org/Function_Reference/register_post_type#labels WP-Codex: register_post_type()
 	 * @return array The labels array used by register_post_type().
 	 * */
@@ -183,26 +189,27 @@ abstract class CustomPostType {
 	/**
 	 * Group the fields array by each field's 'metabox_id' value. Any field without a 'metabox_id' from
 	 * the $metabox_ids will be added to the default metabox's group.
+	 *
 	 * @param string $default_metabox_id The metabox_id of the default metabox.
-	 * @param array $metabox_ids An explicit list of the metabox_id's you intend to create.
-	 * @return array A map of metabox_id's to fields with the same metabox_id. 
+	 * @param array  $metabox_ids An explicit list of the metabox_id's you intend to create.
+	 * @return array A map of metabox_id's to fields with the same metabox_id.
 	 */
-	public function fields_by_metabox_id(  $default_metabox_id = 'default', $metabox_ids = array() ) {
+	public function fields_by_metabox_id( $default_metabox_id = 'default', $metabox_ids = array() ) {
 		$metabox_fields = array_fill_keys( $metabox_ids, array() );
 		foreach ( $this->fields() as $field ) {
-			if ( array_key_exists('metabox_id', $field) ) {
-				if( array_key_exists( $field['metabox_id'], $metabox_fields) ) {
+			if ( array_key_exists( 'metabox_id', $field ) ) {
+				if ( array_key_exists( $field['metabox_id'], $metabox_fields ) ) {
 					$metabox_fields[ $field['metabox_id'] ][] = $field;
 					continue;
 				} else {
 					$errorMsg = "The metabox '".$field['metabox_id']."' is not a key in \$metabox_fields."
 						. " Adding '". $field['id'] ."' to the default metabox instead.";
-					\trigger_error($errorMsg, \E_USER_WARNING);
+					\trigger_error( $errorMsg, \E_USER_WARNING );
 				}
 			}
 			// Add to default metabox.
 			$field['metabox_id'] = $default_metabox_id;
-			$metabox_fields[$default_metabox_id][] = $field;
+			$metabox_fields[ $default_metabox_id ][] = $field;
 		}
 		return $metabox_fields;
 	}
@@ -210,6 +217,7 @@ abstract class CustomPostType {
 	/**
 	 * Creates metabox array for custom post type. Override method in
 	 * descendants to add or modify metaboxes.
+	 *
 	 * @return array The metaboxes for this post_type.
 	 * */
 	public function metaboxes() {
@@ -224,15 +232,15 @@ abstract class CustomPostType {
 					'screen'     => $this->options( 'name' ),
 					'context'  => 'normal',
 					'priority' => 'high',
-					'fields'   => $metabox_fields[$DEFAULT_METABOX_ID],
+					'fields'   => $metabox_fields[ $DEFAULT_METABOX_ID ],
 				),
 				// array(
-				// 	'id'       => $______,
-				// 	'title'    => __( '______' ),
-				// 	'screen'     => $this->options( 'name' ),
-				// 	'context'  => 'normal',
-				// 	'priority' => 'high',
-				// 	'fields'   => $metabox_fields[$______],
+				// 'id'       => $______,
+				// 'title'    => __( '______' ),
+				// 'screen'     => $this->options( 'name' ),
+				// 'context'  => 'normal',
+				// 'priority' => 'high',
+				// 'fields'   => $metabox_fields[$______],
 				// ),
 			);
 		}
@@ -241,16 +249,16 @@ abstract class CustomPostType {
 
 	/**
 	 * Registers metaboxes defined for custom post type.  The call to `add_action('do_meta_boxes')` is invoked by SDES_Metaboxes::register().
+	 *
 	 * @see SDES_Metaboxes::show_meta_boxes() SDES_Metaboxes::show_meta_boxes()
 	 * @see SDES_Metaboxes::display_meta_box_field() SDES_Metaboxes::display_meta_box_field()
 	 * @see https://developer.wordpress.org/reference/functions/add_meta_box/ WP-Ref: add_meta_box
 	 * */
-	public function register_metaboxes( $callback = 'SDES_Metaboxes::show_meta_boxes', $args = array(array()) ) {
+	public function register_metaboxes( $callback = 'SDES_Metaboxes::show_meta_boxes', $args = array( array() ) ) {
 		if ( $this->options( 'use_metabox' ) ) {
 			$metaboxes = $this->metaboxes();
 			foreach ( $metaboxes as $metabox ) {
-				$callback_args =
-					( array_key_exists( $metabox['id'], $args ) )
+				$callback_args = ( array_key_exists( $metabox['id'], $args ) )
 					? $args[ $metabox['id'] ]
 					: null;
 				add_meta_box(
@@ -268,6 +276,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Show metaboxes that have the context 'after_title'.
+	 *
 	 * @see do_meta_boxes_after_title() do_meta_boxes_after_title()
 	 * @see http://developer.wordpress.org/reference/hooks/edit_form_after_title/ WP-Ref: edit_form_after_title
 	 */
@@ -277,6 +286,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Callback function to print metaboxes used by add_action('edit_form_after_title').
+	 *
 	 * @see register_meta_boxes_after_title() register_meta_boxes_after_title()
 	 * @see http://codex.wordpress.org/Function_Reference/do_meta_boxes WP-Codex: do_meta_boxes()
 	 * @see http://codex.wordpress.org/Function_Reference/get_current_screen WP-Codex: get_current_screen()
@@ -290,6 +300,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Get an HTML img element representing an image attachment for this post.
+	 *
 	 * @param int $post_id The ID of the current post.
 	 * @see custom_column_echo_data() custom_column_echo_data()
 	 * @see http://developer.wordpress.org/reference/functions/wp_get_attachment_image/ WP-Ref: wp_get_attachment_image()
@@ -317,6 +328,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Get all custom columns for this post type. Autogenerates columns for $this->fields() with a 'custom_column_order' key (note: the value must not be 0).
+	 *
 	 * @see custom_columns_set_headings() custom_columns_set_headings()
 	 * @see http://anahkiasen.github.io/underscore-php/#Arrays-filter Underscore-php: filter
 	 * @see http://anahkiasen.github.io/underscore-php/#Arrays-each Underscore-php: each
@@ -349,6 +361,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Add headers for custom columns to an index page (built-in listing of posts with this post_type).
+	 *
 	 * @see custom_columns_get_all() custom_columns_get_all()
 	 * @see http://anahkiasen.github.io/underscore-php/#Arrays-group Underscore-php: group
 	 * @uses custom_columns_get_all()
@@ -364,6 +377,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Enable sorting on columns by setting the column's 'orderby' to its name.
+	 *
 	 * @see custom_columns_sort_orderby() custom_columns_sort_orderby() implements the sorting.
 	 * @see custom_columns_get_all() custom_columns_get_all()
 	 * @see http://developer.wordpress.org/reference/hooks/manage_this-screen-id_sortable_columns/ WP-Ref: manage_{$this->screen->id}_sortable_columns
@@ -383,6 +397,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Implement sorting for Dashboard queries where the $query's 'orderby' matches the custom_column's 'column_name'.
+	 *
 	 * @see custom_columns_make_sortable() custom_columns_make_sortable()
 	 * @see custom_columns_get_all() custom_columns_get_all()
 	 * @uses is_admin(), custom_columns_get_all()
@@ -414,6 +429,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Show the data for a single row ($post_id) of a column.
+	 *
 	 * @see get_thumbnail_or_attachment_image() get_thumbnail_or_attachment_image()
 	 * @see http://developer.wordpress.org/reference/functions/get_post_meta/ WP-Ref: get_post_meta()
 	 * @see http://codex.wordpress.org/Function_Reference/wp_kses_post WP-Codex: wp_kses_post()
@@ -437,6 +453,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Add columns to an index page (built-in listing of posts with this post_type).
+	 *
 	 * @see custom_columns_set_headings() custom_columns_set_headings()
 	 * @see custom_columns_make_sortable() custom_columns_make_sortable()
 	 * @see custom_column_echo_data() custom_column_echo_data()
@@ -460,6 +477,7 @@ abstract class CustomPostType {
 	/**
 	 * Registers the custom post type and any other ancillary actions that are
 	 * required for the post to function properly.
+	 *
 	 * @see http://codex.wordpress.org/Function_Reference/register_post_type WP-Codex: register_post_type()
 	 * @see http://codex.wordpress.org/Function_Reference/add_shortcode WP-Codex: add_shortcode()
 	 * @uses labels(), supports(), options(), custom_columns_get_all(), register_custom_columns()
@@ -475,7 +493,7 @@ abstract class CustomPostType {
 		'taxonomies' => $this->options( 'taxonomies' ),
 		'_builtin'   => $this->options( 'built_in' ),
 		'menu_icon'  => $this->options( 'menu_icon' ),
-		'rewrite'  => $this->options( 'rewrite' )
+		'rewrite'  => $this->options( 'rewrite' ),
 		);
 		if ( $this->options( 'use_order' ) ) {
 			$registration = array_merge( $registration, array( 'hierarchical' => true ) );
@@ -495,6 +513,7 @@ abstract class CustomPostType {
 	 * Shortcode callback for this custom post type.  Can be overridden for descendants.
 	 * Defaults to just outputting a list of objects outputted as defined by
 	 * toHTML method.
+	 *
 	 * @see CustomPostType::sc_object_list sc_object_list()
 	 * @see CustomPostType::objectsToHTML objectsToHTML()
 	 * @see CustomPostType::toHTML toHTML()
@@ -517,6 +536,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Static method that tries to call the correct instance method of objectsToHTML.
+	 *
 	 * @param WP_Post $objects    Iterable of the post objects to display.
 	 * @param string  $css_classes List of css classes for the objects container.
 	 * @param string  $classname   Override the classname to instantiate the class.
@@ -535,6 +555,7 @@ abstract class CustomPostType {
 	 * If you want to override how a list of objects are outputted, override
 	 * this, if you just want to override how a single object is outputted, see
 	 * the toHTML method.
+	 *
 	 * @param WP_Post $objects Iterable of the post objects to display.
 	 * @param string  $css_classes List of css classes for the objects container.
 	 * @see render_objects_to_html() render_objects_to_html()
@@ -551,6 +572,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Render HTML for a collection of objects.
+	 *
 	 * @param Array $context An array of sanitized variables to display with this view.
 	 * @uses toHTML() toHTML()
 	 * @usedby render_objects_to_html()
@@ -572,6 +594,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Outputs this item in HTML.  Can be overridden for descendants.
+	 *
 	 * @param WP_Post $object The post object to display.
 	 * @see render_to_html() render_to_html()
 	 * */
@@ -583,6 +606,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Render HTML for a single object.
+	 *
 	 * @param Array $context An array of sanitized variables to display with this view.
 	 * @usedby toHTML()
 	 */
@@ -744,6 +768,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Register the custom post types wiht WordPress and auxilliary classes (should be called from custom-posttypes.php).
+	 *
 	 * @param Array $custom_posttypes Names of custom post types classes to register.
 	 * @return  Array Array of instantiated posttype classes (array of arrays). Each item has the keys: 'classname', 'instance'.
 	 * @see SDES_Static::instantiate_and_register_classes()
@@ -764,6 +789,7 @@ abstract class CustomPostType {
 
 	/**
 	 * Register theme support for any custom post_types with $this->use_thumbnails set to true.
+	 *
 	 * @param Array $instances Instantiated classes for Custom Post Types.
 	 * @see http://codex.wordpress.org/Function_Reference/add_theme_support Codex: add_theme_support
 	 * @return void

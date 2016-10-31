@@ -8,12 +8,12 @@
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
 
- /**
- * Handles fetching and processing of feeds.  Currently uses SimplePie to parse
- * retrieved feeds, and automatically handles caching of content fetches.
- * Multiple calls to the same feed url will not result in multiple parsings, per
- * request as they are stored in memory for later use.
- * */
+	/**
+	 * Handles fetching and processing of feeds.  Currently uses SimplePie to parse
+	 * retrieved feeds, and automatically handles caching of content fetches.
+	 * Multiple calls to the same feed url will not result in multiple parsings, per
+	 * request as they are stored in memory for later use.
+	 * */
 class FeedManager {
 	static private
 	$feeds        = array(),
@@ -29,13 +29,13 @@ class FeedManager {
 	static protected function __new_feed( $url ) {
 		require_once ABSPATH . '/wp-includes/class-simplepie.php';
 		$simplepie = null;
-		$failed    = False;
+		$failed    = false;
 		$cache_key = 'feedmanager-'.md5( $url );
 		$content   = get_site_transient( $cache_key );
-		if ( $content === False ) {
+		if ( $content === false ) {
 			$content = @file_get_contents( $url );
-			if ( $content === False ) {
-				$failed  = True;
+			if ( $content === false ) {
+				$failed  = true;
 				$content = null;
 				error_log( 'FeedManager failed to fetch data using url of '.$url );
 			} else {
@@ -50,10 +50,10 @@ class FeedManager {
 			if ( $simplepie->error ) {
 				error_log( $simplepie->error );
 				$simplepie = null;
-				$failed    = True;
+				$failed    = true;
 			}
-		}else {
-			$failed = True;
+		} else {
+			$failed = true;
 		}
 		return array(
 			'content'   => $content,
@@ -69,11 +69,11 @@ class FeedManager {
 	 * @author Jared Lang
 	 * */
 	static protected function __get_items( $url ) {
-		if ( !array_key_exists( $url, self::$feeds ) ) {
-			self::$feeds[$url] = self::__new_feed( $url );
+		if ( ! array_key_exists( $url, self::$feeds ) ) {
+			self::$feeds[ $url ] = self::__new_feed( $url );
 		}
-		if ( !self::$feeds[$url]['failed'] ) {
-			return self::$feeds[$url]['simplepie']->get_items();
+		if ( ! self::$feeds[ $url ]['failed'] ) {
+			return self::$feeds[ $url ]['simplepie']->get_items();
 		} else {
 			return array();
 		}
@@ -95,7 +95,7 @@ class FeedManager {
 	 * */
 	static public function set_cache_expiration( $expire ) {
 		if ( is_number( $expire ) ) {
-			self::$cache_length = (int)$expire;
+			self::$cache_length = (int) $expire;
 		}
 	}
 	/**
@@ -105,7 +105,7 @@ class FeedManager {
 	 * @return array
 	 * @author Jared Lang
 	 * */
-	static public function get_items( $url, $start=null, $limit=null ) {
+	static public function get_items( $url, $start = null, $limit = null ) {
 		if ( $start === null ) {$start = 0;}
 		$items = self::__get_items( $url );
 		$items = array_slice( $items, $start, $limit );
@@ -117,7 +117,9 @@ class UcfAcademicCalendarModel {
 	public static $calendar_url = 'http://calendar.ucf.edu/json';
 	public static $more_events = 'http://calendar.ucf.edu/';
 	protected $event;
-	public function __construct( $item ) { $this->event = $item; }
+	public function __construct( $item ) {
+		$this->event = $item;
+	}
 
 	public static function get_academic_calendar_items() {
 		$result_name = 'academic_calendar';
@@ -125,12 +127,11 @@ class UcfAcademicCalendarModel {
 		if ( false === $retval ) {
 			$opts = array(
 				'http' => array(
-					'timeout' => 15
-				)
+					'timeout' => 15,
+				),
 			);
 			$context = stream_context_create( $opts );
-			$file_location = 
-				SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-academic_cal_feed_url', self::$calendar_url );
+			$file_location = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-academic_cal_feed_url', self::$calendar_url );
 			if ( empty( $file_location ) ) {
 				return;
 			}
@@ -139,7 +140,7 @@ class UcfAcademicCalendarModel {
 				return;
 			}
 			$result = $result->terms[0]->events;
-			foreach( $result as $r ) {
+			foreach ( $result as $r ) {
 				if ( $r->isImportant ) {
 					$retval[] = $r;
 				}
@@ -164,88 +165,87 @@ class UcfAcademicCalendarModel {
 	// $end_date = empty( $end_dt ) ? $end_dt : date( 'F j', $end_dt );
 	// $display_range = False;
 	// if ( $start_date == $end_date || empty( $end_dt ) ) {
-	// 	$time_string = $start_date;
+	// $time_string = $start_date;
 	// } else {
-	// 	if ( $month === date( 'F', $end_dt ) ) {
-	// 		$time_string = $start_date . ' - ' . date( 'j', $end_dt );
-	// 	} else {
-	// 		$time_string = $start_date . ' - ' . $end_date;
-	// 	}
-	// 	$display_range = True;
+	// if ( $month === date( 'F', $end_dt ) ) {
+	// $time_string = $start_date . ' - ' . date( 'j', $end_dt );
+	// } else {
+	// $time_string = $start_date . ' - ' . $end_date;
 	// }
-
+	// $display_range = True;
+	// }
 	public function title() {
-		return static::get_title( $this->event ); 
+		return static::get_title( $this->event );
 	}
 	public static function get_title( $item ) {
-		return $item->summary; 
+		return $item->summary;
 	}
 
 	public function link() {
-		return static::get_link( $this->event ); 
+		return static::get_link( $this->event );
 	}
 	public static function get_link( $item ) {
-		return $item->directUrl; 
+		return $item->directUrl;
 	}
 
 	public function description() {
-		return static::get_description( $this->event ); 
+		return static::get_description( $this->event );
 	}
 	public static function get_description( $item ) {
 		return $item->description;
 	}
 
 	public function month_day() {
-		return static::get_month_day( $this->event ); 
+		return static::get_month_day( $this->event );
 	}
 	public static function get_month_day( $item ) {
 		return date( 'M j', strtotime( $item->dtstart ) );
 	}
 
 	public function month() {
-		return static::get_month( $this->event ); 
+		return static::get_month( $this->event );
 	}
 	public static function get_month( $item ) {
 		return date( 'M', strtotime( $item->dtstart ) );
 	}
 
 	public function day() {
-		return static::get_day( $this->event ); 
+		return static::get_day( $this->event );
 	}
 	public static function get_day( $item ) {
 		return date( 'j', strtotime( $item->dtstart ) );
 	}
 
 	public function start_date() {
-		return static::get_start_date( $this->event ); 
+		return static::get_start_date( $this->event );
 	}
 	public static function get_start_date( $item ) {
-		return strtotime( $item->dtstart ); 
+		return strtotime( $item->dtstart );
 	}
 
 	public function end_date() {
-		return static::get_end_date( $this->event ); 
+		return static::get_end_date( $this->event );
 	}
 	public static function get_end_date( $item ) {
 		return empty( $tem->dtend ) ? '' : strtotime( $tem->dtend );
 	}
 
 	public function start_time() {
-		return static::get_start_time( $this->event ); 
+		return static::get_start_time( $this->event );
 	}
 	public static function get_start_time( $item ) {
-		return date( 'g:i a', strtotime( static::get_start_date( $item ) ) ); 
+		return date( 'g:i a', strtotime( static::get_start_date( $item ) ) );
 	}
-	
+
 	public function end_time() {
-		return static::get_end_time( $this->event ); 
+		return static::get_end_time( $this->event );
 	}
 	public static function get_end_time( $item ) {
-		return date( 'g:i a', strtotime( static::get_end_date( $item ) ) ); 
+		return date( 'g:i a', strtotime( static::get_end_date( $item ) ) );
 	}
 
 	public function time_string() {
-		return static::get_time_string( $this->event ); 
+		return static::get_time_string( $this->event );
 	}
 	public static function get_time_string( $item ) {
 		$start_time = self::get_start_time( $this );
@@ -265,80 +265,82 @@ class UcfEventModel {
 	// TODO - remove events_url?
 	public static $events_url = 'http://events.ucf.edu';
 	protected $event;
-	public function __construct( $item ) { $this->event = $item; }
+	public function __construct( $item ) {
+		$this->event = $item;
+	}
 
 	public function title() {
-		return static::get_title( $this->event ); 
+		return static::get_title( $this->event );
 	}
 	public static function get_title( $item ) {
-		return $item->get_title(); 
+		return $item->get_title();
 	}
 
 	public function link() {
-		return static::get_link( $this->event ); 
+		return static::get_link( $this->event );
 	}
 	public static function get_link( $item ) {
-		return $item->get_link(); 
+		return $item->get_link();
 	}
 
 	public function description() {
-		return static::get_description( $this->event ); 
+		return static::get_description( $this->event );
 	}
 	public static function get_description( $item ) {
-		return $item->get_description(); 
+		return $item->get_description();
 	}
 
 	public function month_day() {
-		return static::get_month_day( $this->event ); 
+		return static::get_month_day( $this->event );
 	}
 	public static function get_month_day( $item ) {
 		return $item->get_date( 'M j' );
 	}
 
 	public function month() {
-		return static::get_month( $this->event ); 
+		return static::get_month( $this->event );
 	}
 	public static function get_month( $item ) {
 		return $item->get_date( 'M' );
 	}
 
 	public function day() {
-		return static::get_day( $this->event ); 
+		return static::get_day( $this->event );
 	}
 	public static function get_day( $item ) {
 		return $item->get_date( 'j' );
 	}
 
 	public function start_date() {
-		return static::get_start_date( $this->event ); 
+		return static::get_start_date( $this->event );
 	}
 	public static function get_start_date( $item ) {
-		return $item->get_item_tags( static::$events_url, 'startdate' )[0]['data']; 
+		return $item->get_item_tags( static::$events_url, 'startdate' )[0]['data'];
 	}
 
 	public function end_date() {
-		return static::get_end_date( $this->event ); 
+		return static::get_end_date( $this->event );
 	}
 	public static function get_end_date( $item ) {
-		return $item->get_item_tags( static::$events_url, 'enddate' )[0]['data']; 
+		return $item->get_item_tags( static::$events_url, 'enddate' )[0]['data'];
 	}
 
 	public function start_time() {
-		return static::get_start_time( $this->event ); 
+		return static::get_start_time( $this->event );
 	}
 	public static function get_start_time( $item ) {
-		return date( 'g:i a', strtotime( static::get_start_date( $item ) ) ); 
+		return date( 'g:i a', strtotime( static::get_start_date( $item ) ) );
 	}
-	
+
 	public function end_time() {
-		return static::get_end_time( $this->event ); 
+		return static::get_end_time( $this->event );
 	}
 	public static function get_end_time( $item ) {
-		return date( 'g:i a', strtotime( static::get_end_date( $item ) ) ); 
+		return date( 'g:i a', strtotime( static::get_end_date( $item ) ) );
 	}
 
 	public function time_string() {
-		return static::get_time_string( $this->event ); 
+		return static::get_time_string( $this->event );
 	}
 	public static function get_time_string( $item ) {
 		$start_time = self::get_start_time( $this );

@@ -11,7 +11,7 @@ require_once( ABSPATH . WPINC . '/class-wp-customize-control.php' );
  */
 class Textarea_CustomControl extends WP_Customize_Control {
 	public $type = 'textarea';
- 
+
 	public function render_content() {
 		?>
 		<label>
@@ -32,7 +32,7 @@ class Textarea_CustomControl extends WP_Customize_Control {
  */
 class Phone_CustomControl extends WP_Customize_Control {
 	public $type = 'text';
- 
+
 	public function render_content() {
 		?>
 		<label>

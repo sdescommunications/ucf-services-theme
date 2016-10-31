@@ -7,31 +7,6 @@ use SDES\CustomTaxonomy as CustomTaxonomy;
 
 require_once( get_stylesheet_directory().'/functions/class-custom-taxonomy.php' );
 
-/**
- * Describes organizational groups
- *
- * @author Chris Conover
- **/
-// class OrganizationalGroups extends CustomTaxonomy
-// {
-// 	public
-// 		$name               = 'org_groups',
-// 		$general_name       = 'Organizational Groups',
-// 		$singular_name      = 'Organizational Group',
-// 		$search_items       = 'Search Organizational Groups',
-// 		$popular_items      = 'Popular Organizational Groups',
-// 		$all_times          = 'All Organizational Groups',
-// 		$parent_item        = 'Parent Organizational Group',
-// 		$parent_item_colon  = 'Parent Organizational Group:',
-// 		$edit_item          = 'Edit Organizational Group',
-// 		$update_item        = 'Update Organizational Group',
-// 		$add_new_item       = 'Add New Organizational Group',
-// 		$new_item_name      = 'New Tag Organizational Group',
-		
-// 		$show_admin_column  = True,
-// 		$hierarchical       = True;
-// } // END class 
-
 class CurationGroups extends CustomTaxonomy
 {
 	public
@@ -47,10 +22,10 @@ class CurationGroups extends CustomTaxonomy
 		$update_item        = 'Update Curation Group',
 		$add_new_item       = 'Add New Curation Group',
 		$new_item_name      = 'New Tag Curation Group',
-		
-		$show_admin_column  = True,
-		$hierarchical       = True;
-} // END class 
+
+		$show_admin_column  = true,
+		$hierarchical       = true;
+} // END class
 
 class ServiceCost extends CustomTaxonomy
 {
@@ -67,10 +42,10 @@ class ServiceCost extends CustomTaxonomy
 		$update_item        = 'Update Service Cost',
 		$add_new_item       = 'Add New Service Cost',
 		$new_item_name      = 'New Tag Service Cost',
-		
-		$show_admin_column  = True,
-		$hierarchical       = True;
-} // END class 
+
+		$show_admin_column  = true,
+		$hierarchical       = true;
+} // END class
 
 class ServiceType extends CustomTaxonomy
 {
@@ -87,10 +62,10 @@ class ServiceType extends CustomTaxonomy
 		$update_item        = 'Update Service Type',
 		$add_new_item       = 'Add New Service Type',
 		$new_item_name      = 'New Tag Service Type',
-		
-		$show_admin_column  = True,
-		$hierarchical       = True;
-} // END class 
+
+		$show_admin_column  = true,
+		$hierarchical       = true;
+} // END class
 
 
 function register_custom_taxonomies() {
@@ -101,4 +76,4 @@ function register_custom_taxonomies() {
 		__NAMESPACE__.'\ServiceType',
 	));
 }
-add_action('init', __NAMESPACE__.'\register_custom_taxonomies');
+add_action( 'init', __NAMESPACE__.'\register_custom_taxonomies' );

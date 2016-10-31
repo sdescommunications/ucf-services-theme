@@ -11,7 +11,9 @@ require_once( get_stylesheet_directory() . '/functions/classes-metabox-metafield
 // TODO: add QueryDropdownMetafield to extend SelectMetaField with a WP_Query for choices.
 // TODO: add PosttypeMetafield to extend QueryDropdownMetafield.
 // TODO: make CampaignMetafield and IconLinkMetafield extend from PosttypeMetafield.
-
+/**
+ * Dropdown to select a post with the Campaign custom posttype.
+ **/
 class CampaignMetaField extends MetaField {
 
 	/**
@@ -23,7 +25,7 @@ class CampaignMetaField extends MetaField {
 		<div class="meta-campaign-wrapper">
 			<select class="meta-campaign-field" id="<?php echo htmlentities( $field->id ); ?>" name="<?php echo htmlentities( $field->id ); ?>" value="<?php echo $field->value; ?>">
 				<option value="">-- Select Campaign --</option>
-				<?php foreach( $this->get_campaigns() as $key=>$campaign ) : ?>
+				<?php foreach ( $this->get_campaigns() as $key => $campaign ) : ?>
 				<?php $selected = $field->value == $key ? 'selected' : ''; ?>
 				<option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $campaign; ?></option>
 				<?php endforeach; ?>
@@ -46,13 +48,13 @@ class CampaignMetaField extends MetaField {
 	 * @see https://developer.wordpress.org/reference/classes/wp_query/parse_query/ WP-Ref: parse_query()
 	 */
 	function get_campaigns() {
-		$query_args = array (
+		$query_args = array(
 				'post_type' => 'campaign',
 			);
 		$campaigns = get_posts( $query_args );
 		$retval = array();
-		foreach( $campaigns as $campaign ) {
-			$retval[$campaign->ID] = $campaign->post_title;
+		foreach ( $campaigns as $campaign ) {
+			$retval[ $campaign->ID ] = $campaign->post_title;
 		}
 		return $retval;
 	}
@@ -72,7 +74,7 @@ class IconLinkMetaField extends MetaField {
 		<div class="meta-icon_link-wrapper">
 			<select class="meta-icon_link-field" id="<?php echo htmlentities( $field->id ); ?>" name="<?php echo htmlentities( $field->id ); ?>" value="<?php echo $field->value; ?>">
 				<option value="">-- Select Icon Link --</option>
-				<?php foreach( $this->get_icon_links() as $key=>$icon_link ) : ?>
+				<?php foreach ( $this->get_icon_links() as $key => $icon_link ) : ?>
 				<?php $selected = $field->value == $key ? 'selected' : ''; ?>
 				<option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $icon_link; ?></option>
 				<?php endforeach; ?>
@@ -95,13 +97,13 @@ class IconLinkMetaField extends MetaField {
 	 * @see https://developer.wordpress.org/reference/classes/wp_query/parse_query/ WP-Ref: parse_query()
 	 */
 	function get_icon_links() {
-		$query_args = array (
+		$query_args = array(
 				'post_type' => 'icon_link',
 			);
 		$icon_links = get_posts( $query_args );
 		$retval = array();
-		foreach( $icon_links as $icon_link ) {
-			$retval[$icon_link->ID] = $icon_link->post_title;
+		foreach ( $icon_links as $icon_link ) {
+			$retval[ $icon_link->ID ] = $icon_link->post_title;
 		}
 		return $retval;
 	}

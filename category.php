@@ -1,6 +1,7 @@
 <?php
 /**
  * Show posts for a category.
+ *
  * @see http://stackoverflow.com/a/8832952
  * @see https://codex.wordpress.org/Category_Templates#What_categories_do_you_show_to_the_visitors.3F
  */
@@ -59,7 +60,7 @@ get_header();
 			
 			<div id="category-menu">
 				<ul class="nav navbar-nav">
-					<li><a href="<?= bloginfo( 'url' ); ?>"><?= bloginfo( 'name' ); ?></a></li>
+					<li><a href="<?= bloginfo( 'url' ) ?>"><?= bloginfo( 'name' ) ?></a></li>
 					<li><a href="<?= $cat_link ?>"><?= $cat_name ?></a></li>
 				</ul>
 				<div class="navbar-right">
@@ -69,37 +70,38 @@ get_header();
 
 			<div class="collapse navbar-collapse header-center" id="collapse-menu">
 				<ul class="nav navbar-nav">
-					<li><a href="<?= bloginfo( 'url' ); ?>"><?= bloginfo( 'name' ); ?></a></li>
+					<li><a href="<?= bloginfo( 'url' ) ?>"><?= bloginfo( 'name' ) ?></a></li>
 					<li><a href="<?= $cat_link ?>"><?= $cat_name ?></a></li>
 				</ul>
 			</div>
 	</nav>
-  <div class="container">
+	<div class="container">
 	<article class="row page-wrap">
 	  <div class="container-fluid">
 		<section id="categories" class="col-sm-12 col-md-12 col-lg-12">
 			<h1 class='title'><?= single_cat_title() ?></h1>
 			<p class='description'><?= category_description() ?></p>
-		  <?php
-			$args = array ( 'post_type' => StudentService::NAME,
+			<?php
+			$args = array(
+				'post_type' => StudentService::NAME,
 				'category' => $cat_id,
 				'orderby' => 'post_title',
 				'order' => 'ASC',
 			);
 			$category_posts = get_posts( $args );
 			if ( 0 !== count( $category_posts ) ) :
-				foreach( $category_posts as $post ) :	setup_postdata($post); ?>
+				foreach ( $category_posts as $post ) :	setup_postdata( $post ); ?>
 					<?= StudentService::toHTML( $post ); ?>
 				<?php endforeach;
-			else:
+			else :
 				SDES_Static::Get_No_Posts_Message();
 			endif;
 			wp_reset_postdata();
-		  ?>
+			?>
 		</section>
 	  </div>
 	</article>
-  </div>
+	</div>
 </main>
 <?php
 get_footer();

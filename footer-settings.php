@@ -3,6 +3,7 @@
  * A helper class for the Footer - call from ThemeCustomizer.php to add action to 'customize_register' before it fires.
  *
  * graphviz.gv: "footer-settings.php" -> { "class-feedmanager.php"; "class-sdes-customizer-helper.php"; "class-sdes-static.php"; };
+ *
  * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions/config.php#L449-L502
  */
 
@@ -25,7 +26,7 @@ class Footer_Settings {
 	/**
 	 * @see https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/functions/feeds.php#L207-L211
 	 */
-	public static function get_news( $start=null, $limit=null ) {
+	public static function get_news( $start = null, $limit = null ) {
 		$url     = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-news_url', self::NEWS_URL );
 		$news    = FeedManager::get_items( $url, $start, $limit );
 		return $news;
@@ -34,7 +35,7 @@ class Footer_Settings {
 	/**
 	 * @see https://github.com/UCF/Students-Theme/blob/87dca3074cb48bef5d811789cf9a07c9eac55cd1/functions/feeds.php#L200-L205
 	 */
-	public static function get_events( $start=null, $limit=null ) {
+	public static function get_events( $start = null, $limit = null ) {
 		$url     = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_url', self::EVENTS_URL );
 		$events  = array_reverse( FeedManager::get_items( $url ) );
 		$events  = array_slice( $events, $start, $limit );
@@ -43,6 +44,7 @@ class Footer_Settings {
 
 	/**
 	 * Retrieve and cache remote feeds as json objects, e.g., services_theme-remote_menus_footer_menu_feed.
+	 *
 	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions.php#L42-L75
 	 * @todo Evaluate general PHP alternatives to WP transients (PSR-6 caching).
 	 */
@@ -54,8 +56,8 @@ class Footer_Settings {
 		if ( false === $result || $customizing ) {
 			$opts = array(
 				'http' => array(
-					'timeout' => 15
-				)
+					'timeout' => 15,
+				),
 			);
 			$context = stream_context_create( $opts );
 			$file_location = SDES_Static::get_theme_mod_defaultIfEmpty( $menu_name.'_feed', self::FOOTER_NAV_URL );
@@ -75,18 +77,18 @@ class Footer_Settings {
 		return $result;
 	}
 
-	protected static function array_key_default($key, $array, $default) {
-		return array_key_exists($key, $array)
-			? $array[$key]
+	protected static function array_key_default( $key, $array, $default ) {
+		return array_key_exists( $key, $array )
+			? $array[ $key ]
 			: $default;
 	}
 
 	public static function register_footer_settings( $wp_customizer ) {
 		$panelId = 'footer_panel';
 		$wp_customizer->add_panel( $panelId, array(
-		  'title' => __( 'Footer' ),
-		  'description' => 'Footer Settings', // Include html tags such as <p>.
-		  'priority' => 1000, // Mixed with top-level-section hierarchy.
+			'title' => __( 'Footer' ),
+			'description' => 'Footer Settings', // Include html tags such as <p>.
+			'priority' => 1000, // Mixed with top-level-section hierarchy.
 		) );
 		$section_args = array( 'panelId' => $panelId );
 
@@ -115,17 +117,17 @@ class Footer_Settings {
 				'title'    => 'Remote Menus',
 				'description' => '',
 				'priority' => 1000, // Set to 30 to be just below "Site Identity".
-				'panel' => static::array_key_default('panelId', $args, ''),
+				'panel' => static::array_key_default( 'panelId', $args, '' ),
 			)
 		);
 		/** ARGS */
-		$remote_menus_footer_menu_feed_args = static::array_key_default('services_theme-remote_menus_footer_menu_feed', $args, '');
+		$remote_menus_footer_menu_feed_args = static::array_key_default( 'services_theme-remote_menus_footer_menu_feed', $args, '' );
 		SDES_Static::set_default_keyValue_array( $remote_menus_footer_menu_feed_args, array(
 			'default' => self::FOOTER_NAV_URL,
 			'description' => 'The JSON feed of the www.ucf.edu footer menu.',
 		));
 
-		/** FIELDS */		
+		/** FIELDS */
 		// remote_menus_footer_menu_feed
 		SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
 			$wp_customizer,			// WP_Customize_Manager.
@@ -145,11 +147,11 @@ class Footer_Settings {
 				'title'    => 'Events',
 				'description' => 'Settings for event lists used throughout the site.',
 				'priority' => 400,
-				'panel' => static::array_key_default('panelId', $args, ''),
+				'panel' => static::array_key_default( 'panelId', $args, '' ),
 			)
 		);
 		/** ARGS */
-		$events_max_items_args = static::array_key_default('services_theme-events_max_items', $args, '');
+		$events_max_items_args = static::array_key_default( 'services_theme-events_max_items', $args, '' );
 		SDES_Static::set_default_keyValue_array( $events_max_items_args, array(
 			'control_type' => 'select',
 			'default' => 4,
@@ -162,13 +164,13 @@ class Footer_Settings {
 			),
 		));
 
-		$events_url_args = static::array_key_default('services_theme-events_url', $args, '');
+		$events_url_args = static::array_key_default( 'services_theme-events_url', $args, '' );
 		SDES_Static::set_default_keyValue_array( $events_url_args, array(
 			'default' => self::EVENTS_URL,
 			'description' => 'Base URL for the calendar you wish to use. Example: <em>http://events.ucf.edu/mycalendar</em>',
 		));
 
-		/** FIELDS */		
+		/** FIELDS */
 		// events_max_items
 		SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
 			$wp_customizer,			// WP_Customize_Manager.
@@ -200,28 +202,28 @@ class Footer_Settings {
 				'title'    => 'Organization Info',
 				'description' => 'Contact information',
 				'priority' => 600,
-				'panel' => static::array_key_default('panelId', $args, ''),
+				'panel' => static::array_key_default( 'panelId', $args, '' ),
 			)
 		);
 		/** ARGS */
-		$organization_name_args = static::array_key_default('services_theme-organization_name', $args, '');
+		$organization_name_args = static::array_key_default( 'services_theme-organization_name', $args, '' );
 		SDES_Static::set_default_keyValue_array( $organization_name_args, array(
 			'description' => 'The name that will be displayed with organization info is displayed',
 		));
 
 		// TODO: add phone number validation.
 		// TODO: add `tel:` links to BaseTheme.
-		$organization_phone_args = static::array_key_default('services_theme-organization_phone', $args, '');
+		$organization_phone_args = static::array_key_default( 'services_theme-organization_phone', $args, '' );
 		SDES_Static::set_default_keyValue_array( $organization_phone_args, array(
 			'description' => 'The phone number that will be displayed with organization info is displayed',
 		));
 
-		$organization_email_args = static::array_key_default('services_theme-organization_email', $args, '');
+		$organization_email_args = static::array_key_default( 'services_theme-organization_email', $args, '' );
 		SDES_Static::set_default_keyValue_array( $organization_email_args, array(
 			'description' => 'The email address that will be displayed with organization info is displayed',
 		));
 
-		/** FIELDS */		
+		/** FIELDS */
 		// organization_name
 		SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
 			$wp_customizer,			// WP_Customize_Manager.
@@ -259,12 +261,12 @@ class Footer_Settings {
 				'title'    => 'News',
 				'description' => 'Settings for news feeds used throughout the site.',
 				'priority' => 200,
-				'panel' => static::array_key_default('panelId', $args, ''),
+				'panel' => static::array_key_default( 'panelId', $args, '' ),
 			)
 		);
 
 		/** ARGS */
-		$news_max_items_args = static::array_key_default('services_theme-news_max_items', $args, '');
+		$news_max_items_args = static::array_key_default( 'services_theme-news_max_items', $args, '' );
 		SDES_Static::set_default_keyValue_array( $news_max_items_args, array(
 			'control_type' => 'select',
 			'default' => 2,
@@ -274,17 +276,17 @@ class Footer_Settings {
 				2 => 2,
 				3 => 3,
 				4 => 4,
-				5 => 5
+				5 => 5,
 			),
 		));
 
-		$news_url_args = static::array_key_default('services_theme-news_url', $args, '');
+		$news_url_args = static::array_key_default( 'services_theme-news_url', $args, '' );
 		SDES_Static::set_default_keyValue_array( $news_url_args, array(
 			'default' => self::NEWS_URL,
 			'description' => 'Use the following URL for the news RSS feed <br>Example: <em>http://today.ucf.edu/feed/</em>',
 		));
 
-		$news_placeholder_image_args = static::array_key_default('services_theme-news_placeholder_image', $args, '');
+		$news_placeholder_image_args = static::array_key_default( 'services_theme-news_placeholder_image', $args, '' );
 		SDES_Static::set_default_keyValue_array( $news_placeholder_image_args, array() );
 
 		/** FIELDS */
@@ -325,44 +327,44 @@ class Footer_Settings {
 				'title'    => 'Social Media',
 				'description' => '',
 				'priority' => 900,
-				'panel' => static::array_key_default('panelId', $args, ''),
+				'panel' => static::array_key_default( 'panelId', $args, '' ),
 			)
 		);
 
 		$networks = array(
 			'facebook' => array(
 				'label' => 'Facebook URL',
-				'description' => 'URL to the Facebook page you would like to direct visitors to.  Example: <em>https://www.facebook.com/UCF</em>', 
+				'description' => 'URL to the Facebook page you would like to direct visitors to.  Example: <em>https://www.facebook.com/UCF</em>',
 			),
 			'twitter' => array(
 				'label' => 'Twitter URL',
-				'description' => 'URL to the Twitter user account you would like to direct visitors to.  Example: <em>http://twitter.com/UCF</em>', 
+				'description' => 'URL to the Twitter user account you would like to direct visitors to.  Example: <em>http://twitter.com/UCF</em>',
 			),
 			'googleplus' => array(
 				'label' => 'Google+ URL',
-				'description' => 'URL to the Google+ user account you would like to direct visitors to.  Example: <em>http://plus.google.com/UCF</em>', 
+				'description' => 'URL to the Google+ user account you would like to direct visitors to.  Example: <em>http://plus.google.com/UCF</em>',
 			),
 			'linkedin' => array(
 				'label' => 'LinkedIn URL',
-				'description' => 'URL to the LinkedIn user account you would like to direct visitors to.  Example: <em>http://linkedin.com/UCF</em>', 
+				'description' => 'URL to the LinkedIn user account you would like to direct visitors to.  Example: <em>http://linkedin.com/UCF</em>',
 			),
 			'instagram' => array(
 				'label' => 'Instagram URL',
-				'description' => 'URL to the Instagram user account you would like to direct visitors to.  Example: <em>http://instagram.com/UCF</em>', 
+				'description' => 'URL to the Instagram user account you would like to direct visitors to.  Example: <em>http://instagram.com/UCF</em>',
 			),
 			'pinterest' => array(
 				'label' => 'Pinterest URL',
-				'description' => 'URL to the Pinterest user account you would like to direct visitors to.  Example: <em>http://pinterest.com/UCF</em>', 
+				'description' => 'URL to the Pinterest user account you would like to direct visitors to.  Example: <em>http://pinterest.com/UCF</em>',
 			),
 			'youtube' => array(
 				'label' => 'YouTube URL',
-				'description' => 'URL to the YouTube user account you would like to direct visitors to.  Example: <em>http://youtube.com/UCF</em>', 
+				'description' => 'URL to the YouTube user account you would like to direct visitors to.  Example: <em>http://youtube.com/UCF</em>',
 			),
 		);
 
 		foreach ( $networks as $network => $network_args ) {
 			/** ARGS */
-			$social_url_args = static::array_key_default( "services_theme-social_{$network}_url" , $args, '');
+			$social_url_args = static::array_key_default( "services_theme-social_{$network}_url" , $args, '' );
 			SDES_Static::set_default_keyValue_array( $social_url_args, array(
 				'description' => $network_args['description'],
 				'sanitize_callback' => 'esc_url',
@@ -390,27 +392,27 @@ class Footer_Settings {
 				'title'    => 'Contact',
 				'description' => '',
 				'priority' => 800,
-				'panel' => static::array_key_default('panelId', $args, ''),
+				'panel' => static::array_key_default( 'panelId', $args, '' ),
 			)
 		);
 
 		/** ARGS */
-		$form_choices = array( '' => '-- Choose Form --');
+		$form_choices = array( '' => '-- Choose Form --' );
 		if ( method_exists( '\RGFormsModel', 'get_forms' ) ) {
 			$forms = \RGFormsModel::get_forms( null, 'title' );
-			foreach( $forms as $form ) {
-				$form_choices[$form->id] = $form->title;
+			foreach ( $forms as $form ) {
+				$form_choices[ $form->id ] = $form->title;
 			}
 		}
-		$footer_contact_gravityform_args = static::array_key_default('services_theme-footer_contact_gravityform', $args, '');
+		$footer_contact_gravityform_args = static::array_key_default( 'services_theme-footer_contact_gravityform', $args, '' );
 		SDES_Static::set_default_keyValue_array( $footer_contact_gravityform_args, array(
 			'control_type' => 'select',
 			'default' => 4,
 			'description' => 'The form that will be shown in the footer.',
-			'choices'     => $form_choices
+			'choices'     => $form_choices,
 		));
 
-		/** FIELDS */		
+		/** FIELDS */
 		// footer_contact_gravityform
 		SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
 			$wp_customizer,			// WP_Customize_Manager.
@@ -434,12 +436,12 @@ class Footer {
 	 */
 	public static function display_footer_news() {
 		$max_news = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-news_max_items', 3 );
-		$items = Footer_Settings::get_news(0, $max_news);
+		$items = Footer_Settings::get_news( 0, $max_news );
 		$placeholder = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-news_placeholder_image', '' );
 		ob_start();
 	?>
 		<div class="footer-news">
-		<?php foreach( $items as $key=>$item ) : $image = SDES_Static::get_article_image( $item ); ?>
+		<?php foreach ( $items as $key => $item ) : $image = SDES_Static::get_article_image( $item ); ?>
 			<a href="<?php echo $item->get_link(); ?>">
 				<div class="row news-item">
 					<div class="col-xs-2 col-sm-4 col-md-3">
@@ -470,7 +472,7 @@ class Footer {
 	    ob_start();
 	?>
 	    <div class="footer-events">
-	    <?php foreach( $items as $item ) : ?>
+	    <?php foreach ( $items as $item ) : ?>
 	        <?php
 	            $month = $item->get_date( 'M' );
 	            $day = $item->get_date( 'j' );
@@ -479,11 +481,11 @@ class Footer {
 	        	$start_time = date( 'g:i a', strtotime( $start_date[0]['data'] ) );
 	        	$end_time = date( 'g:i a', strtotime( $end_date[0]['data'] ) );
 	        	$time_string = '';
-	        	if ( $start_time == $end_time ) {
-	        		$time_string = $start_time;
-	        	} else {
-	        		$time_string = $start_time . ' - ' . $end_time;
-	        	}
+			if ( $start_time == $end_time ) {
+				$time_string = $start_time;
+			} else {
+				$time_string = $start_time . ' - ' . $end_time;
+			}
 	        ?>
 	        <a href="<?php echo $item->get_link(); ?>" target="_blank">
 	        	<div class="row event">
@@ -518,10 +520,10 @@ class Footer {
 		$org_email = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-organization_email', '' );
 		ob_start();
 	?>
-	  <?php if ( $org_name ) : ?>
+		<?php if ( $org_name ) : ?>
 		<h2 class="org-name"><?php echo $org_name; ?></h2>
-	  <?php endif; ?>
-		<p>Phone: <a class="read-more" href="tel:<?php echo str_replace( array( '-', '(', ')' ), '', $org_phone);?>"><?php echo $org_phone; ?></a></p>
+		<?php endif; ?>
+		<p>Phone: <a class="read-more" href="tel:<?php echo str_replace( array( '-', '(', ')' ), '', $org_phone );?>"><?php echo $org_phone; ?></a></p>
 		<p>Email: <a class="read-more" href="mailto:<?php echo $org_email; ?>"><?php echo $org_email; ?></a></p>
 	<?php
 		echo ob_get_clean();
@@ -602,13 +604,13 @@ class Footer {
 	 */
 	public static function display_footer_menu() {
 		$menu = Footer_Settings::get_remote_menu( 'services_theme-remote_menus_footer_menu' );
-		if ( empty( $menu) ) {
+		if ( empty( $menu ) ) {
 			return;
 		}
 		ob_start();
 	?>
 		<ul class="list-inline site-footer-menu">
-		<?php foreach( $menu->items as $item ) : ?>
+		<?php foreach ( $menu->items as $item ) : ?>
 			<li><a href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a></li>
 		<?php endforeach; ?>
 		</ul>

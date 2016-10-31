@@ -32,9 +32,8 @@ function customize_admin_theme() {
 add_action( 'admin_enqueue_scripts', __NAMESPACE__.'\customize_admin_theme' );
 
 
-function admin_body_class( $classes )
-{
+function admin_body_class( $classes ) {
 	$classes .= 'nojs';
-    return $classes;
+	return $classes;
 }
 add_filter( 'admin_body_class',  __NAMESPACE__.'\admin_body_class' );

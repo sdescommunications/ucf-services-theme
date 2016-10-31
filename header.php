@@ -16,7 +16,7 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 <?php
 	// Instead of adding scripts or styles here, call: `add_action('wp_head', 'YOUR_FUNCTION');`
 	// See: https://codex.wordpress.org/Plugin_API/Action_Reference/wp_head#Examples
-	do_action('wp_head');
+	do_action( 'wp_head' );
 ?>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">

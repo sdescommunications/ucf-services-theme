@@ -13,10 +13,10 @@ use SDES\SDES_Static;
 
 $profile_image_default = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-profile_image_default', '' );
 $default_header_image =
-	( '' !== $profile_image_default ) 
+	( '' !== $profile_image_default )
 		?  wp_get_attachment_image_src( $profile_image_default, 'thumbnail-size', true )[0]
 		: get_header_image();
-$header_image =	( has_post_thumbnail( get_the_id() ) )
+$header_image = ( has_post_thumbnail( get_the_id() ) )
 	? wp_get_attachment_image_src( get_post_thumbnail_id(), 'thumbnail-size', true )[0]
 	: $default_header_image;
 
@@ -45,7 +45,7 @@ get_header();
 </header>
 
 <main class="services-page">
- <nav id="student_service-navbar" class="navbar navbar-gold breadcrumbs">
+	<nav id="student_service-navbar" class="navbar navbar-gold breadcrumbs">
 	<div class="container">
 	  <div class="row">
 		<div class="navbar-header">
@@ -64,9 +64,9 @@ get_header();
 		
 	<div id="student_service-menu">
 		<ul class="nav navbar-nav">
-			<li><a href="<?= bloginfo( 'url' ); ?>"><?= bloginfo( 'name' ); ?></a></li>
+			<li><a href="<?= bloginfo( 'url' ) ?>"><?= bloginfo( 'name' ); ?></a></li>
 		<?php if ( $mainCategory && property_exists( $mainCategory, 'name' ) ) : ?>
-			<li><a href="<?= get_category_link( $mainCategory ); ?>"><?= $mainCategory->name; ?></a></li>
+			<li><a href="<?= get_category_link( $mainCategory ) ?>"><?= $mainCategory->name; ?></a></li>
 		<?php endif; ?>
 			<li class="active-breadcrumb"><span class="active-pad"><?= the_title(); ?></span></li>
 		</ul>
@@ -76,20 +76,20 @@ get_header();
 	</div>
 	  </div> <!-- /.row -->
 	</div> <!-- /.container -->
- </nav>
+	</nav>
 
- <div class="container">
-  <article class="row page-wrap">
-  <?php if (have_posts()) :
-	 while (have_posts()) : the_post();
-		global $post;
-		echo StudentService::toPageHTML( $post );
+	<div class="container">
+	<article class="row page-wrap">
+	<?php if ( have_posts() ) :
+		while ( have_posts() ) : the_post();
+			  global $post;
+			  echo StudentService::toPageHTML( $post );
 	endwhile;
-   else:
-	SDES_Static::Get_No_Posts_Message();
-   endif; ?>
-  </article>
- </div>
+	else :
+		SDES_Static::Get_No_Posts_Message();
+	endif; ?>
+	</article>
+	</div>
 </main>
 <?php
 get_footer();

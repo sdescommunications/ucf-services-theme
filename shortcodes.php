@@ -264,38 +264,38 @@ class sc_icon_link extends ShortcodeBase {
 				'id'        => 'icon_link_id',
 				'help_text' => 'The icon link you want to display',
 				'type'      => 'dropdown',
-				'choices'   => array()
-			)
+				'choices'   => array(),
+			),
 		), // The parameters used by the shortcode.
 		$callback    = 'callback',
 		$closing_tag = false,
 		$wysiwyg     = true; // Whether to add it to the shortcode Wysiwyg modal.
-	public function __construct() {
-		$this->params[0]['choices'] = $this->get_choices();
-	}
-	private function get_choices() {
-		$posts = get_posts( array( 'post_type' => 'icon_link' ) );
-		$retval = array( array( 'name' => '-- Choose Icon Link --', 'value' => '' ) );
-		foreach( $posts as $post ) {
-			$retval[] = array(
+		public function __construct() {
+			$this->params[0]['choices'] = $this->get_choices();
+		}
+		private function get_choices() {
+			$posts = get_posts( array( 'post_type' => 'icon_link' ) );
+			$retval = array( array( 'name' => '-- Choose Icon Link --', 'value' => '' ) );
+			foreach ( $posts as $post ) {
+				$retval[] = array(
 				'name'  => $post->post_title,
-				'value' => $post->ID
+				'value' => $post->ID,
+				);
+			}
+			return $retval;
+		}
+		public static function callback( $attr, $content = '' ) {
+			$attr = shortcode_atts( array(
+				'icon_link_id' => '',
+				), $attr
 			);
+			if ( isset( $attr['icon_link_id'] ) ) {
+				$post = get_post( $attr['icon_link_id'] );
+				return IconLink::toHTML( $post );
+			} else {
+				return '';
+			}
 		}
-		return $retval;
-	}
-	public static function callback( $attr, $content='' ) {
-		$attr = shortcode_atts( array(
-				'icon_link_id' => ''
-			), $attr
-		);
-		if ( isset( $attr['icon_link_id'] ) ) {
-			$post = get_post( $attr['icon_link_id'] );
-			return IconLink::toHTML( $post );
-		} else {
-			return '';
-		}
-	}
 }
 
 
@@ -315,50 +315,50 @@ class sc_callout extends ShortcodeBase {
 				'id'        => 'color',
 				'help_text' => 'The color of the callout box',
 				'type'      => 'color',
-				'default'   => '#ffcc00'
+				'default'   => '#ffcc00',
 			),
 			array(
 				'name'      => 'Text',
 				'id'        => 'text-color',
 				'help_text' => 'The color of the text within the callout box',
 				'type'      => 'color',
-				'default'   => '#000000'
+				'default'   => '#000000',
 			),
 			array(
 				'name'      => 'Auto Paragraph',
 				'id'        => 'wpautop',
 				'help_text' => 'Add paragraph tags to the content (default: false).',
 				'type'      => 'bool',
-				'default'   => false
-			)
+				'default'   => false,
+			),
 		), // The parameters used by the shortcode.
 		$callback    = 'callback',
 		$wysiwyg     = true; // Whether to add it to the shortcode Wysiwyg modal.
-	public static function callback( $attr, $content='' ) {
-		$attr = shortcode_atts( array(
+		public static function callback( $attr, $content = '' ) {
+			$attr = shortcode_atts( array(
 				'color' => '#ffcc00',
 				'text-color' => '#000',
 				'wpautop' => false,
-			),
-			$attr
-		);
-		$style = '';
-		$style .= !empty( $attr['color'] ) ? 'background: ' . $attr['color'] . ';' : '';
-		$style .= !empty( $attr['text-color'] ) ? ' color: ' . $attr['text-color'] . ';' : '';
+				),
+				$attr
+			);
+			$style = '';
+			$style .= ! empty( $attr['color'] ) ? 'background: ' . $attr['color'] . ';' : '';
+			$style .= ! empty( $attr['text-color'] ) ? ' color: ' . $attr['text-color'] . ';' : '';
 
-		$restore_autop = has_filter( 'the_content', 'wpautop' );
-		if ( false === $attr['wpautop'] ) { remove_filter( 'the_content', 'wpautop' ); }
-		ob_start();
-		?>
-			<aside class="callout"<?php echo !empty( $style ) ? ' style="' . $style . '"' : ''; ?>>
+			$restore_autop = has_filter( 'the_content', 'wpautop' );
+			if ( false === $attr['wpautop'] ) { remove_filter( 'the_content', 'wpautop' ); }
+			ob_start();
+			?>
+			<aside class="callout"<?php echo ! empty( $style ) ? ' style="' . $style . '"' : ''; ?>>
 				<div class="container">
 					<?php echo apply_filters( 'the_content', $content ); ?>
 				</div>
 			</aside>
-		<?php
-		if ( $restore_autop ) { add_filter( 'the_content', 'wpautop' ); }
-		return ob_get_clean();
-	}
+			<?php
+			if ( $restore_autop ) { add_filter( 'the_content', 'wpautop' ); }
+			return ob_get_clean();
+		}
 }
 
 
@@ -380,37 +380,37 @@ class sc_call_to_action extends ShortcodeBase {
 				'id'        => 'cta_id',
 				'help_text' => 'Choose the call to action to display',
 				'type'      => 'dropdown',
-				'choices'   => array()
-			)
+				'choices'   => array(),
+			),
 		), // The parameters used by the shortcode.
 		$callback    = 'callback',
-		$wysiwyg     = True; // Whether to add it to the shortcode Wysiwyg modal.
-	public function __construct() {
-		$this->params[0]['choices'] = $this->get_choices();
-	}
-	private function get_choices() {
-		$posts = get_posts( array( 'post_type' => 'campaign' ) );
-		$retval = array( array( 'name' => '--- Choose ---', 'value' => null ) );
-		foreach( $posts as $post ) {
-			$retval[] = array(
+		$wysiwyg     = true; // Whether to add it to the shortcode Wysiwyg modal.
+		public function __construct() {
+			$this->params[0]['choices'] = $this->get_choices();
+		}
+		private function get_choices() {
+			$posts = get_posts( array( 'post_type' => 'campaign' ) );
+			$retval = array( array( 'name' => '--- Choose ---', 'value' => null ) );
+			foreach ( $posts as $post ) {
+				$retval[] = array(
 				'name'  => $post->post_title,
-				'value' => $post->ID
+				'value' => $post->ID,
+				);
+			}
+			return $retval;
+		}
+		public static function callback( $attr, $content = '' ) {
+			$attr = shortcode_atts( array(
+				'cta_id' => null,
+				), $attr
 			);
+			ob_start();
+			if ( $attr['cta_id'] ) {
+				$post = get_post( $attr['cta_id'] );
+				echo Campaign::toHTML( $post );
+			}
+			return ob_get_clean();
 		}
-		return $retval;
-	}
-	public static function callback( $attr, $content='' ) {
-		$attr = shortcode_atts( array(
-				'cta_id' => null
-			), $attr
-		);
-		ob_start();
-		if ( $attr['cta_id'] ) {
-			$post = get_post( $attr['cta_id'] );
-			echo Campaign::toHTML( $post );
-		}
-		return ob_get_clean();
-	}
 }
 
 class sc_campaign extends ShortcodeBase {
@@ -424,7 +424,7 @@ class sc_campaign extends ShortcodeBase {
 				'id'        => 'campaign_id',
 				'help_text' => 'Choose the campaign to display.',
 				'type'      => 'dropdown',
-				'choices'   => array()
+				'choices'   => array(),
 			),
 			array(
 				'name'      => 'Image',
@@ -465,26 +465,26 @@ class sc_campaign extends ShortcodeBase {
 		), // The parameters used by the shortcode.
 		$closing_tag = false,
 		$callback    = 'callback',
-		$wysiwyg     = True; // Whether to add it to the shortcode Wysiwyg modal.
+		$wysiwyg     = true; // Whether to add it to the shortcode Wysiwyg modal.
 
-	public function __construct() {
-		$this->params[0]['choices'] = $this->get_choices();
-	}
-
-	private function get_choices() {
-		$posts = get_posts( array( 'post_type' => 'campaign' ) );
-		$retval = array( array( 'name' => '--- Choose ---', 'value' => null ) );
-		foreach( $posts as $post ) {
-			$retval[] = array(
-				'name'  => $post->post_title,
-				'value' => $post->ID
-			);
+		public function __construct() {
+			$this->params[0]['choices'] = $this->get_choices();
 		}
-		return $retval;
-	}
 
-	public static function callback( $attr, $content='' ) {
-		$attr = shortcode_atts( array(
+		private function get_choices() {
+			$posts = get_posts( array( 'post_type' => 'campaign' ) );
+			$retval = array( array( 'name' => '--- Choose ---', 'value' => null ) );
+			foreach ( $posts as $post ) {
+				$retval[] = array(
+				'name'  => $post->post_title,
+				'value' => $post->ID,
+				);
+			}
+			return $retval;
+		}
+
+		public static function callback( $attr, $content = '' ) {
+			$attr = shortcode_atts( array(
 				'campaign_id' => null,
 				'image_id' => '',
 				'image_url' => '',
@@ -494,14 +494,14 @@ class sc_campaign extends ShortcodeBase {
 				'short' => '',
 				'btn_text' => '',
 				'layout' => 'rectangle',
-			), $attr
-		);
-		$context = null;
-		if ( ! SDES_Static::is_null_or_whitespace( $attr['campaign_id'] ) ) {
-			$post = get_post( $attr['campaign_id'] );
-			$context = (object) Campaign::get_render_context( $post );
-		} else {
-			$context = (object) array(
+				), $attr
+			);
+			$context = null;
+			if ( ! SDES_Static::is_null_or_whitespace( $attr['campaign_id'] ) ) {
+				$post = get_post( $attr['campaign_id'] );
+				$context = (object) Campaign::get_render_context( $post );
+			} else {
+				$context = (object) array(
 				'image_id' => $attr['image_id'],
 				'image_url' => $attr['image_url'],
 				'url' => $attr['url'],
@@ -509,34 +509,34 @@ class sc_campaign extends ShortcodeBase {
 				'long' => $attr['long'],
 				'short' => $attr['short'],
 				'btn_text' => $attr['btn_text'],
-			);
+				);
+			}
+				$context->image_url = ( ! SDES_Static::is_null_or_whitespace( $context->image_url ) )
+				? $context->image_url
+				: wp_get_attachment_image_src( $context->image_id, 'thumb' )[0];
+
+			if ( ! static::shouldShow( $context ) ) { return '<span class="campaign-invalid"><!-- Invalid Campaign --></span>'; }
+				ob_start();
+			switch ( $attr['layout'] ) {
+				case 'square':
+					echo static::render_square( $context );
+					break;
+				case 'rectangle':
+				default:
+					echo static::render( $context );
+					break;
+			}
+				return ob_get_clean();
 		}
-		$context->image_url = ( ! SDES_Static::is_null_or_whitespace( $context->image_url ) )
-			? $context->image_url
-			: wp_get_attachment_image_src( $context->image_id, 'thumb' )[0];
 
-		if( ! static::shouldShow($context) ) { return '<span class="campaign-invalid"><!-- Invalid Campaign --></span>'; }
-		ob_start();
-		switch ( $attr['layout'] ) {
-			case 'square':
-				echo static::render_square( $context );
-				break;
-			case 'rectangle':
-			default:
-				echo static::render( $context );
-				break;
+		public static function shouldShow( $ctxt ) {
+			if ( '' == $ctxt->title || '' == $ctxt->btn_text ) { return false; }
+			return true;
 		}
-		return ob_get_clean();
-	}
 
-	public static function shouldShow( $ctxt ) {
-		if( "" == $ctxt->title || "" == $ctxt->btn_text ) { return false; }
-		return true;
-	}
-
-	public static function render( $ctxt ) {
-		ob_start();
-		?>
+		public static function render( $ctxt ) {
+			ob_start();
+			?>
 			<div class="container-fluid">
 				<div class="row campaign">
 					<div class="col-sm-5 campaign-image">
@@ -555,13 +555,13 @@ class sc_campaign extends ShortcodeBase {
 					</div>
 				</div>
 			</div>
-		<?php
-		return ob_get_clean();
-	}
+			<?php
+			return ob_get_clean();
+		}
 
-	public static function render_square( $ctxt ) {
-		ob_start();
-		?>
+		public static function render_square( $ctxt ) {
+			ob_start();
+			?>
 			<div class="campaign" style="background: #f3f3f3;">
 				<div class="campaign-content">
 					<div class="campaign-title">
@@ -575,9 +575,9 @@ class sc_campaign extends ShortcodeBase {
 					</a>
 				</div>
 			</div>
-		<?php
-		return ob_get_clean();
-	}
+			<?php
+			return ob_get_clean();
+		}
 }
 
 function register_shortcodes() {

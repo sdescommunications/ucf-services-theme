@@ -25,16 +25,17 @@ require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
 
 /**
  * Removes the core 'Menus' panel from the Customizer.
+ *
  * @see https://developer.wordpress.org/reference/hooks/customize_loaded_components/#comment-1005
  * @param array $components Core Customizer components list.
  * @return array (Maybe) modified components list.
  */
 function wpdocs_remove_nav_menus_panel( $components ) {
-    $i = array_search( 'nav_menus', $components );
-    if ( false !== $i ) {
-        unset( $components[ $i ] );
-    }
-    return $components;
+	$i = array_search( 'nav_menus', $components );
+	if ( false !== $i ) {
+		unset( $components[ $i ] );
+	}
+	return $components;
 }
 add_filter( 'customize_loaded_components', __NAMESPACE__.'\wpdocs_remove_nav_menus_panel' );
 do_action( 'plugins_loaded' ); // The customize_loaded_components filter generally runs during the ‘plugins_loaded’ action.
@@ -54,7 +55,7 @@ function register_theme_customizer( $wp_customizer ) {
 
 	// Build-in sections.
 	add_to_section_TitleAndTagline( $wp_customizer );
-	$wp_customizer->remove_section('colors');
+	$wp_customizer->remove_section( 'colors' );
 
 	add_section_home_custom( $wp_customizer );
 
@@ -109,7 +110,7 @@ function add_section_home_custom( $wp_customizer, $args = null ) {
 			'description' => 'Example: <em>MTG-ABC123</em>. Leave blank for development.',
 			'section'     => $section,
 			'priority'    => 5,  // Default control priority is 10.
- 		)
+			)
 	);
 
 	/** ARGS */
@@ -144,7 +145,6 @@ function add_section_home_custom( $wp_customizer, $args = null ) {
 		'sanitize_js_callback' => 'esc_url',
 		'default' => 'http://calendar.ucf.edu/json',
 	));
-
 
 	/** FIELDS */
 	SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
@@ -204,7 +204,7 @@ function add_section_service_profile( $wp_customizer, $args = null ) {
 	$profile_image_default_args = $args['services_theme-profile_image_default'];
 	SDES_Static::set_default_keyValue_array( $profile_image_default_args, array(
 		'description' => 'A default image for the header of a student profile.',
-	));	
+	));
 
 	$closing_soon_args = $args['services_theme-closing_soon_minutes'];
 	SDES_Static::set_default_keyValue_array( $closing_soon_args, array(

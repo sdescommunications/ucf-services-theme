@@ -3,6 +3,7 @@
  * A helper class for the Header - call from ThemeCustomizer.php to add action to 'customize_register' before it fires.
  *
  * graphviz.gv: "header-settings.php" -> { "class-feedmanager.php"; "class-sdes-customizer-helper.php"; "class-sdes-static.php"; };
+ *
  * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions/config.php#L449-L502
  */
 
@@ -22,6 +23,7 @@ class Header_Settings {
 
 	/**
 	 * Retrieve and cache remote feeds as json objects, e.g., services_theme-remote_menus_header_menu_feed.
+	 *
 	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions.php#L42-L75
 	 * @todo Evaluate general PHP alternatives to WP transients (PSR-6 caching).
 	 */
@@ -33,8 +35,8 @@ class Header_Settings {
 		if ( false === $result || $customizing ) {
 			$opts = array(
 				'http' => array(
-					'timeout' => 15
-				)
+					'timeout' => 15,
+				),
 			);
 			$context = stream_context_create( $opts );
 			$file_location = SDES_Static::get_theme_mod_defaultIfEmpty( $menu_name.'_feed', self::HEADER_NAV_URL );
@@ -76,7 +78,7 @@ class Header_Settings {
 				'title'    => 'Remote Menus',
 				'description' => '',
 				'priority' => 1000, // Set to 30 to be just below "Site Identity".
-				'panel' => array_key_exists('panelId', $args) ? $args['panelId'] : '',
+				'panel' => array_key_exists( 'panelId', $args ) ? $args['panelId'] : '',
 			)
 		);
 		$wp_customize->add_setting(
@@ -91,7 +93,7 @@ class Header_Settings {
 				'type'        => 'text',
 				'label'       => 'Header Menu Feed',
 				'description' => 'The JSON feed of the www.ucf.edu header menu.',
-				'section'     => $section
+				'section'     => $section,
 			)
 		);
 	}
@@ -102,6 +104,7 @@ add_action( 'customize_register', __NAMESPACE__.'\Header_Settings::register_head
 class Header {
 	/**
 	 * Display the header menu on MD and LG screens (by default, 992px or larger).
+	 *
 	 * @see: https://github.com/UCF/Students-Theme/blob/2489e796a9438180e67f729dcd7ef655eecdd24f/functions.php#L86-L92
 	 */
 	public static function display_nav_header() {
@@ -113,7 +116,7 @@ class Header {
 	?>
 		<nav id="nav-header-wrap" role="navigation" class="screen-only hidden-xs hidden-sm">
 			<ul id="header-menu" class="menu-list-unstyled list-inline text-center horizontal">
-			<?php foreach( $menu->items as $item ) : ?>
+			<?php foreach ( $menu->items as $item ) : ?>
 				<li><a href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a></li>
 			<?php endforeach; ?>
 			</ul>
@@ -124,6 +127,7 @@ class Header {
 
 	/**
 	 * Display the header menu on XS and SM screens (by default, screens smaller than 991px).
+	 *
 	 * @see: https://github.com/UCF/Students-Theme/blob/2489e796a9438180e67f729dcd7ef655eecdd24f/functions.php#L94-L111
 	 */
 	public static function display_nav_header_xs() {
@@ -145,7 +149,7 @@ class Header {
 			</div>
 			<div class="collapse navbar-collapse" id="header-menu-xs-collapse">
 				<ul id="header-menu-xs" class="menu nav navbar-nav">
-				<?php foreach( $menu->items as $item ) : ?>
+				<?php foreach ( $menu->items as $item ) : ?>
 					<li><a href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a></li>
 				<?php endforeach; ?>
 				</ul>

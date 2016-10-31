@@ -1,6 +1,7 @@
 <?php
 /**
  * Static Helper functions that are reusable in any PHP Site.
+ *
  * @package SDES Static - Rev2015 WordPress Prototype
  */
 
@@ -14,6 +15,7 @@ class SDES_Static
 
 	/**
 	 * Set default value for a given key in $args, which is passed by reference.
+	 *
 	 * @param array  $args    An args array (that is passed in by reference).
 	 * @param string $key     The key to set.
 	 * @param mixed  $default_value   A default value for the key if it is not already set.
@@ -26,6 +28,7 @@ class SDES_Static
 
 	/**
 	 * Set multiple default values for keys in $args, which is passed by reference.
+	 *
 	 * @param array $args    An args array (that is passed in by reference).
 	 * @param array $default_values   An collections of keys and their default values.
 	 */
@@ -40,6 +43,7 @@ class SDES_Static
 	// TODO: add tests, verify that register function exists.
 	/**
 	 * For each class provided, create a new instance of the class and call its the register function.
+	 *
 	 * @param Array $classnames_to_register  Listing of class names to `->register()`.
 	 * @return Array Array of instantiated classes (array of arrays). Each item has the keys: 'classname', 'instance'.
 	 */
@@ -58,12 +62,13 @@ class SDES_Static
 
 	/**
 	 * Add .img-responsive to IMG tags. Usually called from a filter, e.g., `add_filter('the_content', 'img_add_responsive_class_content');`
+	 *
 	 * @see https://developer.wordpress.org/reference/functions/the_content/ WP-Ref: the_content()
 	 * @see http://stackoverflow.com/a/20499803 Stack-Overflow: /a/20499803
 	 * @return string A string of the filtered HTML content.
 	 */
-	public static function img_add_responsive_class_content( $content ){
-		if ( self::is_null_or_whitespace( $content) ) { return $content; }
+	public static function img_add_responsive_class_content( $content ) {
+		if ( self::is_null_or_whitespace( $content ) ) { return $content; }
 
 		if ( \function_exists( 'mb_convert_encoding' ) ) {
 			$content = \utf8_decode( \mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
@@ -79,7 +84,7 @@ class SDES_Static
 		$imgs = $document->getElementsByTagName( 'img' );
 		foreach ( $imgs as $img ) {
 			$existing_class = $img->getAttribute( 'class' );
-			if( false === \strpos( $existing_class, 'img-nonresponsive' ) ) {
+			if ( false === \strpos( $existing_class, 'img-nonresponsive' ) ) {
 				$img->setAttribute( 'class', "img-responsive $existing_class" );
 			} else {
 				continue;
@@ -93,6 +98,7 @@ class SDES_Static
 	// TODO: add tests, try-catch block.
 	/**
 	 * Return a collection links and titles from an RSS feed.
+	 *
 	 * @param string           $uri           The uri of the RSS feed.
 	 * @param int              $max_count         The number of items to return.
 	 * @param int              $char_limit    Limit the number of characters in the titles, add &hellip; if over.
@@ -125,6 +131,7 @@ class SDES_Static
 	// TODO: Needs tests.
 	/**
 	 * Always include an area code, show only numbers and the dash symbol, always show 2 dashes.
+	 *
 	 * @param string $value    The value to be sanitized, as passed back by sanitize_callback.
 	 */
 	public static function sanitize_telephone( $value, $areaCode = '407' ) {
@@ -154,22 +161,26 @@ class SDES_Static
 	/**
 	 * Match any string that resembles an email (i.e., contains '@' between any other characters).
 	 * Example: isEmail('some+thing@anything.whatever') returns true.
+	 *
 	 * @param string $href A string assumed to be a valid href.
 	 * @see https://davidcel.is/posts/stop-validating-email-addresses-with-regex/
 	 * @see https://tools.ietf.org/html/rfc2368 RFC: 2368 "The mailto URL scheme"
 	 */
-	public static function isEmail( $href ) { return preg_match( '/.+@.+/', $href );	}
+	public static function isEmail( $href ) {
+		return preg_match( '/.+@.+/', $href );
+	}
 
 	/**
 	 * Match any string that looks like a telephone number (per RFC3966).
 	 * Example: isTelephone('3213214321;ext=1') returns true.
+	 *
 	 * @param string $href A string assumed to be a valid href.
 	 * @see https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers Wiki: Telephone number conventions
 	 * @see https://tools.ietf.org/html/rfc3966 RFC: 3966 "The tel URI for Telephone Numbers"
 	 */
 	public static function isTelephone( $href ) {
-		 /* Match if ends with a digit "\d", and contains only: parentheses, digits, whitespace, pluses '+', forward slashes '/' or dashes '-'.
-		 Optionally, followed by 1 semicolon, and any text (a rough approximation of RFC 3966 parameters). */
+		// Match if ends with a digit "\d", and contains only: parentheses, digits, whitespace, pluses '+', forward slashes '/' or dashes '-'.
+		// Optionally, followed by 1 semicolon, and any text (a rough approximation of RFC 3966 parameters).
 		return preg_match( '/^[\(\)\d\s\+\/-]+\d\;?.*$/', trim( $href ) );
 	}
 
@@ -193,6 +204,7 @@ class SDES_Static
 
 	/**
 	 * Prepend a string with 'mailto:', 'tel:', or the http protocol if appropriate.
+	 *
 	 * @param string $href A string assumed to be a valid href.
 	 */
 	public static function href_prepend_protocols_filter( $href ) {
@@ -204,20 +216,21 @@ class SDES_Static
 
 	/**
 	 * Add a protocol and domain path to a URL if it does not exist.
+	 *
 	 * @param string $url The url variable to adjust.
 	 * @param string $prefix The protocol and domain path to prepend to the url. (defaults to http://).
 	 */
 	public static function url_ensure_prefix( $url, $prefix = 'http://' ) {
 		// Guard to return string unchanged:
-		if ( 0 === strpos( $url, '#')			// IF same-page anchor links
+		if ( 0 === strpos( $url, '#' )			// IF same-page anchor links
 		 	|| false !== strrpos( $url, '//' )  // OR protocol-neutral links.
-		 	|| preg_match('/^\w+\:.+/', $url ) 	// OR starts with word characters followed by a semicolon.
-		 	|| static::is_null_or_whitespace( $url ) ) { 
+		 	|| preg_match( '/^\w+\:.+/', $url ) 	// OR starts with word characters followed by a semicolon.
+		 	|| static::is_null_or_whitespace( $url ) ) {
 			return $url;
 		}
-		
+
 		// Not a protocol-neutral link or anchor link.
-		if ( 0 === strpos( $url, '/') ) {
+		if ( 0 === strpos( $url, '/' ) ) {
 			// Set root of relative links to the site_url (instead of defaulting to the domain).
 			$url = get_site_url() . $url;
 		} else {
@@ -234,6 +247,7 @@ class SDES_Static
 	/**
 	 * Add snippet for analytics from Google Tag Manager.  This should be called just after the BODY tag
 	 * is opened (this snippet may cause undesired behavior when called within the HEAD tag).
+	 *
 	 * @param string $gtm_id The Container ID provided by Google Tag Manager.
 	 */
 	public static function google_tag_manager( $gtm_id = '' ) {
@@ -263,6 +277,7 @@ class SDES_Static
 	 ***********************/
 	/**
 	 * Returns the default even if the value in the database is null, whitespace, or an empty string.
+	 *
 	 * @param string $value				The theme modification name to pass to get_theme_mod.
 	 * @param string $default_to		Default value to return.
 	 * @param string $get_theme_mod		Reference to the get_theme_mod function, or a mock for testing.
@@ -276,6 +291,7 @@ class SDES_Static
 
 	/**
 	 * Check if user is both logged in and has a given capability.
+	 *
 	 * @param string $capability	A capability or role name to pass to current_user_can.
 	 */
 	public static function Is_UserLoggedIn_Can( $capability ) {
@@ -284,6 +300,7 @@ class SDES_Static
 
 	/**
 	 * Get a string of class names for a WP_Post object and optionally apply a filter.
+	 *
 	 * @param object $wp_post	The WP_Post object whose classes will be retrieved.
 	 * @param string $filter_tag	A filter to pass to apply_filters.
 	 */
@@ -297,6 +314,7 @@ class SDES_Static
 	/**
 	 * Really get the post type.  A post type of revision will return its parent
 	 * post type.
+	 *
 	 * @param int|WPPost $this_post  The post or the post's ID.
 	 * @see https://github.com/UCF/Students-Theme/blob/6ca1d02b062b2ee8df62c0602adb60c2c5036867/functions/base.php#L411-L432
 	 * @return string  The 'post_type' for a post.
@@ -322,7 +340,7 @@ class SDES_Static
 		$image = $article->get_enclosure();
 		if ( $image ) {
 			return ( $image->get_thumbnail() ) ? $image->get_thumbnail() : $image->get_link();
-		}else {
+		} else {
 			$matches = array();
 			$found   = preg_match( '/<img[^>]+src=[\'\"]([^\'\"]+)[\'\"][^>]+>/i',  $article->get_content(), $matches );
 			if ( $found ) {
@@ -336,7 +354,7 @@ class SDES_Static
 	 * Retrieve the alttext for a post id's thumbnail, or default values.
 	 */
 	public static function get_post_thumbnail_alttext( $post_id, $default_text = 'Thumbnail' ) {
-		return self::get_thumbnail_alttext(  get_post_thumbnail_id( $post_id ) , $default_text );
+		return self::get_thumbnail_alttext( get_post_thumbnail_id( $post_id ) , $default_text );
 	}
 
 	/**
@@ -344,23 +362,22 @@ class SDES_Static
 	 */
 	public static function get_thumbnail_alttext( $thumbnail_id, $default_text = 'Thumbnail' ) {
 		$alt_text = get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true );
-		if( ! self::is_null_or_whitespace( $alt_text ) ) return $alt_text;
+		if ( ! self::is_null_or_whitespace( $alt_text ) ) { return $alt_text; }
 
 		$alt_text = get_post_meta( $thumbnail_id, '_wp_attachment_image_title', true );
-		if( ! self::is_null_or_whitespace( $alt_text ) ) return $alt_text;
+		if ( ! self::is_null_or_whitespace( $alt_text ) ) { return $alt_text; }
 
 		// $alt_text = get_post_meta( $thumbnail_id, '_wp_attachment_image_caption', true );
 		// if( ! self::is_null_or_whitespace( $alt_text ) ) return $alt_text;
-
 		// $alt_text = get_post_meta( $thumbnail_id, '_wp_attachment_image_description', true );
 		// if( ! self::is_null_or_whitespace( $alt_text ) ) return $alt_text;
-
 		return $default_text;
 	}
 
 
 	/**
 	 * Use to display a message in locations where have_posts() returns false.
+	 *
 	 * @param Array $args  Any additional arguments for this function.
 	 *  Bool   echo    Flag to whether to echo or return text (defaults to true).
 	 *  String message The text of the message (defaults to 'No posts were found.').
@@ -368,8 +385,7 @@ class SDES_Static
 	public static function Get_No_Posts_Message( $args = array() ) {
 		$defaults = array( 'echo' => true, 'message' => 'No posts were found.' );
 		$args = array_merge( $defaults, $args );
-		$no_posts =
-			( SDES_Static::Is_UserLoggedIn_Can( 'edit_posts' ) )
+		$no_posts = ( SDES_Static::Is_UserLoggedIn_Can( 'edit_posts' ) )
 			? '<a class="text-danger adminmsg" style="color: red !important;"'
 			. 'href="' . get_site_url() . '/wp-admin/">Admin Alert: %1$s</a>'
 			: '<!-- %1$s -->';
@@ -392,7 +408,7 @@ class DOMDocument_Smart extends \DOMDocument {
 	public static $IsLibxmlModern = false;
 
 	public function __construct() {
-		static::$IsLibxmlModern = defined('\LIBXML_HTML_NOIMPLIED') && defined('\LIBXML_HTML_NODEFDTD');
+		static::$IsLibxmlModern = defined( '\LIBXML_HTML_NOIMPLIED' ) && defined( '\LIBXML_HTML_NODEFDTD' );
 	}
 	/** Load contents after wrapping it in a span tag. */
 	public function loadHTML( $contents, $options = 0 ) {

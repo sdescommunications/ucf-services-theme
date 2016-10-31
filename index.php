@@ -17,11 +17,11 @@ get_header();
 
 </div> <!-- /DIV.container.site-content -->
 
-<?php if (have_posts()) :
-	 while (have_posts()) : the_post();
+<?php if ( have_posts() ) :
+	while ( have_posts() ) : the_post();
 		the_content();
 	endwhile;
-else:
+else :
 	SDES_Static::Get_No_Posts_Message();
 endif; ?>
 

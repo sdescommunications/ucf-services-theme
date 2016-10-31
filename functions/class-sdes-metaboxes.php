@@ -35,7 +35,6 @@ use Underscore\Types\Arrays;
 use \Exception as Exception;
 
 // TODO: add and check for a metaboxes interface with: register_metaboxes(), metabox(), option(), etc.
-
 /**
  * POST DATA HANDLERS and META BOX FUNCTIONS
  *
@@ -51,6 +50,7 @@ use \Exception as Exception;
 class SDES_Metaboxes {
 	/**
 	 * Array containing instances of the custom post types classes.
+	 *
 	 * @see custom-post-types.php\register_custom_posttypes() register_custom_posttypes().
 	 */
 	public static $installed_custom_post_types = null;
@@ -98,35 +98,35 @@ class SDES_Metaboxes {
 	 * */
 	public static function save_meta_data( $post_id ) {
 		$meta_boxes = static::get_post_meta_boxes( $post_id );
-	  foreach ($meta_boxes as $meta_box) {
-		// Verify nonce.
-		$nonce = isset( $_POST['meta_box_nonce'] ) ? $_POST['meta_box_nonce'] : null;
-		if ( ! wp_verify_nonce( $nonce, basename( __FILE__ ) ) ) {
-			return $post_id;
-		}
-		// Check autosave.
-		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || isset( $_REQUEST['bulk_edit'] ) ) {
-			return $post_id;
-		}
-		// Check permissions.
-		if ( 'page' === $_POST['post_type'] ) {
-			if ( ! current_user_can( 'edit_page', $post_id ) ) {
+		foreach ( $meta_boxes as $meta_box ) {
+			// Verify nonce.
+			$nonce = isset( $_POST['meta_box_nonce'] ) ? $_POST['meta_box_nonce'] : null;
+			if ( ! wp_verify_nonce( $nonce, basename( __FILE__ ) ) ) {
 				return $post_id;
 			}
-		} elseif ( ! current_user_can( 'edit_post', $post_id ) ) {
-			return $post_id;
-		}
-		if ( $meta_box ) {
-			foreach ( $meta_box['fields'] as $field ) {
-				static::save_default( $post_id, $field );
+			// Check autosave.
+			if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || isset( $_REQUEST['bulk_edit'] ) ) {
+				return $post_id;
+			}
+			// Check permissions.
+			if ( 'page' === $_POST['post_type'] ) {
+				if ( ! current_user_can( 'edit_page', $post_id ) ) {
+					return $post_id;
+				}
+			} elseif ( ! current_user_can( 'edit_post', $post_id ) ) {
+				return $post_id;
+			}
+			if ( $meta_box ) {
+				foreach ( $meta_box['fields'] as $field ) {
+					static::save_default( $post_id, $field );
+				}
 			}
 		}
-	  }
 	}
 
 	public static function save_default( $post_id, $field ) {
 		$old = get_post_meta( $post_id, $field['id'], true );
-		$new = isset( $_POST[ $field['id'] ]) ? $_POST[ $field['id'] ] : null;
+		$new = isset( $_POST[ $field['id'] ] ) ? $_POST[ $field['id'] ] : null;
 		if ( $new !== '' and $new !== null and $new != $old ) {
 			// Update if new is not empty and is not the same value as old.
 			update_post_meta( $post_id, $field['id'], $new );
@@ -148,7 +148,7 @@ class SDES_Metaboxes {
 		$meta_boxes = static::get_post_meta_boxes( $post );
 		// echo "<pre>".var_dump($meta_boxes)."</pre>";
 		ob_start();
-		foreach ($meta_boxes as $meta_box) :
+		foreach ( $meta_boxes as $meta_box ) :
 			// echo "<pre>".var_dump($meta_box)."</pre>";
 			if ( $args['id'] === $meta_box['id'] ) :
 	?>
@@ -156,7 +156,7 @@ class SDES_Metaboxes {
 		<table class="form-table custom-metabox">
 		<?php foreach ( $meta_box['fields'] as $field ) {
 				static::display_metafield( $post->ID, $field );
-			} ?>
+} ?>
 		</table>
 		<?php
 			$hasDateField = Arrays::matchesAny(
@@ -173,7 +173,7 @@ class SDES_Metaboxes {
 					});
 				</script>
 		<?php endif;
-			$hasImageField= Arrays::matchesAny(
+			$hasImageField = Arrays::matchesAny(
 				$meta_box['fields'],
 				function( $x ) { return ( 'image' === $x['type'] ); }
 			);

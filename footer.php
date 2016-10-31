@@ -46,13 +46,14 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 			<div class="container">
 				<p class="main-site-title">University of Central Florida</p>
 				<?php Footer::display_social(); ?>
-				<?php Footer::display_footer_menu() ; ?>
+				<?php Footer::display_footer_menu(); ?>
 			</div>
 		</div>
 	</footer>
 
 <?php
-	/* Instead of adding scripts or styles here, call: `add_action('wp_footer', 'YOUR_FUNCTION');`
+	/*
+	 * Instead of adding scripts or styles here, call: `add_action('wp_footer', 'YOUR_FUNCTION');`
 	 * Always call 'wp_footer' just before the closing </body> tag or it may break plugins and themes.
 	 * See: https://codex.wordpress.org/Plugin_API/Action_Reference/wp_footer
 	 */

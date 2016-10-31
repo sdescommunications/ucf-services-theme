@@ -59,7 +59,7 @@ class WeatherBox {
 			'description' => 'The url of the CM Weather Feed',
 		));
 
-		/** FIELDS */		
+		/** FIELDS */
 		// home_custom_footer_menu_feed
 		SDES_Customizer_Helper::add_setting_and_control('WP_Customize_Control', // Control Type.
 			$wp_customizer,			// WP_Customize_Manager.
@@ -72,13 +72,13 @@ class WeatherBox {
 
 	// TODO: fail better - return don't disply if n/a
 	/**
-	 * 
+	 *
 	 *
 	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions.php#L117-L135
 	 */
 	public static function display_weather() {
 		$weather = static::get_weather_data();
-		$weather->location = property_exists( $weather, 'location') ? $weather->location : self::LOCATION_DEFAULT;
+		$weather->location = property_exists( $weather, 'location' ) ? $weather->location : self::LOCATION_DEFAULT;
 		ob_start();
 		?>
 		<?php if ( $weather ) : ?>
@@ -98,22 +98,22 @@ class WeatherBox {
 	}
 
 	/**
-	 * 
+	 *
 	 *
 	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions.php#L309-323
 	 */
 	public static function get_weather_data() {
 		$opts = array(
 			'http' => array(
-				'timeout' => 15
-			)
+				'timeout' => 15,
+			),
 		);
 		$context = stream_context_create( $opts );
 		$file = file_get_contents( SDES_Static::get_theme_mod_defaultIfEmpty( 'weather_feed_url', self::WEATHER_FEED_URL ), false, $context );
-		if ( false === $file ) {			
+		if ( false === $file ) {
 			return (object) array(
 				'condition' => 'n/a',
-				'icon' =>'wi wi-na',
+				'icon' => 'wi wi-na',
 				'tempN' => '&ndash;',
 			);
 		}
@@ -123,31 +123,31 @@ class WeatherBox {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions.php#L325-390
 	 */
 	public static function get_weather_icon( $condition ) {
 		// https://erikflowers.github.io/weather-icons/
-		$icon_prefix = "wi wi-";
+		$icon_prefix = 'wi wi-';
 		$icons_to_conditions = array(
 				'day-sunny' => array(
 					'fair',
-					'default'
+					'default',
 				),
 				'hot' => array(
 					'hot',
-					'haze'
+					'haze',
 				),
 				'cloudy' => array(
 					'overcast',
 					'partly cloudy',
-					'mostly cloudy'
+					'mostly cloudy',
 				),
 				'snowflake-cold' => array(
 					'blowing snow',
 					'cold',
-					'snow'
+					'snow',
 				),
 				'showers' => array(
 					'showers',
@@ -156,7 +156,7 @@ class WeatherBox {
 					'mixed rain/hail',
 					'mixed snow/sleet',
 					'hail',
-					'freezing drizzle'
+					'freezing drizzle',
 				),
 				'cloudy-gusts' => array(
 					'windy'
@@ -164,7 +164,7 @@ class WeatherBox {
 				'fog' => array(
 					'dust',
 					'smoke',
-					'foggy'
+					'foggy',
 				),
 				'storm-showers' => array(
 					'scattered thunderstorms',
@@ -172,12 +172,12 @@ class WeatherBox {
 					'scattered showers',
 					'freezing rain',
 					'isolated thunderstorms',
-					'isolated thundershowers'
+					'isolated thundershowers',
 				),
 				'lightning' => array(
 					'tornado',
-					'severe thunderstorms'
-				)
+					'severe thunderstorms',
+				),
 			);
 		$condition = strtolower( $condition );
 		foreach ( $icons_to_conditions as $icon => $condition_array ) {
@@ -218,7 +218,7 @@ class WeatherBox_Tutorial {
 		return ob_get_clean();
 	}
 
-	public static function in_header_center(){
+	public static function in_header_center() {
 		ob_start();
 		?>
 			.header-center .weather<br>
@@ -229,7 +229,7 @@ class WeatherBox_Tutorial {
 			<span id="tutorial-1">
 			<header class="site-header">
 				<div class="header-image">
-						<?php //display_header_menu(); ?>
+						<?php // display_header_menu(); ?>
 					<div class="header-center">
 						<div class="title-wrapper">
 							<div class="title-header-container">
@@ -244,7 +244,7 @@ class WeatherBox_Tutorial {
 		return ob_get_clean();
 	}
 
-	public static function in_site_nav_xs(){
+	public static function in_site_nav_xs() {
 		ob_start();
 		?>
 			#site-nav-xs .weather<br>
@@ -263,7 +263,7 @@ class WeatherBox_Tutorial {
 		return ob_get_clean();
 	}
 
-	public static function in_sections_navbar(){
+	public static function in_sections_navbar() {
 		ob_start();
 		?>
 			#sections-navbar.center .weather<br>
@@ -294,5 +294,5 @@ class WeatherBox_Tutorial {
 			</span>
 		<?php
 		return ob_get_clean();
-	}	
+	}
 }
