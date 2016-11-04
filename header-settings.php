@@ -24,6 +24,7 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
  */
 class Header_Settings {
 	const HEADER_NAV_URL = 'http://www.ucf.edu/wp-json/ucf-rest-menus/v1/menus/52';
+	const CLOUD_FONT_KEY = '//cloud.typography.com/730568/675644/css/fonts.css'; /* CSS Key relative to PROD project */
 
 	/**
 	 * Retrieve and cache remote feeds as json objects, e.g., services_theme-remote_menus_header_menu_feed.
@@ -70,7 +71,44 @@ class Header_Settings {
 		// $section_args = array( 'panelId' => $panelId );
 		$section_args = array();
 
+		static::add_section_webfonts( $wp_customize, $section_args );
+
 		static::add_section_remote_menus( $wp_customize, $section_args );
+	}
+
+	/**
+	 * Add a webfonts section to the Theme Customizer.
+	 *
+	 * @see https://github.com/UCF/Main-Site-Theme/blob/6610071f535ddf534e3b76c0db5098cb28600321/functions/config.php#L588-L598
+	 */
+	public static function add_section_webfonts( $wp_customize, $args = null ) {
+		/* SECTION */
+		$section = 'services_theme-webfonts';
+		$wp_customize->add_section(
+			$section,
+			array(
+				'title'    => 'Webfonts',
+				'description' => '',
+				'priority' => 900, // Set to 30 to be just below "Site Identity".
+				'panel' => array_key_exists( 'panelId', $args ) ? $args['panelId'] : '',
+			)
+		);
+		$wp_customize->add_setting(
+			'services_theme-cloud_font_key',
+			array( 'default'     => self::CLOUD_FONT_KEY, )
+		);
+		$wp_customize->add_control(
+			'services_theme-cloud_font_key',
+			array(
+				'type'        => 'text',
+				'label'       => 'Cloud.Typography CSS Key URL',
+				'description' => 'The CSS Key provided by Cloud.Typography for this project. <strong>Only include the value in the "href" portion of the link
+					tag provided; e.g. "//cloud.typography.com/000000/000000/css/fonts.css".</strong><br/><br/>NOTE: Make sure the Cloud.Typography
+					project has been configured to deliver fonts to this site\'s domain.<br/>
+					See the <a target="_blank" href="http://www.typography.com/cloud/user-guide/managing-domains">Cloud.Typography docs on managing domains</a> for more info.',
+				'section'     => $section,
+			)
+		);
 	}
 
 	public static function add_section_remote_menus( $wp_customize, $args = null ) {
@@ -109,6 +147,33 @@ add_action( 'customize_register', __NAMESPACE__.'\Header_Settings::register_head
  * Helper class for generating Header HTML.
  */
 class Header {
+	/**
+	 * Prints the Cloud.Typography font stylesheet <link> tag.
+	 *
+	 * @see https://github.com/UCF/Main-Site-Theme/blob/6610071f535ddf534e3b76c0db5098cb28600321/functions.php#L1236-L1257
+	 */
+	protected static function webfont_stylesheet() {
+		$css_key = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-cloud_font_key', Header_Settings::CLOUD_FONT_KEY );
+		if ( $css_key ) {
+			echo '<link rel="stylesheet" href="'. $css_key .'" type="text/css" media="all" />';  // @codingStandardsIgnoreLine WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
+		}
+	}
+
+	/**
+	 * Output the CSS key for Cloud.Typography web fonts if a CSS key is set in
+	 * Theme Options.
+	 * Is included conditionally per-page to prevent excessive hits on our Cloud.Typography
+	 * page view limit per month.
+	 *
+	 * @see https://github.com/UCF/Main-Site-Theme/blob/6610071f535ddf534e3b76c0db5098cb28600321/functions.php#L1236-L1257
+	 * @see https://developer.wordpress.org/reference/functions/get_post_meta/ WP-Ref: get_post_meta()
+	 */
+	public static function page_specific_webfonts( $pageid ) {
+		if ( \get_post_meta( $pageid, 'page_use_webfonts', $single = true ) === 'on' ) {
+			static::webfont_stylesheet();
+		}
+	}
+
 	/**
 	 * Display the header menu on MD and LG screens (by default, 992px or larger).
 	 *

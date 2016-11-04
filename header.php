@@ -6,6 +6,7 @@
  */
 
 require_once( get_stylesheet_directory() . '/header-settings.php' );
+	use SDES\ServicesTheme\ThemeCustomizer\Header as Header;
 
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
@@ -50,7 +51,14 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 		})();
 	</script>
 	<script type="text/javascript" src="<?= get_stylesheet_directory_uri(); ?>/js/sdes_main_ucf.js"></script>
-	<?php // @codingStandardsIgnoreStart WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
+	<?php
+		// Load webfonts if enabled by page.
+		// See: https://github.com/UCF/Main-Site-Theme/blob/63d8423fcd53b2051343c582932c1d6ea3a61e98/header.php#L28-L31
+		if ( \is_page() ) {
+			Header::page_specific_webfonts( $post->ID );
+		}
+		// @codingStandardsIgnoreStart WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
+	?>
 </head>
 <body class="nojs">
 	<?php echo SDES_Static::google_tag_manager(); ?>

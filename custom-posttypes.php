@@ -84,12 +84,20 @@ class Page extends CustomPostType_ServicesTheme {
 		$prefix = $this->options( 'name' ).'_';
 		return array(
 			array(
-				'name'  => 'Campaig - Primary',
+				// The page_use_webfonts field is used by Header::page_specific_webfonts().
+				// See: https://github.com/UCF/Main-Site-Theme/blob/63d8423fcd53b2051343c582932c1d6ea3a61e98/custom-post-types.php#L493-L499 .
+				'name' => 'Use Webfonts On This Page',
+				'descr' => '(Optional) Check this box to include webfonts from Cloud.Typography.  Requires a Cloud.Typography CSS key to be set in Theme Customizer.',
+				'id' => $prefix.'use_webfonts',
+				'type' => 'checkbox',
+				'value' => false,
+			),
+			array(
+				'name'  => 'Campaign - Primary',
 				'descr' => 'Select a primary campaign.',
 				'id'    => $prefix.'campaign_primary',
 				'type'  => 'campaign',
 			),
-
 			array(
 				'name'  => 'Campaign - Sidebar',
 				'descr' => 'Select a sidebar campaign.',
