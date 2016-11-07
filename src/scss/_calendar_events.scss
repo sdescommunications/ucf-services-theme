@@ -56,7 +56,9 @@
             line-height: 18px;
             text-transform: uppercase;
         }
-        .date, .description {
+        .date,
+        .date a,
+        .description {
             font-size: 16px;
             font-family: "archer_lightregular", Helvetica, Arial, sans-serif;
             color: #fff;
