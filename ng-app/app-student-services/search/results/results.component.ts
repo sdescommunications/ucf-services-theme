@@ -79,6 +79,16 @@ export class SearchResultsComponent {
                 },
                 error => this.errorMessage = <any>error
             );
+        // Peek at the page after the next page of results and hide canLoadMore if no more results.
+        this._searchService.peekPageAfterNext()
+        .subscribe(
+            peekResults => {
+                if ( null === peekResults ) {
+                    this.canLoadMore = false;
+                    this._detector.detectChanges(); // Force Angular to detect changes.
+                }
+            }
+        );
     }
 
     hasResults(): boolean {

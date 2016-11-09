@@ -78,6 +78,14 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                         _this._detector.detectChanges();
                         _this.resultsChanged.emit({ query: _this.query, results: _this.studentServices });
                     }, function (error) { return _this.errorMessage = error; });
+                    // Peek at the page after the next page of results and hide canLoadMore if no more results.
+                    this._searchService.peekPageAfterNext()
+                        .subscribe(function (peekResults) {
+                        if (null === peekResults) {
+                            _this.canLoadMore = false;
+                            _this._detector.detectChanges(); // Force Angular to detect changes.
+                        }
+                    });
                 };
                 SearchResultsComponent.prototype.hasResults = function () {
                     return null !== this.studentServices;

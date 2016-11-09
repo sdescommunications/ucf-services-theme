@@ -48,9 +48,9 @@ export class SearchService {
      */
     getNextPage(): Observable<IStudentServiceSummary[]> {
         let nextPage = this._paged + 1;
-        let requestUrl = this.buildRequestUrl(this._limit, this._search, nextPage);  // (number, string, number) -> Observable<string>
-        let resultsStream =
-                this.requestJsonFrom( requestUrl )    // string -> Observable<IStudentServiceSummary[]>
+        if ( this.DEBUG ) { console.debug( `Moving to page: ${nextPage}` ); }
+        let resultsStream = 
+                this.getPage(nextPage)
                 .do( (_) => {
                     // Save state if successful.
                     this._paged = nextPage;
@@ -58,7 +58,30 @@ export class SearchService {
         return resultsStream;
     }
 
-    /** Build a the url to fetch using values for the query parameters. */
+    /**
+     * Peek at the page after the next page, but do not update the current page.
+     */
+    peekPageAfterNext(): Observable<IStudentServiceSummary[]> {
+        let pageAfterNext = this._paged + 2;
+        if ( this.DEBUG ) { console.debug( `Peeking at page: ${pageAfterNext}` ); }
+        return this.getPage( pageAfterNext );    
+    }
+
+    /**
+     * Retrieve a specific page number, reusing any previously set limit and search string.
+     */
+    getPage( paged = 1 ): Observable<IStudentServiceSummary[]> {
+        let requestUrl = this.buildRequestUrl(this._limit, this._search, paged);  // (number, string, number) -> Observable<string>
+        let resultsStream = this.requestJsonFrom( requestUrl );    // string -> Observable<IStudentServiceSummary[]>;
+        return resultsStream;       
+    }
+
+    /**
+     * Build a the url to fetch using values for the query parameters.
+     * In the long term (when the API is no longer experimental), this should probably be replaced
+     * with a RequestOptionsArgs object that is passed to _http.get.
+     * @see https://angular.io/docs/ts/latest/api/http/index/RequestOptionsArgs-interface.html
+     */
     buildRequestUrl(limit = LIMIT_DEFAULT, search = "", paged = PAGED_DEFAULT): string {
         let query =
             ( search )

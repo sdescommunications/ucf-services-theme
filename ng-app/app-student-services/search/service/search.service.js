@@ -65,15 +65,41 @@ System.register(["@angular/core", "@angular/http", "rxjs/Observable", "rxjs/add/
                 SearchService.prototype.getNextPage = function () {
                     var _this = this;
                     var nextPage = this._paged + 1;
-                    var requestUrl = this.buildRequestUrl(this._limit, this._search, nextPage); // (number, string, number) -> Observable<string>
-                    var resultsStream = this.requestJsonFrom(requestUrl) // string -> Observable<IStudentServiceSummary[]>
+                    if (this.DEBUG) {
+                        console.debug("Moving to page: " + nextPage);
+                    }
+                    var resultsStream = this.getPage(nextPage)
                         .do(function (_) {
                         // Save state if successful.
                         _this._paged = nextPage;
                     });
                     return resultsStream;
                 };
-                /** Build a the url to fetch using values for the query parameters. */
+                /**
+                 * Peek at the page after the next page, but do not update the current page.
+                 */
+                SearchService.prototype.peekPageAfterNext = function () {
+                    var pageAfterNext = this._paged + 2;
+                    if (this.DEBUG) {
+                        console.debug("Peeking at page: " + pageAfterNext);
+                    }
+                    return this.getPage(pageAfterNext);
+                };
+                /**
+                 * Retrieve a specific page number, reusing any previously set limit and search string.
+                 */
+                SearchService.prototype.getPage = function (paged) {
+                    if (paged === void 0) { paged = 1; }
+                    var requestUrl = this.buildRequestUrl(this._limit, this._search, paged); // (number, string, number) -> Observable<string>
+                    var resultsStream = this.requestJsonFrom(requestUrl); // string -> Observable<IStudentServiceSummary[]>;
+                    return resultsStream;
+                };
+                /**
+                 * Build a the url to fetch using values for the query parameters.
+                 * In the long term (when the API is no longer experimental), this should probably be replaced
+                 * with a RequestOptionsArgs object that is passed to _http.get.
+                 * @see https://angular.io/docs/ts/latest/api/http/index/RequestOptionsArgs-interface.html
+                 */
                 SearchService.prototype.buildRequestUrl = function (limit, search, paged) {
                     if (limit === void 0) { limit = LIMIT_DEFAULT; }
                     if (search === void 0) { search = ""; }
