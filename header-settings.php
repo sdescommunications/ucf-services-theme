@@ -148,6 +148,51 @@ add_action( 'customize_register', __NAMESPACE__.'\Header_Settings::register_head
  */
 class Header {
 	/**
+	 * Load scripts only needed on the front page (for the Angular app).
+	 * @see wp_enqueue_scripts
+	 */
+	public static function front_page_scripts() {
+		$ng_directory = '/ng-app/';
+		$baseURL = get_stylesheet_directory_uri() . $ng_directory;
+		// Polyfills - see https://angular.io/docs/ts/latest/guide/browser-support.html
+		wp_enqueue_script( 'core-js-shim', 'https://cdn.jsdelivr.net/core-js/2.4.1/shim.min.js' );
+		wp_enqueue_script( 'polfyill-classList', 'https://cdn.jsdelivr.net/classlist/2014.01.31/classList.min.js' );
+		wp_enqueue_script( 'polfyill-intl', 'https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en' );
+		wp_enqueue_script( 'polfyill-animations', 'https://cdn.jsdelivr.net/web-animations/2.2.2/web-animations.min.js' );
+		wp_enqueue_script( 'polyfill-typedarray', 'https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.27/polyfill.min.js' ); // Or 'https://cdn.rawgit.com/inexorabletash/polyfill/0.1.27/polyfill.min.js');
+		wp_enqueue_script( 'polyfill-blob', 'https://cdn.rawgit.com/eligrey/Blob.js/079824b6c118fbcd0b99c561d57ad192d2c6619b/Blob.js' );
+		wp_enqueue_script( 'polyfill-formdata', 'https://cdn.rawgit.com/francois2metz/html5-formdata/9eee5d49070825a07a794cfa5decf0fd2c045463/formdata.js' );
+		// Angular 2 dependencies
+		wp_enqueue_script( 'zonejs', 'https://unpkg.com/zone.js@0.6.21/dist/zone.js' );
+		wp_enqueue_script( 'reflect-metadata', 'https://unpkg.com/reflect-metadata@0.1.3/Reflect.js' );
+		// SystemJS Dependency loader (for ES6 style modules).
+		wp_enqueue_script( 'systemjs', 'https://unpkg.com/systemjs@0.19.31/dist/system.js' );
+		// wp_enqueue_script('config', get_stylesheet_directory_uri() . $ng_directory . 'config.js');
+		wp_enqueue_script( 'config-cdn', get_stylesheet_directory_uri() . $ng_directory . 'config.cdn.js' );
+		wp_enqueue_script( 'config-local', get_stylesheet_directory_uri() . $ng_directory . 'config.ucf_local.js' ); // Set window.ucf_local_config.
+		wp_enqueue_script( 'ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.1.4/ng2-bootstrap.min.js' );
+		wp_add_inline_script('config-local',
+			"System.baseURL = '" . $baseURL . "';
+				// System.config(window.ucf_local_config); // Uncomment to load config.ucf_local.js instead of config.cdn.js.
+				System.import('" . $baseURL . "/main')
+					  .then(
+					  	function( success ) { 
+					    },
+					  	function( cdnErr ) {
+							// Local fallbacks. See: https://github.com/systemjs/systemjs/issues/986#issuecomment-168422454
+							System.config(window.ucf_local_config);
+							System.import('" . $baseURL . "/main')
+								  .then(
+								  	function ( success ) { console.info('Successfully loaded from local files after CDN failure: ', cdnErr ); }
+								  , function( err ) {
+								  	console.error( 'Failed loading from CDN: ', cdnErr );
+								  	console.error( err );
+								  } );
+					  });"
+		); // /inline_script
+	}
+
+	/**
 	 * Prints the Cloud.Typography font stylesheet <link> tag.
 	 *
 	 * @see https://github.com/UCF/Main-Site-Theme/blob/6610071f535ddf534e3b76c0db5098cb28600321/functions.php#L1236-L1257
