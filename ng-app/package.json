@@ -12,6 +12,9 @@
     "typings": "typings",
     "build": "node ../scripts/build_templates.js",
     "build:w": "node ../scripts/build_templates.js -w",
+    "bundle:app": "jspm bundle main - @angular/* - @angular/http - ng2-bootstrap - rxjs bundle-app.js --inject --minify",
+    "bundle:dep": "jspm bundle main - [main.js] - [app.module.js] - [./app-student-services/**/*] - [./calendar/**/*] - [campaign/**/*] - [pipes/**/*] bundle-dependencies.js --inject --minify",
+    "bundle": "npm run bundle:app && npm run bundle:dep",
     "depcache": "jspm depcache main",
     "postinstall": "typings install"
   },
