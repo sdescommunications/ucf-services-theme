@@ -12,6 +12,7 @@
     "typings": "typings",
     "build": "node ../scripts/build_templates.js",
     "build:w": "node ../scripts/build_templates.js -w",
+    "depcache": "jspm depcache main",
     "postinstall": "typings install"
   },
   "dependencies": {
