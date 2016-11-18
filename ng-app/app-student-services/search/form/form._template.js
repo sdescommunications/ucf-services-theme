@@ -4,8 +4,8 @@ var _ = require('lodash'),
 
 var  php_context   = {
 	'action': '<?= get_permalink( $post->ID ); ?>',
-	'frontsearch_lead': '<?= $frontsearch_lead ?>',
-	'frontsearch_placeholder': '<?= $frontsearch_placeholder ?>',
+	'frontsearch_lead': `<?= $NG_APP_SETTINGS['ucf_search_lead'] ?>`,
+	'frontsearch_placeholder': `<?= $NG_APP_SETTINGS['ucf_search_placeholder']?>`,
 	'ng_input_params': `value="<?= $search_query ?>"`,
 }
 

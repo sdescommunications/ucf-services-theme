@@ -14,12 +14,17 @@ require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
     use SDES\SDES_Static;
 
-if ( null === $services_contexts ) {
+if ( isset( $NG_APP_SETTINGS )
+    && null !== $NG_APP_SETTINGS['services_limit']
+    && null !== $NG_APP_SETTINGS['services_contexts'] )
+{
+    $services_limit = $NG_APP_SETTINGS['services_limit'] ;
+    $services_contexts = $NG_APP_SETTINGS['services_contexts'];
+} else {
     $services_limit = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-services_limit', 7 );
     $request = new \WP_REST_Request();
     $request->set_query_params( array( "limit" => $services_limit, ) );
     $services_contexts = API\route_services( $request );
-    // $json_services = json_encode( $services_contexts );
 }
 
 $categories = get_categories( array(

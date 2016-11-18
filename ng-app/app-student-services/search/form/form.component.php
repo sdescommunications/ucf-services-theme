@@ -2,7 +2,7 @@
 	<div class="row search">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="search-lead">
-				<?= $frontsearch_lead ?>
+				<?= $NG_APP_SETTINGS['ucf_search_lead'] ?>
 			</div>
 		</div>
 		<div class="col-md-6 col-md-offset-3 search-bar">
@@ -12,10 +12,10 @@
 						<button type="submit" value="Submit" class="hide-if-js">Search</button>
 					</span>
 					<input type="text" name="q" class="form-control"
-						placeholder="<?= $frontsearch_placeholder ?>"
+						placeholder="<?= $NG_APP_SETTINGS['ucf_search_placeholder'] ?>"
 						autocomplete="off"
 						aria-label="Search for student services."
-						value="<?= $search_query ?>">
+						value="<?= $NG_APP_SETTINGS['search_query'] ?>">
 				</form>
 			</div>
 		</div>

@@ -1,7 +1,7 @@
 <?php
 $context = (object) array(
-	'frontsearch_lead' => $frontsearch_lead ?: "<span [outerHTML]='lead | unescapeHtml'></span>",
-	'frontsearch_placeholder' => $frontsearch_placeholder ?: '{{ placeholder }}'
+	'frontsearch_lead' => $NG_APP_SETTINGS['ucf_search_lead'] ?: "<span [outerHTML]='lead | unescapeHtml'></span>",
+	'frontsearch_placeholder' => $NG_APP_SETTINGS['ucf_search_placeholder'] ?: '{{ placeholder }}'
 );
 ?>
 <section id="search-frontpage" class="container-fluid">
