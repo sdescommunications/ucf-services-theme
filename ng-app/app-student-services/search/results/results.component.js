@@ -90,6 +90,28 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                 SearchResultsComponent.prototype.hasResults = function () {
                     return null !== this.studentServices;
                 };
+                SearchResultsComponent.prototype.getActiveFilterKeys = function () {
+                    var _this = this;
+                    // Where the filter's "checked" property is "true".
+                    return Object.keys(this.filters).filter(function (filterKey) {
+                        return "true" === (_this.filters[filterKey]).checked;
+                    });
+                };
+                SearchResultsComponent.prototype.hasActiveFilter = function () {
+                    return 0 < this.getActiveFilterKeys().length;
+                };
+                /**
+                 * If any/some service in the current set of result matches any/some filter in the current set of active filters,
+                 * then this model has filtered results.
+                 */
+                SearchResultsComponent.prototype.hasFilteredResults = function () {
+                    var _this = this;
+                    return this.studentServices.some(function (result) {
+                        return _this.getActiveFilterKeys().some(function (filter) {
+                            return filter === result.main_category_name;
+                        });
+                    });
+                };
                 SearchResultsComponent.prototype.clearResults = function () {
                     this.query = "";
                     this.studentServices = window.ucf_searchResults_initial;

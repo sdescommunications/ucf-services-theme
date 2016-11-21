@@ -95,6 +95,29 @@ export class SearchResultsComponent {
         return null !== this.studentServices;
     }
 
+    getActiveFilterKeys(): any {
+        // Where the filter's "checked" property is "true".
+        return Object.keys(this.filters).filter( (filterKey) =>
+            "true" === (this.filters[filterKey]).checked
+         );
+    }
+
+    hasActiveFilter(): boolean{
+        return 0 < this.getActiveFilterKeys().length;
+    }
+
+    /**
+     * If any/some service in the current set of result matches any/some filter in the current set of active filters,
+     * then this model has filtered results.
+     */
+    hasFilteredResults(): boolean{
+        return this.studentServices.some( (result) => 
+            this.getActiveFilterKeys().some( (filter) =>
+                filter === result.main_category_name 
+            )
+        );
+    }
+
     clearResults(): void {
         this.query = "";
         this.studentServices = window.ucf_searchResults_initial;

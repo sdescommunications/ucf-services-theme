@@ -38,7 +38,13 @@ var angular_context = {
         </span>
         `,
     'after_services': 
-        `<span *ngIf="!isLoadingMore && !isLoading && hasResults && canLoadMore" style="font-size: 2em; padding: 12px 0;">
+        `<h3 *ngIf="hasActiveFilter() && ! hasFilteredResults() && !isLoading" class="noFilteredResults">
+              No loaded results match the filtered categories.
+        </h3>
+        <h3 *ngIf="! hasResults() && !isLoading" class="noResults">
+              No results found for "{{ query }}".
+        </h3>
+        <span *ngIf="!isLoadingMore && !isLoading && hasResults() && canLoadMore" style="font-size: 2em; padding: 12px 0;">
             <span class="fa fa-angle-double-down" aria-hidden="true"></span>
             <a href="" (click)="showNextPage($event)" title="Load more results">
                 Load more results...
@@ -48,9 +54,6 @@ var angular_context = {
             <span class="loading fa fa-spinner fa-pulse" aria-hidden="true"></span>
             Loading more results...<br>
         </span>
-        <h3 *ngIf="! hasResults() && !isLoading" class="noResults">
-              No results found for "{{ query }}".
-        </h3>
         `,
     'ng_forService':
                         ` *ngFor="let service of studentServices"
