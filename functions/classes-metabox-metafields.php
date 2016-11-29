@@ -464,20 +464,13 @@ class IconFontAwesomeMetaField extends MetaField {
 
 	public static function Load() {
 		if ( ! self::$isLoaded ) {
-			// add_action( 'admin_enqueue_scripts', __CLASS__.'::enqueue_iconmodal_script' ); // Generally too late to call.
-			self::add_iconmodal_script();
+			add_action( 'admin_footer', __CLASS__.'::enqueue_iconmodal_script' );
 			self::$isLoaded = true;
 		}
 	}
 
 	public static function enqueue_iconmodal_script() {
 		wp_enqueue_script( 'iconmodal-script', ICON_JS_URI );
-	}
-
-	public static function add_iconmodal_script() {
-		$src = ICON_JS_URI;
-		echo "<script name='iconmodal-script' src='{$src}'></script>";
-
 	}
 
 	function __construct( $attr ) {
