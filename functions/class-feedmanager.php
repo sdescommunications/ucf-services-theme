@@ -153,27 +153,6 @@ class UcfAcademicCalendarModel {
 		return $retval;
 	}
 
-	// $max_events = 6;
-	// $items = get_academic_calendar_items();
-	// $first_item = array_shift( $items );
-	// $full_cal_url = get_theme_mod_or_default( 'academic_calendar_full_url' );
-	// $date = strtotime( $first_item->dtstart );
-	// $end_dt = empty( $first_item->dtend ) ? '' : strtotime( $first_item->dtend );
-	// $month = date( 'F', $date );
-	// $day = date( 'j', $date );
-	// $start_date = date( 'F j', $date );
-	// $end_date = empty( $end_dt ) ? $end_dt : date( 'F j', $end_dt );
-	// $display_range = False;
-	// if ( $start_date == $end_date || empty( $end_dt ) ) {
-	// $time_string = $start_date;
-	// } else {
-	// if ( $month === date( 'F', $end_dt ) ) {
-	// $time_string = $start_date . ' - ' . date( 'j', $end_dt );
-	// } else {
-	// $time_string = $start_date . ' - ' . $end_date;
-	// }
-	// $display_range = True;
-	// }
 	public function title() {
 		return static::get_title( $this->event );
 	}

@@ -18,7 +18,13 @@ export class SearchFilterComponent {
 
     constructor( public elementRef: ElementRef ) {
         window.ucf_comp_searchFilter = (window.ucf_comp_searchFilter || []).concat(this);
-        if ( null != this.categories) {
+        if ( null !== this.categories ) {
+            // Convert unexplained object format that some wordpress environments produce. Assume Object's values are of type IWpCategory.
+            if( "object" === typeof this.categories ) {
+                // Convert to array of type IWpCategory[] (so it is iterable by *ngFor) by mapping each key to its value.
+                this.categories = Object.keys( this.categories ).map( (key) => this.categories[key] );
+            }
+            // Initialize the value of "checked" to false.
             for (let category of this.categories) {
                 category["checked"] = false;
             }

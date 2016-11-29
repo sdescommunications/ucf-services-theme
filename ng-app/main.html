@@ -60,9 +60,7 @@
 			  	function( success ) { },
 			  	function( cdnErr) {
 					// Local fallbacks. See: https://github.com/systemjs/systemjs/issues/986#issuecomment-168422454
-					System.paths = window.ucf_local_config.paths;
-					System.packages = window.ucf_local_config.packages;
-					System.map = window.ucf_local_config.map;
+					System.config(window.ucf_local_config);
 					System.import('main')
 						  .then(
 						  	function ( success ) { console.info('Successfully loaded from local files after CDN failure.'); }

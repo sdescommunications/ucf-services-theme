@@ -82,9 +82,73 @@ get_header();
 	<article class="row page-wrap">
 	<?php if ( have_posts() ) :
 		while ( have_posts() ) : the_post();
-			  global $post;
-			  echo StudentService::toPageHTML( $post );
-	endwhile;
+			global $post;
+			$stusvc_context = StudentService::get_render_context_from_post( $post ); ?>
+			<div class="container-fluid">
+			  <div class="row">
+				<div class="col-md-8 col-xs-12">
+					<h1><?= $stusvc_context['title'] ?></h1>
+				</div>
+				<div class="col-md-4 col-xs-12">
+					<?= StudentService::render_like_tweet_share( $stusvc_context ) ?>
+				</div>
+			  </div>
+			</div>
+			<!-- / Title and Social -->
+
+			<div class="container-fluid">
+			  <div class="row">
+				<div class="col-md-4 col-md-push-8 side-bar">
+					<div class="row">
+						<div class="col-xs-12" style="margin-bottom: 30px;">
+							<?= StudentService::render_campaign( $stusvc_context ) ?>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<?= StudentService::render_contact_table( $stusvc_context ) ?>
+							<?= StudentService::render_hours_table( $stusvc_context ) ?>
+							<?= StudentService::render_social_buttons( $stusvc_context ) ?>
+							<?php
+							if ( $stusvc_context['events_cal_feed'] ) {
+								$max_events = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-events_max_items', 4 );
+								$stusvc_context['events']  = array_reverse( FeedManager::get_items( $stusvc_context['events_cal_feed'] ) );
+								$stusvc_context['events']  = array_slice( $stusvc_context['events'], 0, $max_events );
+								$stusvc_context['academic_cal'] = false;
+								$stusvc_context['more_events'] = UcfEventModel::more_link();
+								$stusvc_context['events_cal_title'] = 'Events Calendar';
+								echo StudentService::render_events_calendar( $stusvc_context );
+							} else { echo '<div class="calendar-events" style="display: none;"></div>'; }
+							?>
+							<?= '<!-- Map -->' // StudentService::render_map( $stusvc_context ); ?>
+							<?= StudentService::render_tag_cloud( $stusvc_context ) ?>
+							</div>
+						</div>
+					</div> <!-- /.side-bar -->
+					<div class="col-sm-12 col-md-7 col-lg-7 col-md-pull-4">
+						<p class="lead"><?= $stusvc_context['short_descr'] ?></p>
+						<?= $stusvc_context['long_descr'] ?>
+
+						<?php if ( $stusvc_context['has_additional'] ) : ?>
+						<h2>Additional Services</h2>
+						<?php foreach ( $stusvc_context['additional'] as $idx => $link ) :
+							if ( '' != $link['title'] ) :
+							?>
+							<div class="additional-<?= $idx ?>">
+								<h3 class="external-link"><a href="<?= $link['url'] ?>">
+									<?= $link['title'] ?>
+								</a></h3>
+								<p><?= $link['descr'] ?></p>
+							</div>
+					<?php endif;
+						endforeach;
+					endif; ?>
+
+						<div class="gallery"><?= $stusvc_context['gallery']['flickr'] ?></div>
+					</div>
+				  </div> <!-- /.row -->
+				</div> <!-- /.container-fluid -->
+	<?php endwhile;
 	else :
 		SDES_Static::Get_No_Posts_Message();
 	endif; ?>

@@ -4,18 +4,54 @@
  * Includes or references all functionality for this theme.
  */
 
-require_once( 'functions/class-sdes-static.php' );
-use SDES\SDES_Static as SDES_Static;
+// Utility functions.
+require_once( 'functions/class-sdes-static.php' ); // Contains reusable functions (SDES_Static class) and DOMDocument_Smart wrapper class.
+	use SDES\SDES_Static as SDES_Static;
 
 
+// Custom Taxonomies.
+require_once( 'functions/class-custom-taxonomy.php' ); // Base class for creating custom taxonomies.
 require_once( 'custom-taxonomies.php' );  // Define and Register taxonomies for this theme.
+
+
+// Custom Posttypes.
+require_once( 'functions/classes-metabox-metafields.php' ); // Manage metafield types.
+require_once( 'functions/class-sdes-metaboxes.php' );  // Add metabox functionality to class-custom-posttype.
+require_once( 'functions/custom-metafields.php' );  // Add theme-specific metafields.
+
+require_once( 'functions/class-feedmanager.php' );  // Manage and model external feeds used by custom posttypes (FeedManager, UcfEventModel, and UcfAcademicCalendarModel).
+
+require_once( 'functions/class-custom-posttype.php' ); // Base class for creating custom posttypes.
 require_once( 'custom-posttypes.php' );   // Define and Register custom post_type's (CPTs) for this theme.
-// require_once( 'functions/Settings.php' );     // Admin settings for IT staff.
+
+
+// Main settings files.
+// require_once( 'functions/Settings.php' );     // Admin settings for IT staff. (Placeholder, unused in this theme).
+require_once( 'functions/class-sdes-customizer-helper.php' ); // SDES_Customizer_Helper class, was intended to reduce boilerplate in ThemeCustomizer.php.
+require_once( 'functions/classes-wp-customize-control.php' ); // Controls that extend WP_Customize_Control.
 require_once( 'functions/ThemeCustomizer.php' ); // Admin > Appearance > Customize. (Non-admin settings.)
+
+
+// Admin area customizations.
+require_once( 'functions/admin-mce-editor.php' );  // Filters for mce_css, mce_buttons_2, and tiny_mce_before_init (loaded alongside admin.php).
 require_once( 'functions/admin.php' );           // Admin/login functions.
 require_once( 'functions/admin-theme.php' );     // Theme-specific admin/login functions.
-require_once( 'shortcodes.php' );           // Enable shortcodes.
+
+
+// Other functionality.
+require_once( 'functions/class-shortcodebase.php' ); // Classes used for shortcodes: ShortcodeBase_Loader, IShortcodeUI, ShortcodeBase, and Shortcode_CustomPostType_Wrapper.
+require_once( 'shortcodes.php' );           // Add custom shortcodes here.
+
 require_once( 'functions/rest-api.php' );   // Register REST routes here.
+
+
+// Functions used in template hierarchy.
+require_once( 'header-settings.php' ); // Header class (template logic) and Header_Settings class (Theme Customizer settings).
+require_once( 'footer-settings.php' ); // Footer class (template logic) and Footer_Settings class (Theme Customizer settings).
+
+require_once( 'functions/class-weatherbox.php' ); // The WeatherBox class used in front-page.php (and examples in WeatherBox_Tutorial class).
+
+
 
 
 function __init__() {
@@ -30,8 +66,6 @@ function __init__() {
 		'width' => 2000,
 		'height' => 520,
 	) );
-	// add_theme_support( 'post-thumbnails' );
-	// add_image_size( 'thumb-sidebar-campaign', 360, 275, $crop = true );
 }
 add_action( 'after_setup_theme', '__init__' );
 

@@ -20,11 +20,18 @@ System.register(["@angular/core"], function(exports_1, context_1) {
         execute: function() {
             SearchFilterComponent = (function () {
                 function SearchFilterComponent(elementRef) {
+                    var _this = this;
                     this.elementRef = elementRef;
                     this.categories = window.ucf_service_categories;
                     this.filterChanged = new core_1.EventEmitter();
                     window.ucf_comp_searchFilter = (window.ucf_comp_searchFilter || []).concat(this);
-                    if (null != this.categories) {
+                    if (null !== this.categories) {
+                        // Convert unexplained object format that some wordpress environments produce. Assume Object's values are of type IWpCategory.
+                        if ("object" === typeof this.categories) {
+                            // Convert to array of type IWpCategory[] (so it is iterable by *ngFor) by mapping each key to its value.
+                            this.categories = Object.keys(this.categories).map(function (key) { return _this.categories[key]; });
+                        }
+                        // Initialize the value of "checked" to false.
                         for (var _i = 0, _a = this.categories; _i < _a.length; _i++) {
                             var category = _a[_i];
                             category["checked"] = false;

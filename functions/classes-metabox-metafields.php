@@ -283,6 +283,20 @@ class RadioMetaField extends ChoicesMetaField{
 
 /**
  * Checkbox form element
+ */
+class CheckboxMetaField extends ChoicesMetaField {
+	function input_html() {
+		ob_start();
+		?>
+			<input<?php if ( $this->value ) : ?> checked="checked"<?php endif;?> type="checkbox" name="<?php echo htmlentities( $this->id )?>" id="<?php echo htmlentities( $this->id ) ?>">
+			<label for="<?php echo $this->id?>"><?php echo htmlentities( $this->name )?></label>
+		<?php
+		return ob_get_clean();
+	}
+}
+
+/**
+ * List of checkbox form elements
  *
  * @package default
  * @author Jared Lang
@@ -450,20 +464,13 @@ class IconFontAwesomeMetaField extends MetaField {
 
 	public static function Load() {
 		if ( ! self::$isLoaded ) {
-			// add_action( 'admin_enqueue_scripts', __CLASS__.'::enqueue_iconmodal_script' ); // Generally too late to call.
-			self::add_iconmodal_script();
+			add_action( 'admin_footer', __CLASS__.'::enqueue_iconmodal_script' );
 			self::$isLoaded = true;
 		}
 	}
 
 	public static function enqueue_iconmodal_script() {
 		wp_enqueue_script( 'iconmodal-script', ICON_JS_URI );
-	}
-
-	public static function add_iconmodal_script() {
-		$src = ICON_JS_URI;
-		echo "<script name='iconmodal-script' src='{$src}'></script>";
-
 	}
 
 	function __construct( $attr ) {

@@ -1,9 +1,10 @@
 <?php
 /**
- * A helper class for the Header - call from ThemeCustomizer.php to add action to 'customize_register' before it fires.
+ * Helper classes for the Header - require from ThemeCustomizer.php to add action to 'customize_register' before it fires.
  *
- * graphviz.gv: "header-settings.php" -> { "class-feedmanager.php"; "class-sdes-customizer-helper.php"; "class-sdes-static.php"; };
+ * Graphviz.gv: "header-settings.php" -> { "class-feedmanager.php"; "class-sdes-customizer-helper.php"; "class-sdes-static.php"; };
  *
+ * @package SDES\ServicesTheme\ThemeCustomizer
  * @see https://github.com/UCF/Students-Theme/blob/2bf248dba761f0929823fd790120f74e92a52c2d/functions/config.php#L449-L502
  */
 
@@ -18,8 +19,12 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-customizer-hel
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
 
+/**
+ * Class to define header settings and Theme Customizer controls.
+ */
 class Header_Settings {
 	const HEADER_NAV_URL = 'http://www.ucf.edu/wp-json/ucf-rest-menus/v1/menus/52';
+	const CLOUD_FONT_KEY = '//cloud.typography.com/730568/675644/css/fonts.css'; /* CSS Key relative to PROD project */
 
 	/**
 	 * Retrieve and cache remote feeds as json objects, e.g., services_theme-remote_menus_header_menu_feed.
@@ -45,10 +50,10 @@ class Header_Settings {
 			}
 			$headers = get_headers( $file_location );
 			$response_code = substr( $headers[0], 9, 3 );
-			if ( $response_code !== '200' ) {
+			if ( '200' !== $response_code ) {
 				return;
 			}
-			$result = json_decode( file_get_contents( $file_location, false, $context ) );
+			$result = json_decode( file_get_contents( $file_location, false, $context ) ); // @codingStandardsIgnoreLine WordPress.VIP.RestrictedFunctions.file_get_contents
 			if ( ! $customizing ) {
 				set_transient( $result_name, $result, (60 * 60 * 24) );
 			}
@@ -66,7 +71,44 @@ class Header_Settings {
 		// $section_args = array( 'panelId' => $panelId );
 		$section_args = array();
 
+		static::add_section_webfonts( $wp_customize, $section_args );
+
 		static::add_section_remote_menus( $wp_customize, $section_args );
+	}
+
+	/**
+	 * Add a webfonts section to the Theme Customizer.
+	 *
+	 * @see https://github.com/UCF/Main-Site-Theme/blob/6610071f535ddf534e3b76c0db5098cb28600321/functions/config.php#L588-L598
+	 */
+	public static function add_section_webfonts( $wp_customize, $args = null ) {
+		/* SECTION */
+		$section = 'services_theme-webfonts';
+		$wp_customize->add_section(
+			$section,
+			array(
+				'title'    => 'Webfonts',
+				'description' => '',
+				'priority' => 900, // Set to 30 to be just below "Site Identity".
+				'panel' => array_key_exists( 'panelId', $args ) ? $args['panelId'] : '',
+			)
+		);
+		$wp_customize->add_setting(
+			'services_theme-cloud_font_key',
+			array( 'default'     => self::CLOUD_FONT_KEY, )
+		);
+		$wp_customize->add_control(
+			'services_theme-cloud_font_key',
+			array(
+				'type'        => 'text',
+				'label'       => 'Cloud.Typography CSS Key URL',
+				'description' => 'The CSS Key provided by Cloud.Typography for this project. <strong>Only include the value in the "href" portion of the link
+					tag provided; e.g. "//cloud.typography.com/000000/000000/css/fonts.css".</strong><br/><br/>NOTE: Make sure the Cloud.Typography
+					project has been configured to deliver fonts to this site\'s domain.<br/>
+					See the <a target="_blank" href="http://www.typography.com/cloud/user-guide/managing-domains">Cloud.Typography docs on managing domains</a> for more info.',
+				'section'     => $section,
+			)
+		);
 	}
 
 	public static function add_section_remote_menus( $wp_customize, $args = null ) {
@@ -101,7 +143,77 @@ class Header_Settings {
 add_action( 'customize_register', __NAMESPACE__.'\Header_Settings::register_header_settings' );
 
 
+/**
+ * Helper class for generating Header HTML.
+ */
 class Header {
+	/**
+	 * Load header tags (meta, link, script) to be included on every page.
+	 */
+	public static function header_tags() {
+		ob_start();
+		// @codingStandardsIgnoreStart WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
+		?>
+			<meta charset="utf-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+
+			<link rel="apple-touch-icon" href="<?= get_stylesheet_directory_uri(); ?>/images/apple-touch-icon.png" >
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+			<link rel="stylesheet" href="<?= get_stylesheet_uri(); ?>" >
+
+			<script type="text/javascript" id="ucfhb-script" src="//universityheader.ucf.edu/bar/js/university-header.js?use-1200-breakpoint=1"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+			<script src="https://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js" integrity="sha256-8PU3OtIDEB6pG/gmxafvj3zXSIfwa60suSd6UEUDueI=" crossorigin="anonymous"></script>
+			<script src="https://cdn.jsdelivr.net/jquery.validation/1.13.1/additional-methods.min.js" integrity="sha256-TZwF+mdLcrSLlptjyffYpBb8iUAuLtidBmNiMj7ll1k=" crossorigin="anonymous"></script>
+			<script type="text/javascript">
+				(function javascript_fallbacks() {
+					// See: http://stackoverflow.com/a/5531821
+					function document_write_script( src ) {
+						document.write( '<script src="' + src + '">\x3C/script>' );
+					}
+					if ( ! window.jQuery ) { document_write_script( '/js/jquery.min.js' ); }
+					var bootstrap_enabled = ( 'function' === typeof jQuery().modal ); // Will be true if bootstrap is loaded, false otherwise
+					if ( ! bootstrap_enabled ) { document_write_script( '/js/bootstrap.min.js' ); }
+					if ( 'undefined' === typeof jQuery().validate ) { 
+						document_write_script( '/js/jquery.validate.min.js' );
+						document_write_script( '/js/additional-methods.min.js' );
+					}
+				})();
+			</script>
+			<script type="text/javascript" src="<?= get_stylesheet_directory_uri(); ?>/js/sdes_main_ucf.js"></script>
+		<?php
+		// @codingStandardsIgnoreEnd WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
+		echo ob_get_clean();
+	}
+
+	/**
+	 * Prints the Cloud.Typography font stylesheet <link> tag.
+	 *
+	 * @see https://github.com/UCF/Main-Site-Theme/blob/6610071f535ddf534e3b76c0db5098cb28600321/functions.php#L1236-L1257
+	 */
+	protected static function webfont_stylesheet() {
+		$css_key = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-cloud_font_key', Header_Settings::CLOUD_FONT_KEY );
+		if ( $css_key ) {
+			echo '<link rel="stylesheet" href="'. $css_key .'" type="text/css" media="all" />';  // @codingStandardsIgnoreLine WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
+		}
+	}
+
+	/**
+	 * Output the CSS key for Cloud.Typography web fonts if a CSS key is set in
+	 * Theme Options.
+	 * Is included conditionally per-page to prevent excessive hits on our Cloud.Typography
+	 * page view limit per month.
+	 *
+	 * @see https://github.com/UCF/Main-Site-Theme/blob/6610071f535ddf534e3b76c0db5098cb28600321/functions.php#L1236-L1257
+	 * @see https://developer.wordpress.org/reference/functions/get_post_meta/ WP-Ref: get_post_meta()
+	 */
+	public static function page_specific_webfonts( $pageid ) {
+		if ( \get_post_meta( $pageid, 'page_use_webfonts', $single = true ) === 'on' ) {
+			static::webfont_stylesheet();
+		}
+	}
+
 	/**
 	 * Display the header menu on MD and LG screens (by default, 992px or larger).
 	 *
@@ -159,3 +271,5 @@ class Header {
 		echo ob_get_clean();
 	}
 }
+
+add_action( 'wp_head', __NAMESPACE__.'\Header::header_tags' );

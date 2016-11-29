@@ -229,7 +229,6 @@ class WeatherBox_Tutorial {
 			<span id="tutorial-1">
 			<header class="site-header">
 				<div class="header-image">
-						<?php // display_header_menu(); ?>
 					<div class="header-center">
 						<div class="title-wrapper">
 							<div class="title-header-container">

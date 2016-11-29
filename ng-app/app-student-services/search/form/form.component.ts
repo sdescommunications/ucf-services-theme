@@ -6,11 +6,7 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/operator/distinctUntilChanged";
 // import "rxjs/Rx"; // Load all features (uncomment during development for intellisense).
-
-// import { TypeaheadDirective } from "ng2-bootstrap";
 import { TypeaheadDirective } from "ng2-bootstrap/ng2-bootstrap";
-// import { TypeaheadDirective } from 'ng2-bootstrap/components/typeahead';
-// import { TypeaheadDirective } from "ng2-bootstrap/components/typeahead";
 
 import { UnescapeHtmlPipe } from "../../../pipes/unescapeHtml.pipe";
 

@@ -3,9 +3,6 @@ import { Component, ElementRef, OnInit, OnChanges,
 import { Observable } from "rxjs/Observable";
 // import "rxjs/Rx";   // Load all features (uncomment during development for intellisense).
 
-// import { SearchFormComponent } from "./search/form";
-// import { SearchResultsComponent } from "./search/results";
-// import { SearchService } from "./search/service";
 import { SearchFormComponent, SearchResultsComponent, SearchFilterComponent, SearchService } from "./search";
 import { CalendarEventsComponent } from "../calendar/calendar.component";
 import { CampaignComponent, ICampaignModel } from "../campaign/index";

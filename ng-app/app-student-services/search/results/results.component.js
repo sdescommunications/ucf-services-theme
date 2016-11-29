@@ -78,9 +78,39 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                         _this._detector.detectChanges();
                         _this.resultsChanged.emit({ query: _this.query, results: _this.studentServices });
                     }, function (error) { return _this.errorMessage = error; });
+                    // Peek at the page after the next page of results and hide canLoadMore if no more results.
+                    this._searchService.peekPageAfterNext()
+                        .subscribe(function (peekResults) {
+                        if (null === peekResults) {
+                            _this.canLoadMore = false;
+                            _this._detector.detectChanges(); // Force Angular to detect changes.
+                        }
+                    });
                 };
                 SearchResultsComponent.prototype.hasResults = function () {
                     return null !== this.studentServices;
+                };
+                SearchResultsComponent.prototype.getActiveFilterKeys = function () {
+                    var _this = this;
+                    // Where the filter's "checked" property is "true".
+                    return Object.keys(this.filters).filter(function (filterKey) {
+                        return "true" === (_this.filters[filterKey]).checked;
+                    });
+                };
+                SearchResultsComponent.prototype.hasActiveFilter = function () {
+                    return 0 < this.getActiveFilterKeys().length;
+                };
+                /**
+                 * If any/some service in the current set of result matches any/some filter in the current set of active filters,
+                 * then this model has filtered results.
+                 */
+                SearchResultsComponent.prototype.hasFilteredResults = function () {
+                    var _this = this;
+                    return this.studentServices.some(function (result) {
+                        return _this.getActiveFilterKeys().some(function (filter) {
+                            return filter === result.main_category_name;
+                        });
+                    });
                 };
                 SearchResultsComponent.prototype.clearResults = function () {
                     this.query = "";

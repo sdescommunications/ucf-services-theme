@@ -79,10 +79,43 @@ export class SearchResultsComponent {
                 },
                 error => this.errorMessage = <any>error
             );
+        // Peek at the page after the next page of results and hide canLoadMore if no more results.
+        this._searchService.peekPageAfterNext()
+        .subscribe(
+            peekResults => {
+                if ( null === peekResults ) {
+                    this.canLoadMore = false;
+                    this._detector.detectChanges(); // Force Angular to detect changes.
+                }
+            }
+        );
     }
 
     hasResults(): boolean {
         return null !== this.studentServices;
+    }
+
+    getActiveFilterKeys(): any {
+        // Where the filter's "checked" property is "true".
+        return Object.keys(this.filters).filter( (filterKey) =>
+            "true" === (this.filters[filterKey]).checked
+         );
+    }
+
+    hasActiveFilter(): boolean{
+        return 0 < this.getActiveFilterKeys().length;
+    }
+
+    /**
+     * If any/some service in the current set of result matches any/some filter in the current set of active filters,
+     * then this model has filtered results.
+     */
+    hasFilteredResults(): boolean{
+        return this.studentServices.some( (result) => 
+            this.getActiveFilterKeys().some( (filter) =>
+                filter === result.main_category_name 
+            )
+        );
     }
 
     clearResults(): void {

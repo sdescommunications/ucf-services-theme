@@ -4,7 +4,6 @@
  */
 var fs = require('fs'),
     readline = require('readline'),
-    // jsonfile = require('jsonfile'),
     configLocal = null;
     try { configLocal = require('./config.json'); } catch (e){}
 
@@ -33,7 +32,6 @@ var write_fa_icons_list = function() {
            icons.push("fa-" + match[1]);
        }
     }).on('close', function() {
-        //jsonfile.writeFile(config.dataPath + '/fa-icons.json', icons, function (err) {
         fs.writeFile(config.dataPath + '/fa-icons.json', JSON.stringify(icons) + '\n', function (err) {
             if (err) { console.log(err); } else { console.log("Font awesome list written."); }
         });
