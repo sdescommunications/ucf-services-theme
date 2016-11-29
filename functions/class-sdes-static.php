@@ -358,7 +358,7 @@ class SDES_Static
 	}
 
 	/**
-	 * Retrieve the alttext for a thumbnail, or default values.
+	 * Retrieve the alttext for a thumbnail or its title. Otherwise, return a default value.
 	 */
 	public static function get_thumbnail_alttext( $thumbnail_id, $default_text = 'Thumbnail' ) {
 		$alt_text = get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true );
@@ -367,10 +367,6 @@ class SDES_Static
 		$alt_text = get_post_meta( $thumbnail_id, '_wp_attachment_image_title', true );
 		if ( ! self::is_null_or_whitespace( $alt_text ) ) { return $alt_text; }
 
-		// $alt_text = get_post_meta( $thumbnail_id, '_wp_attachment_image_caption', true );
-		// if( ! self::is_null_or_whitespace( $alt_text ) ) return $alt_text;
-		// $alt_text = get_post_meta( $thumbnail_id, '_wp_attachment_image_description', true );
-		// if( ! self::is_null_or_whitespace( $alt_text ) ) return $alt_text;
 		return $default_text;
 	}
 
@@ -434,7 +430,8 @@ class DOMDocument_Smart extends \DOMDocument {
 	}
 	/** Remove '<span>' from the front of a string and remove '</span>' from its end.*/
 	public static function remove_span_wrapper( $wrapped_text ) {
-		// return substr( $document->saveHTML(), strlen('<span>'), -1*strlen('</span>')-1 );
+		// The `$wrapped_text` will usually be some output from `$document->saveHTML()`.
+		// Hardcoded values: start = 6 from `strlen('<span>')`, end = -8 from `-1*strlen('</span>')-1`.
 		return substr( $wrapped_text, 6, -8 ); // Remove span open and close tags.
 	}
 

@@ -66,8 +66,6 @@ function __init__() {
 		'width' => 2000,
 		'height' => 520,
 	) );
-	// add_theme_support( 'post-thumbnails' );
-	// add_image_size( 'thumb-sidebar-campaign', 360, 275, $crop = true );
 }
 add_action( 'after_setup_theme', '__init__' );
 

@@ -197,16 +197,4 @@ function add_editor_styles( $init_array ) {
 }
 add_filter( 'tiny_mce_before_init', __NAMESPACE__.'\add_editor_styles' );
 
-// /**
-// * Add a stylesheet to apply to the editor itself.
-// * @see https://codex.wordpress.org/Plugin_API/Filter_Reference/mce_css WP-Codex: mce_css
-// */
-// function add_mce_stylesheet( $url ) {
-// if ( ! empty( $url ) ) {
-// $url .= ',';
-// }
-// $url .= THEME_CSS_URL . '/style.min.css';
-// return $url;
-// }
-// add_filter( 'mce_css', __NAMESPACE__.'\add_mce_stylesheet' );
 ?>
