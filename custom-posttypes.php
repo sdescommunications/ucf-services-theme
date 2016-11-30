@@ -890,6 +890,43 @@ class StudentService extends CustomPostType_ServicesTheme {
 			return null;
 		}
 
+		/**
+		 * Get default values for metadata fields.
+		 */
+		protected static function get_render_metadata_default() {
+			$metadata_fields = array();
+			// Set default values, in the order they were declared in self::$fields.
+			SDES_Static::set_default_keyValue_array( $metadata_fields, array(
+					'student_service_main_category_id' => '-1',
+					'student_service_heading_text' => '', 'student_service_short_description'  => '',
+					'stusvc_gallery' => array(), 'stusvc_additional' => array(),
+					'student_service_image' => '', 'stusvc_image_alt' => false, 'stusvc_image_thumbnail_src' => null,
+				));
+			// Set default value to '' for the following keys.
+			SDES_Static::set_default_keyValue_array( $metadata_fields, 
+				array_fill_keys( array(
+					'student_service_primary_action', 'student_service_primary_action_url',
+					'student_service_phone', 'student_service_email',
+					'student_service_url', 'student_service_url_text', 'student_service_location',
+					),
+				''));
+
+			// Set default values for generated keys.
+			$days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+			foreach ($days as $day) {
+				$metadata_fields["student_service_hours_{$day}_open"] = '';
+				$metadata_fields["student_service_hours_{$day}_close"] = '';
+			}
+			$social_networks = array('facebook', 'twitter', 'youtube', 'googleplus', 'linkedin', 'instagram', 'pinterest', 'tumblr', 'flickr', );
+			foreach ($social_networks as $network) {
+				$metadata_fields["student_service_social_{$network}"] = '';
+			}
+			$metadata_fields['student_service_events_cal_feed'] = '';
+			$metadata_fields['student_service_map_id'] = '';
+
+			return $metadata_fields;
+		}
+
 		// TODO: generate get_render_metadata using a self::get_fields method, return as `(object)array()`.
 		/**
 		 * Return an array of only the metadata fields used to create a render context.
@@ -898,10 +935,20 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * @return Array The fields to pass into get_render_context.
 		 */
 		private static function get_render_metadata( $stusvc ) {
-			$metadata_fields = array();
-			$metadata_fields['stusvc_main_category_id'] = get_post_meta( $stusvc->ID, 'student_service_main_category_id', true ) ?: -1;
-			$metadata_fields['stusvc_heading_text'] = get_post_meta( $stusvc->ID, 'student_service_heading_text', true );
-			$metadata_fields['stusvc_short_descr'] = get_post_meta( $stusvc->ID, 'student_service_short_description', true );
+			// Get metadata for this post.
+			$metadata_fields = array_merge(
+				static::get_render_metadata_default(),
+				get_post_meta( $stusvc->ID, '', true )
+			);
+
+			// Flatten arrays returned from get_post_meta, as it ignores the third argument ($single) when $key is set to ''.
+			foreach ( $metadata_fields as $key => $value ) {
+				if ( is_array( $value ) && 1 === count( $value ) ) {
+					$metadata_fields[ $key ] = $value[0];
+				}
+			}
+
+			// Add metadata from child objects.
 			$metadata_fields['stusvc_gallery'] = array(
 			'flickr' => get_post_meta( $stusvc->ID, 'student_service_gallery_url-flickr', true ),
 			);
@@ -915,43 +962,9 @@ class StudentService extends CustomPostType_ServicesTheme {
 					);
 				}
 			);
+			$metadata_fields['stusvc_image_alt']			= get_post_meta( $metadata_fields['student_service_image'], '_wp_attachment_image_alt', true );
+			$metadata_fields['stusvc_image_thumbnail_src']  = wp_get_attachment_image_src( $metadata_fields['student_service_image'], 'thumb', false )[0];
 
-			$metadata_fields['stusvc_image']				= get_post_meta( $stusvc->ID, 'student_service_image', true );
-			$metadata_fields['stusvc_image_alt']			= get_post_meta( $metadata_fields['stusvc_image'], '_wp_attachment_image_alt', true );
-			$metadata_fields['stusvc_image_thumbnail_src']  = wp_get_attachment_image_src( $metadata_fields['stusvc_image'], 'thumb', false )[0];
-
-			$metadata_fields['stusvc_primary_action']  = get_post_meta( $stusvc->ID, 'student_service_primary_action', true );
-			$metadata_fields['stusvc_primary_action_url']  = get_post_meta( $stusvc->ID, 'student_service_primary_action_url', true );
-			$metadata_fields['stusvc_phone']           = get_post_meta( $stusvc->ID, 'student_service_phone', true );
-			$metadata_fields['stusvc_email']           = get_post_meta( $stusvc->ID, 'student_service_email', true );
-			$metadata_fields['stusvc_url']             = get_post_meta( $stusvc->ID, 'student_service_url', true );
-			$metadata_fields['stusvc_url_text']             = get_post_meta( $stusvc->ID, 'student_service_url_text', true );
-			$metadata_fields['stusvc_location']        = get_post_meta( $stusvc->ID, 'student_service_location', true );
-			$metadata_fields['stusvc_hours_monday_open']    = get_post_meta( $stusvc->ID, 'student_service_hours_monday_open', true );
-			$metadata_fields['stusvc_hours_monday_close']    = get_post_meta( $stusvc->ID, 'student_service_hours_monday_close', true );
-			$metadata_fields['stusvc_hours_tuesday_open']   = get_post_meta( $stusvc->ID, 'student_service_hours_tuesday_open', true );
-			$metadata_fields['stusvc_hours_tuesday_close']   = get_post_meta( $stusvc->ID, 'student_service_hours_tuesday_close', true );
-			$metadata_fields['stusvc_hours_wednesday_open'] = get_post_meta( $stusvc->ID, 'student_service_hours_wednesday_open', true );
-			$metadata_fields['stusvc_hours_wednesday_close'] = get_post_meta( $stusvc->ID, 'student_service_hours_wednesday_close', true );
-			$metadata_fields['stusvc_hours_thursday_open']  = get_post_meta( $stusvc->ID, 'student_service_hours_thursday_open', true );
-			$metadata_fields['stusvc_hours_thursday_close']  = get_post_meta( $stusvc->ID, 'student_service_hours_thursday_close', true );
-			$metadata_fields['stusvc_hours_friday_open']    = get_post_meta( $stusvc->ID, 'student_service_hours_friday_open', true );
-			$metadata_fields['stusvc_hours_friday_close']    = get_post_meta( $stusvc->ID, 'student_service_hours_friday_close', true );
-			$metadata_fields['stusvc_hours_saturday_open']  = get_post_meta( $stusvc->ID, 'student_service_hours_saturday_open', true );
-			$metadata_fields['stusvc_hours_saturday_close']  = get_post_meta( $stusvc->ID, 'student_service_hours_saturday_close', true );
-			$metadata_fields['stusvc_hours_sunday_open']    = get_post_meta( $stusvc->ID, 'student_service_hours_sunday_open', true );
-			$metadata_fields['stusvc_hours_sunday_close']    = get_post_meta( $stusvc->ID, 'student_service_hours_sunday_close', true );
-			$metadata_fields['stusvc_social_facebook'] = get_post_meta( $stusvc->ID, 'student_service_social_facebook', true );
-			$metadata_fields['stusvc_social_twitter']  = get_post_meta( $stusvc->ID, 'student_service_social_twitter', true );
-			$metadata_fields['stusvc_social_youtube']  = get_post_meta( $stusvc->ID, 'student_service_social_youtube', true );
-			$metadata_fields['stusvc_social_googleplus'] = get_post_meta( $stusvc->ID, 'student_service_social_googleplus', true );
-			$metadata_fields['stusvc_social_linkedin']  = get_post_meta( $stusvc->ID, 'student_service_social_linkedin', true );
-			$metadata_fields['stusvc_social_instagram']  = get_post_meta( $stusvc->ID, 'student_service_social_instagram', true );
-			$metadata_fields['stusvc_social_pinterest'] = get_post_meta( $stusvc->ID, 'student_service_social_pinterest', true );
-			$metadata_fields['stusvc_social_tumblr']  = get_post_meta( $stusvc->ID, 'student_service_social_tumblr', true );
-			$metadata_fields['stusvc_social_flickr']  = get_post_meta( $stusvc->ID, 'student_service_social_flickr', true );
-			$metadata_fields['stusvc_events_cal_feed']   = get_post_meta( $stusvc->ID, 'student_service_events_cal_feed', true );
-			$metadata_fields['stusvc_map_id']           = get_post_meta( $stusvc->ID, 'student_service_map_id', true );
 			return $metadata_fields;
 		}
 
@@ -960,7 +973,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 *
 		 */
 		public static function get_summary_context( $stusvc, $metadata_fields ) {
-			$category = get_category( $metadata_fields['stusvc_main_category_id'] );
+			$category = get_category( $metadata_fields['student_service_main_category_id'] );
 			$category_name = ( null !== $category && property_exists( $category, 'name' ) )
 				? $category->name
 				: null;
@@ -972,12 +985,12 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'title' => $stusvc->post_title,
 				'main_category_name' => $category_name,
 				'main_category_link' => get_category_link( $category ),
-				'short_descr' => $metadata_fields['stusvc_short_descr'],
-				'image' => $metadata_fields['stusvc_image'],
+				'short_descr' => $metadata_fields['student_service_short_description'],
+				'image' => $metadata_fields['student_service_image'],
 				'image_alt' => $metadata_fields['stusvc_image_alt'],
 				'image_thumbnail_src' => $metadata_fields['stusvc_image_thumbnail_src'],
 				'share_facebook' => "https://www.facebook.com/sharer.php?u={$permalink_encoded}",
-				'share_twitter' => "https://twitter.com/intent/tweet?text={$title_encoded}&url={$permalink_encoded}&via=" . ($metadata_fields['stusvc_social_twitter'] ?: 'UCF'),
+				'share_twitter' => "https://twitter.com/intent/tweet?text={$title_encoded}&url={$permalink_encoded}&via=" . ($metadata_fields['student_service_social_twitter'] ?: 'UCF'),
 			);
 		}
 
@@ -988,13 +1001,13 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 * Generate a render context for a student_service, given its WP_Post object and an array of its metadata fields.
 		 * Expected fields:
 		 * $stusvc - post_content, post_title
-		 * $metadata_fields - stusvc_short_descr
+		 * $metadata_fields - student_service_short_description
 		 *
 		 * @param WP_Post $stusvc The post object to be displayed.
 		 * @param Array   $metadata_fields The metadata fields associated with this stusvc.
 		 */
 		public static function get_render_context( $stusvc, $metadata_fields ) {
-			$category = get_category( $metadata_fields['stusvc_main_category_id'] );
+			$category = get_category( $metadata_fields['student_service_main_category_id'] );
 			$category_name = ( null !== $category && property_exists( $category, 'name' ) )
 			? $category->name
 			: null;
@@ -1010,23 +1023,23 @@ class StudentService extends CustomPostType_ServicesTheme {
 				|| '' != $metadata_fields['stusvc_additional'][2]['title']
 				|| '' != $metadata_fields['stusvc_additional'][3]['title']
 				|| '' != $metadata_fields['stusvc_additional'][4]['title'];
-			$primary_action_url = SDES_Static::href_prepend_protocols_filter( $metadata_fields['stusvc_primary_action_url'] );
-			$hours_closed = static::HoursAreClosed( $metadata_fields['stusvc_hours_monday_open'], $metadata_fields['stusvc_hours_monday_close'] )
-				&& static::HoursAreClosed( $metadata_fields['stusvc_hours_tuesday_open'], $metadata_fields['stusvc_hours_tuesday_close'] )
-				&& static::HoursAreClosed( $metadata_fields['stusvc_hours_wednesday_open'], $metadata_fields['stusvc_hours_wednesday_close'] )
-				&& static::HoursAreClosed( $metadata_fields['stusvc_hours_thursday_open'], $metadata_fields['stusvc_hours_thursday_close'] )
-				&& static::HoursAreClosed( $metadata_fields['stusvc_hours_friday_open'], $metadata_fields['stusvc_hours_friday_close'] )
-				&& static::HoursAreClosed( $metadata_fields['stusvc_hours_saturday_open'], $metadata_fields['stusvc_hours_saturday_close'] )
-				&& static::HoursAreClosed( $metadata_fields['stusvc_hours_sunday_open'], $metadata_fields['stusvc_hours_sunday_close'] );
-			$url_facebook = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_facebook'] );
-			$url_twitter = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_twitter'], 'http://twitter.com/' );
-			$url_youtube = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_youtube'] );
-			$url_googleplus = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_googleplus'] );
-			$url_linkedin = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_linkedin'] );
-			$url_instagram = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_instagram'], 'http://www.instagram.com/' );
-			$url_pinterest = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_pinterest'] );
-			$url_tumblr = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_tumblr'] );
-			$url_flickr = SDES_Static::url_ensure_prefix( $metadata_fields['stusvc_social_flickr'] );
+			$primary_action_url = SDES_Static::href_prepend_protocols_filter( $metadata_fields['student_service_primary_action_url'] );
+			$hours_closed = static::HoursAreClosed( $metadata_fields['student_service_hours_monday_open'], $metadata_fields['student_service_hours_monday_close'] )
+				&& static::HoursAreClosed( $metadata_fields['student_service_hours_tuesday_open'], $metadata_fields['student_service_hours_tuesday_close'] )
+				&& static::HoursAreClosed( $metadata_fields['student_service_hours_wednesday_open'], $metadata_fields['student_service_hours_wednesday_close'] )
+				&& static::HoursAreClosed( $metadata_fields['student_service_hours_thursday_open'], $metadata_fields['student_service_hours_thursday_close'] )
+				&& static::HoursAreClosed( $metadata_fields['student_service_hours_friday_open'], $metadata_fields['student_service_hours_friday_close'] )
+				&& static::HoursAreClosed( $metadata_fields['student_service_hours_saturday_open'], $metadata_fields['student_service_hours_saturday_close'] )
+				&& static::HoursAreClosed( $metadata_fields['student_service_hours_sunday_open'], $metadata_fields['student_service_hours_sunday_close'] );
+			$url_facebook = SDES_Static::url_ensure_prefix( $metadata_fields['student_service_social_facebook'] );
+			$url_twitter = SDES_Static::url_ensure_prefix( $metadata_fields['student_service_social_twitter'], 'http://twitter.com/' );
+			$url_youtube = SDES_Static::url_ensure_prefix( $metadata_fields['student_service_social_youtube'] );
+			$url_googleplus = SDES_Static::url_ensure_prefix( $metadata_fields['student_service_social_googleplus'] );
+			$url_linkedin = SDES_Static::url_ensure_prefix( $metadata_fields['student_service_social_linkedin'] );
+			$url_instagram = SDES_Static::url_ensure_prefix( $metadata_fields['student_service_social_instagram'], 'http://www.instagram.com/' );
+			$url_pinterest = SDES_Static::url_ensure_prefix( $metadata_fields['student_service_social_pinterest'] );
+			$url_tumblr = SDES_Static::url_ensure_prefix( $metadata_fields['student_service_social_tumblr'] );
+			$url_flickr = SDES_Static::url_ensure_prefix( $metadata_fields['student_service_social_flickr'] );
 			$has_social = ! SDES_Static::is_null_or_whitespace( $url_facebook )
 				|| ! SDES_Static::is_null_or_whitespace( $url_twitter )
 				|| ! SDES_Static::is_null_or_whitespace( $url_youtube )
@@ -1038,41 +1051,41 @@ class StudentService extends CustomPostType_ServicesTheme {
 				|| ! SDES_Static::is_null_or_whitespace( $url_flickr );
 			return array(
 				'permalink' => $permalink,
-				'heading' => $metadata_fields['stusvc_heading_text'],
+				'heading' => $metadata_fields['student_service_heading_text'],
 				'title' => $stusvc->post_title,
 				'main_category' => $category,
 				'main_category_name' => $category_name,
 				'main_category_link' => get_category_link( $category ),
-				'short_descr' => $metadata_fields['stusvc_short_descr'],
+				'short_descr' => $metadata_fields['student_service_short_description'],
 				'long_descr' => wpautop( apply_filters( 'the_content', $stusvc->post_content ) ),
 				'gallery' => $metadata_fields['stusvc_gallery'],
 				'additional' => $metadata_fields['stusvc_additional'],
 				'has_additional' => $has_additional,
-				'image' => $metadata_fields['stusvc_image'],
+				'image' => $metadata_fields['student_service_image'],
 				'image_alt' => $metadata_fields['stusvc_image_alt'],
 				'image_thumbnail_src' => $metadata_fields['stusvc_image_thumbnail_src'],
-				'primary_action' => $metadata_fields['stusvc_primary_action'],
+				'primary_action' => $metadata_fields['student_service_primary_action'],
 				'primary_action_url' => $primary_action_url,
-				'phone' => $metadata_fields['stusvc_phone'],
-				'email' => $metadata_fields['stusvc_email'],
-				'url' => $metadata_fields['stusvc_url'],
-				'url_text' => $metadata_fields['stusvc_url_text'],
-				'location' => $metadata_fields['stusvc_location'],
+				'phone' => $metadata_fields['student_service_phone'],
+				'email' => $metadata_fields['student_service_email'],
+				'url' => $metadata_fields['student_service_url'],
+				'url_text' => $metadata_fields['student_service_url_text'],
+				'location' => $metadata_fields['student_service_location'],
 				'hours_closed' => $hours_closed,
-				'hours_monday_open' => $metadata_fields['stusvc_hours_monday_open'],
-				'hours_monday_close' => $metadata_fields['stusvc_hours_monday_close'],
-				'hours_tuesday_open' => $metadata_fields['stusvc_hours_tuesday_open'],
-				'hours_tuesday_close' => $metadata_fields['stusvc_hours_tuesday_close'],
-				'hours_wednesday_open' => $metadata_fields['stusvc_hours_wednesday_open'],
-				'hours_wednesday_close' => $metadata_fields['stusvc_hours_wednesday_close'],
-				'hours_thursday_open' => $metadata_fields['stusvc_hours_thursday_open'],
-				'hours_thursday_close' => $metadata_fields['stusvc_hours_thursday_close'],
-				'hours_friday_open' => $metadata_fields['stusvc_hours_friday_open'],
-				'hours_friday_close' => $metadata_fields['stusvc_hours_friday_close'],
-				'hours_saturday_open' => $metadata_fields['stusvc_hours_saturday_open'],
-				'hours_saturday_close' => $metadata_fields['stusvc_hours_saturday_close'],
-				'hours_sunday_open' => $metadata_fields['stusvc_hours_sunday_open'],
-				'hours_sunday_close' => $metadata_fields['stusvc_hours_sunday_close'],
+				'hours_monday_open' => $metadata_fields['student_service_hours_monday_open'],
+				'hours_monday_close' => $metadata_fields['student_service_hours_monday_close'],
+				'hours_tuesday_open' => $metadata_fields['student_service_hours_tuesday_open'],
+				'hours_tuesday_close' => $metadata_fields['student_service_hours_tuesday_close'],
+				'hours_wednesday_open' => $metadata_fields['student_service_hours_wednesday_open'],
+				'hours_wednesday_close' => $metadata_fields['student_service_hours_wednesday_close'],
+				'hours_thursday_open' => $metadata_fields['student_service_hours_thursday_open'],
+				'hours_thursday_close' => $metadata_fields['student_service_hours_thursday_close'],
+				'hours_friday_open' => $metadata_fields['student_service_hours_friday_open'],
+				'hours_friday_close' => $metadata_fields['student_service_hours_friday_close'],
+				'hours_saturday_open' => $metadata_fields['student_service_hours_saturday_open'],
+				'hours_saturday_close' => $metadata_fields['student_service_hours_saturday_close'],
+				'hours_sunday_open' => $metadata_fields['student_service_hours_sunday_open'],
+				'hours_sunday_close' => $metadata_fields['student_service_hours_sunday_close'],
 				'social_facebook' => $url_facebook,
 				'social_twitter' => $url_twitter,
 				'social_youtube' => $url_youtube,
@@ -1083,11 +1096,11 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'social_tumblr' => $url_tumblr,
 				'social_flickr' => $url_flickr,
 				'has_social' => $has_social,
-				'events_cal_feed' => $metadata_fields['stusvc_events_cal_feed'],
-				'map_id' => $metadata_fields['stusvc_map_id'],
+				'events_cal_feed' => $metadata_fields['student_service_events_cal_feed'],
+				'map_id' => $metadata_fields['student_service_map_id'],
 				'tag_cloud' => $taxonomies,
 				'share_facebook' => "https://www.facebook.com/sharer.php?u={$permalink_encoded}",
-				'share_twitter' => "https://twitter.com/intent/tweet?text={$title_encoded}&url={$permalink_encoded}&via=" . ($metadata_fields['stusvc_social_twitter'] ?: 'UCF'),
+				'share_twitter' => "https://twitter.com/intent/tweet?text={$title_encoded}&url={$permalink_encoded}&via=" . ($metadata_fields['student_service_social_twitter'] ?: 'UCF'),
 			);
 		}
 
@@ -1121,8 +1134,8 @@ class StudentService extends CustomPostType_ServicesTheme {
 
 		public static function get_summary_context_from_post( $post_object ) {
 			$metadata_fields = static::get_metadata_fields_from_post( $post_object );
-			$stusvc_context = static::get_summary_context( $post_object, $metadata_fields );
-			return $stusvc_context;
+			$student_service_context = static::get_summary_context( $post_object, $metadata_fields );
+			return $student_service_context;
 		}
 
 		/**
@@ -1130,16 +1143,16 @@ class StudentService extends CustomPostType_ServicesTheme {
 		 */
 		public static function get_render_context_from_post( $post_object ) {
 			$metadata_fields = static::get_metadata_fields_from_post( $post_object );
-			$stusvc_context = static::get_render_context( $post_object, $metadata_fields );
-			return $stusvc_context;
+			$student_service_context = static::get_render_context( $post_object, $metadata_fields );
+			return $student_service_context;
 		}
 
 		/**
 		 * Return the HTML to show a single student_service post object in a list.
 		 */
 		public static function toHTML( $post_object ) {
-			$stusvc_context = static::get_render_context_from_post( $post_object );
-			return static::render_to_html( $stusvc_context );
+			$student_service_context = static::get_render_context_from_post( $post_object );
+			return static::render_to_html( $student_service_context );
 		}
 
 		/**
