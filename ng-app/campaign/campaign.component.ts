@@ -6,42 +6,7 @@ import { ICampaignModel } from "./ICampaignModel";
 @Component({
     selector: "ucf-campaign",
     moduleId: __moduleName,
-    // templateUrl: "./campaign.component.html",
-    template:
-        `<div class="container-fluid" *ngIf='type == "rectangle"'>
-            <div class="row campaign" *ngIf="shouldShow()">
-                <div class="col-sm-5 campaign-image">
-                    <img [src]="image_url">
-                </div>
-                <div class="col-sm-7 campaign-content">
-                    <div class="campaign-title">
-                        <a href="{{ url }}" target="_blank">{{ title }}</a>
-                    </div>
-                    <p>{{ long }}</p>
-                    <a href="{{ url }}" target="_blank">
-                        <span class="btn btn-default btn-lg" type="button">
-                            {{ btn_text }}
-                        </span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="campaign" style="background: #f3f3f3;" *ngIf='type == "square"'>
-            <div class="campaign-content" *ngIf="shouldShow()">
-                <div class="campaign-title">
-                    <a href="{{ url }}" target="_blank">{{ title }}</a>
-                </div>
-                <p>{{ short }}</p>
-                <a href="{{ url }}" target="_blank">
-                    <span class="btn btn-default btn-lg" type="button">
-                        {{ btn_text }}
-                    </span>
-                </a>
-            </div>
-        </div>
-        <span class="campaign-invalid" *ngIf="!shouldShow()"><!-- Invalid Campaign --></span>
-        `,
+    templateUrl: "./campaign.component.html",
     // styleUrls: ["../../scss/_campaign.scss"],
     // directives: [  ],
     // pipes: [  ],
