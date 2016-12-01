@@ -299,34 +299,6 @@ abstract class CustomPostType {
 
 
 	/**
-	 * Get an HTML img element representing an image attachment for this post.
-	 *
-	 * @param int $post_id The ID of the current post.
-	 * @see custom_column_echo_data() custom_column_echo_data()
-	 * @see http://developer.wordpress.org/reference/functions/wp_get_attachment_image/ WP-Ref: wp_get_attachment_image()
-	 * @see http://developer.wordpress.org/reference/functions/get_post_meta/ WP-Ref: get_post_meta()
-	 * @see http://codex.wordpress.org/Function_Reference/get_children WP-Codex: get_children()
-	 * @usedby custom_column_echo_data()
-	 * @return string An html IMG element or default text.
-	 */
-	public static function get_thumbnail_or_attachment_image( $post_id ) {
-		$thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
-		if ( $thumbnail_id ) {
-			$html = wp_get_attachment_image( $thumbnail_id, 'thumb', true );
-		} else {
-			$attachments = get_children(
-				array( 'post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image' )
-			);
-			if ( $attachments ) {
-				$last_attachment_id = end( $attachments )->ID;
-				$html = wp_get_attachment_image( $last_attachment_id, 'thumb', true );
-			}
-		}
-		if ( ! isset( $html )  || ! $html ) { $html = __( 'None' ); }
-		return $html;
-	}
-
-	/**
 	 * Get all custom columns for this post type. Autogenerates columns for $this->fields() with a 'custom_column_order' key (note: the value must not be 0).
 	 *
 	 * @see custom_columns_set_headings() custom_columns_set_headings()
@@ -442,7 +414,7 @@ abstract class CustomPostType {
 	public function custom_column_echo_data( $column, $post_id ) {
 		switch ( $column ) {
 			case '_thumbnail_id':
-				echo wp_kses_post( static::get_thumbnail_or_attachment_image( $post_id ) );
+				echo wp_kses_post( SDES_Static::get_thumbnail_or_attachment_image( $post_id ) );
 				break;
 			default:
 				echo esc_attr( get_post_meta( $post_id, $column, true ) );

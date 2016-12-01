@@ -370,6 +370,35 @@ class SDES_Static
 		return $default_text;
 	}
 
+	/**
+	 * Get an HTML img element representing an image attachment for this post.
+	 *
+	 * @param int $post_id The ID of the current post.
+	 * @see custom_column_echo_data() custom_column_echo_data()
+	 * @see http://developer.wordpress.org/reference/functions/get_the_post_thumbnail/ WP-Ref: get_the_post_thumbnail()
+	 * @see http://codex.wordpress.org/Function_Reference/get_children WP-Codex: get_children()
+	 * @see http://developer.wordpress.org/reference/functions/wp_get_attachment_image/ WP-Ref: wp_get_attachment_image()
+	 * @usedby custom_column_echo_data()
+	 * @return string An html IMG element or default text.
+	 */
+	public static function get_thumbnail_or_attachment_image( $post_id ) {
+		$SIZE = 'thumb';
+		$NONE_TEXT = __( 'None' );
+
+		$html = get_the_post_thumbnail( $post_id, $SIZE ) ?: $NONE_TEXT;
+
+		// Default to a child image, or the text "None".
+		if ( $html === $NONE_TEXT ) {
+			$attachments = get_children(
+				array( 'post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image' )
+			);
+			if ( $attachments ) {
+				$last_attachment_id = end( $attachments )->ID;
+				$html = wp_get_attachment_image( $last_attachment_id, $SIZE, true ) ?: $NONE_TEXT;
+			}
+		}
+		return $html;
+	}
 
 	/**
 	 * Use to display a message in locations where have_posts() returns false.
