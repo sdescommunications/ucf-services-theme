@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/SDES.html">\SDES</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">658</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">36</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2129687612"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-2129687612" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1276281601"></a>
+                                <a href="../namespaces/SDES.html" style="margin-left: 30px; padding-left: 0">SDES</a>
+            </div>
+            <div id="namespace-1276281601" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                <a href="../namespaces/SDES.Admin.html" style="margin-left: 30px; padding-left: 0">Admin</a>
+            </div>
+            <div id="namespace-519591005" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1300037286"></a>
+                                <a href="../namespaces/SDES.CustomizerControls.html" style="margin-left: 30px; padding-left: 0">CustomizerControls</a>
+            </div>
+            <div id="namespace-1300037286" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.CustomizerControls.Phone_CustomControl.html">Phone_CustomControl</a></li>
+                                                    <li class="class"><a href="../classes/SDES.CustomizerControls.SDES_Customizer_Helper.html">SDES_Customizer_Helper</a></li>
+                                                    <li class="class"><a href="../classes/SDES.CustomizerControls.Textarea_CustomControl.html">Textarea_CustomControl</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1845340054"></a>
+                                <a href="../namespaces/SDES.Metafields.html" style="margin-left: 30px; padding-left: 0">Metafields</a>
+            </div>
+            <div id="namespace-1845340054" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/SDES.Metafields.IMetafield.html">IMetafield</a></li>
+                                                                                                    <li class="class"><a href="../classes/SDES.Metafields.CheckboxListMetaField.html">CheckboxListMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.CheckboxMetaField.html">CheckboxMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.ChoicesMetaField.html">ChoicesMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.ColorMetaField.html">ColorMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.DatePickerMetaField.html">DatePickerMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.EditorMetaField.html">EditorMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.FileMetaField.html">FileMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.IconFontAwesomeMetaField.html">IconFontAwesomeMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.ImageMetaField.html">ImageMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.MetaField.html">MetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.MultiselectMetaField.html">MultiselectMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.PasswordMetaField.html">PasswordMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.RadioMetaField.html">RadioMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.SelectMetaField.html">SelectMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.TaxonomyMetaField.html">TaxonomyMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.TextareaMetaField.html">TextareaMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.TextMetaField.html">TextMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.TimeMetaField.html">TimeMetaField</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2143655470"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.html" style="margin-left: 30px; padding-left: 0">ServicesTheme</a>
+            </div>
+            <div id="namespace-2143655470" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-434009615"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.API.html" style="margin-left: 30px; padding-left: 0">API</a>
+            </div>
+            <div id="namespace-434009615" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.API.UCF_SEARCH_FILTER.html">UCF_SEARCH_FILTER</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2084277355"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.Metafields.html" style="margin-left: 30px; padding-left: 0">Metafields</a>
+            </div>
+            <div id="namespace-2084277355" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Metafields.CampaignMetaField.html">CampaignMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Metafields.IconLinkMetaField.html">IconLinkMetaField</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-269479586"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.PostTypes.html" style="margin-left: 30px; padding-left: 0">PostTypes</a>
+            </div>
+            <div id="namespace-269479586" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.PostTypes.Campaign.html">Campaign</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.PostTypes.CustomPostType_ServicesTheme.html">CustomPostType_ServicesTheme</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.PostTypes.IconLink.html">IconLink</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.PostTypes.Page.html">Page</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.PostTypes.Post.html">Post</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.PostTypes.StudentService.html">StudentService</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-126181963"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.Shortcodes.html" style="margin-left: 30px; padding-left: 0">Shortcodes</a>
+            </div>
+            <div id="namespace-126181963" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Shortcodes.sc_call_to_action.html">sc_call_to_action</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Shortcodes.sc_callout.html">sc_callout</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Shortcodes.sc_campaign.html">sc_campaign</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Shortcodes.sc_column.html">sc_column</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Shortcodes.sc_icon_link.html">sc_icon_link</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Shortcodes.sc_row.html">sc_row</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1951416725"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.Taxonomies.html" style="margin-left: 30px; padding-left: 0">Taxonomies</a>
+            </div>
+            <div id="namespace-1951416725" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Taxonomies.CurationGroups.html">CurationGroups</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Taxonomies.ServiceCost.html">ServiceCost</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Taxonomies.ServiceType.html">ServiceType</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1636767423"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.ThemeCustomizer.html" style="margin-left: 30px; padding-left: 0">ThemeCustomizer</a>
+            </div>
+            <div id="namespace-1636767423" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.ThemeCustomizer.Footer.html">Footer</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.ThemeCustomizer.Footer_Settings.html">Footer_Settings</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.ThemeCustomizer.FrontPage_Settings.html">FrontPage_Settings</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.ThemeCustomizer.Header.html">Header</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.ThemeCustomizer.Header_Settings.html">Header_Settings</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.ServicesMetaboxes.html">ServicesMetaboxes</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-640781347"></a>
+                                <a href="../namespaces/SDES.Shortcodes.html" style="margin-left: 30px; padding-left: 0">Shortcodes</a>
+            </div>
+            <div id="namespace-640781347" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/SDES.Shortcodes.IShortcodeUI.html">IShortcodeUI</a></li>
+                                                                                                    <li class="class"><a href="../classes/SDES.Shortcodes.Shortcode_CustomPostType_Wrapper.html">Shortcode_CustomPostType_Wrapper</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Shortcodes.ShortcodeBase.html">ShortcodeBase</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Shortcodes.ShortcodeBase_Loader.html">ShortcodeBase_Loader</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.CustomPostType.html">CustomPostType</a></li>
+                                                    <li class="class"><a href="../classes/SDES.CustomTaxonomy.html">CustomTaxonomy</a></li>
+                                                    <li class="class"><a href="../classes/SDES.DOMDocument_Smart.html">DOMDocument_Smart</a></li>
+                                                    <li class="class"><a href="../classes/SDES.SDES_Metaboxes.html">SDES_Metaboxes</a></li>
+                                                    <li class="class"><a href="../classes/SDES.SDES_Static.html">SDES_Static</a></li>
+                                                    <li class="class"><a href="../classes/SDES.WeatherBox.html">WeatherBox</a></li>
+                                                    <li class="class"><a href="../classes/SDES.WeatherBox_Tutorial.html">WeatherBox_Tutorial</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/FeedManager.html">FeedManager</a></li>
+                                                    <li class="class"><a href="../classes/UcfAcademicCalendarModel.html">UcfAcademicCalendarModel</a></li>
+                                                    <li class="class"><a href="../classes/UcfEventModel.html">UcfEventModel</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/SDES.html">\SDES</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\SDES</small>CustomTaxonomy</h1>
+                    <p><em>Abstract class for defining custom taxonomies.</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#method_options" class="">options()</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#method_labels" class="">labels()</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#method_register" class="">register()</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#method_Register_Taxonomies" class="">Register_Taxonomies()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_name" class="">$name</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_object_type" class="">$object_type</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_singular_name" class="">$singular_name</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_menu_name" class="">$menu_name</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_all_items" class="">$all_items</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_edit_item" class="">$edit_item</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_view_item" class="">$view_item</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_update_item" class="">$update_item</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_add_new_item" class="">$add_new_item</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_new_item_name" class="">$new_item_name</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_parent_item" class="">$parent_item</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_parent_item_colon" class="">$parent_item_colon</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_search_items" class="">$search_items</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_popular_items" class="">$popular_items</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_separate_items_with_commas" class="">$separate_items_with_commas</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_add_or_remove_items" class="">$add_or_remove_items</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_choose_from_most_used" class="">$choose_from_most_used</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_not_found" class="">$not_found</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_general_name" class="">$general_name</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_public" class="">$public</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_show_in_nav_menus" class="">$show_in_nav_menus</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_show_in_name_menus" class="">$show_in_name_menus</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_show_ui" class="">$show_ui</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_show_admin_column" class="">$show_admin_column</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_show_tagcloud" class="">$show_tagcloud</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_hierarchical" class="">$hierarchical</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_update_count_callback" class="">$update_count_callback</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_rewrite" class="">$rewrite</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_query_var" class="">$query_var</a><br />
+                                                                    <a href="../classes/SDES.CustomTaxonomy.html#property_capabilities" class="">$capabilities</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                            <span class="label label-info">abstract</span>
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/functions.class-custom-taxonomy.html"><div class="path-wrapper">functions\class-custom-taxonomy.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\SDES\CustomTaxonomy</div>
+                            </dd>
+
+                        
+                        
+                        
+                                                                            <dt>See also</dt>
+                                                                                    <dd><a href=""><div class="namespace-wrapper"></div></a></dd>
+                                                    
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_name" name="property_name" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$name</h3>
+                <pre class="signature">$name : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_object_type" name="property_object_type" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$object_type</h3>
+                <pre class="signature">$object_type : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_singular_name" name="property_singular_name" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$singular_name</h3>
+                <pre class="signature">$singular_name : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_menu_name" name="property_menu_name" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$menu_name</h3>
+                <pre class="signature">$menu_name : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_all_items" name="property_all_items" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$all_items</h3>
+                <pre class="signature">$all_items : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_edit_item" name="property_edit_item" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$edit_item</h3>
+                <pre class="signature">$edit_item : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_view_item" name="property_view_item" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$view_item</h3>
+                <pre class="signature">$view_item : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_update_item" name="property_update_item" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$update_item</h3>
+                <pre class="signature">$update_item : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_add_new_item" name="property_add_new_item" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$add_new_item</h3>
+                <pre class="signature">$add_new_item : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_new_item_name" name="property_new_item_name" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$new_item_name</h3>
+                <pre class="signature">$new_item_name : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_parent_item" name="property_parent_item" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$parent_item</h3>
+                <pre class="signature">$parent_item : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_parent_item_colon" name="property_parent_item_colon" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$parent_item_colon</h3>
+                <pre class="signature">$parent_item_colon : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_search_items" name="property_search_items" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$search_items</h3>
+                <pre class="signature">$search_items : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_popular_items" name="property_popular_items" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$popular_items</h3>
+                <pre class="signature">$popular_items : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_separate_items_with_commas" name="property_separate_items_with_commas" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$separate_items_with_commas</h3>
+                <pre class="signature">$separate_items_with_commas : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_add_or_remove_items" name="property_add_or_remove_items" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$add_or_remove_items</h3>
+                <pre class="signature">$add_or_remove_items : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_choose_from_most_used" name="property_choose_from_most_used" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$choose_from_most_used</h3>
+                <pre class="signature">$choose_from_most_used : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_not_found" name="property_not_found" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$not_found</h3>
+                <pre class="signature">$not_found : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_general_name" name="property_general_name" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$general_name</h3>
+                <pre class="signature">$general_name : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_public" name="property_public" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$public</h3>
+                <pre class="signature">$public : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_show_in_nav_menus" name="property_show_in_nav_menus" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$show_in_nav_menus</h3>
+                <pre class="signature">$show_in_nav_menus : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_show_in_name_menus" name="property_show_in_name_menus" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$show_in_name_menus</h3>
+                <pre class="signature">$show_in_name_menus : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_show_ui" name="property_show_ui" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$show_ui</h3>
+                <pre class="signature">$show_ui : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_show_admin_column" name="property_show_admin_column" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$show_admin_column</h3>
+                <pre class="signature">$show_admin_column : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_show_tagcloud" name="property_show_tagcloud" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$show_tagcloud</h3>
+                <pre class="signature">$show_tagcloud : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_hierarchical" name="property_hierarchical" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$hierarchical</h3>
+                <pre class="signature">$hierarchical : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_update_count_callback" name="property_update_count_callback" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$update_count_callback</h3>
+                <pre class="signature">$update_count_callback : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_rewrite" name="property_rewrite" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$rewrite</h3>
+                <pre class="signature">$rewrite : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_query_var" name="property_query_var" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$query_var</h3>
+                <pre class="signature">$query_var : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_capabilities" name="property_capabilities" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$capabilities</h3>
+                <pre class="signature">$capabilities : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_options" name="method_options" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">options()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">options(  <span class="argument">$key</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$key </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_labels" name="method_labels" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">labels()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">labels() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_register" name="method_register" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">register()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">register() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_Register_Taxonomies" name="method_Register_Taxonomies" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">Register_Taxonomies()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">Register_Taxonomies(Array  <span class="argument">$custom_taxonomies</span>) : Array</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>Array</td>
+                                <td>$custom_taxonomies </td>
+                                <td><p>Names of taxonomy classes to register.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    Array
+                                            &mdash; <p>Array of instantiated taxonomy classes (array of arrays). Each item has the keys: 'classname', 'instance'.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/SDES.SDES_Static.html#method_instantiate_and_register_classes"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">class-custom-taxonomy.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/functions\class-custom-taxonomy.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/SDES.html">\SDES</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on December 1st, 2016 at 16:46.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

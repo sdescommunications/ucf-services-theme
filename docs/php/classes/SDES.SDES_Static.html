@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/SDES.html">\SDES</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">658</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">36</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-671066942"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-671066942" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-408785130"></a>
+                                <a href="../namespaces/SDES.html" style="margin-left: 30px; padding-left: 0">SDES</a>
+            </div>
+            <div id="namespace-408785130" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                <a href="../namespaces/SDES.Admin.html" style="margin-left: 30px; padding-left: 0">Admin</a>
+            </div>
+            <div id="namespace-607225259" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-736188226"></a>
+                                <a href="../namespaces/SDES.CustomizerControls.html" style="margin-left: 30px; padding-left: 0">CustomizerControls</a>
+            </div>
+            <div id="namespace-736188226" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.CustomizerControls.Phone_CustomControl.html">Phone_CustomControl</a></li>
+                                                    <li class="class"><a href="../classes/SDES.CustomizerControls.SDES_Customizer_Helper.html">SDES_Customizer_Helper</a></li>
+                                                    <li class="class"><a href="../classes/SDES.CustomizerControls.Textarea_CustomControl.html">Textarea_CustomControl</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1896667265"></a>
+                                <a href="../namespaces/SDES.Metafields.html" style="margin-left: 30px; padding-left: 0">Metafields</a>
+            </div>
+            <div id="namespace-1896667265" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/SDES.Metafields.IMetafield.html">IMetafield</a></li>
+                                                                                                    <li class="class"><a href="../classes/SDES.Metafields.CheckboxListMetaField.html">CheckboxListMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.CheckboxMetaField.html">CheckboxMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.ChoicesMetaField.html">ChoicesMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.ColorMetaField.html">ColorMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.DatePickerMetaField.html">DatePickerMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.EditorMetaField.html">EditorMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.FileMetaField.html">FileMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.IconFontAwesomeMetaField.html">IconFontAwesomeMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.ImageMetaField.html">ImageMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.MetaField.html">MetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.MultiselectMetaField.html">MultiselectMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.PasswordMetaField.html">PasswordMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.RadioMetaField.html">RadioMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.SelectMetaField.html">SelectMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.TaxonomyMetaField.html">TaxonomyMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.TextareaMetaField.html">TextareaMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.TextMetaField.html">TextMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Metafields.TimeMetaField.html">TimeMetaField</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-984003962"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.html" style="margin-left: 30px; padding-left: 0">ServicesTheme</a>
+            </div>
+            <div id="namespace-984003962" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-551907037"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.API.html" style="margin-left: 30px; padding-left: 0">API</a>
+            </div>
+            <div id="namespace-551907037" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.API.UCF_SEARCH_FILTER.html">UCF_SEARCH_FILTER</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1391136790"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.Metafields.html" style="margin-left: 30px; padding-left: 0">Metafields</a>
+            </div>
+            <div id="namespace-1391136790" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Metafields.CampaignMetaField.html">CampaignMetaField</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Metafields.IconLinkMetaField.html">IconLinkMetaField</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2005065562"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.PostTypes.html" style="margin-left: 30px; padding-left: 0">PostTypes</a>
+            </div>
+            <div id="namespace-2005065562" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.PostTypes.Campaign.html">Campaign</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.PostTypes.CustomPostType_ServicesTheme.html">CustomPostType_ServicesTheme</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.PostTypes.IconLink.html">IconLink</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.PostTypes.Page.html">Page</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.PostTypes.Post.html">Post</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.PostTypes.StudentService.html">StudentService</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1122375383"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.Shortcodes.html" style="margin-left: 30px; padding-left: 0">Shortcodes</a>
+            </div>
+            <div id="namespace-1122375383" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Shortcodes.sc_call_to_action.html">sc_call_to_action</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Shortcodes.sc_callout.html">sc_callout</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Shortcodes.sc_campaign.html">sc_campaign</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Shortcodes.sc_column.html">sc_column</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Shortcodes.sc_icon_link.html">sc_icon_link</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Shortcodes.sc_row.html">sc_row</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2077697958"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.Taxonomies.html" style="margin-left: 30px; padding-left: 0">Taxonomies</a>
+            </div>
+            <div id="namespace-2077697958" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Taxonomies.CurationGroups.html">CurationGroups</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Taxonomies.ServiceCost.html">ServiceCost</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.Taxonomies.ServiceType.html">ServiceType</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1785855958"></a>
+                                <a href="../namespaces/SDES.ServicesTheme.ThemeCustomizer.html" style="margin-left: 30px; padding-left: 0">ThemeCustomizer</a>
+            </div>
+            <div id="namespace-1785855958" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.ThemeCustomizer.Footer.html">Footer</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.ThemeCustomizer.Footer_Settings.html">Footer_Settings</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.ThemeCustomizer.FrontPage_Settings.html">FrontPage_Settings</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.ThemeCustomizer.Header.html">Header</a></li>
+                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.ThemeCustomizer.Header_Settings.html">Header_Settings</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.ServicesTheme.ServicesMetaboxes.html">ServicesMetaboxes</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1359861356"></a>
+                                <a href="../namespaces/SDES.Shortcodes.html" style="margin-left: 30px; padding-left: 0">Shortcodes</a>
+            </div>
+            <div id="namespace-1359861356" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/SDES.Shortcodes.IShortcodeUI.html">IShortcodeUI</a></li>
+                                                                                                    <li class="class"><a href="../classes/SDES.Shortcodes.Shortcode_CustomPostType_Wrapper.html">Shortcode_CustomPostType_Wrapper</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Shortcodes.ShortcodeBase.html">ShortcodeBase</a></li>
+                                                    <li class="class"><a href="../classes/SDES.Shortcodes.ShortcodeBase_Loader.html">ShortcodeBase_Loader</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SDES.CustomPostType.html">CustomPostType</a></li>
+                                                    <li class="class"><a href="../classes/SDES.CustomTaxonomy.html">CustomTaxonomy</a></li>
+                                                    <li class="class"><a href="../classes/SDES.DOMDocument_Smart.html">DOMDocument_Smart</a></li>
+                                                    <li class="class"><a href="../classes/SDES.SDES_Metaboxes.html">SDES_Metaboxes</a></li>
+                                                    <li class="class"><a href="../classes/SDES.SDES_Static.html">SDES_Static</a></li>
+                                                    <li class="class"><a href="../classes/SDES.WeatherBox.html">WeatherBox</a></li>
+                                                    <li class="class"><a href="../classes/SDES.WeatherBox_Tutorial.html">WeatherBox_Tutorial</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/FeedManager.html">FeedManager</a></li>
+                                                    <li class="class"><a href="../classes/UcfAcademicCalendarModel.html">UcfAcademicCalendarModel</a></li>
+                                                    <li class="class"><a href="../classes/UcfEventModel.html">UcfEventModel</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/SDES.html">\SDES</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\SDES</small>SDES_Static</h1>
+                    <p><em>Container for reusable static functions (i.e., the same parameters should always return the same output).</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_set_default_keyValue" class="">set_default_keyValue()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_set_default_keyValue_array" class="">set_default_keyValue_array()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_instantiate_and_register_classes" class="">instantiate_and_register_classes()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_img_add_responsive_class_content" class="">img_add_responsive_class_content()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_get_rss_links_and_titles" class="">get_rss_links_and_titles()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_sanitize_telephone" class="">sanitize_telephone()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_isEmail" class="">isEmail()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_isTelephone" class="">isTelephone()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_href_prepend_mailto" class="">href_prepend_mailto()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_href_prepend_tel" class="">href_prepend_tel()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_href_prepend_protocols_filter" class="">href_prepend_protocols_filter()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_url_ensure_prefix" class="">url_ensure_prefix()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_is_null_or_whitespace" class="">is_null_or_whitespace()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_google_tag_manager" class="">google_tag_manager()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_get_theme_mod_defaultIfEmpty" class="">get_theme_mod_defaultIfEmpty()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_Is_UserLoggedIn_Can" class="">Is_UserLoggedIn_Can()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_Get_ClassNames" class="">Get_ClassNames()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_get_post_type" class="">get_post_type()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_get_article_image" class="">get_article_image()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_get_post_thumbnail_alttext" class="">get_post_thumbnail_alttext()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_get_thumbnail_alttext" class="">get_thumbnail_alttext()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_get_thumbnail_or_attachment_image" class="">get_thumbnail_or_attachment_image()</a><br />
+                                                                    <a href="../classes/SDES.SDES_Static.html#method_Get_No_Posts_Message" class="">Get_No_Posts_Message()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/functions.class-sdes-static.html"><div class="path-wrapper">functions\class-sdes-static.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">SDES Static - Rev2015 WordPress Prototype</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\SDES\SDES_Static</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_default_keyValue" name="method_set_default_keyValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_default_keyValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_default_keyValue(array  <span class="argument">$args</span>, string  <span class="argument">$key</span>, mixed  <span class="argument">$default_value</span>) </pre>
+                <p><em>Set default value for a given key in $args, which is passed by reference.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$args </td>
+                                <td><p>An args array (that is passed in by reference).</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key to set.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$default_value </td>
+                                <td><p>A default value for the key if it is not already set.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_default_keyValue_array" name="method_set_default_keyValue_array" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_default_keyValue_array()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_default_keyValue_array(array  <span class="argument">$args</span>, array  <span class="argument">$default_values</span>) </pre>
+                <p><em>Set multiple default values for keys in $args, which is passed by reference.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$args </td>
+                                <td><p>An args array (that is passed in by reference).</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$default_values </td>
+                                <td><p>An collections of keys and their default values.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_instantiate_and_register_classes" name="method_instantiate_and_register_classes" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">instantiate_and_register_classes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">instantiate_and_register_classes(Array  <span class="argument">$classnames_to_register = null</span>) : Array</pre>
+                <p><em>For each class provided, create a new instance of the class and call its the register function.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>Array</td>
+                                <td>$classnames_to_register </td>
+                                <td><p>Listing of class names to <code>-&gt;register()</code>.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    Array
+                                            &mdash; <p>Array of instantiated classes (array of arrays). Each item has the keys: 'classname', 'instance'.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_img_add_responsive_class_content" name="method_img_add_responsive_class_content" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">img_add_responsive_class_content()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">img_add_responsive_class_content(  <span class="argument">$content</span>) : string</pre>
+                <p><em>Add .img-responsive to IMG tags. Usually called from a filter, e.g., `add_filter(&#039;the_content&#039;, &#039;img_add_responsive_class_content&#039;);`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$content </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>A string of the filtered HTML content.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">WP-Ref: the_content()</span></a></dd>
+                                            <dd><a href="http://stackoverflow.com/a/20499803"><span class="namespace-wrapper">Stack-Overflow: /a/20499803</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_rss_links_and_titles" name="method_get_rss_links_and_titles" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_rss_links_and_titles()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_rss_links_and_titles(string  <span class="argument">$uri</span>, integer  <span class="argument">$max_count = 8</span>, integer  <span class="argument">$char_limit = 45</span>, \SDES\SimpleXMLElement  <span class="argument">$xml = null</span>) : Array</pre>
+                <p><em>Return a collection links and titles from an RSS feed.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$uri </td>
+                                <td><p>The uri of the RSS feed.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$max_count </td>
+                                <td><p>The number of items to return.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$char_limit </td>
+                                <td><p>Limit the number of characters in the titles, add &hellip; if over.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\SDES\SimpleXMLElement</td>
+                                <td>$xml </td>
+                                <td><p>Reuse an existing SimpleXMLElement.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    Array
+                                            &mdash; <p>A collection of anchors (array of arrays). Each anchor has the keys: 'link', 'title'.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sanitize_telephone" name="method_sanitize_telephone" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sanitize_telephone()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sanitize_telephone(string  <span class="argument">$value</span>,   <span class="argument">$areaCode = &#039;407&#039;</span>) </pre>
+                <p><em>Always include an area code, show only numbers and the dash symbol, always show 2 dashes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value </td>
+                                <td><p>The value to be sanitized, as passed back by sanitize_callback.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$areaCode </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isEmail" name="method_isEmail" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isEmail()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isEmail(string  <span class="argument">$href</span>) </pre>
+                <p><em>Match any string that resembles an email (i.e., contains &#039;@&#039; between any other characters).</em></p>
+                <p>Example: isEmail('some+thing@anything.whatever') returns true.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$href </td>
+                                <td><p>A string assumed to be a valid href.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">RFC: 2368 &quot;The mailto URL scheme&quot;</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isTelephone" name="method_isTelephone" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isTelephone()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isTelephone(string  <span class="argument">$href</span>) </pre>
+                <p><em>Match any string that looks like a telephone number (per RFC3966).</em></p>
+                <p>Example: isTelephone('3213214321;ext=1') returns true.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$href </td>
+                                <td><p>A string assumed to be a valid href.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Wiki: Telephone number conventions</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">RFC: 3966 &quot;The tel URI for Telephone Numbers&quot;</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_href_prepend_mailto" name="method_href_prepend_mailto" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">href_prepend_mailto()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">href_prepend_mailto(  <span class="argument">$href</span>) </pre>
+                <p><em>Prepend a string with &#039;mailto:&#039; if it looks like an email address.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$href </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_href_prepend_tel" name="method_href_prepend_tel" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">href_prepend_tel()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">href_prepend_tel(  <span class="argument">$href</span>) </pre>
+                <p><em>Prepend a string with &#039;tel:&#039; if it looks like an telephone number.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$href </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_href_prepend_protocols_filter" name="method_href_prepend_protocols_filter" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">href_prepend_protocols_filter()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">href_prepend_protocols_filter(string  <span class="argument">$href</span>) </pre>
+                <p><em>Prepend a string with &#039;mailto:&#039;, &#039;tel:&#039;, or the http protocol if appropriate.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$href </td>
+                                <td><p>A string assumed to be a valid href.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_url_ensure_prefix" name="method_url_ensure_prefix" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">url_ensure_prefix()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">url_ensure_prefix(string  <span class="argument">$url</span>, string  <span class="argument">$prefix = &#039;http://&#039;</span>) </pre>
+                <p><em>Add a protocol and domain path to a URL if it does not exist.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url </td>
+                                <td><p>The url variable to adjust.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$prefix </td>
+                                <td><p>The protocol and domain path to prepend to the url. (defaults to http://).</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_is_null_or_whitespace" name="method_is_null_or_whitespace" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">is_null_or_whitespace()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">is_null_or_whitespace(  <span class="argument">$string</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$string </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_google_tag_manager" name="method_google_tag_manager" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">google_tag_manager()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">google_tag_manager(string  <span class="argument">$gtm_id = &#039;&#039;</span>) </pre>
+                <p><em>Add snippet for analytics from Google Tag Manager.  This should be called just after the BODY tag
+is opened (this snippet may cause undesired behavior when called within the HEAD tag).</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$gtm_id </td>
+                                <td><p>The Container ID provided by Google Tag Manager.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_theme_mod_defaultIfEmpty" name="method_get_theme_mod_defaultIfEmpty" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_theme_mod_defaultIfEmpty()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_theme_mod_defaultIfEmpty(string  <span class="argument">$value</span>, string  <span class="argument">$default_to</span>, string  <span class="argument">$get_theme_mod = &#039;get_theme_mod&#039;</span>) </pre>
+                <p><em>Returns the default even if the value in the database is null, whitespace, or an empty string.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value </td>
+                                <td><p>The theme modification name to pass to get_theme_mod.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$default_to </td>
+                                <td><p>Default value to return.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$get_theme_mod </td>
+                                <td><p>Reference to the get_theme_mod function, or a mock for testing.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_Is_UserLoggedIn_Can" name="method_Is_UserLoggedIn_Can" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">Is_UserLoggedIn_Can()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">Is_UserLoggedIn_Can(string  <span class="argument">$capability</span>) </pre>
+                <p><em>Check if user is both logged in and has a given capability.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$capability </td>
+                                <td><p>A capability or role name to pass to current_user_can.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_Get_ClassNames" name="method_Get_ClassNames" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">Get_ClassNames()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">Get_ClassNames(object  <span class="argument">$wp_post</span>, string  <span class="argument">$filter_tag = &#039;&#039;</span>) </pre>
+                <p><em>Get a string of class names for a WP_Post object and optionally apply a filter.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>object</td>
+                                <td>$wp_post </td>
+                                <td><p>The WP_Post object whose classes will be retrieved.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filter_tag </td>
+                                <td><p>A filter to pass to apply_filters.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_post_type" name="method_get_post_type" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_post_type()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_post_type(integer|\SDES\WPPost  <span class="argument">$this_post</span>) : string</pre>
+                <p><em>Really get the post type.  A post type of revision will return its parent
+post type.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer|\SDES\WPPost</td>
+                                <td>$this_post </td>
+                                <td><p>The post or the post's ID.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The 'post_type' for a post.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            author
+                        </th>
+                        <td>
+                                                                                            <p>Jared Lang</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_article_image" name="method_get_article_image" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_article_image()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_article_image(  <span class="argument">$article</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$article </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_post_thumbnail_alttext" name="method_get_post_thumbnail_alttext" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_post_thumbnail_alttext()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_post_thumbnail_alttext(  <span class="argument">$post_id</span>,   <span class="argument">$default_text = &#039;Thumbnail&#039;</span>) </pre>
+                <p><em>Retrieve the alttext for a post id&#039;s thumbnail, or default values.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$post_id </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$default_text </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_thumbnail_alttext" name="method_get_thumbnail_alttext" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_thumbnail_alttext()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_thumbnail_alttext(  <span class="argument">$thumbnail_id</span>,   <span class="argument">$default_text = &#039;Thumbnail&#039;</span>) </pre>
+                <p><em>Retrieve the alttext for a thumbnail or its title. Otherwise, return a default value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$thumbnail_id </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$default_text </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_thumbnail_or_attachment_image" name="method_get_thumbnail_or_attachment_image" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_thumbnail_or_attachment_image()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_thumbnail_or_attachment_image(integer  <span class="argument">$post_id</span>) : string</pre>
+                <p><em>Get an HTML img element representing an image attachment for this post.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$post_id </td>
+                                <td><p>The ID of the current post.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>An html IMG element or default text.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">custom_column_echo_data()</span></a></dd>
+                                            <dd><a href="http://developer.wordpress.org/reference/functions/get_the_post_thumbnail/"><span class="namespace-wrapper">WP-Ref: get_the_post_thumbnail()</span></a></dd>
+                                            <dd><a href="http://codex.wordpress.org/Function_Reference/get_children"><span class="namespace-wrapper">WP-Codex: get_children()</span></a></dd>
+                                            <dd><a href="http://developer.wordpress.org/reference/functions/wp_get_attachment_image/"><span class="namespace-wrapper">WP-Ref: wp_get_attachment_image()</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            usedby
+                        </th>
+                        <td>
+                                                                                            <p>custom_column_echo_data()</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_Get_No_Posts_Message" name="method_Get_No_Posts_Message" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">Get_No_Posts_Message()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">Get_No_Posts_Message(Array  <span class="argument">$args = array()</span>) </pre>
+                <p><em>Use to display a message in locations where have_posts() returns false.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>Array</td>
+                                <td>$args </td>
+                                <td><p>Any additional arguments for this function.
+Bool   echo    Flag to whether to echo or return text (defaults to true).
+String message The text of the message (defaults to 'No posts were found.').</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">class-sdes-static.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/functions\class-sdes-static.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/SDES.html">\SDES</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on December 1st, 2016 at 16:46.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
