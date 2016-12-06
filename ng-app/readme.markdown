@@ -46,3 +46,42 @@ Templates - using [lodash templates](https://lodash.com/docs#template) to both g
 
 ## Pipes (analog to Angular1 filters):
 UnescapeHtmlPipe (deprecated) - use [@angular/platform-browser/DomSanitzer](https://angular.io/docs/ts/latest/api/platform-browser/index/DomSanitizer-class.html) instead.
+
+# Updating Angular
+
+## JSPM Browser Optimization
+
+This application uses multiple levels of browser optimization:
+- Content Delivery Network (CDN) - common libraries from a shared network that may already be cached by the user.
+- Dependency Cache - pre-generated listing of depenencies from JSPM, used to reducing initial load time by pre-fetching libraries from the CDN.
+- Bundles - JSPM-generated, local, minified javascript files containing the CDN libraries (bundle-dependencies.js) and the application logic (bundle-app.js).
+
+## Angular Update Procedure
+
+1) Make sure you have the desired @angular version listed in package.json.
+
+2) Run `jspm update @angular` inside this directory.  This will update `config.js` file. (Optionally, run `npm update @angular` if your local tools expect files in the `node_modules` folder)
+
+3) In your local WordPress install, check that `/wp-content/themes/ucf-services-theme/ng-app/main.html` still works properly.
+
+4) Run `jspm depcache main` in this directory to update the dependency cache (generates the `depCache` section of `config.js` to be used in `config.cdn.js`).
+
+5) Run `npm run-script bundle` to inject and minify the `bundle-app.js` and `bundle-dependencies.js` files (generates the `bundles` section of `config.js` to be used in `config.ucf_local.js`).
+
+6) Manually update the files `config.cdn.js` and `config.ucf_local.js` to match the generated `config.js`. A diff tool such as [WinMerge](http://winmerge.org/) or [Meld](http://meldmerge.org/) may help here. Do not edit the "Paths" sections.
+   - config.js - Generated SystemJS configuration file. Local testing with main.html, , loads libraries via Paths set to local `jspm_packages` folder.
+   - config.cdn.js - Primary SystemJS configuration file, loads libraries via Paths set to content-delivery networks.
+      - Do not copy the "bundles" section to this file.
+   - config.ucf_local.js - Backup SystemJS configuration file, loads libraries from local bundles.
+      - There is no need to copy the depCache section to this file).
+
+## Browser Optimization Resources for JSPM
+For more on dependency caches and bundling with JSPM, see:
+- http://jspm.io/docs/production-workflows.html#creating-a-dependency-cache
+- http://jspm.io/docs/production-workflows.html#creating-a-bundle
+- Commit 9c8306d
+- Commit 5598058
+
+For more on JSPM Bundle Arithmetic, see:
+- https://github.com/systemjs/builder/tree/0.15.22#bundle-arithmetic
+- In particular, https://github.com/systemjs/builder/tree/0.15.22#example---third-party-dependency-bundle

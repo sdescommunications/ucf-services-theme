@@ -810,28 +810,472 @@ System.config({
     ],
     "npm:rxjs@5.0.0-beta.12/Notification.js": [
       "./Observable"
+    ],
+    "npm:@angular/platform-browser-dynamic@2.2.4//bundles/platform-browser-dynamic.umd.js": [
+      "@angular/compiler",
+      "@angular/core",
+      "@angular/platform-browser"
+    ],
+    "npm:@angular/core@2.2.4//bundles/core.umd.js": [
+      "rxjs/Subject",
+      "rxjs/Observable",
+      "process"
+    ],
+    "npm:ng2-bootstrap@1.1.14/ng2-bootstrap.js": [
+      "./components/accordion",
+      "./components/alert",
+      "./components/buttons",
+      "./components/carousel",
+      "./components/collapse",
+      "./components/datepicker",
+      "./components/modal",
+      "./components/dropdown",
+      "./components/pagination",
+      "./components/progressbar",
+      "./components/rating",
+      "./components/tabs",
+      "./components/timepicker",
+      "./components/tooltip",
+      "./components/typeahead",
+      "./components/position",
+      "./components/common",
+      "./components/ng2-bootstrap-config",
+      "./components/accordion/accordion.module",
+      "./components/alert/alert.module",
+      "./components/buttons/buttons.module",
+      "./components/carousel/carousel.module",
+      "./components/collapse/collapse.module",
+      "./components/datepicker/datepicker.module",
+      "./components/dropdown/dropdown.module",
+      "./components/modal/modal.module",
+      "./components/pagination/pagination.module",
+      "./components/progressbar/progressbar.module",
+      "./components/rating/rating.module",
+      "./components/tabs/tabs.module",
+      "./components/timepicker/timepicker.module",
+      "./components/tooltip/tooltip.module",
+      "./components/typeahead/typeahead.module",
+      "./components/utils/components-helper.service",
+      "./components/index"
+    ],
+    "npm:@angular/platform-browser@2.2.4//bundles/platform-browser.umd.js": [
+      "@angular/common",
+      "@angular/core",
+      "process"
+    ],
+    "npm:@angular/forms@2.2.4//bundles/forms.umd.js": [
+      "@angular/core",
+      "rxjs/operator/toPromise",
+      "rxjs/Subject",
+      "rxjs/Observable",
+      "rxjs/observable/fromPromise",
+      "process"
+    ],
+    "npm:@angular/http@2.2.4//bundles/http.umd.js": [
+      "@angular/core",
+      "rxjs/Observable",
+      "@angular/platform-browser"
+    ],
+    "npm:@angular/compiler@2.2.4//bundles/compiler.umd.js": [
+      "@angular/core",
+      "process"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/accordion.js": [
+      "./accordion/accordion-group.component",
+      "./accordion/accordion.component",
+      "./accordion/accordion.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/alert.js": [
+      "./alert/alert.component",
+      "./alert/alert.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/buttons.js": [
+      "./buttons/button-checkbox.directive",
+      "./buttons/button-radio.directive",
+      "./buttons/buttons.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/datepicker.js": [
+      "./datepicker/datepicker.component",
+      "./datepicker/datepicker.module",
+      "./datepicker/daypicker.component",
+      "./datepicker/monthpicker.component",
+      "./datepicker/yearpicker.component",
+      "./datepicker/date-formatter"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/collapse.js": [
+      "./collapse/collapse.directive",
+      "./collapse/collapse.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/modal.js": [
+      "./modal/modal-backdrop.component",
+      "./modal/modal-options.class",
+      "./modal/modal.component",
+      "./modal/modal.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/dropdown.js": [
+      "./dropdown/dropdown-menu.directive",
+      "./dropdown/dropdown-toggle.directive",
+      "./dropdown/dropdown.directive",
+      "./dropdown/dropdown.service",
+      "./dropdown/dropdown.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/carousel.js": [
+      "./carousel/carousel.component",
+      "./carousel/carousel.module",
+      "./carousel/slide.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/pagination.js": [
+      "./pagination/pager.component",
+      "./pagination/pagination.component",
+      "./pagination/pagination.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/rating.js": [
+      "./rating/rating.component",
+      "./rating/rating.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/timepicker.js": [
+      "./timepicker/timepicker.component",
+      "./timepicker/timepicker.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/progressbar.js": [
+      "./progressbar/bar.component",
+      "./progressbar/progress.directive",
+      "./progressbar/progressbar.component",
+      "./progressbar/progressbar.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/tabs.js": [
+      "./tabs/tab-heading.directive",
+      "./tabs/tabset.component",
+      "./tabs/tab.directive",
+      "./tabs/tabs.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/typeahead.js": [
+      "./typeahead/typeahead-match.class",
+      "./typeahead/typeahead-options.class",
+      "./typeahead/typeahead-utils",
+      "./typeahead/typeahead-container.component",
+      "./typeahead/typeahead.directive",
+      "./typeahead/typeahead.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/tooltip.js": [
+      "./tooltip/tooltip-container.component",
+      "./tooltip/tooltip.directive",
+      "./tooltip/tooltip.module"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/ng2-bootstrap-config.js": [
+      "./utils/facade/browser"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/common.js": [
+      "@angular/core"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/accordion/accordion.module.js": [
+      "@angular/common",
+      "@angular/core",
+      "../collapse/collapse.module",
+      "./accordion-group.component",
+      "./accordion.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/buttons/buttons.module.js": [
+      "@angular/core",
+      "@angular/forms",
+      "./button-checkbox.directive",
+      "./button-radio.directive"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/alert/alert.module.js": [
+      "@angular/common",
+      "@angular/core",
+      "./alert.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/carousel/carousel.module.js": [
+      "@angular/common",
+      "@angular/core",
+      "./carousel.component",
+      "./slide.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker.module.js": [
+      "@angular/common",
+      "@angular/core",
+      "@angular/forms",
+      "./datepicker-inner.component",
+      "./datepicker.component",
+      "./daypicker.component",
+      "./monthpicker.component",
+      "./yearpicker.component",
+      "../utils/components-helper.service"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/collapse/collapse.module.js": [
+      "@angular/core",
+      "./collapse.directive"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/modal/modal.module.js": [
+      "@angular/core",
+      "./modal-backdrop.component",
+      "./modal.component",
+      "../utils/components-helper.service"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.module.js": [
+      "@angular/core",
+      "./dropdown-menu.directive",
+      "./dropdown-toggle.directive",
+      "./dropdown.directive"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/pagination/pagination.module.js": [
+      "@angular/common",
+      "@angular/core",
+      "@angular/forms",
+      "./pager.component",
+      "./pagination.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/progressbar/progressbar.module.js": [
+      "@angular/common",
+      "@angular/core",
+      "./bar.component",
+      "./progress.directive",
+      "./progressbar.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/rating/rating.module.js": [
+      "@angular/common",
+      "@angular/core",
+      "@angular/forms",
+      "./rating.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/tabs/tabs.module.js": [
+      "@angular/common",
+      "@angular/core",
+      "../common",
+      "./tab-heading.directive",
+      "./tab.directive",
+      "./tabset.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/timepicker/timepicker.module.js": [
+      "@angular/common",
+      "@angular/core",
+      "@angular/forms",
+      "./timepicker.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/utils/components-helper.service.js": [
+      "@angular/core",
+      "@angular/platform-browser"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip.module.js": [
+      "@angular/common",
+      "@angular/core",
+      "./tooltip-container.component",
+      "./tooltip.directive",
+      "../utils/components-helper.service"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead.module.js": [
+      "@angular/common",
+      "@angular/core",
+      "@angular/forms",
+      "./typeahead-container.component",
+      "./typeahead.directive",
+      "../utils/components-helper.service"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/index.js": [
+      "@angular/core",
+      "./accordion/accordion.module",
+      "./alert/alert.module",
+      "./buttons/buttons.module",
+      "./carousel/carousel.module",
+      "./collapse/collapse.module",
+      "./datepicker/datepicker.module",
+      "./dropdown/dropdown.module",
+      "./modal/modal.module",
+      "./pagination/pagination.module",
+      "./progressbar/progressbar.module",
+      "./rating/rating.module",
+      "./tabs/tabs.module",
+      "./timepicker/timepicker.module",
+      "./tooltip/tooltip.module",
+      "./typeahead/typeahead.module",
+      "./utils/components-helper.service"
+    ],
+    "npm:@angular/common@2.2.4//bundles/common.umd.js": [
+      "@angular/core"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-utils.js": [
+      "./latin-map"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/accordion/accordion-group.component.js": [
+      "@angular/core",
+      "./accordion.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/buttons/button-checkbox.directive.js": [
+      "@angular/core",
+      "@angular/forms"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/alert/alert.component.js": [
+      "@angular/core"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/accordion/accordion.component.js": [
+      "@angular/core"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/datepicker/yearpicker.component.js": [
+      "@angular/core",
+      "../ng2-bootstrap-config",
+      "./datepicker-inner.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/buttons/button-radio.directive.js": [
+      "@angular/core",
+      "@angular/forms"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker.component.js": [
+      "@angular/core",
+      "./datepicker-inner.component",
+      "@angular/forms"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/datepicker/daypicker.component.js": [
+      "@angular/core",
+      "../ng2-bootstrap-config",
+      "./datepicker-inner.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/datepicker/monthpicker.component.js": [
+      "@angular/core",
+      "../ng2-bootstrap-config",
+      "./datepicker-inner.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/datepicker/date-formatter.js": [
+      "moment"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/collapse/collapse.directive.js": [
+      "@angular/core"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/modal/modal-backdrop.component.js": [
+      "@angular/core",
+      "./modal-options.class"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/modal/modal.component.js": [
+      "@angular/core",
+      "../utils/components-helper.service",
+      "../utils/utils.class",
+      "./modal-backdrop.component",
+      "./modal-options.class",
+      "../utils/facade/browser"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown-toggle.directive.js": [
+      "@angular/core",
+      "./dropdown.directive"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown-menu.directive.js": [
+      "@angular/core",
+      "./dropdown.directive"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/carousel/carousel.component.js": [
+      "@angular/core",
+      "../ng2-bootstrap-config"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.directive.js": [
+      "@angular/core",
+      "./dropdown.service"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/carousel/slide.component.js": [
+      "@angular/core",
+      "./carousel.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/pagination/pager.component.js": [
+      "@angular/core",
+      "@angular/forms",
+      "./pagination.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/pagination/pagination.component.js": [
+      "@angular/core",
+      "@angular/forms"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/rating/rating.component.js": [
+      "@angular/core",
+      "@angular/forms"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/progressbar/bar.component.js": [
+      "@angular/core",
+      "./progress.directive"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/timepicker/timepicker.component.js": [
+      "@angular/core",
+      "@angular/forms"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/progressbar/progress.directive.js": [
+      "@angular/core"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/progressbar/progressbar.component.js": [
+      "@angular/core"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/tabs/tabset.component.js": [
+      "@angular/core"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/tabs/tab-heading.directive.js": [
+      "@angular/core",
+      "./tab.directive"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/tabs/tab.directive.js": [
+      "@angular/core",
+      "./tabset.component"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-container.component.js": [
+      "@angular/core",
+      "../ng2-bootstrap-config",
+      "../position",
+      "./typeahead-options.class",
+      "./typeahead-utils"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead.directive.js": [
+      "@angular/core",
+      "@angular/forms",
+      "./typeahead-container.component",
+      "./typeahead-options.class",
+      "./typeahead-utils",
+      "rxjs/Observable",
+      "rxjs/add/observable/from",
+      "rxjs/add/operator/debounceTime",
+      "rxjs/add/operator/filter",
+      "rxjs/add/operator/map",
+      "rxjs/add/operator/mergeMap",
+      "rxjs/add/operator/toArray",
+      "../utils/components-helper.service",
+      "./typeahead-match.class"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip-container.component.js": [
+      "@angular/core",
+      "../position",
+      "./tooltip-options.class"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip.directive.js": [
+      "@angular/core",
+      "./tooltip-container.component",
+      "./tooltip-options.class",
+      "../utils/components-helper.service"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker-inner.component.js": [
+      "@angular/core",
+      "./date-formatter"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/utils/utils.class.js": [
+      "./facade/browser"
+    ],
+    "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip-options.class.js": [
+      "@angular/core"
     ]
   },
 
   map: {
     "@angular": "npm:@angular",
-    "@angular/common": "npm:@angular/common@2.1.0",
-    "@angular/compiler": "npm:@angular/compiler@2.1.0",
-    "@angular/core": "npm:@angular/core@2.1.0",
-    "@angular/forms": "npm:@angular/forms@2.1.0",
-    "@angular/http": "npm:@angular/http@2.1.0",
-    "@angular/platform-browser": "npm:@angular/platform-browser@2.1.0",
-    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.1.0",
+    "@angular/common": "npm:@angular/common@2.2.4",
+    "@angular/compiler": "npm:@angular/compiler@2.2.4",
+    "@angular/core": "npm:@angular/core@2.2.4",
+    "@angular/forms": "npm:@angular/forms@2.2.4",
+    "@angular/http": "npm:@angular/http@2.2.4",
+    "@angular/platform-browser": "npm:@angular/platform-browser@2.2.4",
+    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.2.4",
     "@angular/router": "npm:@angular/router",
-    "@angular/upgrade": "npm:@angular/upgrade@2.1.0",
+    "@angular/upgrade": "npm:@angular/upgrade@2.2.4",
     "angular/angular": "github:angular/angular@2.1.0",
     "app": "",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@2.4.0",
     "main": "",
-    "moment": "cdnjs:moment.js/2.15.1/moment.min.js",
-    "ng2-bootstrap": "cdnjs:ng2-bootstrap/1.1.14/ng2-bootstrap.min.js",
+    "moment": "npm:moment@2.15.1",
+    "ng2-bootstrap": "npm:ng2-bootstrap@1.1.14",
     "reflect-metadata": "npm:reflect-metadata@0.1.3",
     "rxjs": "npm:rxjs@5.0.0-beta.12",
     "zone.js": "npm:zone.js@0.6.21",
@@ -871,50 +1315,48 @@ System.config({
     "github:jspm/nodelibs-vm@0.1.0": {
       "vm-browserify": "npm:vm-browserify@0.0.4"
     },
-    "npm:@angular/common@2.1.0": {
-      "@angular/core": "npm:@angular/core@2.1.0"
+    "npm:@angular/common@2.2.4": {
+      "@angular/core": "npm:@angular/core@2.2.4"
     },
-    "npm:@angular/compiler@2.1.0": {
-      "@angular/core": "npm:@angular/core@2.1.0",
+    "npm:@angular/compiler@2.2.4": {
+      "@angular/core": "npm:@angular/core@2.2.4",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:@angular/core@2.1.0": {
+    "npm:@angular/core@2.2.4": {
       "process": "github:jspm/nodelibs-process@0.1.2",
       "rxjs": "npm:rxjs@5.0.0-beta.12",
       "zone.js": "npm:zone.js@0.6.21"
     },
-    "npm:@angular/forms@2.1.0": {
-      "@angular/common": "npm:@angular/common@2.1.0",
-      "@angular/core": "npm:@angular/core@2.1.0",
+    "npm:@angular/forms@2.2.4": {
+      "@angular/common": "npm:@angular/common@2.2.4",
+      "@angular/core": "npm:@angular/core@2.2.4",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:@angular/http@2.1.0": {
-      "@angular/core": "npm:@angular/core@2.1.0",
-      "@angular/platform-browser": "npm:@angular/platform-browser@2.1.0",
+    "npm:@angular/http@2.2.4": {
+      "@angular/core": "npm:@angular/core@2.2.4",
+      "@angular/platform-browser": "npm:@angular/platform-browser@2.2.4",
       "rxjs": "npm:rxjs@5.0.0-beta.12"
     },
-    "npm:@angular/platform-browser-dynamic@2.1.0": {
-      "@angular/common": "npm:@angular/common@2.1.0",
-      "@angular/compiler": "npm:@angular/compiler@2.1.0",
-      "@angular/core": "npm:@angular/core@2.1.0",
-      "@angular/platform-browser": "npm:@angular/platform-browser@2.1.0"
+    "npm:@angular/platform-browser-dynamic@2.2.4": {
+      "@angular/common": "npm:@angular/common@2.2.4",
+      "@angular/compiler": "npm:@angular/compiler@2.2.4",
+      "@angular/core": "npm:@angular/core@2.2.4",
+      "@angular/platform-browser": "npm:@angular/platform-browser@2.2.4"
     },
-    "npm:@angular/platform-browser@2.1.0": {
-      "@angular/common": "npm:@angular/common@2.1.0",
-      "@angular/core": "npm:@angular/core@2.1.0",
+    "npm:@angular/platform-browser@2.2.4": {
+      "@angular/common": "npm:@angular/common@2.2.4",
+      "@angular/core": "npm:@angular/core@2.2.4",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:@angular/upgrade@2.1.0": {
-      "@angular/compiler": "npm:@angular/compiler@2.1.0",
-      "@angular/core": "npm:@angular/core@2.1.0",
-      "@angular/platform-browser": "npm:@angular/platform-browser@2.1.0",
-      "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.1.0"
+    "npm:@angular/upgrade@2.2.4": {
+      "@angular/compiler": "npm:@angular/compiler@2.2.4",
+      "@angular/core": "npm:@angular/core@2.2.4",
+      "@angular/platform-browser": "npm:@angular/platform-browser@2.2.4",
+      "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.2.4"
     },
-    "npm:asn1.js@4.8.0": {
-      "assert": "github:jspm/nodelibs-assert@0.1.0",
+    "npm:asn1.js@4.9.0": {
       "bn.js": "npm:bn.js@4.11.6",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
-      "fs": "github:jspm/nodelibs-fs@0.1.2",
       "inherits": "npm:inherits@2.0.1",
       "minimalistic-assert": "npm:minimalistic-assert@1.0.0",
       "vm": "github:jspm/nodelibs-vm@0.1.0"
@@ -983,7 +1425,7 @@ System.config({
       "base64-js": "npm:base64-js@0.0.8",
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
-      "ieee754": "npm:ieee754@1.1.6",
+      "ieee754": "npm:ieee754@1.1.8",
       "isarray": "npm:isarray@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
@@ -1018,7 +1460,7 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "inherits": "npm:inherits@2.0.1",
       "ripemd160": "npm:ripemd160@1.0.1",
-      "sha.js": "npm:sha.js@2.4.5"
+      "sha.js": "npm:sha.js@2.4.8"
     },
     "npm:create-hmac@1.1.4": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
@@ -1035,7 +1477,7 @@ System.config({
       "create-hmac": "npm:create-hmac@1.1.4",
       "diffie-hellman": "npm:diffie-hellman@5.0.2",
       "inherits": "npm:inherits@2.0.1",
-      "pbkdf2": "npm:pbkdf2@3.0.6",
+      "pbkdf2": "npm:pbkdf2@3.0.9",
       "public-encrypt": "npm:public-encrypt@4.0.0",
       "randombytes": "npm:randombytes@2.0.3"
     },
@@ -1075,25 +1517,26 @@ System.config({
       "brorand": "npm:brorand@1.0.6"
     },
     "npm:ng2-bootstrap@1.1.14": {
-      "@angular/common": "npm:@angular/common@2.1.0",
-      "@angular/compiler": "npm:@angular/compiler@2.1.0",
-      "@angular/core": "npm:@angular/core@2.1.0",
-      "@angular/forms": "npm:@angular/forms@2.1.0",
-      "moment": "npm:moment@2.15.1"
+      "@angular/common": "npm:@angular/common@2.2.4",
+      "@angular/compiler": "npm:@angular/compiler@2.2.4",
+      "@angular/core": "npm:@angular/core@2.2.4",
+      "@angular/forms": "npm:@angular/forms@2.2.4",
+      "moment": "npm:moment@2.15.1",
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:parse-asn1@5.0.0": {
-      "asn1.js": "npm:asn1.js@4.8.0",
+      "asn1.js": "npm:asn1.js@4.9.0",
       "browserify-aes": "npm:browserify-aes@1.0.6",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "create-hash": "npm:create-hash@1.1.2",
       "evp_bytestokey": "npm:evp_bytestokey@1.0.0",
-      "pbkdf2": "npm:pbkdf2@3.0.6",
+      "pbkdf2": "npm:pbkdf2@3.0.9",
       "systemjs-json": "github:systemjs/plugin-json@0.1.2"
     },
     "npm:path-browserify@0.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:pbkdf2@3.0.6": {
+    "npm:pbkdf2@3.0.9": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "create-hmac": "npm:create-hmac@1.1.4",
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
@@ -1135,9 +1578,9 @@ System.config({
     "npm:rxjs@5.0.0-beta.12": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
-      "symbol-observable": "npm:symbol-observable@1.0.2"
+      "symbol-observable": "npm:symbol-observable@1.0.4"
     },
-    "npm:sha.js@2.4.5": {
+    "npm:sha.js@2.4.8": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "inherits": "npm:inherits@2.0.1",
