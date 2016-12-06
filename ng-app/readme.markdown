@@ -6,7 +6,7 @@ Angular search app for UCF student services.
 - [TypeScript](https://www.typescriptlang.org/) - transpile to javascript, leverage new language features.
     - [Typings](https://github.com/typings/typings) - typescript intellisense and strong typing for external modules (definition files).
 - [SCSS](http://sass-lang.com/) - styling transpile to css, handled by top-level project.
-- [Angular v2.1+](https://angular.io/) - front-end framework.
+- [Angular v2.2+](https://angular.io/) - front-end framework.
     - Requires: Zone.js, Reflect-Metadata, [RxJS v5+](https://github.com/ReactiveX/rxjs/), a module loader (e.g., SystemJS, Webpack)
     - Polyfills for older browsers:
         See https://angular.io/docs/ts/latest/guide/browser-support.html
