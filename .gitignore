@@ -1,5 +1,5 @@
 *~
-/docs/
+/docs/php/phpdoc-cache*
 /tests/cov/
 /vendor/         #Composer
 /src/components/ #Bower

@@ -86,8 +86,14 @@ search_results_template = _.template(
         <div class="col-sm-8">
             <ucf-like-tweet-share>
                 <div class="service-social pull-md-right">
-                    <a target="_blank" href="<%= share_facebook %>"><span class="fa fa-thumbs-o-up"></span></a>       
-                    <a target="_blank" href="<%= share_twitter %>"><span class="fa fa-twitter"></span></a>
+                    <a target="_blank" href="<%= share_facebook %>">
+                        <span class="fa fa-thumbs-o-up"></span>
+                        <span class="sr-only">Share on Facebook</span>
+                    </a>
+                    <a target="_blank" href="<%= share_twitter %>">
+                        <span class="fa fa-twitter"></span>
+                        <span class="sr-only">Tweet on Twitter</span>
+                    </a>
                 </div>
             </ucf-like-tweet-share>
 

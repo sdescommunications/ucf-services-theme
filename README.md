@@ -39,6 +39,9 @@ Included with repository. See composer.json, bower.json, and package.json for ve
 
 ## Important files/folders
 
+### docs/
+Folder for this repo's [GitHub Pages site](http://ucf-sdes-it.github.io/ucf-services-theme/), including generated code documentation.
+
 ### functions.php
 The entry point for a WordPress theme, along with the style.css file. It includes or references all functionality for a theme.<br>
 This should be used for requiring other files (group all require statements at the top).

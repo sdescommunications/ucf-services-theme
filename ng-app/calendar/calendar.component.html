@@ -1,0 +1,30 @@
+<div class="calendar-events">
+  <div class="collapsed" type="button"
+     data-toggle="collapse" data-target="#calendar-expand"
+     aria-expanded="true" aria-controls="collapseExample">
+    <span class="calendar-events-title">
+        <span class="fa fa-calendar-o calendar-icon"></span>
+        {{ title }}
+        <span class="fa fa-chevron-down calendar-chevron"></span>
+    </span>
+  </div>
+    <div class="collapse" id="calendar-expand">
+        <span *ngIf='! hasEvents()'>No events found.</span>
+
+        <div class="event" *ngFor='let event of events'>
+            <div class="title" *ngIf="! event.url">
+                {{ event.summary }}
+            </div>
+            <div class="title" *ngIf="event.url">
+                <a href="{{ event.url }}" target="_blank">
+                    {{ event.summary }}
+                </a>
+            </div>
+            <div class="date">{{ month_day(event) }}</div>
+        </div>
+
+        <div *ngIf='moreEventsLink'>
+            <a class="all-link external" href="{{ moreEventsLink }}" target="_blank">{{ moreEventsText }}</a>
+        </div>
+    </div>
+</div>

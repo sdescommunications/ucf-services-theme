@@ -28,8 +28,8 @@
 		"phpcbf": ["phpcbf --no-patch --standard=.\\tests\\ucfsdes_wordpress_ruleset.xml", "@phpcs"],
 		"phpcbf-": "phpcbf --no-patch --standard=.\\tests\\ucfsdes_wordpress_ruleset.xml",
 		"phpcbf--": "phpcbf",
-		"phpdoc": "phpdoc -t ./docs --ignore vendor/*,tests/* --progressbar",
-		"phpdoc:all": "phpdoc -d . -t ./docs --ignore vendor/*,tests/* --progressbar",
+		"phpdoc": "phpdoc -t ./docs/php --ignore vendor/*,tests/* --progressbar",
+		"phpdoc:all": "phpdoc -d . -t ./docs/php --ignore vendor/*,tests/* --progressbar",
 		"some-php-script": "php .\\json_escaped\\path\\to\\the\\file.php"
 	}
 }
