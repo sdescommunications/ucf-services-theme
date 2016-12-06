@@ -1202,8 +1202,14 @@ class StudentService extends CustomPostType_ServicesTheme {
 			ob_start();
 			?>
 			<div class="service-social pull-md-right">
-				<a target="_blank" href="<?= $context['share_facebook'] ?>"><span class="fa fa-thumbs-o-up"></span></a>
-				<a target="_blank" href="<?= $context['share_twitter'] ?>"><span class="fa fa-twitter"></span></a>
+				<a target="_blank" href="<?= $context['share_facebook'] ?>">
+					<span class="fa fa-thumbs-o-up"></span>
+					<span class="sr-only">Share on Facebook</span>
+				</a>
+				<a target="_blank" href="<?= $context['share_twitter'] ?>">
+					<span class="fa fa-twitter"></span>
+					<span class="sr-only">Tweet on Twitter</span>
+				</a>
 			</div>
 		<?php
 		$html = ob_get_clean();
@@ -1405,7 +1411,12 @@ if ( ! SDES_Static::is_null_or_whitespace( $context['location'] ) ) : ?>
 			$networks = array();
 			foreach ( $network_map as $name => $fa_icon ) {
 				array_push( $networks,
-					(object) array( 'name' => $name, 'url' => $context[ "social_{$name}" ], 'faicon' => "fa-{$fa_icon}" )
+					(object) array(
+						'name' => $name,
+						'title' => ucfirst( $name ),
+						'url' => $context[ "social_{$name}" ],
+						'faicon' => "fa-{$fa_icon}"
+					)
 				);
 			}
 			ob_start();
@@ -1415,8 +1426,9 @@ if ( ! SDES_Static::is_null_or_whitespace( $context['location'] ) ) : ?>
 				<h2>Get social with <?= $context['title'] ?></h2>
 				<?php foreach ( $networks as $network ) :
 					if ( $network && ! SDES_Static::is_null_or_whitespace( $network->url ) ) : ?>
-					  <a href="<?= $network->url ?>" title="<?= ucfirst( $network->name ) ?>">
+					  <a href="<?= $network->url ?>" title="<?= $network->title ?>">
 						  <span class="fa <?= $network->faicon ?> social-icon"></span>
+						  <span class="sr-only"><?= $network->title ?></span>
 					  </a>
 					<?php endif;
 				  endforeach; ?>
