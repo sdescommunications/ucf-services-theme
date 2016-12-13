@@ -540,7 +540,7 @@ class IconFontAwesomeMetaField extends MetaField {
 		);
 		
 		$context = stream_context_create( $opts );
-		$contents = file_get_contents( ICON_FA_JSON, false, $context );
+		$contents = wp_remote_retrieve_body( wp_remote_get( ICON_FA_JSON, false, $context ));//$contents = file_get_contents( ICON_FA_JSON, false, $context );
 		return json_decode( $contents );
 	}
 }

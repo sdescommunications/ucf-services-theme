@@ -33,7 +33,7 @@ class FeedManager {
 		$cache_key = 'feedmanager-'.md5( $url );
 		$content   = get_site_transient( $cache_key );
 		if ( $content === false ) {
-			$content = @file_get_contents( $url );
+			$content = @wp_remote_retrieve_body( wp_remote_get( $url ));//$content = @file_get_contents( $url );
 			if ( $content === false ) {
 				$failed  = true;
 				$content = null;
