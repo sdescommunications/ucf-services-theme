@@ -122,7 +122,7 @@ class UcfAcademicCalendarModel {
 	}
 
 	public static function get_academic_calendar_items() {
-		$result_name = 'academic_calendar';
+		$result_name = 'academic_calendar_renamed';//$result_name = 'academic_calendar';
 		$retval = get_transient( $result_name );
 		if ( false === $retval ) {
 			$opts = array(
