@@ -109,7 +109,7 @@ class WeatherBox {
 			),
 		);
 		$context = stream_context_create( $opts );
-		$file = file_get_contents( SDES_Static::get_theme_mod_defaultIfEmpty( 'weather_feed_url', self::WEATHER_FEED_URL ), false, $context );
+		$file = wp_remote_retrieve_body( wp_remote_get( SDES_Static::get_theme_mod_defaultIfEmpty( 'weather_feed_url', self::WEATHER_FEED_URL ), false, $context )); //file_get_contents( SDES_Static::get_theme_mod_defaultIfEmpty( 'weather_feed_url', self::WEATHER_FEED_URL ), false, $context );
 		if ( false === $file ) {
 			return (object) array(
 				'condition' => 'n/a',

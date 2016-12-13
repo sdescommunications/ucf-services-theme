@@ -64,7 +64,7 @@ class Footer_Settings {
 			if ( empty( $file_location ) ) {
 				return;
 			}
-			$headers = get_headers( $file_location );
+			$headers = wp_remote_retrieve_body( wp_remote_get ( $file_location ));//get_headers( $file_location );
 			$response_code = substr( $headers[0], 9, 3 );
 			if ( $response_code !== '200' ) {
 				return;
