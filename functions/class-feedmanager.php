@@ -114,7 +114,7 @@ class FeedManager {
 }
 
 class UcfAcademicCalendarModel {
-	public static $calendar_url = 'http://calendar.ucf.edu/json';
+	public static $calendar_url = 'http://calendar.ucf.edu/feed/upcoming';
 	public static $more_events = 'http://calendar.ucf.edu/';
 	protected $event;
 	public function __construct( $item ) {
