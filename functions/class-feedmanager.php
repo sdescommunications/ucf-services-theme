@@ -135,7 +135,7 @@ class UcfAcademicCalendarModel {
 			if ( empty( $file_location ) ) {
 				return;
 			}
-			$result = json_decode( file_get_contents( $file_location, false, $context ) );
+			$result = json_decode( wp_remote_retrieve_body( wp_remote_get( $file_location, false, $context )) );//$result = json_decode( file_get_contents( $file_location, false, $context ) );
 			if ( empty( $result ) ) {
 				return;
 			}
