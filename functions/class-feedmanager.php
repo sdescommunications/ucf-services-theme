@@ -33,7 +33,7 @@ class FeedManager {
 		$cache_key = 'feedmanager-'.md5( $url );
 		$content   = get_site_transient( $cache_key );
 		if ( $content === false ) {
-			$content = @file_get_contents( $url );
+			$content = @wp_remote_retrieve_body( wp_remote_get( $url ));//$content = @file_get_contents( $url );
 			if ( $content === false ) {
 				$failed  = true;
 				$content = null;
@@ -114,7 +114,7 @@ class FeedManager {
 }
 
 class UcfAcademicCalendarModel {
-	public static $calendar_url = 'http://calendar.ucf.edu/json';
+	public static $calendar_url = 'http://calendar.ucf.edu/feed/upcoming';
 	public static $more_events = 'http://calendar.ucf.edu/';
 	protected $event;
 	public function __construct( $item ) {
@@ -122,7 +122,7 @@ class UcfAcademicCalendarModel {
 	}
 
 	public static function get_academic_calendar_items() {
-		$result_name = 'academic_calendar';
+		$result_name = 'academic_calendar_renamed';//$result_name = 'academic_calendar';
 		$retval = get_transient( $result_name );
 		if ( false === $retval ) {
 			$opts = array(
@@ -135,7 +135,7 @@ class UcfAcademicCalendarModel {
 			if ( empty( $file_location ) ) {
 				return;
 			}
-			$result = json_decode( file_get_contents( $file_location, false, $context ) );
+			$result = json_decode( wp_remote_retrieve_body( wp_remote_get( $file_location, false, $context )) );//$result = json_decode( file_get_contents( $file_location, false, $context ) );
 			if ( empty( $result ) ) {
 				return;
 			}
