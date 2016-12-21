@@ -40,7 +40,7 @@ class FrontPage_Settings {
 		wp_enqueue_script( 'ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.1.4/ng2-bootstrap.min.js' );
 		wp_add_inline_script('config-local',
 			"System.baseURL = '" . $baseURL . "';
-				// System.config(window.ucf_local_config); // Uncomment to load config.ucf_local.js instead of config.cdn.js.
+				System.config(window.ucf_local_config); // Uncomment to load config.ucf_local.js instead of config.cdn.js.
 				System.import('" . $baseURL . "/main')
 					  .then(
 					  	function( success ) { 
