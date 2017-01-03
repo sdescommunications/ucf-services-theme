@@ -69,8 +69,7 @@ System.register(["@angular/core", "moment", "./calendar.service"], function(expo
                     core_1.Component({
                         selector: "ucf-calendar-events",
                         moduleId: __moduleName,
-                        // templateUrl: "./calendar-events.component.html",
-                        template: "<div class=\"calendar-events\">\n          <div class=\"collapsed\" type=\"button\"\n             data-toggle=\"collapse\" data-target=\"#calendar-expand\"\n             aria-expanded=\"true\" aria-controls=\"collapseExample\">\n            <span class=\"calendar-events-title\">\n                <span class=\"fa fa-calendar-o calendar-icon\"></span>\n                {{ title }}\n                <span class=\"fa fa-chevron-down calendar-chevron\"></span>\n            </span>\n          </div>\n            <div class=\"collapse\" id=\"calendar-expand\">\n                <span *ngIf='! hasEvents()'>No events found.</span>\n\n                <div class=\"event\" *ngFor='let event of events'>\n                    <div class=\"title\" *ngIf=\"! event.url\">\n                        {{ event.summary }}\n                    </div>\n                    <div class=\"title\" *ngIf=\"event.url\">\n                        <a href=\"{{ event.url }}\" target=\"_blank\">\n                            {{ event.summary }}\n                        </a>\n                    </div>\n                    <div class=\"date\">{{ month_day(event) }}</div>\n                </div>\n\n                <div *ngIf='moreEventsLink'>\n                    <a class=\"all-link external\" href=\"{{ moreEventsLink }}\" target=\"_blank\">{{ moreEventsText }}</a>\n                </div>\n            </div>\n        </div>",
+                        templateUrl: "./calendar.component.html",
                     }), 
                     __metadata('design:paramtypes', [calendar_service_1.CalendarService])
                 ], CalendarEventsComponent);
