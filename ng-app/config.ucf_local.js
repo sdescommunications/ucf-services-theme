@@ -32,77 +32,78 @@ window.ucf_local_config = {
       "app-student-services/app-student-services.component.js"
     ],
     "bundle-dependencies.js": [
-      "npm:rxjs@5.0.0-beta.12/add/operator/do.js",
-      "npm:rxjs@5.0.0-beta.12/operator/do.js",
-      "npm:rxjs@5.0.0-beta.12/Subscriber.js",
-      "npm:rxjs@5.0.0-beta.12/symbol/rxSubscriber.js",
-      "npm:rxjs@5.0.0-beta.12/util/root.js",
-      "npm:rxjs@5.0.0-beta.12/Observer.js",
-      "npm:rxjs@5.0.0-beta.12/Subscription.js",
+      "npm:zone.js@0.7.4/dist/zone.js",
       "github:jspm/nodelibs-process@0.1.2.js",
       "github:jspm/nodelibs-process@0.1.2/index.js",
       "npm:process@0.11.9.js",
       "npm:process@0.11.9/browser.js",
-      "npm:rxjs@5.0.0-beta.12/util/UnsubscriptionError.js",
-      "npm:rxjs@5.0.0-beta.12/util/errorObject.js",
-      "npm:rxjs@5.0.0-beta.12/util/tryCatch.js",
-      "npm:rxjs@5.0.0-beta.12/util/isFunction.js",
-      "npm:rxjs@5.0.0-beta.12/util/isObject.js",
-      "npm:rxjs@5.0.0-beta.12/util/isArray.js",
-      "npm:rxjs@5.0.0-beta.12/Observable.js",
-      "npm:rxjs@5.0.0-beta.12/symbol/observable.js",
-      "npm:rxjs@5.0.0-beta.12/util/toSubscriber.js",
-      "npm:rxjs@5.0.0-beta.12/add/operator/distinctUntilChanged.js",
-      "npm:rxjs@5.0.0-beta.12/operator/distinctUntilChanged.js",
-      "npm:rxjs@5.0.0-beta.12/add/operator/catch.js",
-      "npm:rxjs@5.0.0-beta.12/operator/catch.js",
-      "npm:rxjs@5.0.0-beta.12/util/subscribeToResult.js",
-      "npm:rxjs@5.0.0-beta.12/InnerSubscriber.js",
-      "npm:rxjs@5.0.0-beta.12/symbol/iterator.js",
-      "npm:rxjs@5.0.0-beta.12/util/isPromise.js",
-      "npm:rxjs@5.0.0-beta.12/OuterSubscriber.js",
-      "npm:rxjs@5.0.0-beta.12/add/observable/fromEvent.js",
-      "npm:rxjs@5.0.0-beta.12/observable/fromEvent.js",
-      "npm:rxjs@5.0.0-beta.12/observable/FromEventObservable.js",
+      "npm:rxjs@5.0.1/add/operator/do.js",
+      "npm:rxjs@5.0.1/operator/do.js",
+      "npm:rxjs@5.0.1/Subscriber.js",
+      "npm:rxjs@5.0.1/symbol/rxSubscriber.js",
+      "npm:rxjs@5.0.1/util/root.js",
+      "npm:rxjs@5.0.1/Observer.js",
+      "npm:rxjs@5.0.1/Subscription.js",
+      "npm:rxjs@5.0.1/util/UnsubscriptionError.js",
+      "npm:rxjs@5.0.1/util/errorObject.js",
+      "npm:rxjs@5.0.1/util/tryCatch.js",
+      "npm:rxjs@5.0.1/util/isFunction.js",
+      "npm:rxjs@5.0.1/util/isObject.js",
+      "npm:rxjs@5.0.1/util/isArray.js",
+      "npm:rxjs@5.0.1/Observable.js",
+      "npm:rxjs@5.0.1/symbol/observable.js",
+      "npm:rxjs@5.0.1/util/toSubscriber.js",
+      "npm:rxjs@5.0.1/add/operator/distinctUntilChanged.js",
+      "npm:rxjs@5.0.1/operator/distinctUntilChanged.js",
+      "npm:rxjs@5.0.1/add/operator/catch.js",
+      "npm:rxjs@5.0.1/operator/catch.js",
+      "npm:rxjs@5.0.1/util/subscribeToResult.js",
+      "npm:rxjs@5.0.1/InnerSubscriber.js",
+      "npm:rxjs@5.0.1/symbol/iterator.js",
+      "npm:rxjs@5.0.1/util/isPromise.js",
+      "npm:rxjs@5.0.1/OuterSubscriber.js",
+      "npm:rxjs@5.0.1/add/observable/fromEvent.js",
+      "npm:rxjs@5.0.1/observable/fromEvent.js",
+      "npm:rxjs@5.0.1/observable/FromEventObservable.js",
       "npm:ng2-bootstrap@1.1.14/ng2-bootstrap.js",
       "npm:ng2-bootstrap@1.1.14/components/index.js",
       "npm:ng2-bootstrap@1.1.14/components/utils/components-helper.service.js",
-      "npm:@angular/platform-browser@2.2.4//bundles/platform-browser.umd.js",
-      "npm:@angular/core@2.2.4//bundles/core.umd.js",
-      "npm:rxjs@5.0.0-beta.12/Subject.js",
-      "npm:rxjs@5.0.0-beta.12/SubjectSubscription.js",
-      "npm:rxjs@5.0.0-beta.12/util/ObjectUnsubscribedError.js",
-      "npm:@angular/common@2.2.4//bundles/common.umd.js",
+      "npm:@angular/platform-browser@2.4.1//bundles/platform-browser.umd.js",
+      "npm:@angular/core@2.4.1//bundles/core.umd.js",
+      "npm:rxjs@5.0.1/Subject.js",
+      "npm:rxjs@5.0.1/SubjectSubscription.js",
+      "npm:rxjs@5.0.1/util/ObjectUnsubscribedError.js",
+      "npm:@angular/common@2.4.1//bundles/common.umd.js",
       "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead.module.js",
       "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead.directive.js",
       "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-match.class.js",
-      "npm:rxjs@5.0.0-beta.12/add/operator/toArray.js",
-      "npm:rxjs@5.0.0-beta.12/operator/toArray.js",
-      "npm:rxjs@5.0.0-beta.12/add/operator/mergeMap.js",
-      "npm:rxjs@5.0.0-beta.12/operator/mergeMap.js",
-      "npm:rxjs@5.0.0-beta.12/add/operator/map.js",
-      "npm:rxjs@5.0.0-beta.12/operator/map.js",
-      "npm:rxjs@5.0.0-beta.12/add/operator/filter.js",
-      "npm:rxjs@5.0.0-beta.12/operator/filter.js",
-      "npm:rxjs@5.0.0-beta.12/add/operator/debounceTime.js",
-      "npm:rxjs@5.0.0-beta.12/operator/debounceTime.js",
-      "npm:rxjs@5.0.0-beta.12/scheduler/async.js",
-      "npm:rxjs@5.0.0-beta.12/scheduler/AsyncScheduler.js",
-      "npm:rxjs@5.0.0-beta.12/Scheduler.js",
-      "npm:rxjs@5.0.0-beta.12/scheduler/AsyncAction.js",
-      "npm:rxjs@5.0.0-beta.12/scheduler/Action.js",
-      "npm:rxjs@5.0.0-beta.12/add/observable/from.js",
-      "npm:rxjs@5.0.0-beta.12/observable/from.js",
-      "npm:rxjs@5.0.0-beta.12/observable/FromObservable.js",
-      "npm:rxjs@5.0.0-beta.12/operator/observeOn.js",
-      "npm:rxjs@5.0.0-beta.12/Notification.js",
-      "npm:rxjs@5.0.0-beta.12/observable/ArrayLikeObservable.js",
-      "npm:rxjs@5.0.0-beta.12/observable/EmptyObservable.js",
-      "npm:rxjs@5.0.0-beta.12/observable/ScalarObservable.js",
-      "npm:rxjs@5.0.0-beta.12/observable/ArrayObservable.js",
-      "npm:rxjs@5.0.0-beta.12/util/isScheduler.js",
-      "npm:rxjs@5.0.0-beta.12/observable/IteratorObservable.js",
-      "npm:rxjs@5.0.0-beta.12/observable/PromiseObservable.js",
+      "npm:rxjs@5.0.1/add/operator/toArray.js",
+      "npm:rxjs@5.0.1/operator/toArray.js",
+      "npm:rxjs@5.0.1/add/operator/mergeMap.js",
+      "npm:rxjs@5.0.1/operator/mergeMap.js",
+      "npm:rxjs@5.0.1/add/operator/map.js",
+      "npm:rxjs@5.0.1/operator/map.js",
+      "npm:rxjs@5.0.1/add/operator/filter.js",
+      "npm:rxjs@5.0.1/operator/filter.js",
+      "npm:rxjs@5.0.1/add/operator/debounceTime.js",
+      "npm:rxjs@5.0.1/operator/debounceTime.js",
+      "npm:rxjs@5.0.1/scheduler/async.js",
+      "npm:rxjs@5.0.1/scheduler/AsyncScheduler.js",
+      "npm:rxjs@5.0.1/Scheduler.js",
+      "npm:rxjs@5.0.1/scheduler/AsyncAction.js",
+      "npm:rxjs@5.0.1/scheduler/Action.js",
+      "npm:rxjs@5.0.1/add/observable/from.js",
+      "npm:rxjs@5.0.1/observable/from.js",
+      "npm:rxjs@5.0.1/observable/FromObservable.js",
+      "npm:rxjs@5.0.1/operator/observeOn.js",
+      "npm:rxjs@5.0.1/Notification.js",
+      "npm:rxjs@5.0.1/observable/ArrayLikeObservable.js",
+      "npm:rxjs@5.0.1/observable/EmptyObservable.js",
+      "npm:rxjs@5.0.1/observable/ScalarObservable.js",
+      "npm:rxjs@5.0.1/observable/ArrayObservable.js",
+      "npm:rxjs@5.0.1/util/isScheduler.js",
+      "npm:rxjs@5.0.1/observable/IteratorObservable.js",
+      "npm:rxjs@5.0.1/observable/PromiseObservable.js",
       "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-utils.js",
       "npm:ng2-bootstrap@1.1.14/components/typeahead/latin-map.js",
       "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-options.class.js",
@@ -110,9 +111,9 @@ window.ucf_local_config = {
       "npm:ng2-bootstrap@1.1.14/components/position.js",
       "npm:ng2-bootstrap@1.1.14/components/ng2-bootstrap-config.js",
       "npm:ng2-bootstrap@1.1.14/components/utils/facade/browser.js",
-      "npm:@angular/forms@2.2.4//bundles/forms.umd.js",
-      "npm:rxjs@5.0.0-beta.12/observable/fromPromise.js",
-      "npm:rxjs@5.0.0-beta.12/operator/toPromise.js",
+      "npm:@angular/forms@2.4.1//bundles/forms.umd.js",
+      "npm:rxjs@5.0.1/observable/fromPromise.js",
+      "npm:rxjs@5.0.1/operator/toPromise.js",
       "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip.module.js",
       "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip.directive.js",
       "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip-options.class.js",
@@ -179,9 +180,9 @@ window.ucf_local_config = {
       "npm:ng2-bootstrap@1.1.14/components/buttons.js",
       "npm:ng2-bootstrap@1.1.14/components/alert.js",
       "npm:ng2-bootstrap@1.1.14/components/accordion.js",
-      "npm:@angular/platform-browser-dynamic@2.2.4//bundles/platform-browser-dynamic.umd.js",
-      "npm:@angular/compiler@2.2.4//bundles/compiler.umd.js",
-      "npm:@angular/http@2.2.4//bundles/http.umd.js"
+      "npm:@angular/platform-browser-dynamic@2.4.1//bundles/platform-browser-dynamic.umd.js",
+      "npm:@angular/compiler@2.4.1//bundles/compiler.umd.js",
+      "npm:@angular/http@2.4.1//bundles/http.umd.js"
     ]
   },
 
@@ -244,26 +245,27 @@ window.ucf_local_config = {
 
   map: {
     "@angular": "npm:@angular",
-    "@angular/common": "npm:@angular/common@2.2.4",
-    "@angular/compiler": "npm:@angular/compiler@2.2.4",
-    "@angular/core": "npm:@angular/core@2.2.4",
-    "@angular/forms": "npm:@angular/forms@2.2.4",
-    "@angular/http": "npm:@angular/http@2.2.4",
-    "@angular/platform-browser": "npm:@angular/platform-browser@2.2.4",
-    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.2.4",
+    "@angular/common": "npm:@angular/common@2.4.1",
+    "@angular/compiler": "npm:@angular/compiler@2.4.1",
+    "@angular/core": "npm:@angular/core@2.4.1",
+    "@angular/forms": "npm:@angular/forms@2.4.1",
+    "@angular/http": "npm:@angular/http@2.4.1",
+    "@angular/platform-browser": "npm:@angular/platform-browser@2.4.1",
+    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.4.1",
     "@angular/router": "npm:@angular/router",
-    "@angular/upgrade": "npm:@angular/upgrade@2.2.4",
+    "@angular/upgrade": "npm:@angular/upgrade@2.4.1",
     "angular/angular": "github:angular/angular@2.1.0",
     "app": "",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
-    "core-js": "npm:core-js@2.4.0",
+    "core-js": "npm:core-js@2.4.1",
     "main": "",
     "moment": "npm:moment@2.15.1",
     "ng2-bootstrap": "npm:ng2-bootstrap@1.1.14",
+    "process": "npm:process@0.11.9.js",
     "reflect-metadata": "npm:reflect-metadata@0.1.3",
-    "rxjs": "npm:rxjs@5.0.0-beta.12",
-    "zone.js": "npm:zone.js@0.6.21",
+    "rxjs": "npm:rxjs@5.0.1",
+    "zone.js": "npm:zone.js@0.7.4",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },
@@ -300,46 +302,46 @@ window.ucf_local_config = {
     "github:jspm/nodelibs-vm@0.1.0": {
       "vm-browserify": "npm:vm-browserify@0.0.4"
     },
-    "npm:@angular/common@2.2.4": {
-      "@angular/core": "npm:@angular/core@2.2.4"
+    "npm:@angular/common@2.4.1": {
+      "@angular/core": "npm:@angular/core@2.4.1"
     },
-    "npm:@angular/compiler@2.2.4": {
-      "@angular/core": "npm:@angular/core@2.2.4",
+    "npm:@angular/compiler@2.4.1": {
+      "@angular/core": "npm:@angular/core@2.4.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:@angular/core@2.2.4": {
+    "npm:@angular/core@2.4.1": {
       "process": "github:jspm/nodelibs-process@0.1.2",
-      "rxjs": "npm:rxjs@5.0.0-beta.12",
-      "zone.js": "npm:zone.js@0.6.21"
+      "rxjs": "npm:rxjs@5.0.1",
+      "zone.js": "npm:zone.js@0.7.4"
     },
-    "npm:@angular/forms@2.2.4": {
-      "@angular/common": "npm:@angular/common@2.2.4",
-      "@angular/core": "npm:@angular/core@2.2.4",
+    "npm:@angular/forms@2.4.1": {
+      "@angular/common": "npm:@angular/common@2.4.1",
+      "@angular/core": "npm:@angular/core@2.4.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:@angular/http@2.2.4": {
-      "@angular/core": "npm:@angular/core@2.2.4",
-      "@angular/platform-browser": "npm:@angular/platform-browser@2.2.4",
-      "rxjs": "npm:rxjs@5.0.0-beta.12"
+    "npm:@angular/http@2.4.1": {
+      "@angular/core": "npm:@angular/core@2.4.1",
+      "@angular/platform-browser": "npm:@angular/platform-browser@2.4.1",
+      "rxjs": "npm:rxjs@5.0.1"
     },
-    "npm:@angular/platform-browser-dynamic@2.2.4": {
-      "@angular/common": "npm:@angular/common@2.2.4",
-      "@angular/compiler": "npm:@angular/compiler@2.2.4",
-      "@angular/core": "npm:@angular/core@2.2.4",
-      "@angular/platform-browser": "npm:@angular/platform-browser@2.2.4"
+    "npm:@angular/platform-browser-dynamic@2.4.1": {
+      "@angular/common": "npm:@angular/common@2.4.1",
+      "@angular/compiler": "npm:@angular/compiler@2.4.1",
+      "@angular/core": "npm:@angular/core@2.4.1",
+      "@angular/platform-browser": "npm:@angular/platform-browser@2.4.1"
     },
-    "npm:@angular/platform-browser@2.2.4": {
-      "@angular/common": "npm:@angular/common@2.2.4",
-      "@angular/core": "npm:@angular/core@2.2.4",
+    "npm:@angular/platform-browser@2.4.1": {
+      "@angular/common": "npm:@angular/common@2.4.1",
+      "@angular/core": "npm:@angular/core@2.4.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:@angular/upgrade@2.2.4": {
-      "@angular/compiler": "npm:@angular/compiler@2.2.4",
-      "@angular/core": "npm:@angular/core@2.2.4",
-      "@angular/platform-browser": "npm:@angular/platform-browser@2.2.4",
-      "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.2.4"
+    "npm:@angular/upgrade@2.4.1": {
+      "@angular/compiler": "npm:@angular/compiler@2.4.1",
+      "@angular/core": "npm:@angular/core@2.4.1",
+      "@angular/platform-browser": "npm:@angular/platform-browser@2.4.1",
+      "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.4.1"
     },
-    "npm:asn1.js@4.9.0": {
+    "npm:asn1.js@4.9.1": {
       "bn.js": "npm:bn.js@4.11.6",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "inherits": "npm:inherits@2.0.1",
@@ -423,7 +425,7 @@ window.ucf_local_config = {
     "npm:constants-browserify@0.0.1": {
       "systemjs-json": "github:systemjs/plugin-json@0.1.2"
     },
-    "npm:core-js@2.4.0": {
+    "npm:core-js@2.4.1": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
@@ -502,15 +504,15 @@ window.ucf_local_config = {
       "brorand": "npm:brorand@1.0.6"
     },
     "npm:ng2-bootstrap@1.1.14": {
-      "@angular/common": "npm:@angular/common@2.2.4",
-      "@angular/compiler": "npm:@angular/compiler@2.2.4",
-      "@angular/core": "npm:@angular/core@2.2.4",
-      "@angular/forms": "npm:@angular/forms@2.2.4",
+      "@angular/common": "npm:@angular/common@2.4.1",
+      "@angular/compiler": "npm:@angular/compiler@2.4.1",
+      "@angular/core": "npm:@angular/core@2.4.1",
+      "@angular/forms": "npm:@angular/forms@2.4.1",
       "moment": "npm:moment@2.15.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:parse-asn1@5.0.0": {
-      "asn1.js": "npm:asn1.js@4.9.0",
+      "asn1.js": "npm:asn1.js@4.9.1",
       "browserify-aes": "npm:browserify-aes@1.0.6",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "create-hash": "npm:create-hash@1.1.2",
@@ -560,7 +562,7 @@ window.ucf_local_config = {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:rxjs@5.0.0-beta.12": {
+    "npm:rxjs@5.0.1": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "symbol-observable": "npm:symbol-observable@1.0.4"
@@ -589,8 +591,10 @@ window.ucf_local_config = {
     "npm:vm-browserify@0.0.4": {
       "indexof": "npm:indexof@0.0.1"
     },
-    "npm:zone.js@0.6.21": {
+    "npm:zone.js@0.7.4": {
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
+      "events": "github:jspm/nodelibs-events@0.1.1",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "timers": "github:jspm/nodelibs-timers@0.1.0"
     }
