@@ -25,7 +25,8 @@ class FrontPage_Settings {
 		wp_enqueue_script( 'core-js-shim', 'https://cdn.jsdelivr.net/core-js/2.4.1/shim.min.js' );
 		wp_enqueue_script( 'polfyill-classList', 'https://cdn.jsdelivr.net/classlist/2014.01.31/classList.min.js' );
 		wp_enqueue_script( 'polfyill-intl', 'https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en' );
-		wp_enqueue_script( 'polfyill-animations', 'https://cdn.jsdelivr.net/web-animations/2.2.2/web-animations.min.js' );
+		wp_enqueue_script( 'polyfill-animations', 'https://cdn.jsdelivr.net/web-animations/2.2.2/web-animations.min.js' );
+		wp_script_add_data( 'polyfill-animations', 'conditional', 'gte IE 10' );
 		wp_enqueue_script( 'polyfill-typedarray', 'https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.30/polyfill.min.js' ); // Or 'https://cdn.rawgit.com/inexorabletash/polyfill/0.1.30/polyfill.min.js');
 		wp_enqueue_script( 'polyfill-blob', 'https://cdn.rawgit.com/eligrey/Blob.js/079824b6c118fbcd0b99c561d57ad192d2c6619b/Blob.js' );
 		wp_enqueue_script( 'polyfill-formdata', 'https://cdn.rawgit.com/francois2metz/html5-formdata/9eee5d49070825a07a794cfa5decf0fd2c045463/formdata.js' );
@@ -36,7 +37,7 @@ class FrontPage_Settings {
 		// wp_enqueue_script('config', get_stylesheet_directory_uri() . $ng_directory . 'config.js');
 		wp_enqueue_script( 'config-cdn', get_stylesheet_directory_uri() . $ng_directory . 'config.cdn.js' );
 		wp_enqueue_script( 'config-local', get_stylesheet_directory_uri() . $ng_directory . 'config.ucf_local.js' ); // Set window.ucf_local_config.
-		wp_enqueue_script( 'ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.1.4/ng2-bootstrap.min.js' );
+		wp_enqueue_script( 'ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.1.16/ng2-bootstrap.min.js' );
 		wp_add_inline_script('config-local',
 		"jQuery(document).ready(function(){
 			System.baseURL = '" . $baseURL . "';

@@ -40,7 +40,7 @@ System.config({
       "npm:rxjs@5.0.1/operator/do.js",
       "npm:rxjs@5.0.1/Subscriber.js",
       "npm:rxjs@5.0.1/symbol/rxSubscriber.js",
-      "npm:rxjs@5.0.1/util/root.js",
+      "npm:rxjs@5.0.1/root.js",
       "npm:rxjs@5.0.1/Observer.js",
       "npm:rxjs@5.0.1/Subscription.js",
       "npm:rxjs@5.0.1/util/UnsubscriptionError.js",
@@ -179,6 +179,8 @@ System.config({
       "npm:ng2-bootstrap@1.1.14/components/buttons.js",
       "npm:ng2-bootstrap@1.1.14/components/alert.js",
       "npm:ng2-bootstrap@1.1.14/components/accordion.js",
+      "npm:ie-shim@0.1.0.js",
+      "npm:ie-shim@0.1.0/index.js",
       "npm:@angular/platform-browser-dynamic@2.4.1//bundles/platform-browser-dynamic.umd.js",
       "npm:@angular/compiler@2.4.1//bundles/compiler.umd.js",
       "npm:@angular/http@2.4.1//bundles/http.umd.js"
@@ -244,6 +246,7 @@ System.config({
 
   depCache: {
     "main.js": [
+      "ie-shim",
       "@angular/platform-browser-dynamic",
       "@angular/core",
       "./app.module",
@@ -298,7 +301,7 @@ System.config({
       "./components/alert",
       "./components/buttons",
       "./components/carousel",
-      "./components/collapse",
+      "npm:ng2-bootstrap@1.1.4/components/collapse",
       "./components/datepicker",
       "./components/modal",
       "./components/dropdown",
@@ -315,8 +318,8 @@ System.config({
       "./components/accordion/accordion.module",
       "./components/alert/alert.module",
       "./components/buttons/buttons.module",
-      "./components/carousel/carousel.module",
-      "./components/collapse/collapse.module",
+      "npm:ng2-bootstrap@1.1.4/components/carousel/carousel.module",
+      "npm:ng2-bootstrap@1.1.4/components/collapse/collapse.module",
       "./components/datepicker/datepicker.module",
       "./components/dropdown/dropdown.module",
       "./components/modal/modal.module",
@@ -359,37 +362,20 @@ System.config({
       "@angular/core",
       "process"
     ],
-    "npm:rxjs@5.0.0-beta.12/Subject.js": [
-      "./Observable",
-      "./Subscriber",
-      "./Subscription",
-      "./util/ObjectUnsubscribedError",
-      "./SubjectSubscription",
-      "./symbol/rxSubscriber"
-    ],
-    "npm:rxjs@5.0.0-beta.12/Observable.js": [
-      "./util/root",
-      "./util/toSubscriber",
-      "./symbol/observable"
-    ],
     "github:jspm/nodelibs-process@0.1.2.js": [
       "github:jspm/nodelibs-process@0.1.2/index"
     ],
     "app-student-services/search/filter.js": [
-      "./filter/filter.component"
+      "app-student-services/search/filter/filter.component"
     ],
     "app-student-services/search/form.js": [
-      "./form/form.component"
+      "app-student-services/search/form/form.component"
     ],
     "app-student-services/search/results.js": [
       "./results/results.component"
     ],
     "app-student-services/search/service.js": [
-      "./service/search.service"
-    ],
-    "npm:rxjs@5.0.0-beta.12/add/operator/catch.js": [
-      "../../Observable",
-      "../../operator/catch"
+      "app-student-services/search/service/search.service"
     ],
     "npm:ng2-bootstrap@1.1.4/components/accordion.js": [
       "./accordion/accordion-group.component",
@@ -472,36 +458,12 @@ System.config({
     "npm:ng2-bootstrap@1.1.4/components/common.js": [
       "@angular/core"
     ],
-    "npm:rxjs@5.0.0-beta.12/operator/toPromise.js": [
-      "../util/root"
-    ],
-    "npm:rxjs@5.0.0-beta.12/observable/fromPromise.js": [
-      "./PromiseObservable"
-    ],
-    "npm:rxjs@5.0.0-beta.12/Subscriber.js": [
-      "./util/isFunction",
-      "./Subscription",
-      "./Observer",
-      "./symbol/rxSubscriber"
-    ],
-    "npm:rxjs@5.0.0-beta.12/SubjectSubscription.js": [
-      "./Subscription"
-    ],
-    "npm:rxjs@5.0.0-beta.12/Subscription.js": [
-      "./util/isArray",
-      "./util/isObject",
-      "./util/isFunction",
-      "./util/tryCatch",
-      "./util/errorObject",
-      "./util/UnsubscriptionError",
-      "process"
-    ],
     "npm:ng2-bootstrap@1.1.4/components/accordion/accordion.module.js": [
       "@angular/common",
       "@angular/core",
-      "../collapse/collapse.module",
-      "./accordion-group.component",
-      "./accordion.component"
+      "npm:ng2-bootstrap@1.1.4/components/collapse/collapse.module",
+      "npm:ng2-bootstrap@1.1.4/components/accordion/accordion-group.component",
+      "npm:ng2-bootstrap@1.1.4/components/accordion/accordion.component"
     ],
     "npm:ng2-bootstrap@1.1.4/components/buttons/buttons.module.js": [
       "@angular/core",
@@ -603,16 +565,6 @@ System.config({
     "npm:@angular/common@2.1.0//bundles/common.umd.js": [
       "@angular/core"
     ],
-    "npm:rxjs@5.0.0-beta.12/symbol/rxSubscriber.js": [
-      "../util/root"
-    ],
-    "npm:rxjs@5.0.0-beta.12/util/toSubscriber.js": [
-      "../Subscriber",
-      "../symbol/rxSubscriber"
-    ],
-    "npm:rxjs@5.0.0-beta.12/symbol/observable.js": [
-      "../util/root"
-    ],
     "github:jspm/nodelibs-process@0.1.2/index.js": [
       "process"
     ],
@@ -648,7 +600,7 @@ System.config({
     ],
     "app-student-services/search/results/results.component.js": [
       "@angular/core",
-      "../service"
+      "app-student-services/search/service"
     ],
     "app-student-services/search/service/search.service.js": [
       "@angular/core",
@@ -657,17 +609,6 @@ System.config({
       "rxjs/add/operator/map",
       "rxjs/add/operator/do",
       "rxjs/add/operator/catch"
-    ],
-    "npm:rxjs@5.0.0-beta.12/operator/catch.js": [
-      "../OuterSubscriber",
-      "../util/subscribeToResult"
-    ],
-    "npm:rxjs@5.0.0-beta.12/observable/PromiseObservable.js": [
-      "../util/root",
-      "../Observable"
-    ],
-    "npm:rxjs@5.0.0-beta.12/util/tryCatch.js": [
-      "./errorObject"
     ],
     "npm:ng2-bootstrap@1.1.4/components/buttons/button-checkbox.directive.js": [
       "@angular/core",
@@ -819,168 +760,17 @@ System.config({
       "@angular/core",
       "./date-formatter"
     ],
-    "npm:rxjs@5.0.0-beta.12/add/operator/map.js": [
-      "../../Observable",
-      "../../operator/map"
-    ],
-    "npm:rxjs@5.0.0-beta.12/add/observable/fromEvent.js": [
-      "../../Observable",
-      "../../observable/fromEvent"
-    ],
-    "npm:rxjs@5.0.0-beta.12/add/operator/do.js": [
-      "../../Observable",
-      "../../operator/do"
-    ],
-    "npm:rxjs@5.0.0-beta.12/add/operator/debounceTime.js": [
-      "../../Observable",
-      "../../operator/debounceTime"
-    ],
-    "npm:rxjs@5.0.0-beta.12/OuterSubscriber.js": [
-      "./Subscriber"
-    ],
-    "npm:rxjs@5.0.0-beta.12/add/operator/distinctUntilChanged.js": [
-      "../../Observable",
-      "../../operator/distinctUntilChanged"
-    ],
-    "npm:rxjs@5.0.0-beta.12/add/observable/from.js": [
-      "../../Observable",
-      "../../observable/from"
-    ],
-    "npm:rxjs@5.0.0-beta.12/util/subscribeToResult.js": [
-      "./root",
-      "./isArray",
-      "./isPromise",
-      "../Observable",
-      "../symbol/iterator",
-      "../InnerSubscriber",
-      "../symbol/observable"
-    ],
     "npm:ng2-bootstrap@1.1.4/components/utils/utils.class.js": [
       "./facade/browser"
-    ],
-    "npm:rxjs@5.0.0-beta.12/add/operator/mergeMap.js": [
-      "../../Observable",
-      "../../operator/mergeMap"
     ],
     "npm:ng2-bootstrap@1.1.4/components/typeahead/typeahead-utils.js": [
       "./latin-map"
     ],
-    "npm:rxjs@5.0.0-beta.12/add/operator/filter.js": [
-      "../../Observable",
-      "../../operator/filter"
-    ],
     "npm:ng2-bootstrap@1.1.4/components/tooltip/tooltip-options.class.js": [
       "@angular/core"
     ],
-    "npm:rxjs@5.0.0-beta.12/add/operator/toArray.js": [
-      "../../Observable",
-      "../../operator/toArray"
-    ],
     "npm:ng2-bootstrap@1.1.4/components/datepicker/date-formatter.js": [
       "moment"
-    ],
-    "npm:rxjs@5.0.0-beta.12/operator/map.js": [
-      "../Subscriber"
-    ],
-    "npm:rxjs@5.0.0-beta.12/observable/fromEvent.js": [
-      "./FromEventObservable"
-    ],
-    "npm:rxjs@5.0.0-beta.12/operator/do.js": [
-      "../Subscriber"
-    ],
-    "npm:rxjs@5.0.0-beta.12/operator/distinctUntilChanged.js": [
-      "../Subscriber",
-      "../util/tryCatch",
-      "../util/errorObject"
-    ],
-    "npm:rxjs@5.0.0-beta.12/operator/debounceTime.js": [
-      "../Subscriber",
-      "../scheduler/async"
-    ],
-    "npm:rxjs@5.0.0-beta.12/observable/from.js": [
-      "./FromObservable"
-    ],
-    "npm:rxjs@5.0.0-beta.12/symbol/iterator.js": [
-      "../util/root"
-    ],
-    "npm:rxjs@5.0.0-beta.12/InnerSubscriber.js": [
-      "./Subscriber"
-    ],
-    "npm:rxjs@5.0.0-beta.12/operator/mergeMap.js": [
-      "../util/subscribeToResult",
-      "../OuterSubscriber"
-    ],
-    "npm:rxjs@5.0.0-beta.12/operator/filter.js": [
-      "../Subscriber"
-    ],
-    "npm:rxjs@5.0.0-beta.12/operator/toArray.js": [
-      "../Subscriber"
-    ],
-    "npm:rxjs@5.0.0-beta.12/scheduler/async.js": [
-      "./AsyncAction",
-      "./AsyncScheduler"
-    ],
-    "npm:rxjs@5.0.0-beta.12/observable/FromObservable.js": [
-      "../util/isArray",
-      "../util/isPromise",
-      "./PromiseObservable",
-      "./IteratorObservable",
-      "./ArrayObservable",
-      "./ArrayLikeObservable",
-      "../symbol/iterator",
-      "../Observable",
-      "../operator/observeOn",
-      "../symbol/observable"
-    ],
-    "npm:rxjs@5.0.0-beta.12/observable/FromEventObservable.js": [
-      "../Observable",
-      "../util/tryCatch",
-      "../util/isFunction",
-      "../util/errorObject",
-      "../Subscription",
-      "process"
-    ],
-    "npm:rxjs@5.0.0-beta.12/scheduler/AsyncAction.js": [
-      "../util/root",
-      "./Action"
-    ],
-    "npm:rxjs@5.0.0-beta.12/scheduler/AsyncScheduler.js": [
-      "../Scheduler"
-    ],
-    "npm:rxjs@5.0.0-beta.12/observable/IteratorObservable.js": [
-      "../util/root",
-      "../Observable",
-      "../symbol/iterator"
-    ],
-    "npm:rxjs@5.0.0-beta.12/observable/ArrayLikeObservable.js": [
-      "../Observable",
-      "./ScalarObservable",
-      "./EmptyObservable"
-    ],
-    "npm:rxjs@5.0.0-beta.12/observable/ArrayObservable.js": [
-      "../Observable",
-      "./ScalarObservable",
-      "./EmptyObservable",
-      "../util/isScheduler"
-    ],
-    "npm:rxjs@5.0.0-beta.12/operator/observeOn.js": [
-      "../Subscriber",
-      "../Notification"
-    ],
-    "npm:rxjs@5.0.0-beta.12/Scheduler.js": [
-      "process"
-    ],
-    "npm:rxjs@5.0.0-beta.12/scheduler/Action.js": [
-      "../Subscription"
-    ],
-    "npm:rxjs@5.0.0-beta.12/observable/ScalarObservable.js": [
-      "../Observable"
-    ],
-    "npm:rxjs@5.0.0-beta.12/observable/EmptyObservable.js": [
-      "../Observable"
-    ],
-    "npm:rxjs@5.0.0-beta.12/Notification.js": [
-      "./Observable"
     ],
     "npm:@angular/platform-browser-dynamic@2.2.4//bundles/platform-browser-dynamic.umd.js": [
       "@angular/compiler",
@@ -993,41 +783,41 @@ System.config({
       "process"
     ],
     "npm:ng2-bootstrap@1.1.14/ng2-bootstrap.js": [
-      "./components/accordion",
-      "./components/alert",
-      "./components/buttons",
-      "./components/carousel",
-      "./components/collapse",
-      "./components/datepicker",
-      "./components/modal",
-      "./components/dropdown",
-      "./components/pagination",
-      "./components/progressbar",
-      "./components/rating",
-      "./components/tabs",
-      "./components/timepicker",
-      "./components/tooltip",
-      "./components/typeahead",
-      "./components/position",
-      "./components/common",
-      "./components/ng2-bootstrap-config",
-      "./components/accordion/accordion.module",
-      "./components/alert/alert.module",
-      "./components/buttons/buttons.module",
-      "./components/carousel/carousel.module",
-      "./components/collapse/collapse.module",
-      "./components/datepicker/datepicker.module",
-      "./components/dropdown/dropdown.module",
-      "./components/modal/modal.module",
-      "./components/pagination/pagination.module",
-      "./components/progressbar/progressbar.module",
-      "./components/rating/rating.module",
-      "./components/tabs/tabs.module",
-      "./components/timepicker/timepicker.module",
-      "./components/tooltip/tooltip.module",
-      "./components/typeahead/typeahead.module",
-      "./components/utils/components-helper.service",
-      "./components/index"
+      "npm:ng2-bootstrap@1.1.14/components/accordion",
+      "npm:ng2-bootstrap@1.1.14/components/alert",
+      "npm:ng2-bootstrap@1.1.14/components/buttons",
+      "npm:ng2-bootstrap@1.1.14/components/carousel",
+      "npm:ng2-bootstrap@1.1.14/components/collapse",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker",
+      "npm:ng2-bootstrap@1.1.14/components/modal",
+      "npm:ng2-bootstrap@1.1.14/components/dropdown",
+      "npm:ng2-bootstrap@1.1.14/components/pagination",
+      "npm:ng2-bootstrap@1.1.14/components/progressbar",
+      "npm:ng2-bootstrap@1.1.14/components/rating",
+      "npm:ng2-bootstrap@1.1.14/components/tabs",
+      "npm:ng2-bootstrap@1.1.14/components/timepicker",
+      "npm:ng2-bootstrap@1.1.14/components/tooltip",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead",
+      "npm:ng2-bootstrap@1.1.14/components/position",
+      "npm:ng2-bootstrap@1.1.14/components/common",
+      "npm:ng2-bootstrap@1.1.14/components/ng2-bootstrap-config",
+      "npm:ng2-bootstrap@1.1.14/components/accordion/accordion.module",
+      "npm:ng2-bootstrap@1.1.14/components/alert/alert.module",
+      "npm:ng2-bootstrap@1.1.14/components/buttons/buttons.module",
+      "npm:ng2-bootstrap@1.1.14/components/carousel/carousel.module",
+      "npm:ng2-bootstrap@1.1.14/components/collapse/collapse.module",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker.module",
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.module",
+      "npm:ng2-bootstrap@1.1.14/components/modal/modal.module",
+      "npm:ng2-bootstrap@1.1.14/components/pagination/pagination.module",
+      "npm:ng2-bootstrap@1.1.14/components/progressbar/progressbar.module",
+      "npm:ng2-bootstrap@1.1.14/components/rating/rating.module",
+      "npm:ng2-bootstrap@1.1.14/components/tabs/tabs.module",
+      "npm:ng2-bootstrap@1.1.14/components/timepicker/timepicker.module",
+      "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip.module",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead.module",
+      "npm:ng2-bootstrap@1.1.14/components/utils/components-helper.service",
+      "npm:ng2-bootstrap@1.1.14/components/index"
     ],
     "npm:@angular/platform-browser@2.2.4//bundles/platform-browser.umd.js": [
       "@angular/common",
@@ -1052,89 +842,89 @@ System.config({
       "process"
     ],
     "npm:ng2-bootstrap@1.1.14/components/accordion.js": [
-      "./accordion/accordion-group.component",
-      "./accordion/accordion.component",
-      "./accordion/accordion.module"
+      "npm:ng2-bootstrap@1.1.14/components/accordion/accordion-group.component",
+      "npm:ng2-bootstrap@1.1.14/components/accordion/accordion.component",
+      "npm:ng2-bootstrap@1.1.14/components/accordion/accordion.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/alert.js": [
-      "./alert/alert.component",
-      "./alert/alert.module"
+      "npm:ng2-bootstrap@1.1.14/components/alert/alert.component",
+      "npm:ng2-bootstrap@1.1.14/components/alert/alert.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/buttons.js": [
-      "./buttons/button-checkbox.directive",
-      "./buttons/button-radio.directive",
-      "./buttons/buttons.module"
+      "npm:ng2-bootstrap@1.1.14/components/buttons/button-checkbox.directive",
+      "npm:ng2-bootstrap@1.1.14/components/buttons/button-radio.directive",
+      "npm:ng2-bootstrap@1.1.14/components/buttons/buttons.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/datepicker.js": [
-      "./datepicker/datepicker.component",
-      "./datepicker/datepicker.module",
-      "./datepicker/daypicker.component",
-      "./datepicker/monthpicker.component",
-      "./datepicker/yearpicker.component",
-      "./datepicker/date-formatter"
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker.component",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker.module",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/daypicker.component",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/monthpicker.component",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/yearpicker.component",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/date-formatter"
     ],
     "npm:ng2-bootstrap@1.1.14/components/collapse.js": [
-      "./collapse/collapse.directive",
-      "./collapse/collapse.module"
+      "npm:ng2-bootstrap@1.1.14/components/collapse/collapse.directive",
+      "npm:ng2-bootstrap@1.1.14/components/collapse/collapse.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/modal.js": [
-      "./modal/modal-backdrop.component",
-      "./modal/modal-options.class",
-      "./modal/modal.component",
-      "./modal/modal.module"
+      "npm:ng2-bootstrap@1.1.14/components/modal/modal-backdrop.component",
+      "npm:ng2-bootstrap@1.1.14/components/modal/modal-options.class",
+      "npm:ng2-bootstrap@1.1.14/components/modal/modal.component",
+      "npm:ng2-bootstrap@1.1.14/components/modal/modal.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/dropdown.js": [
-      "./dropdown/dropdown-menu.directive",
-      "./dropdown/dropdown-toggle.directive",
-      "./dropdown/dropdown.directive",
-      "./dropdown/dropdown.service",
-      "./dropdown/dropdown.module"
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown-menu.directive",
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown-toggle.directive",
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.directive",
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.service",
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/carousel.js": [
-      "./carousel/carousel.component",
-      "./carousel/carousel.module",
-      "./carousel/slide.component"
+      "npm:ng2-bootstrap@1.1.14/components/carousel/carousel.component",
+      "npm:ng2-bootstrap@1.1.14/components/carousel/carousel.module",
+      "npm:ng2-bootstrap@1.1.14/components/carousel/slide.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/pagination.js": [
-      "./pagination/pager.component",
-      "./pagination/pagination.component",
-      "./pagination/pagination.module"
+      "npm:ng2-bootstrap@1.1.14/components/pagination/pager.component",
+      "npm:ng2-bootstrap@1.1.14/components/pagination/pagination.component",
+      "npm:ng2-bootstrap@1.1.14/components/pagination/pagination.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/rating.js": [
-      "./rating/rating.component",
-      "./rating/rating.module"
+      "npm:ng2-bootstrap@1.1.14/components/rating/rating.component",
+      "npm:ng2-bootstrap@1.1.14/components/rating/rating.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/timepicker.js": [
-      "./timepicker/timepicker.component",
-      "./timepicker/timepicker.module"
+      "npm:ng2-bootstrap@1.1.14/components/timepicker/timepicker.component",
+      "npm:ng2-bootstrap@1.1.14/components/timepicker/timepicker.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/progressbar.js": [
-      "./progressbar/bar.component",
-      "./progressbar/progress.directive",
-      "./progressbar/progressbar.component",
-      "./progressbar/progressbar.module"
+      "npm:ng2-bootstrap@1.1.14/components/progressbar/bar.component",
+      "npm:ng2-bootstrap@1.1.14/components/progressbar/progress.directive",
+      "npm:ng2-bootstrap@1.1.14/components/progressbar/progressbar.component",
+      "npm:ng2-bootstrap@1.1.14/components/progressbar/progressbar.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/tabs.js": [
-      "./tabs/tab-heading.directive",
-      "./tabs/tabset.component",
-      "./tabs/tab.directive",
-      "./tabs/tabs.module"
+      "npm:ng2-bootstrap@1.1.14/components/tabs/tab-heading.directive",
+      "npm:ng2-bootstrap@1.1.14/components/tabs/tabset.component",
+      "npm:ng2-bootstrap@1.1.14/components/tabs/tab.directive",
+      "npm:ng2-bootstrap@1.1.14/components/tabs/tabs.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/typeahead.js": [
-      "./typeahead/typeahead-match.class",
-      "./typeahead/typeahead-options.class",
-      "./typeahead/typeahead-utils",
-      "./typeahead/typeahead-container.component",
-      "./typeahead/typeahead.directive",
-      "./typeahead/typeahead.module"
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-match.class",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-options.class",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-utils",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-container.component",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead.directive",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/tooltip.js": [
-      "./tooltip/tooltip-container.component",
-      "./tooltip/tooltip.directive",
-      "./tooltip/tooltip.module"
+      "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip-container.component",
+      "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip.directive",
+      "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip.module"
     ],
     "npm:ng2-bootstrap@1.1.14/components/ng2-bootstrap-config.js": [
-      "./utils/facade/browser"
+      "npm:ng2-bootstrap@1.1.14/components/utils/facade/browser"
     ],
     "npm:ng2-bootstrap@1.1.14/components/common.js": [
       "@angular/core"
@@ -1142,87 +932,87 @@ System.config({
     "npm:ng2-bootstrap@1.1.14/components/accordion/accordion.module.js": [
       "@angular/common",
       "@angular/core",
-      "../collapse/collapse.module",
-      "./accordion-group.component",
-      "./accordion.component"
+      "npm:ng2-bootstrap@1.1.14/components/collapse/collapse.module",
+      "npm:ng2-bootstrap@1.1.14/components/accordion/accordion-group.component",
+      "npm:ng2-bootstrap@1.1.14/components/accordion/accordion.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/buttons/buttons.module.js": [
       "@angular/core",
       "@angular/forms",
-      "./button-checkbox.directive",
-      "./button-radio.directive"
+      "npm:ng2-bootstrap@1.1.14/components/buttons/button-checkbox.directive",
+      "npm:ng2-bootstrap@1.1.14/components/buttons/button-radio.directive"
     ],
     "npm:ng2-bootstrap@1.1.14/components/alert/alert.module.js": [
       "@angular/common",
       "@angular/core",
-      "./alert.component"
+      "npm:ng2-bootstrap@1.1.14/components/alert/alert.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/carousel/carousel.module.js": [
       "@angular/common",
       "@angular/core",
-      "./carousel.component",
-      "./slide.component"
+      "npm:ng2-bootstrap@1.1.14/components/carousel/carousel.component",
+      "npm:ng2-bootstrap@1.1.14/components/carousel/slide.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker.module.js": [
       "@angular/common",
       "@angular/core",
       "@angular/forms",
-      "./datepicker-inner.component",
-      "./datepicker.component",
-      "./daypicker.component",
-      "./monthpicker.component",
-      "./yearpicker.component",
-      "../utils/components-helper.service"
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker-inner.component",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker.component",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/daypicker.component",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/monthpicker.component",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/yearpicker.component",
+      "npm:ng2-bootstrap@1.1.14/components/utils/components-helper.service"
     ],
     "npm:ng2-bootstrap@1.1.14/components/collapse/collapse.module.js": [
       "@angular/core",
-      "./collapse.directive"
+      "npm:ng2-bootstrap@1.1.14/components/collapse/collapse.directive"
     ],
     "npm:ng2-bootstrap@1.1.14/components/modal/modal.module.js": [
       "@angular/core",
-      "./modal-backdrop.component",
-      "./modal.component",
-      "../utils/components-helper.service"
+      "npm:ng2-bootstrap@1.1.14/components/modal/modal-backdrop.component",
+      "npm:ng2-bootstrap@1.1.14/components/modal/modal.component",
+      "npm:ng2-bootstrap@1.1.14/components/utils/components-helper.service"
     ],
     "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.module.js": [
       "@angular/core",
-      "./dropdown-menu.directive",
-      "./dropdown-toggle.directive",
-      "./dropdown.directive"
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown-menu.directive",
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown-toggle.directive",
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.directive"
     ],
     "npm:ng2-bootstrap@1.1.14/components/pagination/pagination.module.js": [
       "@angular/common",
       "@angular/core",
       "@angular/forms",
-      "./pager.component",
-      "./pagination.component"
+      "npm:ng2-bootstrap@1.1.14/components/pagination/pager.component",
+      "npm:ng2-bootstrap@1.1.14/components/pagination/pagination.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/progressbar/progressbar.module.js": [
       "@angular/common",
       "@angular/core",
-      "./bar.component",
-      "./progress.directive",
-      "./progressbar.component"
+      "npm:ng2-bootstrap@1.1.14/components/progressbar/bar.component",
+      "npm:ng2-bootstrap@1.1.14/components/progressbar/progress.directive",
+      "npm:ng2-bootstrap@1.1.14/components/progressbar/progressbar.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/rating/rating.module.js": [
       "@angular/common",
       "@angular/core",
       "@angular/forms",
-      "./rating.component"
+      "npm:ng2-bootstrap@1.1.14/components/rating/rating.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/tabs/tabs.module.js": [
       "@angular/common",
       "@angular/core",
-      "../common",
-      "./tab-heading.directive",
-      "./tab.directive",
-      "./tabset.component"
+      "npm:ng2-bootstrap@1.1.14/components/common",
+      "npm:ng2-bootstrap@1.1.14/components/tabs/tab-heading.directive",
+      "npm:ng2-bootstrap@1.1.14/components/tabs/tab.directive",
+      "npm:ng2-bootstrap@1.1.14/components/tabs/tabset.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/timepicker/timepicker.module.js": [
       "@angular/common",
       "@angular/core",
       "@angular/forms",
-      "./timepicker.component"
+      "npm:ng2-bootstrap@1.1.14/components/timepicker/timepicker.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/utils/components-helper.service.js": [
       "@angular/core",
@@ -1231,46 +1021,46 @@ System.config({
     "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip.module.js": [
       "@angular/common",
       "@angular/core",
-      "./tooltip-container.component",
-      "./tooltip.directive",
-      "../utils/components-helper.service"
+      "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip-container.component",
+      "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip.directive",
+      "npm:ng2-bootstrap@1.1.14/components/utils/components-helper.service"
     ],
     "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead.module.js": [
       "@angular/common",
       "@angular/core",
       "@angular/forms",
-      "./typeahead-container.component",
-      "./typeahead.directive",
-      "../utils/components-helper.service"
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-container.component",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead.directive",
+      "npm:ng2-bootstrap@1.1.14/components/utils/components-helper.service"
     ],
     "npm:ng2-bootstrap@1.1.14/components/index.js": [
       "@angular/core",
-      "./accordion/accordion.module",
-      "./alert/alert.module",
-      "./buttons/buttons.module",
-      "./carousel/carousel.module",
-      "./collapse/collapse.module",
-      "./datepicker/datepicker.module",
-      "./dropdown/dropdown.module",
-      "./modal/modal.module",
-      "./pagination/pagination.module",
-      "./progressbar/progressbar.module",
-      "./rating/rating.module",
-      "./tabs/tabs.module",
-      "./timepicker/timepicker.module",
-      "./tooltip/tooltip.module",
-      "./typeahead/typeahead.module",
-      "./utils/components-helper.service"
+      "npm:ng2-bootstrap@1.1.14/components/accordion/accordion.module",
+      "npm:ng2-bootstrap@1.1.14/components/alert/alert.module",
+      "npm:ng2-bootstrap@1.1.14/components/buttons/buttons.module",
+      "npm:ng2-bootstrap@1.1.14/components/carousel/carousel.module",
+      "npm:ng2-bootstrap@1.1.14/components/collapse/collapse.module",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker.module",
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.module",
+      "npm:ng2-bootstrap@1.1.14/components/modal/modal.module",
+      "npm:ng2-bootstrap@1.1.14/components/pagination/pagination.module",
+      "npm:ng2-bootstrap@1.1.14/components/progressbar/progressbar.module",
+      "npm:ng2-bootstrap@1.1.14/components/rating/rating.module",
+      "npm:ng2-bootstrap@1.1.14/components/tabs/tabs.module",
+      "npm:ng2-bootstrap@1.1.14/components/timepicker/timepicker.module",
+      "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip.module",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead.module",
+      "npm:ng2-bootstrap@1.1.14/components/utils/components-helper.service"
     ],
     "npm:@angular/common@2.2.4//bundles/common.umd.js": [
       "@angular/core"
     ],
     "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-utils.js": [
-      "./latin-map"
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/latin-map"
     ],
     "npm:ng2-bootstrap@1.1.14/components/accordion/accordion-group.component.js": [
       "@angular/core",
-      "./accordion.component"
+      "npm:ng2-bootstrap@1.1.14/components/accordion/accordion.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/buttons/button-checkbox.directive.js": [
       "@angular/core",
@@ -1284,8 +1074,8 @@ System.config({
     ],
     "npm:ng2-bootstrap@1.1.14/components/datepicker/yearpicker.component.js": [
       "@angular/core",
-      "../ng2-bootstrap-config",
-      "./datepicker-inner.component"
+      "npm:ng2-bootstrap@1.1.14/components/ng2-bootstrap-config",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker-inner.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/buttons/button-radio.directive.js": [
       "@angular/core",
@@ -1293,18 +1083,18 @@ System.config({
     ],
     "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker.component.js": [
       "@angular/core",
-      "./datepicker-inner.component",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker-inner.component",
       "@angular/forms"
     ],
     "npm:ng2-bootstrap@1.1.14/components/datepicker/daypicker.component.js": [
       "@angular/core",
-      "../ng2-bootstrap-config",
-      "./datepicker-inner.component"
+      "npm:ng2-bootstrap@1.1.14/components/ng2-bootstrap-config",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker-inner.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/datepicker/monthpicker.component.js": [
       "@angular/core",
-      "../ng2-bootstrap-config",
-      "./datepicker-inner.component"
+      "npm:ng2-bootstrap@1.1.14/components/ng2-bootstrap-config",
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker-inner.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/datepicker/date-formatter.js": [
       "moment"
@@ -1314,40 +1104,40 @@ System.config({
     ],
     "npm:ng2-bootstrap@1.1.14/components/modal/modal-backdrop.component.js": [
       "@angular/core",
-      "./modal-options.class"
+      "npm:ng2-bootstrap@1.1.14/components/modal/modal-options.class"
     ],
     "npm:ng2-bootstrap@1.1.14/components/modal/modal.component.js": [
       "@angular/core",
-      "../utils/components-helper.service",
-      "../utils/utils.class",
-      "./modal-backdrop.component",
-      "./modal-options.class",
-      "../utils/facade/browser"
+      "npm:ng2-bootstrap@1.1.14/components/utils/components-helper.service",
+      "npm:ng2-bootstrap@1.1.14/components/utils/utils.class",
+      "npm:ng2-bootstrap@1.1.14/components/modal/modal-backdrop.component",
+      "npm:ng2-bootstrap@1.1.14/components/modal/modal-options.class",
+      "npm:ng2-bootstrap@1.1.14/components/utils/facade/browser"
     ],
     "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown-toggle.directive.js": [
       "@angular/core",
-      "./dropdown.directive"
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.directive"
     ],
     "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown-menu.directive.js": [
       "@angular/core",
-      "./dropdown.directive"
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.directive"
     ],
     "npm:ng2-bootstrap@1.1.14/components/carousel/carousel.component.js": [
       "@angular/core",
-      "../ng2-bootstrap-config"
+      "npm:ng2-bootstrap@1.1.14/components/ng2-bootstrap-config"
     ],
     "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.directive.js": [
       "@angular/core",
-      "./dropdown.service"
+      "npm:ng2-bootstrap@1.1.14/components/dropdown/dropdown.service"
     ],
     "npm:ng2-bootstrap@1.1.14/components/carousel/slide.component.js": [
       "@angular/core",
-      "./carousel.component"
+      "npm:ng2-bootstrap@1.1.14/components/carousel/carousel.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/pagination/pager.component.js": [
       "@angular/core",
       "@angular/forms",
-      "./pagination.component"
+      "npm:ng2-bootstrap@1.1.14/components/pagination/pagination.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/pagination/pagination.component.js": [
       "@angular/core",
@@ -1359,7 +1149,7 @@ System.config({
     ],
     "npm:ng2-bootstrap@1.1.14/components/progressbar/bar.component.js": [
       "@angular/core",
-      "./progress.directive"
+      "npm:ng2-bootstrap@1.1.14/components/progressbar/progress.directive"
     ],
     "npm:ng2-bootstrap@1.1.14/components/timepicker/timepicker.component.js": [
       "@angular/core",
@@ -1380,21 +1170,21 @@ System.config({
     ],
     "npm:ng2-bootstrap@1.1.14/components/tabs/tab.directive.js": [
       "@angular/core",
-      "./tabset.component"
+      "npm:ng2-bootstrap@1.1.14/components/tabs/tabset.component"
     ],
     "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-container.component.js": [
       "@angular/core",
-      "../ng2-bootstrap-config",
-      "../position",
-      "./typeahead-options.class",
-      "./typeahead-utils"
+      "npm:ng2-bootstrap@1.1.14/components/ng2-bootstrap-config",
+      "npm:ng2-bootstrap@1.1.14/components/position",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-options.class",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-utils"
     ],
     "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead.directive.js": [
       "@angular/core",
       "@angular/forms",
-      "./typeahead-container.component",
-      "./typeahead-options.class",
-      "./typeahead-utils",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-container.component",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-options.class",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-utils",
       "rxjs/Observable",
       "rxjs/add/observable/from",
       "rxjs/add/operator/debounceTime",
@@ -1402,26 +1192,26 @@ System.config({
       "rxjs/add/operator/map",
       "rxjs/add/operator/mergeMap",
       "rxjs/add/operator/toArray",
-      "../utils/components-helper.service",
-      "./typeahead-match.class"
+      "npm:ng2-bootstrap@1.1.14/components/utils/components-helper.service",
+      "npm:ng2-bootstrap@1.1.14/components/typeahead/typeahead-match.class"
     ],
     "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip-container.component.js": [
       "@angular/core",
-      "../position",
-      "./tooltip-options.class"
+      "npm:ng2-bootstrap@1.1.14/components/position",
+      "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip-options.class"
     ],
     "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip.directive.js": [
       "@angular/core",
-      "./tooltip-container.component",
-      "./tooltip-options.class",
-      "../utils/components-helper.service"
+      "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip-container.component",
+      "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip-options.class",
+      "npm:ng2-bootstrap@1.1.14/components/utils/components-helper.service"
     ],
     "npm:ng2-bootstrap@1.1.14/components/datepicker/datepicker-inner.component.js": [
       "@angular/core",
-      "./date-formatter"
+      "npm:ng2-bootstrap@1.1.14/components/datepicker/date-formatter"
     ],
     "npm:ng2-bootstrap@1.1.14/components/utils/utils.class.js": [
-      "./facade/browser"
+      "npm:ng2-bootstrap@1.1.14/components/utils/facade/browser"
     ],
     "npm:ng2-bootstrap@1.1.14/components/tooltip/tooltip-options.class.js": [
       "@angular/core"
@@ -1447,17 +1237,17 @@ System.config({
       "@angular/platform-browser"
     ],
     "npm:rxjs@5.0.1/Observable.js": [
-      "./util/root",
-      "./util/toSubscriber",
-      "./symbol/observable"
+      "npm:rxjs@5.0.1/util/root",
+      "npm:rxjs@5.0.1/util/toSubscriber",
+      "npm:rxjs@5.0.1/symbol/observable"
     ],
     "npm:rxjs@5.0.1/Subject.js": [
-      "./Observable",
-      "./Subscriber",
-      "./Subscription",
-      "./util/ObjectUnsubscribedError",
-      "./SubjectSubscription",
-      "./symbol/rxSubscriber"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/Subscriber",
+      "npm:rxjs@5.0.1/Subscription",
+      "npm:rxjs@5.0.1/util/ObjectUnsubscribedError",
+      "npm:rxjs@5.0.1/SubjectSubscription",
+      "npm:rxjs@5.0.1/symbol/rxSubscriber"
     ],
     "npm:@angular/forms@2.4.1//bundles/forms.umd.js": [
       "@angular/core",
@@ -1472,212 +1262,215 @@ System.config({
       "process"
     ],
     "npm:rxjs@5.0.1/util/toSubscriber.js": [
-      "../Subscriber",
-      "../symbol/rxSubscriber",
-      "../Observer"
+      "npm:rxjs@5.0.1/Subscriber",
+      "npm:rxjs@5.0.1/symbol/rxSubscriber",
+      "npm:rxjs@5.0.1/Observer"
     ],
     "npm:rxjs@5.0.1/add/operator/catch.js": [
-      "../../Observable",
-      "../../operator/catch"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/operator/catch"
     ],
     "npm:rxjs@5.0.1/symbol/observable.js": [
-      "../util/root"
+      "npm:rxjs@5.0.1/util/root"
     ],
     "npm:rxjs@5.0.1/Subscriber.js": [
-      "./util/isFunction",
-      "./Subscription",
-      "./Observer",
-      "./symbol/rxSubscriber"
+      "npm:rxjs@5.0.1/util/isFunction",
+      "npm:rxjs@5.0.1/Subscription",
+      "npm:rxjs@5.0.1/Observer",
+      "npm:rxjs@5.0.1/symbol/rxSubscriber"
     ],
     "npm:rxjs@5.0.1/SubjectSubscription.js": [
-      "./Subscription"
+      "npm:rxjs@5.0.1/Subscription"
     ],
     "npm:rxjs@5.0.1/symbol/rxSubscriber.js": [
-      "../util/root"
+      "npm:rxjs@5.0.1/util/root"
     ],
     "npm:rxjs@5.0.1/observable/fromPromise.js": [
-      "./PromiseObservable"
+      "npm:rxjs@5.0.1/observable/PromiseObservable"
     ],
     "npm:rxjs@5.0.1/operator/toPromise.js": [
-      "../util/root"
+      "npm:rxjs@5.0.1/util/root"
     ],
     "npm:rxjs@5.0.1/Subscription.js": [
-      "./util/isArray",
-      "./util/isObject",
-      "./util/isFunction",
-      "./util/tryCatch",
-      "./util/errorObject",
-      "./util/UnsubscriptionError",
+      "npm:rxjs@5.0.1/util/isArray",
+      "npm:rxjs@5.0.1/util/isObject",
+      "npm:rxjs@5.0.1/util/isFunction",
+      "npm:rxjs@5.0.1/util/tryCatch",
+      "npm:rxjs@5.0.1/util/errorObject",
+      "npm:rxjs@5.0.1/util/UnsubscriptionError",
       "process"
     ],
     "npm:@angular/common@2.4.1//bundles/common.umd.js": [
       "@angular/core"
     ],
     "npm:rxjs@5.0.1/operator/catch.js": [
-      "../OuterSubscriber",
-      "../util/subscribeToResult"
+      "npm:rxjs@5.0.1/OuterSubscriber",
+      "npm:rxjs@5.0.1/util/subscribeToResult"
     ],
     "npm:rxjs@5.0.1/observable/PromiseObservable.js": [
-      "../util/root",
-      "../Observable"
+      "npm:rxjs@5.0.1/util/root",
+      "npm:rxjs@5.0.1/Observable"
     ],
     "npm:rxjs@5.0.1/util/tryCatch.js": [
-      "./errorObject"
+      "npm:rxjs@5.0.1/util/errorObject"
     ],
     "npm:rxjs@5.0.1/add/observable/fromEvent.js": [
-      "../../Observable",
-      "../../observable/fromEvent"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/observable/fromEvent"
     ],
     "npm:rxjs@5.0.1/add/operator/debounceTime.js": [
-      "../../Observable",
-      "../../operator/debounceTime"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/operator/debounceTime"
     ],
     "npm:rxjs@5.0.1/add/operator/distinctUntilChanged.js": [
-      "../../Observable",
-      "../../operator/distinctUntilChanged"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/operator/distinctUntilChanged"
     ],
     "npm:rxjs@5.0.1/add/operator/do.js": [
-      "../../Observable",
-      "../../operator/do"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/operator/do"
     ],
     "npm:rxjs@5.0.1/add/operator/map.js": [
-      "../../Observable",
-      "../../operator/map"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/operator/map"
     ],
     "npm:rxjs@5.0.1/OuterSubscriber.js": [
-      "./Subscriber"
+      "npm:rxjs@5.0.1/Subscriber"
     ],
     "npm:rxjs@5.0.1/util/subscribeToResult.js": [
-      "./root",
-      "./isArray",
-      "./isPromise",
-      "./isObject",
-      "../Observable",
-      "../symbol/iterator",
-      "../InnerSubscriber",
-      "../symbol/observable"
+      "npm:rxjs@5.0.1/util/root",
+      "npm:rxjs@5.0.1/isArray",
+      "npm:rxjs@5.0.1/isPromise",
+      "npm:rxjs@5.0.1/isObject",
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/symbol/iterator",
+      "npm:rxjs@5.0.1/InnerSubscriber",
+      "npm:rxjs@5.0.1/symbol/observable"
     ],
     "npm:rxjs@5.0.1/add/observable/from.js": [
-      "../../Observable",
-      "../../observable/from"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/observable/from"
     ],
     "npm:rxjs@5.0.1/add/operator/filter.js": [
-      "../../Observable",
-      "../../operator/filter"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/operator/filter"
     ],
     "npm:rxjs@5.0.1/add/operator/mergeMap.js": [
-      "../../Observable",
-      "../../operator/mergeMap"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/operator/mergeMap"
     ],
     "npm:rxjs@5.0.1/add/operator/toArray.js": [
-      "../../Observable",
-      "../../operator/toArray"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/operator/toArray"
     ],
     "npm:rxjs@5.0.1/observable/fromEvent.js": [
-      "./FromEventObservable"
+      "npm:rxjs@5.0.1/FromEventObservable"
     ],
     "npm:rxjs@5.0.1/operator/do.js": [
-      "../Subscriber"
+      "npm:rxjs@5.0.1/Subscriber"
     ],
     "npm:rxjs@5.0.1/operator/debounceTime.js": [
-      "../Subscriber",
-      "../scheduler/async"
+      "npm:rxjs@5.0.1/Subscriber",
+      "npm:rxjs@5.0.1/scheduler/async"
     ],
     "npm:rxjs@5.0.1/InnerSubscriber.js": [
-      "./Subscriber"
+      "npm:rxjs@5.0.1/Subscriber"
     ],
     "npm:rxjs@5.0.1/operator/distinctUntilChanged.js": [
-      "../Subscriber",
-      "../util/tryCatch",
-      "../util/errorObject"
+      "npm:rxjs@5.0.1/Subscriber",
+      "npm:rxjs@5.0.1/util/tryCatch",
+      "npm:rxjs@5.0.1/util/errorObject"
     ],
     "npm:rxjs@5.0.1/operator/map.js": [
-      "../Subscriber"
+      "npm:rxjs@5.0.1/Subscriber"
     ],
     "npm:rxjs@5.0.1/symbol/iterator.js": [
-      "../util/root"
+      "npm:rxjs@5.0.1/util/root"
     ],
     "npm:rxjs@5.0.1/observable/from.js": [
-      "./FromObservable"
+      "npm:rxjs@5.0.1/FromObservable"
     ],
     "npm:rxjs@5.0.1/operator/filter.js": [
-      "../Subscriber"
+      "npm:rxjs@5.0.1/Subscriber"
     ],
     "npm:rxjs@5.0.1/operator/toArray.js": [
-      "../Subscriber"
+      "npm:rxjs@5.0.1/Subscriber"
     ],
     "npm:rxjs@5.0.1/operator/mergeMap.js": [
-      "../util/subscribeToResult",
-      "../OuterSubscriber"
+      "npm:rxjs@5.0.1/util/subscribeToResult",
+      "npm:rxjs@5.0.1/OuterSubscriber"
     ],
     "npm:rxjs@5.0.1/observable/FromEventObservable.js": [
-      "../Observable",
-      "../util/tryCatch",
-      "../util/isFunction",
-      "../util/errorObject",
-      "../Subscription",
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/util/tryCatch",
+      "npm:rxjs@5.0.1/util/isFunction",
+      "npm:rxjs@5.0.1/util/errorObject",
+      "npm:rxjs@5.0.1/Subscription",
       "process"
     ],
     "npm:rxjs@5.0.1/scheduler/async.js": [
-      "./AsyncAction",
-      "./AsyncScheduler"
+      "npm:rxjs@5.0.1/AsyncAction",
+      "npm:rxjs@5.0.1/AsyncScheduler"
     ],
     "npm:rxjs@5.0.1/observable/FromObservable.js": [
-      "../util/isArray",
-      "../util/isPromise",
-      "./PromiseObservable",
-      "./IteratorObservable",
-      "./ArrayObservable",
-      "./ArrayLikeObservable",
-      "../symbol/iterator",
-      "../Observable",
-      "../operator/observeOn",
-      "../symbol/observable"
+      "npm:rxjs@5.0.1/util/isArray",
+      "npm:rxjs@5.0.1/util/isPromise",
+      "npm:rxjs@5.0.1/observable/PromiseObservable",
+      "npm:rxjs@5.0.1/observable/IteratorObservable",
+      "npm:rxjs@5.0.1/observable/ArrayObservable",
+      "npm:rxjs@5.0.1/observable/ArrayLikeObservable",
+      "npm:rxjs@5.0.1/symbol/iterator",
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/operator/observeOn",
+      "npm:rxjs@5.0.1/symbol/observable"
     ],
     "npm:rxjs@5.0.1/scheduler/AsyncAction.js": [
-      "../util/root",
-      "./Action"
+      "npm:rxjs@5.0.1/util/root",
+      "npm:rxjs@5.0.1/scheduler/Action"
     ],
     "npm:rxjs@5.0.1/observable/ArrayObservable.js": [
-      "../Observable",
-      "./ScalarObservable",
-      "./EmptyObservable",
-      "../util/isScheduler"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/observable/ScalarObservable",
+      "npm:rxjs@5.0.1/observable/EmptyObservable",
+      "npm:rxjs@5.0.1/util/isScheduler"
     ],
     "npm:rxjs@5.0.1/observable/IteratorObservable.js": [
-      "../util/root",
-      "../Observable",
-      "../symbol/iterator"
+      "npm:rxjs@5.0.1/util/root",
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/symbol/iterator"
     ],
     "npm:rxjs@5.0.1/scheduler/AsyncScheduler.js": [
-      "../Scheduler"
+      "npm:rxjs@5.0.1/Scheduler"
     ],
     "npm:rxjs@5.0.1/observable/ArrayLikeObservable.js": [
-      "../Observable",
-      "./ScalarObservable",
-      "./EmptyObservable"
+      "npm:rxjs@5.0.1/Observable",
+      "npm:rxjs@5.0.1/observable/ScalarObservable",
+      "npm:rxjs@5.0.1/observable/EmptyObservable"
     ],
     "npm:rxjs@5.0.1/operator/observeOn.js": [
-      "../Subscriber",
-      "../Notification"
+      "npm:rxjs@5.0.1/Subscriber",
+      "npm:rxjs@5.0.1/Notification"
     ],
     "npm:rxjs@5.0.1/observable/ScalarObservable.js": [
-      "../Observable"
+      "npm:rxjs@5.0.1/Observable"
     ],
     "npm:rxjs@5.0.1/scheduler/Action.js": [
-      "../Subscription"
+      "npm:rxjs@5.0.1/Subscription"
     ],
     "npm:rxjs@5.0.1/observable/EmptyObservable.js": [
-      "../Observable"
+      "npm:rxjs@5.0.1/Observable"
     ],
     "npm:rxjs@5.0.1/Scheduler.js": [
       "process"
     ],
     "npm:rxjs@5.0.1/Notification.js": [
-      "./Observable"
+      "npm:rxjs@5.0.1/Observable"
     ],
     "npm:zone.js@0.7.4/dist/zone.js": [
       "process"
+    ],
+    "npm:ie-shim@0.1.0.js": [
+      "./ie-shim@0.1.0/index"
     ]
   },
 
@@ -1697,6 +1490,7 @@ System.config({
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@2.4.1",
+    "ie-shim": "npm:ie-shim@0.1.0",
     "main": "",
     "moment": "npm:moment@2.15.1",
     "ng2-bootstrap": "npm:ng2-bootstrap@1.1.14",
@@ -1933,6 +1727,10 @@ System.config({
     },
     "npm:hash.js@1.0.3": {
       "inherits": "npm:inherits@2.0.1"
+    },
+    "npm:ie-shim@0.1.0": {
+      "path": "github:jspm/nodelibs-path@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
