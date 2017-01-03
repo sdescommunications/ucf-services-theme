@@ -1,4 +1,4 @@
-System.register(["@angular/platform-browser-dynamic", '@angular/core', "./app.module"], function(exports_1, context_1) {
+System.register(["@angular/platform-browser-dynamic", '@angular/core', "./app.module", 'zone.js/dist/zone'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var platform_browser_dynamic_1, core_1, app_module_1;
@@ -12,7 +12,8 @@ System.register(["@angular/platform-browser-dynamic", '@angular/core', "./app.mo
             },
             function (app_module_1_1) {
                 app_module_1 = app_module_1_1;
-            }],
+            },
+            function (_1) {}],
         execute: function() {
             core_1.enableProdMode();
             platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule)
