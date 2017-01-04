@@ -41,14 +41,14 @@ class FrontPage_Settings {
 		"jQuery(document).ready(function(){
 			System.baseURL = '" . $baseURL . "';
 				System.config(window.ucf_local_config); // Uncomment to load config.ucf_local.js instead of config.cdn.js.
-				System.import('" . $baseURL . "/main')
+				System.import('" . $baseURL . "main')
 					  .then(
 					  	function( success ) { 
 					    },
 					  	function( cdnErr ) {
 							// Local fallbacks. See: https://github.com/systemjs/systemjs/issues/986#issuecomment-168422454
 							System.config(window.ucf_local_config);
-							System.import('" . $baseURL . "/main')
+							System.import('" . $baseURL . "main')
 								  .then(
 								  	function ( success ) { console.info('Successfully loaded from local files after CDN failure: ', cdnErr ); }
 								  , function( err ) {
