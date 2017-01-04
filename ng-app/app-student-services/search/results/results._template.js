@@ -81,7 +81,7 @@ search_results_template = _.template(
     <div class="service"<%= ng_forService %>>
       <div class="row"<%= ng_ifRow %>>
         <div class="col-sm-4">
-            <img class="service-image" src="<%= image_thumbnail_src %>" alt="<%= image_alt %>">
+            <img class="service-image img-responsive" src="<%= image_thumbnail_src %>" alt="<%= image_alt %>">
         </div>
         <div class="col-sm-8">
             <ucf-like-tweet-share>

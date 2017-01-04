@@ -3,7 +3,7 @@
     <div class="service" [attr.data-category]="<?= $ctxt_search_results['main_category_name'] ?>">
       <div class="row">
         <div class="col-sm-4">
-            <img class="service-image" src="<?= $ctxt_search_results['image_thumbnail_src'] ?>" alt="<?= $ctxt_search_results['image_alt'] ?>">
+            <img class="service-image img-responsive" src="<?= $ctxt_search_results['image_thumbnail_src'] ?>" alt="<?= $ctxt_search_results['image_alt'] ?>">
         </div>
         <div class="col-sm-8">
             <ucf-like-tweet-share>
