@@ -37,7 +37,6 @@ class FrontPage_Settings {
 		// wp_enqueue_script('config', get_stylesheet_directory_uri() . $ng_directory . 'config.js');
 		wp_enqueue_script( 'config-cdn', get_stylesheet_directory_uri() . $ng_directory . 'config.cdn.js' );
 		wp_enqueue_script( 'config-local', get_stylesheet_directory_uri() . $ng_directory . 'config.ucf_local.js' ); // Set window.ucf_local_config.
-		wp_enqueue_script( 'ng2-bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.1.16/ng2-bootstrap.min.js' );
 		wp_add_inline_script('config-local',
 		"jQuery(document).ready(function(){
 			System.baseURL = '" . $baseURL . "';

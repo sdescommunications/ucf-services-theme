@@ -1,6 +1,5 @@
-System.register(["@angular/core"], function(exports_1, context_1) {
+System.register(["@angular/core"], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,18 +9,16 @@ System.register(["@angular/core"], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
-    var UnescapeHtmlPipe;
+    var __moduleName = context_1 && context_1.id;
+    var core_1, UnescapeHtmlPipe, UnescapeHtmlPipe_1;
     return {
-        setters:[
+        setters: [
             function (core_1_1) {
                 core_1 = core_1_1;
-            }],
-        execute: function() {
-            /**
-             * Unescape html entities.
-             */
-            UnescapeHtmlPipe = (function () {
+            }
+        ],
+        execute: function () {
+            UnescapeHtmlPipe = UnescapeHtmlPipe_1 = (function () {
                 function UnescapeHtmlPipe() {
                 }
                 UnescapeHtmlPipe.prototype.transform = function (toFilter, args) {
@@ -54,29 +51,29 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                      * /g - close regex, search global
                      */
                     return String(toFilter).replace(/\&[\w#]+;/g, function (s) {
-                        return UnescapeHtmlPipe.entityMap[s];
+                        return UnescapeHtmlPipe_1.entityMap[s];
                     });
                 };
-                UnescapeHtmlPipe.entityMap = {
-                    "&amp;": "&",
-                    "&lt;": "<",
-                    "&gt;": ">",
-                    "&quot;": "\"",
-                    "&apos;": "'",
-                    "&#39;": "'",
-                    "&#x2F;": "/"
-                };
-                UnescapeHtmlPipe = __decorate([
-                    core_1.Pipe({
-                        "name": "unescapeHtml"
-                    }), 
-                    __metadata('design:paramtypes', [])
-                ], UnescapeHtmlPipe);
                 return UnescapeHtmlPipe;
             }());
+            UnescapeHtmlPipe.entityMap = {
+                "&amp;": "&",
+                "&lt;": "<",
+                "&gt;": ">",
+                "&quot;": "\"",
+                "&apos;": "'",
+                "&#39;": "'",
+                "&#x2F;": "/"
+            };
+            UnescapeHtmlPipe = UnescapeHtmlPipe_1 = __decorate([
+                core_1.Pipe({
+                    "name": "unescapeHtml"
+                }),
+                __metadata("design:paramtypes", [])
+            ], UnescapeHtmlPipe);
             exports_1("UnescapeHtmlPipe", UnescapeHtmlPipe);
             window.ucf_pipe_unescapeHtml = new UnescapeHtmlPipe();
         }
-    }
+    };
 });
 //# sourceMappingURL=unescapeHtml.pipe.js.map

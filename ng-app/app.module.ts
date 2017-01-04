@@ -4,7 +4,7 @@ import { FormsModule }   from "@angular/forms";
 import { HttpModule } from "@angular/http";
 
 // import "rxjs/Rx"; // Load all features (uncomment during development for intellisense).
-import { TypeaheadModule } from "ng2-bootstrap/ng2-bootstrap";
+import { TypeaheadModule } from "ng2-bootstrap";
 
 
 import { AppStudentServicesComponent } from "./app-student-services/app-student-services.component";
@@ -27,7 +27,7 @@ import { UnescapeHtmlPipe } from "./pipes/unescapeHtml.pipe";
         BrowserModule,
         FormsModule,
         HttpModule,
-        TypeaheadModule,
+        TypeaheadModule.forRoot(),
     ],
     providers: [
         // Services
