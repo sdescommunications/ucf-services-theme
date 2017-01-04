@@ -12,14 +12,15 @@
       "jscs": "Javascript codesniffer with a wordpress preset."
     },
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install:global": "npm install -g bower jshint jscs typescript typings tslint jspm lodash",
+    "install:global": "npm install -g bower jshint jscs typescript typings tslint jspm lodash bless",
     "jshint": "npm run from_config -- cmd_jshint",
     "jscs": "npm run from_config -- cmd_jscs",
     "tslint": "tslint ./ng-app/**/*.ts -t verbose -c ./ng-app/tslint.json -e ./**/jspm_packages/** -e ./**/node_modules/** -e ./**/typings/**",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings",
-    "build": "node ./scripts/build_templates.js",
+    "bless": "blessc chunk .\\css\\style.css --sourcemaps --outdir .\\css && blessc chunk .\\css\\admin.css --sourcemaps --outdir .\\css",
+    "build": "npm run bless && pushd .\\ng-app && npm run build && popd",
     "build:w": "node ./scripts/build_templates.js -w",
     "postinstall": "typings install",
 
@@ -33,6 +34,7 @@
   "optionalDependencies": {
     "bower": "^1.7.9",
     "lodash": "^4.13.1",
+    "bless": "^4.0.4",
     "typescript": "^2.0.6",
     "typings": "^1.3.1",
     "tslint": "^3.13.0",
