@@ -1,7 +1,7 @@
 <div class="container-fluid" *ngIf='type == "rectangle"'>
     <div class="row campaign" *ngIf="shouldShow()">
         <div class="col-sm-5 campaign-image">
-            <img [src]="image_url">
+            <img class="img-responsive" [src]="image_url">
         </div>
         <div class="col-sm-7 campaign-content">
             <div class="campaign-title">

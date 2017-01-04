@@ -5,15 +5,15 @@ var _ = require('lodash'),
 var  php_context   = {
 	'action': '<?= get_permalink( $post->ID ); ?>',
 	'frontsearch_lead': `<?= $NG_APP_SETTINGS['ucf_search_lead'] ?>`,
-	'frontsearch_placeholder': `<?= $NG_APP_SETTINGS['ucf_search_placeholder']?>`,
-	'ng_input_params': `value="<?= $search_query ?>"`,
+	'frontsearch_placeholder': `<?= $NG_APP_SETTINGS['ucf_search_placeholder'] ?>`,
+	'input_params': `value="<?= $NG_APP_SETTINGS['search_query'] ?>"`,
 }
 
 var angular_context = {
 	'action': "{{ action }}",
 	'frontsearch_lead': `<span [outerHTML]='lead | unescapeHtml'></span>`,
 	'frontsearch_placeholder': '{{ placeholder }}',
-	'ng_input_params':	`[(ngModel)]="frontsearch_query"
+	'input_params':	`[(ngModel)]="frontsearch_query"
 						[ngModelOptions]="{standalone: true}"
 						[typeahead]='searchSuggestions'
 						(typeaheadOnSelect)="typeaheadOnSelect($event)"
@@ -39,7 +39,7 @@ search_form_template = _.template(
 						placeholder="<%= frontsearch_placeholder %>"
 						autocomplete="off"
 						aria-label="Search for student services."
-						<%= ng_input_params %>>
+						<%= input_params %>>
 				</form>
 			</div>
 		</div>

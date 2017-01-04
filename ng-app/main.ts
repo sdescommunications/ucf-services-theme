@@ -1,7 +1,10 @@
+import 'ie-shim'; // Internet Explorer 9 support
+
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 import { enableProdMode } from '@angular/core';
 
 import { AppModule }              from "./app.module";
+import 'zone.js/dist/zone';  // Load Zone again, in case ZoneAware Promises were overwritten, see: https://github.com/angular/zone.js/issues/465#issuecomment-256487529
 
 enableProdMode();
 platformBrowserDynamic().bootstrapModule(AppModule)

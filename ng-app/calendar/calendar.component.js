@@ -1,6 +1,5 @@
-System.register(["@angular/core", "moment", "./calendar.service"], function(exports_1, context_1) {
+System.register(["@angular/core", "moment", "./calendar.service"], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,10 +9,10 @@ System.register(["@angular/core", "moment", "./calendar.service"], function(expo
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, moment_1, calendar_service_1;
-    var CalendarEventsComponent;
+    var __moduleName = context_1 && context_1.id;
+    var core_1, moment_1, calendar_service_1, CalendarEventsComponent;
     return {
-        setters:[
+        setters: [
             function (core_1_1) {
                 core_1 = core_1_1;
             },
@@ -22,8 +21,9 @@ System.register(["@angular/core", "moment", "./calendar.service"], function(expo
             },
             function (calendar_service_1_1) {
                 calendar_service_1 = calendar_service_1_1;
-            }],
-        execute: function() {
+            }
+        ],
+        execute: function () {
             CalendarEventsComponent = (function () {
                 function CalendarEventsComponent(_calendarService) {
                     this._calendarService = _calendarService;
@@ -48,36 +48,34 @@ System.register(["@angular/core", "moment", "./calendar.service"], function(expo
                 CalendarEventsComponent.prototype.month_day = function (event) {
                     return moment_1.default(event.dtstart).format("MMM DD");
                 };
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', String)
-                ], CalendarEventsComponent.prototype, "title", void 0);
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', Array)
-                ], CalendarEventsComponent.prototype, "events", void 0);
-                __decorate([
-                    // = [
-                    core_1.Input(), 
-                    __metadata('design:type', String)
-                ], CalendarEventsComponent.prototype, "moreEventsLink", void 0);
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', String)
-                ], CalendarEventsComponent.prototype, "moreEventsText", void 0);
-                CalendarEventsComponent = __decorate([
-                    core_1.Component({
-                        selector: "ucf-calendar-events",
-                        moduleId: __moduleName,
-                        // templateUrl: "./calendar-events.component.html",
-                        template: "<div class=\"calendar-events\">\n          <div class=\"collapsed\" type=\"button\"\n             data-toggle=\"collapse\" data-target=\"#calendar-expand\"\n             aria-expanded=\"true\" aria-controls=\"collapseExample\">\n            <span class=\"calendar-events-title\">\n                <span class=\"fa fa-calendar-o calendar-icon\"></span>\n                {{ title }}\n                <span class=\"fa fa-chevron-down calendar-chevron\"></span>\n            </span>\n          </div>\n            <div class=\"collapse\" id=\"calendar-expand\">\n                <span *ngIf='! hasEvents()'>No events found.</span>\n\n                <div class=\"event\" *ngFor='let event of events'>\n                    <div class=\"title\" *ngIf=\"! event.url\">\n                        {{ event.summary }}\n                    </div>\n                    <div class=\"title\" *ngIf=\"event.url\">\n                        <a href=\"{{ event.url }}\" target=\"_blank\">\n                            {{ event.summary }}\n                        </a>\n                    </div>\n                    <div class=\"date\">{{ month_day(event) }}</div>\n                </div>\n\n                <div *ngIf='moreEventsLink'>\n                    <a class=\"all-link external\" href=\"{{ moreEventsLink }}\" target=\"_blank\">{{ moreEventsText }}</a>\n                </div>\n            </div>\n        </div>",
-                    }), 
-                    __metadata('design:paramtypes', [calendar_service_1.CalendarService])
-                ], CalendarEventsComponent);
                 return CalendarEventsComponent;
             }());
+            __decorate([
+                core_1.Input(),
+                __metadata("design:type", String)
+            ], CalendarEventsComponent.prototype, "title", void 0);
+            __decorate([
+                core_1.Input(),
+                __metadata("design:type", Array)
+            ], CalendarEventsComponent.prototype, "events", void 0);
+            __decorate([
+                core_1.Input(),
+                __metadata("design:type", String)
+            ], CalendarEventsComponent.prototype, "moreEventsLink", void 0);
+            __decorate([
+                core_1.Input(),
+                __metadata("design:type", String)
+            ], CalendarEventsComponent.prototype, "moreEventsText", void 0);
+            CalendarEventsComponent = __decorate([
+                core_1.Component({
+                    selector: "ucf-calendar-events",
+                    moduleId: __moduleName,
+                    templateUrl: "./calendar.component.html",
+                }),
+                __metadata("design:paramtypes", [calendar_service_1.CalendarService])
+            ], CalendarEventsComponent);
             exports_1("CalendarEventsComponent", CalendarEventsComponent);
         }
-    }
+    };
 });
 //# sourceMappingURL=calendar.component.js.map

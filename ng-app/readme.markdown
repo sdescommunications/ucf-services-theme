@@ -56,24 +56,37 @@ This application uses multiple levels of browser optimization:
 - Dependency Cache - pre-generated listing of depenencies from JSPM, used to reducing initial load time by pre-fetching libraries from the CDN.
 - Bundles - JSPM-generated, local, minified javascript files containing the CDN libraries (bundle-dependencies.js) and the application logic (bundle-app.js).
 
+
 ## Angular Update Procedure
 
 1) Make sure you have the desired @angular version listed in package.json.
 
 2) Run `jspm update @angular` inside this directory.  This will update `config.js` file. (Optionally, run `npm update @angular` if your local tools expect files in the `node_modules` folder)
 
-3) In your local WordPress install, check that `/wp-content/themes/ucf-services-theme/ng-app/main.html` still works properly.
+3) Run `npm run-script build` inside this directory to kick off the build steps (compiling and browser optimization).  See "Angular Build Steps Breakdown" for more details.
 
-4) Run `jspm depcache main` in this directory to update the dependency cache (generates the `depCache` section of `config.js` to be used in `config.cdn.js`).
-
-5) Run `npm run-script bundle` to inject and minify the `bundle-app.js` and `bundle-dependencies.js` files (generates the `bundles` section of `config.js` to be used in `config.ucf_local.js`).
-
-6) Manually update the files `config.cdn.js` and `config.ucf_local.js` to match the generated `config.js`. A diff tool such as [WinMerge](http://winmerge.org/) or [Meld](http://meldmerge.org/) may help here. Do not edit the "Paths" sections.
+4) Manually update the files `config.cdn.js` and `config.ucf_local.js` to match the generated `config.js`. A diff tool such as [WinMerge](http://winmerge.org/) or [Meld](http://meldmerge.org/) may help here. Do not edit the "Paths" sections.
    - config.js - Generated SystemJS configuration file. Local testing with main.html, , loads libraries via Paths set to local `jspm_packages` folder.
    - config.cdn.js - Primary SystemJS configuration file, loads libraries via Paths set to content-delivery networks.
       - Do not copy the "bundles" section to this file.
    - config.ucf_local.js - Backup SystemJS configuration file, loads libraries from local bundles.
       - There is no need to copy the depCache section to this file).
+
+5) In your local WordPress install, check that `/wp-content/themes/ucf-services-theme/ng-app/main.html` still works properly.
+
+
+## Angular Build Steps Breakdown
+
+### Compile
+a) Build templates: Build lodash templates from `._template.js` files into corresponding html and php files using a nodejs script file, `build_templates.js`.
+
+b) Transpile Typescript: Use `tsc` to convert Typescript into Javascript.
+
+### Browser Optimization
+c) Generate jspm dependency cache: Run `jspm depcache main` in this directory to update the dependency cache (generates the `depCache` section of `config.js` to be used in `config.cdn.js`). This allows dependencies to be fetched from a CDN in parallel, reducing page load times.
+
+d) Bundle javascript  files: Run `npm run-script bundle` to inject and minify the `bundle-app.js` and `bundle-dependencies.js` files (generates the `bundles` section of `config.js` to be used in `config.ucf_local.js`).  This step calls two sub-steps which call the `jspm bundle` command for application and dependencies files: `npm run-script bundle:app` and `npm run-script bundle:dep`.  Bundled javascript files reduce overhead of multiple HTTP/1 requests. As HTTP/2 becomes more widely adopted, this optimization decision should be revisited.
+
 
 ## Browser Optimization Resources for JSPM
 For more on dependency caches and bundling with JSPM, see:

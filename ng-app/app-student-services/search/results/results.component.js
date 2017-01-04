@@ -1,6 +1,5 @@
-System.register(["@angular/core", "../service"], function(exports_1, context_1) {
+System.register(["@angular/core", "../service"], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,17 +9,18 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, service_1;
-    var SearchResultsComponent;
+    var __moduleName = context_1 && context_1.id;
+    var core_1, service_1, SearchResultsComponent;
     return {
-        setters:[
+        setters: [
             function (core_1_1) {
                 core_1 = core_1_1;
             },
             function (service_1_1) {
                 service_1 = service_1_1;
-            }],
-        execute: function() {
+            }
+        ],
+        execute: function () {
             SearchResultsComponent = (function () {
                 function SearchResultsComponent(_searchService, _detector) {
                     var _this = this;
@@ -125,46 +125,46 @@ System.register(["@angular/core", "../service"], function(exports_1, context_1) 
                         (this.filters[categoryName]
                             && "true" === this.filters[categoryName].checked);
                 };
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', String)
-                ], SearchResultsComponent.prototype, "query", void 0);
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', String)
-                ], SearchResultsComponent.prototype, "api", void 0);
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', Object)
-                ], SearchResultsComponent.prototype, "filters", void 0);
-                __decorate([
-                    core_1.Input("results"), 
-                    __metadata('design:type', Array)
-                ], SearchResultsComponent.prototype, "studentServices", void 0);
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', Number)
-                ], SearchResultsComponent.prototype, "limit", void 0);
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', Object)
-                ], SearchResultsComponent.prototype, "showResultsHeading", void 0);
-                __decorate([
-                    core_1.Output(), 
-                    __metadata('design:type', core_1.EventEmitter)
-                ], SearchResultsComponent.prototype, "resultsChanged", void 0);
-                SearchResultsComponent = __decorate([
-                    core_1.Component({
-                        selector: "ucf-search-results",
-                        moduleId: __moduleName,
-                        templateUrl: "./results.component.html",
-                    }), 
-                    __metadata('design:paramtypes', [service_1.SearchService, core_1.ChangeDetectorRef])
-                ], SearchResultsComponent);
                 return SearchResultsComponent;
             }());
+            __decorate([
+                core_1.Input(),
+                __metadata("design:type", String)
+            ], SearchResultsComponent.prototype, "query", void 0);
+            __decorate([
+                core_1.Input(),
+                __metadata("design:type", String)
+            ], SearchResultsComponent.prototype, "api", void 0);
+            __decorate([
+                core_1.Input(),
+                __metadata("design:type", Object)
+            ], SearchResultsComponent.prototype, "filters", void 0);
+            __decorate([
+                core_1.Input("results"),
+                __metadata("design:type", Array)
+            ], SearchResultsComponent.prototype, "studentServices", void 0);
+            __decorate([
+                core_1.Input(),
+                __metadata("design:type", Number)
+            ], SearchResultsComponent.prototype, "limit", void 0);
+            __decorate([
+                core_1.Input(),
+                __metadata("design:type", Object)
+            ], SearchResultsComponent.prototype, "showResultsHeading", void 0);
+            __decorate([
+                core_1.Output(),
+                __metadata("design:type", core_1.EventEmitter)
+            ], SearchResultsComponent.prototype, "resultsChanged", void 0);
+            SearchResultsComponent = __decorate([
+                core_1.Component({
+                    selector: "ucf-search-results",
+                    moduleId: __moduleName,
+                    templateUrl: "./results.component.html",
+                }),
+                __metadata("design:paramtypes", [service_1.SearchService, core_1.ChangeDetectorRef])
+            ], SearchResultsComponent);
             exports_1("SearchResultsComponent", SearchResultsComponent);
         }
-    }
+    };
 });
 //# sourceMappingURL=results.component.js.map

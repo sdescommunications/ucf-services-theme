@@ -1,6 +1,5 @@
-System.register(["@angular/core"], function(exports_1, context_1) {
+System.register(["@angular/core"], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,14 +9,15 @@ System.register(["@angular/core"], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
-    var SearchFilterComponent;
+    var __moduleName = context_1 && context_1.id;
+    var core_1, SearchFilterComponent;
     return {
-        setters:[
+        setters: [
             function (core_1_1) {
                 core_1 = core_1_1;
-            }],
-        execute: function() {
+            }
+        ],
+        execute: function () {
             SearchFilterComponent = (function () {
                 function SearchFilterComponent(elementRef) {
                     var _this = this;
@@ -50,22 +50,22 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                         && "undefined" !== typeof this.categories
                         && this.categories.length > 0;
                 };
-                __decorate([
-                    core_1.Output(), 
-                    __metadata('design:type', Object)
-                ], SearchFilterComponent.prototype, "filterChanged", void 0);
-                SearchFilterComponent = __decorate([
-                    core_1.Component({
-                        selector: "ucf-search-filter",
-                        moduleId: __moduleName,
-                        templateUrl: "./filter.component.html",
-                    }), 
-                    __metadata('design:paramtypes', [core_1.ElementRef])
-                ], SearchFilterComponent);
                 return SearchFilterComponent;
             }());
+            __decorate([
+                core_1.Output(),
+                __metadata("design:type", Object)
+            ], SearchFilterComponent.prototype, "filterChanged", void 0);
+            SearchFilterComponent = __decorate([
+                core_1.Component({
+                    selector: "ucf-search-filter",
+                    moduleId: __moduleName,
+                    templateUrl: "./filter.component.html",
+                }),
+                __metadata("design:paramtypes", [core_1.ElementRef])
+            ], SearchFilterComponent);
             exports_1("SearchFilterComponent", SearchFilterComponent);
         }
-    }
+    };
 });
 //# sourceMappingURL=filter.component.js.map

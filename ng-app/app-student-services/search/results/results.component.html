@@ -12,7 +12,7 @@
         [attr.data-category]="service?.main_category_name">
       <div class="row" *ngIf="shouldFilter(service?.main_category_name)">
         <div class="col-sm-4">
-            <img class="service-image" src="{{service.image_thumbnail_src}}" alt="{{service.image_alt}}">
+            <img class="service-image img-responsive" src="{{service.image_thumbnail_src}}" alt="{{service.image_alt}}">
         </div>
         <div class="col-sm-8">
             <ucf-like-tweet-share>
