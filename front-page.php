@@ -37,13 +37,14 @@ $sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'service
         </video>
 
         <style type="text/css">
-        	.header-image video {
+ 		
+			.header-image video {
 
 			    position: absolute;
 			    z-index: 0;
-			    background: url(../img/vid-still.jpg) no-repeat;
+			    background: url(http://assets.sdes.ucf.edu/video/bg.jpg) no-repeat;
 			    background-size: 100% 100%;
-			    top: 0px;
+			    top: -50px;
 			    left: 0px;
 			    min-width: 100%;
 			    min-height: 55%;
@@ -51,6 +52,33 @@ $sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'service
 			    height: auto;
 
 			}
+
+			.search .search-lead {
+			    font-family: "gotham_lightregular", helvetica, arial, sans-serif;
+			    margin: 30px auto;
+			    display: block;
+			    text-align: center;
+			    font-size: 27px;
+			    letter-spacing: 1px;
+			}
+
+
+			.search {
+			    padding: 0;
+			    border-bottom: 0;
+			    margin: 0 0 70px 0;
+			}
+
+
+
+			.site-header {
+			    padding-bottom: 0px;
+			    margin-bottom: 30px;
+			    position: relative;
+			    display: block;
+			    overflow: hidden;
+			}
+
         </style>
 
 		<?php Header::display_nav_header(); ?>
