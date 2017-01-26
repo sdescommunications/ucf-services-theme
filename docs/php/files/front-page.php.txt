@@ -28,7 +28,14 @@ $sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'service
 	}
 </style>
 <header class="site-header">
-	<div class="header-image" style="background-image: url(<?= \header_image(); ?>);">
+	<div class="header-image" >
+
+		<video id="video" autoplay preload="auto" loop muted>
+            <!-- <source src="vid/video.webm" type="video/webm" /> -->
+            <source src="http://assets.sdes.ucf.edu/video/003.mp4" type="video/mp4" />
+            Your browser does not support the video tag. Please upgrade your browser.
+        </video>
+
 		<?php Header::display_nav_header(); ?>
 		<div class="container">
 			<?php Header::display_nav_header_xs(); ?>
