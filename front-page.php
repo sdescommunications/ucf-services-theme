@@ -35,7 +35,24 @@ $sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'service
             <source src="http://assets.sdes.ucf.edu/video/003.mp4" type="video/mp4" />
             Your browser does not support the video tag. Please upgrade your browser.
         </video>
-	
+
+        <style type="text/css">
+        	.header-image video {
+		    height: auto;
+		    left: 50%;
+		    min-height: 100%;
+		    min-width: 100%;
+		    overflow: hidden;
+		    position: absolute;
+		    -webkit-transform: translateX(-50%) translateY(-50%);
+		    -ms-transform: translateX(-50%) translateY(-50%);
+		    transform: translateX(-50%) translateY(-50%);
+		    width: auto;
+		    z-index: -1000;
+		}
+
+        </style>
+
 		<?php Header::display_nav_header(); ?>
 		<div class="container">
 			<?php Header::display_nav_header_xs(); ?>
