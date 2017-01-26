@@ -44,7 +44,7 @@ $sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'service
 			    z-index: 0;
 			    background: url(http://assets.sdes.ucf.edu/video/bg.jpg) no-repeat;
 			    background-size: 100% 100%;
-			    top: -50px;
+			    top: -170px;
 			    left: 0px;
 			    min-width: 100%;
 			    min-height: 55%;
