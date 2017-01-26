@@ -38,19 +38,19 @@ $sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'service
 
         <style type="text/css">
         	.header-image video {
-		    height: auto;
-		    left: 50%;
-		    min-height: 100%;
-		    min-width: 100%;
-		    overflow: hidden;
-		    position: absolute;
-		    -webkit-transform: translateX(-50%) translateY(-50%);
-		    -ms-transform: translateX(-50%) translateY(-50%);
-		    transform: translateX(-50%) translateY(-50%);
-		    width: auto;
-		    z-index: -1000;
-		}
 
+			    position: absolute;
+			    z-index: 0;
+			    background: url(../img/vid-still.jpg) no-repeat;
+			    background-size: 100% 100%;
+			    top: 0px;
+			    left: 0px;
+			    min-width: 100%;
+			    min-height: 55%;
+			    width: auto;
+			    height: auto;
+
+			}
         </style>
 
 		<?php Header::display_nav_header(); ?>
