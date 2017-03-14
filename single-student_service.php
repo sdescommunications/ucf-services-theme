@@ -48,7 +48,7 @@ get_header();
 	<nav id="student_service-navbar" class="navbar navbar-gold breadcrumbs">
 	<div class="container">
 	  <div class="row">
-		<div class="navbar-header">
+<!-- 		<div class="navbar-header">
 			<span class="navbar-title">Navigation</span>
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#student_service-menu">
 				<span class="sr-only">Toggle navigation</span>
@@ -56,7 +56,7 @@ get_header();
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-		</div>
+		</div> -->
 	<?php
 		$mainCategoryId = get_post_meta( get_the_id(), 'student_service_main_category_id', true );
 		$mainCategory = get_term( $mainCategoryId , 'category' );
