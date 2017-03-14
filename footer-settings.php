@@ -19,7 +19,7 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
 
 class Footer_Settings {
-	const NEWS_URL = '//today.ucf.edu/feed/';
+	const NEWS_URL = 'https://today.ucf.edu/feed/';
 	const EVENTS_URL = 'http://events.ucf.edu/feed.rss';
 	const FOOTER_NAV_URL = 'http://www.ucf.edu/wp-json/ucf-rest-menus/v1/menus/48';
 
