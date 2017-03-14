@@ -48,7 +48,7 @@ get_header();
 <main class="category-page">
 	<nav id="category-navbar" class="navbar navbar-gold breadcrumbs">
 		<div class="container">
-			<div class="navbar-header">
+<!-- 			<div class="navbar-header">
 				<span class="navbar-title">Skip To Section</span>
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#category-menu">
 					<span class="sr-only">Toggle navigation</span>
@@ -56,7 +56,7 @@ get_header();
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-			</div>
+			</div> -->
 			
 			<div id="category-menu">
 				<ul class="nav navbar-nav">
