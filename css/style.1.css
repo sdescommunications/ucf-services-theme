@@ -912,7 +912,7 @@ textarea {
 }
 
 .navbar-gold.breadcrumbs .navbar-nav>li.active-breadcrumb {
-  color: #fff;
+  color: #000;
   background-color: #ffc904;
   text-decoration: underline;
 }
