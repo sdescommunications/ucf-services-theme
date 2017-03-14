@@ -912,11 +912,13 @@ textarea {
 }
 
 .navbar-gold.breadcrumbs .navbar-nav>li.active-breadcrumb {
-  color: #fff;
+  color: #000;
   background-color: #ffc904;
   text-decoration: underline;
 }
-
+.calendar-events {
+  display: none!important;
+}
 .navbar-gold.breadcrumbs .navbar-nav>li.active-breadcrumb>.active-pad {
   padding: 17px 15px;
   display: block;
