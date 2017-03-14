@@ -34,6 +34,7 @@ class Header_Settings {
 	 */
 	public static function get_remote_menu( $menu_name ) {
 		global $wp_customize;
+		$response_code = '';
 		$customizing = isset( $wp_customize );
 		$result_name = $menu_name.'_json';
 		$result = get_transient( $result_name );
