@@ -2,23 +2,17 @@
 /**
  * Display the Front Page of the site, per the WordPress Template Hierarchy.
  */
-
 require_once( get_stylesheet_directory() . '/header-settings.php' );
 	use SDES\ServicesTheme\ThemeCustomizer\Header as Header;
-
 require_once( get_stylesheet_directory() . '/front-page-settings.php' );
 	use SDES\ServicesTheme\ThemeCustomizer\FrontPage_Settings as FrontPage_Settings;
-
 require_once( get_stylesheet_directory() . '/functions/class-weatherbox.php' );
 	use SDES\WeatherBox;
-
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 	use SDES\SDES_Static;
-
 $NG_APP_SETTINGS = FrontPage_Settings::front_page_settings();  // Store NG_APP_SETTINGS for use by PHP pre-rendering.
 add_action( 'wp_enqueue_scripts', 'SDES\ServicesTheme\ThemeCustomizer\FrontPage_Settings::front_page_scripts' );
 get_header();
-
 // WordPress does not allow "<br>" tags within bloginfo('name'), so allow setting width.
 $sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-sitetitle_anchor_maxwidth', '360px' );
 ?>
@@ -26,6 +20,13 @@ $sitetitle_anchor_maxwidth = SDES_Static::get_theme_mod_defaultIfEmpty( 'service
 	.header-center a {
 		max-width: <?= $sitetitle_anchor_maxwidth ?> !important;
 	}
+
+	@media (max-width: 767px) {
+	  .campaign {
+	    display:none;
+	  }
+	}
+
 </style>
 <header class="site-header">
 	<div class="header-image" style="background-image: url(<?= \header_image(); ?>);">
