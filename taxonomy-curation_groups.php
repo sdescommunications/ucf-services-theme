@@ -1,6 +1,6 @@
 <?php
 /**
- * Show posts for a category.
+ * Show posts for a curation_groups.
  *
  * @see http://stackoverflow.com/a/8832952
  * @see https://codex.wordpress.org/Category_Templates#What_categories_do_you_show_to_the_visitors.3F
