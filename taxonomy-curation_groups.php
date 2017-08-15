@@ -86,7 +86,7 @@ get_header();
 
 	  		$query1 = new WP_Query( $args );
 
-	  		die(count(vardump($query1)));
+	  		die(var_dump($query1));
   		?>
 		<section id="categories" class="col-sm-12 col-md-12 col-lg-12">
 			<h1 class='title'><?= single_cat_title() ?></h1>
