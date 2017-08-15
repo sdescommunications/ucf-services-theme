@@ -83,7 +83,7 @@ get_header();
 			<p class='description'><?= category_description() ?></p>
 			<?php
 			$args = array(
-				'post_type' => StudentService::NAME,
+				'post_type' => 'post',
 				'category_name' => $cat_name,
 				'orderby' => 'post_title',
 				'order' => 'ASC',
