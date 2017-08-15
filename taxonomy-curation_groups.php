@@ -84,7 +84,7 @@ get_header();
 			<?php
 			$args = array(
 				'post_type' => StudentService::NAME,
-				'category' => $cat_id,
+				'category' => $category,
 				'orderby' => 'post_title',
 				'order' => 'ASC',
 				'posts_per_page' => -1,
