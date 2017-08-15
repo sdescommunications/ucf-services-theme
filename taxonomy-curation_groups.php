@@ -18,7 +18,7 @@ require_once( get_stylesheet_directory() . '/custom-posttypes.php' );
 require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 use SDES\SDES_Static;
 
-$category = get_category( get_query_var( 'curation_groups' ) );
+$category = get_category( get_query_var( 'first-time-in-college' ) );
 $cat_id = $category->cat_ID;
 $cat_link = get_category_link( $category );
 $cat_name = single_cat_title( '', false ) ?: 'Student Services';
