@@ -90,10 +90,10 @@ get_header();
 				'posts_per_page' => -1,
 				'tax_query' => array(
 					array(
-						//'taxonomy' => 'genre',
+						'taxonomy' => 'curation_groups',
 						'field' => $cat_name,
 						//'terms' => 'jazz'
-					)
+					),
 
 			);
 			$category_posts = get_posts( $args );
