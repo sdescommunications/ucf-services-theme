@@ -84,16 +84,10 @@ get_header();
 			<?php
 			$args = array(
 				'post_type' => StudentService::NAME,
-				//'category' => $cat_id,
+				'category_name' => $cat_name,
 				'orderby' => 'post_title',
 				'order' => 'ASC',
-				'posts_per_page' => -1,
-				'tax_query' => array(
-					array(
-						'taxonomy' => 'curation_groups',
-						'field' => $cat_name,
-						//'terms' => 'jazz'
-					),
+				'posts_per_page' => -1,				
 
 			);
 			$category_posts = get_posts( $args );
