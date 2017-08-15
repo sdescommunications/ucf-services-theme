@@ -20,7 +20,7 @@ use SDES\SDES_Static;
 
 $category = get_category( get_query_var( 'curation_groups' ) );
 $cat_id = $category->cat_ID;
-$cat_link = get_category_link( $category ) ?: bloginfo( 'url' );
+$cat_link = get_category_link( $category );
 $cat_name = single_cat_title( '', false ) ?: 'Student Services';
 
 get_header();
