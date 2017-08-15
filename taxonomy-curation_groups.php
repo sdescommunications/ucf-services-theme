@@ -83,9 +83,10 @@ get_header();
 	  		$args = array(
 	  				'post_type' => 'student_service',
 	  			);
+
 	  		$query1 = new WP_Query( $args );
 
-	  		die(count($query1));
+	  		die(count(vardump($query1)));
   		?>
 		<section id="categories" class="col-sm-12 col-md-12 col-lg-12">
 			<h1 class='title'><?= single_cat_title() ?></h1>
