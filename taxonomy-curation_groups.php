@@ -84,10 +84,17 @@ get_header();
 			<?php
 			$args = array(
 				'post_type' => StudentService::NAME,
-				'category' => $cat_id,
+				'tax_query' => array(
+						array(
+							'taxonomy' => 'curation_groups',
+							'field' => 'slug',
+							'terms' => $cat_name,
+						)
+					),
 				'orderby' => 'post_title',
 				'order' => 'ASC',
-				'posts_per_page' => -1,
+				'posts_per_page' => -1,				
+
 			);
 			$category_posts = get_posts( $args );
 			if ( 0 !== count( $category_posts ) ) :
