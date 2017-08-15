@@ -78,24 +78,19 @@ get_header();
 	<div class="container">
 	<article class="row page-wrap">
 	  <div class="container-fluid">
-
-	  	<?php 
-	  		$args = array(
-	  				'post_type' => 'student_service',
-	  			);
-
-	  		$query1 = new WP_Query( $args );
-
-	  		die(var_dump($query1));
-  		?>
 		<section id="categories" class="col-sm-12 col-md-12 col-lg-12">
 			<h1 class='title'><?= single_cat_title() ?></h1>
 			<p class='description'><?= category_description() ?></p>
 			<?php
 			$args = array(
 				'post_type' => StudentService::NAME,
-				'category' => $cat_id
-				'category_name' => $cat_name,
+				'tax_query' => array(
+						array(
+							'taxonomy' => 'curation_groups',
+							'field' => 'slug',
+							'terms' => $cat_name,
+						)
+					),
 				'orderby' => 'post_title',
 				'order' => 'ASC',
 				'posts_per_page' => -1,				
