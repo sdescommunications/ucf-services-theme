@@ -91,7 +91,7 @@ get_header();
 			);
 			$category_posts = new WP_Query( $args );
 
-			die($category_posts);
+			die(var_dump($category_posts));
 
 			if ( 0 !== count( $category_posts ) ) :
 				foreach ( $category_posts as $post ) :	setup_postdata( $post ); ?>
