@@ -10,7 +10,7 @@
 <span class="student_service-list" *ngIf="!isLoading">
     <div class="service" *ngFor="let service of studentServices"
         [attr.data-category]="service?.main_category_name">
-      <div class="row" *ngIf="shouldFilter(service?.main_category_name)">
+      <div class="row" *ngIf="shouldFilter(service)">
         <div class="col-sm-4">
             <img class="service-image img-responsive" src="{{service.image_thumbnail_src}}" alt="{{service.image_alt}}">
         </div>

@@ -108,7 +108,10 @@ System.register(["@angular/core", "../service"], function (exports_1, context_1)
                     var _this = this;
                     return this.studentServices.some(function (result) {
                         return _this.getActiveFilterKeys().some(function (filter) {
-                            return filter === result.main_category_name;
+                            return (filter === result.main_category_name) ||
+                                result.category_names.some( function(category) {
+                                return filter===category;
+                            });
                         });
                     });
                 };
@@ -117,13 +120,21 @@ System.register(["@angular/core", "../service"], function (exports_1, context_1)
                     this.studentServices = window.ucf_searchResults_initial;
                     this.resultsChanged.emit({ query: this.query, results: this.studentServices });
                 };
-                SearchResultsComponent.prototype.shouldFilter = function (categoryName) {
-                    if ("undefined" === typeof categoryName) {
-                        return false;
-                    }
-                    return this.filterClear() ||
-                        (this.filters[categoryName]
-                            && "true" === this.filters[categoryName].checked);
+                SearchResultsComponent.prototype.shouldFilter = function (service) {
+                   if ( "undefined" === typeof service ) { return false; }
+                    
+                    var that = this;  
+                    var mainCategoryName = service.main_category_name;
+                    var hasMatchingMainCategory = this.filters[mainCategoryName] && "true" === this.filters[mainCategoryName].checked;
+                    
+                    var hasMatchingCategory = service.category_names.some( function(category) {
+                        return that.filters[category] && "true" === that.filters[category].checked;
+                    });
+
+                    var hasMatches = hasMatchingMainCategory || hasMatchingCategory;
+                    return this.filterClear() || hasMatches;
+
+
                 };
                 return SearchResultsComponent;
             }());
