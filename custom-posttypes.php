@@ -977,6 +977,11 @@ class StudentService extends CustomPostType_ServicesTheme {
 			$category_name = ( null !== $category && property_exists( $category, 'name' ) )
 				? $category->name
 				: null;
+			$categories = wp_get_post_categories( $stusvc->ID );
+			$categoryNames = array();
+			foreach($categories as $c) {
+				$categoryNames[] = get_category($c)->cat_name;
+			}
 			$permalink = get_permalink( $stusvc );
 			$permalink_encoded = urlencode( $permalink );
 			$title_encoded = urlencode( $stusvc->post_title );
@@ -991,6 +996,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 				'image_thumbnail_src' => $metadata_fields['stusvc_image_thumbnail_src'],
 				'share_facebook' => "https://www.facebook.com/sharer.php?u={$permalink_encoded}",
 				'share_twitter' => "https://twitter.com/intent/tweet?text={$title_encoded}&url={$permalink_encoded}&via=" . ($metadata_fields['student_service_social_twitter'] ?: 'UCF'),
+				'category_names' => $categoryNames,
 			);
 		}
 
@@ -1012,7 +1018,7 @@ class StudentService extends CustomPostType_ServicesTheme {
 			? $category->name
 			: null;
 			$taxonomies = wp_get_object_terms( $stusvc->ID,
-				array( 'curation_groups', 'service_cost', 'service_type' ),
+				array( 'curation_groups', 'service_cost', 'service_type', 'category' ),
 				array( 'orderby' => 'name' )
 			);
 			$permalink = get_permalink( $stusvc );

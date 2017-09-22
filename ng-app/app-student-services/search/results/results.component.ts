@@ -124,12 +124,18 @@ export class SearchResultsComponent {
         this.resultsChanged.emit( { query: this.query, results: this.studentServices } );
     }
 
-    shouldFilter( categoryName ): boolean {
-        if ( "undefined" === typeof categoryName ) { return false; }
-        return this.filterClear() ||
-            ( this.filters[categoryName]
-              && "true" === this.filters[categoryName].checked );
+    shouldFilter( service ): boolean {
+                if ( "undefined" === typeof service ) { return false; }
+                mainCategoryName = service.main_category_name;
+                hasMatchingMainCategory = this.filters[mainCategoryName] && "true" === this.filters[mainCategoryName].checked;
+                hasMatchingTags = service.tag_cloud.some( function(tag) {
+                                return this.filters[tag.name] && "true" === this.filters[tag.name].checked;
+                    }
+                );
+                hasMatches = hasMatchingMainCategory || hasMatchingTags;
+                return this.filterClear() || hasMatches;
     }
+
 }
 
 
