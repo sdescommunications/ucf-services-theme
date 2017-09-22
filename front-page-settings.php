@@ -67,7 +67,7 @@ class FrontPage_Settings {
 		// Load settings.
 		$search_query = array_key_exists( 'q', $_REQUEST ) ? $_REQUEST['q'] : '';
 		$search_default = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-search_default', '' );
-		$services_limit = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-services_limit', 7 );
+		$services_limit = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-services_limit', 200 );
 		$ucf_search_lead = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-frontsearch_lead',
 		'From orientation to graduation, the UCF experience creates<br>opportunities that last a lifetime. <b>Let\'s get started</b>.' );
 		$ucf_search_placeholder = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-frontsearch_placeholder', 'What can we help you with today?' );
