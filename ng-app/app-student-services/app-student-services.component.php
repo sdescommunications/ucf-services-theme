@@ -21,7 +21,7 @@ if ( isset( $NG_APP_SETTINGS )
     $services_limit = $NG_APP_SETTINGS['services_limit'] ;
     $services_contexts = $NG_APP_SETTINGS['services_contexts'];
 } else {
-    $services_limit = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-services_limit', 7 );
+    $services_limit = SDES_Static::get_theme_mod_defaultIfEmpty( 'services_theme-services_limit', 200 );
     $request = new \WP_REST_Request();
     $request->set_query_params( array( "limit" => $services_limit, ) );
     $services_contexts = API\route_services( $request );
