@@ -26,7 +26,7 @@ require_once( get_stylesheet_directory().'/functions/class-sdes-static.php' );
 	use SDES\SDES_Static as SDES_Static;
 
 require_once( get_stylesheet_directory().'/vendor/autoload.php' );
-use Underscore\Types\Object;
+use Underscore\Types\acObject;
 use Underscore\Types\Arrays;
 
 /**
@@ -768,7 +768,7 @@ abstract class CustomPostType {
 	 */
 	public static function Register_Thumbnails_Support( $instances ) {
 		// If the key $instances[0]['instance'] exists.
-		if ( Arrays::has( Object::unpack( $instances ), 'instance' ) ) {
+		if ( Arrays::has( acObject::unpack( $instances ), 'instance' ) ) {
 			$instances = Arrays::pluck( $instances, 'instance' );
 		}
 
