@@ -26,7 +26,7 @@ class Dispatch
         'float' => 'Number',
         'integer' => 'Number',
         'NULL' => 'Strings',
-        'object' => 'Object',
+        'object' => 'acObject',
         'real' => 'Number',
         'string' => 'Strings',
     ];
