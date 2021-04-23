@@ -34,9 +34,7 @@ require_once( get_stylesheet_directory() . '/functions/class-sdes-static.php' );
 					<div class="col-sm-4">
 						<div class="footer-col right-col">
 							<h2>Contact Us</h2>
-							<?php Footer::display_contact_info(); ?>
-							<h2>Questions and Comments</h2>
-							<?php Footer::display_contact_form(); ?>
+							<p>Phone: <a class="read-more" href="tel:4078232000">407-823-2000</a></p>
 						</div>
 					</div>
 				</div>
