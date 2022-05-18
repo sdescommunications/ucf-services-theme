@@ -174,7 +174,7 @@ class Header {
 					}
 					if ( ! window.jQuery ) { document_write_script( '/js/jquery.min.js' ); }
 					var bootstrap_enabled = ( 'function' === typeof jQuery().modal ); // Will be true if bootstrap is loaded, false otherwise
-					if ( ! bootstrap_enabled ) { document_write_script( <?get_stylesheet_directory_uri() ?> + '/js/bootstrap.min.js' ); }
+					if ( ! bootstrap_enabled ) { document_write_script( 'services/js/bootstrap.min.js' ); }
 					if ( 'undefined' === typeof jQuery().validate ) { 
 						document_write_script( '/js/jquery.validate.min.js' );
 						document_write_script( '/js/additional-methods.min.js' );
