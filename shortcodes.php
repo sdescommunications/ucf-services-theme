@@ -540,7 +540,7 @@ class sc_campaign extends ShortcodeBase {
 			<div class="container-fluid">
 				<div class="row campaign">
 					<div class="col-sm-5 campaign-image">
-						<img src="<?= $ctxt->image_url ?>">
+						<img src="<?= $ctxt->image_url ?>" alt="<?= $ctxt->title ?>">
 					</div>
 					<div class="col-sm-7 campaign-content">
 						<div class="campaign-title">
